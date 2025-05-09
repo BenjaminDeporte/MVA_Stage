@@ -66,6 +66,7 @@ X_DIM = 1 # Dimension of the observation space
 Z_DIM = 16 # Dimension of the latent space
 H_DIM = 16 # Dimension of the hidden state of the LSTM network(s)
 G_DIM = 8 # Dimension of the output of the combiner
+INTERMEDIATE_LAYER_DIM = 16 # Dimension of the intermediate layers of the MLPs
 
 #--------------------------------------------------------------------
 #
@@ -131,7 +132,7 @@ class CombinerMLP(nn.Module):
                  output_dim=G_DIM,
                  layers_dim = None,
                  activation = 'tanh',
-                 inter_dim = 16,
+                 inter_dim = INTERMEDIATE_LAYER_DIM,
                  ):
         super(CombinerMLP, self).__init__()
         
@@ -139,12 +140,11 @@ class CombinerMLP(nn.Module):
         self.hidden_dim = hidden_dim
         self.output_dim = output_dim
         if activation == 'tanh':
-            self.activation = nn.Tanh()
+            self.activation_fn = nn.Tanh()
         elif activation == 'relu':
-            self.activation = nn.ReLU()
+            self.activation_fn = nn.ReLU()
         else:
             raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
-        self.activation = activation
         self.inter_dim = inter_dim
         self.layers_dim = layers_dim
         
@@ -158,7 +158,7 @@ class CombinerMLP(nn.Module):
                 layers.append(nn.Linear(latent_dim + hidden_dim, dim))
             else:  # all other layers
                 layers.append(nn.Linear(layers_dim[i-1], dim))
-            layers.append(self.activation)
+            layers.append(self.activation_fn)
             
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -206,7 +206,7 @@ class EncoderMLP(nn.Module):
     def __init__(self, 
                  latent_dim=Z_DIM, # Dimension of the latent space
                  combiner_dim=G_DIM, # Dimension of the combiner output
-                 inter_dim=16, # Dimension of the intermediate layers
+                 inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
                  layers_dim = None, # Dimension of the MLP layers
                  activation = 'tanh', # Activation function
     ):
@@ -215,12 +215,11 @@ class EncoderMLP(nn.Module):
         self.latent_dim = latent_dim
         self.combiner_dim = combiner_dim
         if activation == 'tanh':
-            self.activation = nn.Tanh()
+            self.activation_fn = nn.Tanh()
         elif activation == 'relu':
-            self.activation = nn.ReLU()
+            self.activation_fn = nn.ReLU()
         else:
             raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
-        self.activation = activation
         self.inter_dim = inter_dim
         
         if layers_dim is None:
@@ -233,7 +232,7 @@ class EncoderMLP(nn.Module):
                 layers.append(nn.Linear(combiner_dim, dim))
             else:
                 layers.append(nn.Linear(layers_dim[i-1], dim))
-            layers.append(self.activation)
+            layers.append(self.activation_fn)
             
         # last layer is linear, no activation
         layers.append(nn.Linear(layers_dim[-1], 2 * latent_dim)) 
@@ -266,4 +265,197 @@ class EncoderMLP(nn.Module):
         return mu, logvar
         
         
-                 
+#--- brick 4 : Latent Space Transition -----------------------------       
+#
+# This computes the parameters of the transition distribution
+# of the latent variable at time t. Ie the prior distribution, 
+# before inference.
+# The transition distribution is a Gaussian distribution,
+# we use a MLP to compute the mean and the log of the variance.
+#
+
+class LatentSpaceTransitionMLP(nn.Module):
+    """Latent space transition module. Computes the parameters of the
+    transition distribution of the latent variable at time t. The transition
+    distribution is a Gaussian distribution, we use a MLP to compute the mean
+    and the log of the variance.
+
+    Args:
+        nn (_type_): _description_
+    """
+    
+    def __init__(self, 
+                 latent_dim=Z_DIM, # Dimension of the latent space
+                 inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
+                 layers_dim = None, # Dimension of the MLP layers
+                 activation = 'tanh', # Activation function
+    ):
+        super(LatentSpaceTransitionMLP, self).__init__()
+        
+        self.latent_dim = latent_dim
+        if activation == 'tanh':
+            self.activation_fn = nn.Tanh()
+        elif activation == 'relu':
+            self.activation_fn = nn.ReLU()
+        else:
+            raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
+        self.inter_dim = inter_dim
+        
+        if layers_dim is None:
+            layers_dim = [self.inter_dim]
+            
+        # explicitly define the MLP layers
+        layers = []
+        for i, dim in enumerate(layers_dim):
+            if i==0:
+                layers.append(nn.Linear(latent_dim, dim))
+            else:
+                layers.append(nn.Linear(layers_dim[i-1], dim))
+            layers.append(self.activation)
+            
+        # last layer is linear, no activation
+        layers.append(nn.Linear(layers_dim[-1], 2 * latent_dim)) 
+                    
+        # build the MLP
+        self.mlp = nn.Sequential(*layers)
+               
+    def forward(self, z):
+        """
+        Forward pass of the latent space transition module.
+        
+        Args:
+            z: latent variable at time t-1
+            shape (batch, latent_dim)
+            
+        Returns:
+            mu: mean of the transition distribution
+            shape (batch, latent_dim)
+            logvar: log of the variance of the transition distribution
+            shape (batch, latent_dim)
+        """
+        
+        # Pass through MLP
+        out = self.mlp(z)
+        
+        # Split the output into mean and log variance
+        # each with shape (batch, latent_dim)
+        mu, logvar = out[:, :self.latent_dim], out[:, self.latent_dim:]
+        
+        return mu, logvar
+    
+#--- brick 5 : Decoder (ie Observation Model) -----------------------------
+#
+# This computes the parameters of the distribution of 
+# the observed variable 'x', given the latent variable 'z'.
+# The distribution is a Gaussian distribution,
+# we use a MLP to compute the mean and the log of the variance.
+#
+
+class DecoderMLP(nn.Module):
+    """Decoder module. Computes the parameters of the distribution of the
+    observed variable 'x', given the latent variable 'z'. The distribution is
+    a Gaussian distribution, we use a MLP to compute the mean and the log of
+    the variance.
+
+    Args:
+        nn (_type_): _description_
+    
+    """
+    
+    def __init__(self, 
+                 latent_dim=Z_DIM, # Dimension of the latent space
+                 observation_dim=X_DIM, # Dimension of the observation space
+                 inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
+                 layers_dim = None, # Dimension of the MLP layers
+                 activation = 'tanh', # Activation function
+    ):
+        super(DecoderMLP, self).__init__()
+        
+        self.latent_dim = latent_dim
+        self.observation_dim = observation_dim
+        self.inter_dim = inter_dim
+        
+        if activation == 'tanh':
+            self.activation_fn = nn.Tanh()
+        elif activation == 'relu':
+            self.activation_fn = nn.ReLU()
+        else:
+            raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
+        
+        if layers_dim is None:
+            layers_dim = [self.inter_dim] # one layer per default
+            
+        # explicitly define the MLP layers
+        layers = []
+        for i, dim in enumerate(layers_dim):
+            if i==0:
+                layers.append(nn.Linear(latent_dim, dim))
+            else:
+                layers.append(nn.Linear(layers_dim[i-1], dim))
+            layers.append(self.activation_fn)
+            
+        # last layer is linear, no activation
+        layers.append(nn.Linear(layers_dim[-1], 2 * self.observation_dim)) 
+                    
+        # build the MLP
+        self.mlp = nn.Sequential(*layers)
+        
+    def forward(self, z):
+        """
+        Forward pass of the decoder module.
+        Args:
+            z: latent variable at time t
+            shape (batch, latent_dim)
+        Returns:
+            mu: mean of the distribution of the observed variable
+            shape (batch, observation_dim)
+            logvar: log of the variance of the distribution of the observed variable
+            shape (batch, observation_dim)
+        """
+        # Pass through MLP
+        out = self.mlp(z)
+        
+        # Split the output into mean and log variance
+        # each with shape (batch, observation_dim)
+        mu, logvar = out[:, :self.observation_dim], out[:, self.observation_dim:]
+        
+        return mu, logvar
+    
+    
+# --- brick 6 : Sampler with reparameterization trick -----------------------------
+#
+# This samples from a normal distribution of given mean and log variance
+# using the reparameterization trick.
+
+class Sampler(nn.Module):
+    """Sampler module. Samples from a normal distribution of given mean and
+    log variance using the reparameterization trick.
+
+    Args:
+        nn (_type_): _description_
+    """
+    
+    def __init__(self):
+        super(Sampler, self).__init__()
+        
+    def forward(self, mu, logvar):
+        """
+        Forward pass of the sampler module.
+        
+        Args:
+            mu: mean of the distribution
+            shape (batch, dim)
+            logvar: log of the variance of the distribution
+            shape (batch, dim)
+            
+        Returns:
+            v: sampled variables
+            shape (batch, dim)
+        """
+        
+        # Sample from a normal distribution using the reparameterization trick
+        std = torch.exp(0.5 * logvar)  # standard deviation
+        eps = torch.randn_like(std)  # random noise
+        v = mu + eps * std  # sampled variables
+        
+        return v
