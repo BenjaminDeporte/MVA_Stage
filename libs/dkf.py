@@ -42,8 +42,10 @@ seed_everything(42)
 # set device --------------------------------------------------------
 
 if torch.cuda.is_available():
+    torch.set_default_device('cuda')
     device = torch.device('cuda')
 else:
+    torch.set_default_device('cpu')
     device = torch.device('cpu')
 
 print(f"Using {device}")
@@ -54,7 +56,7 @@ if device.type == 'cuda':
     
 # set default tensor type ------------------------------------------
 
-torch.set_default_tensor_type(torch.FloatTensor)
+torch.set_default_dtype(torch.float64)
 
 #--------------------------------------------------------------------
 #
@@ -130,7 +132,7 @@ class CombinerMLP(nn.Module):
                  latent_dim=Z_DIM, 
                  hidden_dim=H_DIM, 
                  output_dim=G_DIM,
-                 layers_dim = None,
+                 layers_dim = None,  # list of layers dimensions, without the input dimnesion, without the output dimension
                  activation = 'tanh',
                  inter_dim = INTERMEDIATE_LAYER_DIM,
                  ):
@@ -149,16 +151,21 @@ class CombinerMLP(nn.Module):
         self.layers_dim = layers_dim
         
         if self.layers_dim is None:
-            self.layers_dim = [latent_dim + hidden_dim, inter_dim, output_dim]
+            self.layers_dim = [inter_dim]
+        else:
+            self.layers_dim = layers_dim
             
         # explicitly define the MLP layers
         layers = []
-        for i, dim in enumerate(layers_dim):
+        for i, dim in enumerate(self.layers_dim):
             if i==0:  #first layer, latent_dim + hidden_dim => layers_dim[0]
                 layers.append(nn.Linear(latent_dim + hidden_dim, dim))
             else:  # all other layers
-                layers.append(nn.Linear(layers_dim[i-1], dim))
+                layers.append(nn.Linear(self.layers_dim[i-1], dim))
             layers.append(self.activation_fn)
+        # last layer : layers_dim[-1] => output_dim
+        layers.append(nn.Linear(self.layers_dim[-1], output_dim))
+        layers.append(self.activation_fn)
             
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -207,7 +214,7 @@ class EncoderMLP(nn.Module):
                  latent_dim=Z_DIM, # Dimension of the latent space
                  combiner_dim=G_DIM, # Dimension of the combiner output
                  inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
-                 layers_dim = None, # Dimension of the MLP layers
+                 layers_dim = None, # Dimension of the MLP layers (without inout nor output)
                  activation = 'tanh', # Activation function
     ):
         super(EncoderMLP, self).__init__()
@@ -223,11 +230,13 @@ class EncoderMLP(nn.Module):
         self.inter_dim = inter_dim
         
         if layers_dim is None:
-            layers_dim = [self.inter_dim]
+            self.layers_dim = [self.inter_dim]
+        else:
+            self.layers_dim = layers_dim
             
         # explicitly define the MLP layers
         layers = []
-        for i, dim in enumerate(layers_dim):
+        for i, dim in enumerate(self.layers_dim):
             if i==0:
                 layers.append(nn.Linear(combiner_dim, dim))
             else:
@@ -459,3 +468,7 @@ class Sampler(nn.Module):
         v = mu + eps * std  # sampled variables
         
         return v
+    
+
+
+    
