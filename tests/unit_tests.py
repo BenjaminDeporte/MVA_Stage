@@ -151,3 +151,99 @@ def test_brick_3():
     assert mu.shape == (batch_size, zdim), f"Output mu shape {mu.shape} is not equal to expected shape {(batch_size, zdim)}"
     assert logvar.shape == (batch_size, zdim), f"Output logvar shape {logvar.shape} is not equal to expected shape {(batch_size, zdim)}"
     print("EncoderMLP test passed.")
+    
+    
+def test_brick_4():
+    print(f"\nTesting LatentSpaceTransitionMLP")
+    
+    # Create the latent space transition module
+    zdim = 4
+    layer_dim = [128, 128, 64, 32]
+    
+    transition_model = LatentSpaceTransitionMLP(
+        latent_dim=zdim,
+        layers_dim=layer_dim,
+        activation='tanh'
+    )
+    print(f"Transition model summary :")
+    print(transition_model)
+    
+    # Create random input tensors
+    batch_size = 16
+    seq_len = 10
+    z = torch.randn(seq_len, batch_size, zdim)  # latent variable at time t-1
+    
+    # Forward pass
+    mu_z_next, logvar_z_next = transition_model(z)
+    
+    # report out
+    print(f"Input z shape: {z.shape}")  # should be (seq_len, batch_size, zdim)
+    print(f"Output mu_z_next shape: {mu_z_next.shape}")  # should be (seq_len, batch_size, zdim)
+    print(f"Output logvar_z_next shape: {logvar_z_next.shape}")  # should be (seq_len, batch_size, zdim)
+    assert mu_z_next.shape == (seq_len, batch_size, zdim), f"Output mu_z_next shape {mu_z_next.shape} is not equal to expected shape {(seq_len, batch_size, zdim)}"
+    assert logvar_z_next.shape == (seq_len, batch_size, zdim), f"Output logvar_z_next shape {logvar_z_next.shape} is not equal to expected shape {(seq_len, batch_size, zdim)}"
+    print("LatentSpaceTransitionMLP test passed.")
+    
+def test_brick_5():
+    print(f"\nTesting DecoderMLP")
+    
+    # Create the decoder module
+    zdim = 4
+    xdim = 8
+    layer_dim = [128, 128, 64, 32]
+    
+    decoder = DecoderMLP(
+        latent_dim=zdim,
+        observation_dim=xdim,
+        layers_dim=layer_dim,
+        activation='tanh'
+    )
+    print(f"Decoder summary :")
+    print(decoder)
+    
+    # Create random input tensors
+    seq_len = 10
+    batch_size = 16
+    z = torch.randn(seq_len, batch_size, zdim)  # latent variable at time t
+    
+    # Forward pass
+    mu_x, logvar_x = decoder(z)
+    
+    # report out
+    print(f"Input z shape: {z.shape}")  # should be (seq_len, batch_size, zdim)
+    print(f"Decoder output mu_x shape: {mu_x.shape}")  # should be (seq_len, batch_size, xdim)
+    print(f"Decoder output logvar_x shape: {logvar_x.shape}")  # should be (deq_len, batch_size, xdim)
+    assert mu_x.shape == (seq_len, batch_size, xdim), f"Output mu_x shape {mu_x.shape} is not equal to expected shape {(batch_size, xdim)}"
+    assert logvar_x.shape == (seq_len, batch_size, xdim), f"Output logvar_x shape {logvar_x.shape} is not equal to expected shape {(batch_size, xdim)}"
+   
+    print("DecoderMLP test passed.")
+    
+    
+def test_brick_6():
+    print(f"\nTesting Sampler")
+    
+    # Create the sampler module
+    zdim = 4
+    xdim = 8
+    
+    sampler = Sampler()
+
+    print(f"Sampler summary :")
+    print(sampler)
+    
+    # Create random input tensors
+    batch_size = 16
+    mu_x = torch.randn(batch_size, xdim)  # mean of the observation distribution
+    logvar_x = torch.randn(batch_size, xdim)  # log variance of the observation distribution
+    
+    # Forward pass
+    x_sampled = sampler(mu_x, logvar_x)
+    
+    # report out
+    print(f"Input mu_x shape: {mu_x.shape}")  # should be (batch_size, xdim)
+    print(f"Input logvar_x shape: {logvar_x.shape}")  # should be (batch_size, xdim)
+    print(f"Sampler output x_sampled shape: {x_sampled.shape}")  # should be (batch_size, xdim)
+    
+    assert x_sampled.shape == (batch_size, xdim), f"Output x_sampled shape {x_sampled.shape} is not equal to expected shape {(batch_size, xdim)}"
+   
+    print("Sampler test passed.")

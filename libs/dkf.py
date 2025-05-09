@@ -165,7 +165,6 @@ class CombinerMLP(nn.Module):
             layers.append(self.activation_fn)
         # last layer : layers_dim[-1] => output_dim
         layers.append(nn.Linear(self.layers_dim[-1], output_dim))
-        layers.append(self.activation_fn)
             
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -244,7 +243,7 @@ class EncoderMLP(nn.Module):
             layers.append(self.activation_fn)
             
         # last layer is linear, no activation
-        layers.append(nn.Linear(layers_dim[-1], 2 * latent_dim)) 
+        layers.append(nn.Linear(self.layers_dim[-1], 2 * latent_dim)) 
                     
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -320,7 +319,7 @@ class LatentSpaceTransitionMLP(nn.Module):
                 layers.append(nn.Linear(latent_dim, dim))
             else:
                 layers.append(nn.Linear(layers_dim[i-1], dim))
-            layers.append(self.activation)
+            layers.append(self.activation_fn)
             
         # last layer is linear, no activation
         layers.append(nn.Linear(layers_dim[-1], 2 * latent_dim)) 
@@ -334,13 +333,13 @@ class LatentSpaceTransitionMLP(nn.Module):
         
         Args:
             z: latent variable at time t-1
-            shape (batch, latent_dim)
+            shape (seq_len, batch, latent_dim)
             
         Returns:
             mu: mean of the transition distribution
-            shape (batch, latent_dim)
+            shape (seq_len, batch, latent_dim)
             logvar: log of the variance of the transition distribution
-            shape (batch, latent_dim)
+            shape (seq_len, batch, latent_dim)
         """
         
         # Pass through MLP
@@ -348,7 +347,7 @@ class LatentSpaceTransitionMLP(nn.Module):
         
         # Split the output into mean and log variance
         # each with shape (batch, latent_dim)
-        mu, logvar = out[:, :self.latent_dim], out[:, self.latent_dim:]
+        mu, logvar = out[:, :, :self.latent_dim], out[:, :, self.latent_dim:]
         
         return mu, logvar
     
@@ -414,19 +413,19 @@ class DecoderMLP(nn.Module):
         Forward pass of the decoder module.
         Args:
             z: latent variable at time t
-            shape (batch, latent_dim)
+            shape (seq_len, batch, latent_dim)
         Returns:
             mu: mean of the distribution of the observed variable
-            shape (batch, observation_dim)
+            shape (seq_len, batch, observation_dim)
             logvar: log of the variance of the distribution of the observed variable
-            shape (batch, observation_dim)
+            shape (seq_len, batch, observation_dim)
         """
         # Pass through MLP
         out = self.mlp(z)
         
         # Split the output into mean and log variance
         # each with shape (batch, observation_dim)
-        mu, logvar = out[:, :self.observation_dim], out[:, self.observation_dim:]
+        mu, logvar = out[:, :, :self.observation_dim], out[:, :, self.observation_dim:]
         
         return mu, logvar
     
@@ -470,5 +469,140 @@ class Sampler(nn.Module):
         return v
     
 
+#-------------------------------------------------------------
+#
+# class DeepKalmanFilter
+#
+#--------------------------------------------------------------
 
+class DeepKalmanFilter(nn.Module):
+    """
+    Deep Kalman Filter (DKF) module. Implements the DKF algorithm.
+    
+    Args:
+        nn (_type_): _description_
+        
+    Returns:
+        _type_: _description_
+    """
+    
+    def __init__(self,
+                 input_dim=X_DIM, # Dimension of the observation space
+                 latent_dim=Z_DIM, # Dimension of the latent space
+                 hidden_dim=H_DIM, # Dimension of the hidden state of the LSTM network
+                 combiner_dim=G_DIM, # Dimension of the combiner output
+                 inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
+                 activation='tanh', # Activation function
+                 num_layers=1, # Number of layers of the LSTM network
+                 ):
+        super(DeepKalmanFilter, self).__init__()
+        
+        self.input_dim = input_dim
+        self.latent_dim = latent_dim
+        self.hidden_dim = hidden_dim
+        self.combiner_dim = combiner_dim
+        self.inter_dim = inter_dim
+        
+        # define the modules
+        
+        self.backward_lstm = BackwardLSTM(
+            input_size=self.input_dim,
+            hidden_size=self.hidden_dim,
+            num_layers=num_layers
+        )
+        
+        self.combiner = CombinerMLP(
+            latent_dim=self.latent_dim,
+            hidden_dim=self.hidden_dim,
+            output_dim=self.combiner_dim,
+            activation=activation,
+            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+            inter_dim=self.inter_dim
+        )
+        
+        self.encoder = EncoderMLP(
+            latent_dim=self.latent_dim,
+            combiner_dim=self.combiner_dim,
+            inter_dim=self.inter_dim,
+            activation=activation,
+            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+        )
+        
+        self.latent_space_transition = LatentSpaceTransitionMLP(
+            latent_dim=self.latent_dim,
+            inter_dim=self.inter_dim,
+            activation=activation,
+            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+        )
+        
+        self.decoder = DecoderMLP(
+            latent_dim=self.latent_dim,
+            observation_dim=self.input_dim,
+            inter_dim=self.inter_dim,
+            activation=activation,
+            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+        )
+        
+        self.sampler = Sampler()
+        
+    def forward(self, x):
+        """
+        Forward pass of the Deep Kalman Filter. Runs one step inference
+        
+        Args:
+            x: input sequence
+            shape (seq_len, batch, input_dim)
+        Returns:
+        
+        """
+        
+        # we assume that the input sequence is of shape (seq_len, batch, input_dim)
+        seq_len, batch_size, input_dim = x.shape
+        assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
+        
+        # initialize the latent variable at time t=0
+        z0 = torch.zeros(batch_size, self.latent_dim).to(device)
+        # initialize the hidden state of the backward LSTM at time t=0
+        # NB : they are not used in a first version of this code
+        h0 = torch.zeros(batch_size, self.hidden_dim).to(device)
+        c0 = torch.zeros(batch_size, self.hidden_dim).to(device)
+        # initialize the outputs
+        mu_x_s, logvar_x_s = torch.zeros(seq_len, batch_size, self.input_dim).to(device), torch.zeros(seq_len, batch_size, self.input_dim).to(device)
+        mu_z_s, logvar_z_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(device), torch.zeros(seq_len, batch_size, self.latent_dim).to(device)
+        mu_z_transition_s, logvar_z_transition_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(device), torch.zeros(seq_len, batch_size, self.latent_dim).to(device)
+        
+        # run the backward LSTM on the input sequence
+        # outputs are the hidden states, shape (seq_len, batch, hidden_dim)
+        h_t_s = self.backward_lstm(x)
+        
+        # loop to compute the approximate posterior distribution of the latent variables z_t
+        # given the observations x_t
+        # initialize the sequence of sampled latent variables z_t
+        sampled_z_t_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(device)
+        
+        for t in range(seq_len):
+            # at time t, get z_t-1 and h_t
+            if t == 0:
+                sampled_z_t_1 = z0
+            else:
+                sampled_z_t_1 = sampled_z_t_s[t-1]
+            h_t = h_t_s[t]
+            # compute g_t
+            g_t = self.combiner(h_t, sampled_z_t_1)
+            # compute the parameters of the approximate posterior distribution
+            mu_z, logvar_z = self.encoder(g_t)
+            mu_z_s[t], logvar_z_s[t] = mu_z, logvar_z
+            # sample z_t and store it
+            sampled_z_t = self.sampler(mu_z, logvar_z)
+            sampled_z_t_s[t] = sampled_z_t
+            
+        # compute the parameters of the transition distribution
+        z_t_lagged = torch.cat([z0.unsqueeze(0), sampled_z_t_s[:-1]])  # lagged z_t
+        mu_z_transition, logvar_z_transition = self.latent_space_transition(z_t_lagged)
+        
+        # compute the parameters of the observation distribution
+        mu_x, logvar_x = self.decoder(sampled_z_t_s)
+            
+        # return the outputs
+        return x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s
     
