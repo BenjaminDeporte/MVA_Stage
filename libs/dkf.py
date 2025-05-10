@@ -151,7 +151,7 @@ class CombinerMLP(nn.Module):
         self.layers_dim = layers_dim
         
         if self.layers_dim is None:
-            self.layers_dim = [inter_dim]
+            self.layers_dim = [self.inter_dim]
         else:
             self.layers_dim = layers_dim
             
@@ -518,7 +518,7 @@ class DeepKalmanFilter(nn.Module):
             hidden_dim=self.hidden_dim,
             output_dim=self.combiner_dim,
             activation=activation,
-            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+            layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
             inter_dim=self.inter_dim
         )
         
@@ -527,14 +527,14 @@ class DeepKalmanFilter(nn.Module):
             combiner_dim=self.combiner_dim,
             inter_dim=self.inter_dim,
             activation=activation,
-            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+            layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
         )
         
         self.latent_space_transition = LatentSpaceTransitionMLP(
             latent_dim=self.latent_dim,
             inter_dim=self.inter_dim,
             activation=activation,
-            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+            layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
         )
         
         self.decoder = DecoderMLP(
@@ -542,7 +542,7 @@ class DeepKalmanFilter(nn.Module):
             observation_dim=self.input_dim,
             inter_dim=self.inter_dim,
             activation=activation,
-            # layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
+            layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
         )
         
         self.sampler = Sampler()
@@ -563,15 +563,20 @@ class DeepKalmanFilter(nn.Module):
         assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
         
         # initialize the latent variable at time t=0
+        # NB : in INRIA code : self.register_buffer
+        # "If you have parameters in your model, which should be saved and restored in the state_dict, 
+        # but not trained by the optimizer, you should register them as buffers.
+        # Buffers won’t be returned in model.parameters(), 
+        # so that the optimizer won’t have a change to update them.#
         z0 = torch.zeros(batch_size, self.latent_dim).to(self.device)
         # initialize the hidden state of the backward LSTM at time t=0
         # NB : they are not used in a first version of this code
         h0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
         c0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
         # initialize the outputs
-        mu_x_s, logvar_x_s = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device), torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
+        # mu_x_s, logvar_x_s = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device), torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
         mu_z_s, logvar_z_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-        mu_z_transition_s, logvar_z_transition_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        # mu_z_transition_s, logvar_z_transition_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
         
         # run the backward LSTM on the input sequence
         # outputs are the hidden states, shape (seq_len, batch, hidden_dim)
@@ -600,10 +605,10 @@ class DeepKalmanFilter(nn.Module):
             
         # compute the parameters of the transition distribution
         z_t_lagged = torch.cat([z0.unsqueeze(0), sampled_z_t_s[:-1]])  # lagged z_t
-        mu_z_transition, logvar_z_transition = self.latent_space_transition(z_t_lagged)
+        mu_z_transition_s, logvar_z_transition_s = self.latent_space_transition(z_t_lagged)
         
         # compute the parameters of the observation distribution
-        mu_x, logvar_x = self.decoder(sampled_z_t_s)
+        mu_x_s, logvar_x_s = self.decoder(sampled_z_t_s)
             
         # return the outputs
         return x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s
@@ -623,7 +628,7 @@ class DeepKalmanFilter(nn.Module):
     
 def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
                   z_transition_mean, z_transition_logvar, beta=1.0,
-                  loss_type='weighted_mse'):
+                  loss_type='mse'):
     """
     Compute the total loss for a variational autoencoder (VAE) with a weighted 
     reconstruction loss and a Kullback-Leibler (KL) divergence term.

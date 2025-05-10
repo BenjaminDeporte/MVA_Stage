@@ -104,9 +104,9 @@ valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=True)
 
 
 xdim = 1
-latent_dim = 8
+latent_dim = 16
 h_dim = 16
-combiner_dim = 2
+combiner_dim = 4
 
 
 dkf = DeepKalmanFilter(
@@ -118,14 +118,12 @@ dkf = DeepKalmanFilter(
     device=device
 ).to(device)
 
-print(dkf)
+# print(dkf)
 
 
 
-optimizer = torch.optim.Adam(dkf.parameters(), lr=1e-3)
+optimizer = torch.optim.Adam(dkf.parameters(), lr=1e-5)
 loss_fn = loss_function
-num_epochs = 10
-
 
 # Training step : perform training for one epoch
 
@@ -141,40 +139,64 @@ def train_step(model, optimizer, criterion, train_loader=train_loader, device=de
     for input, _ in train_loader:
         input = input.to(device).unsqueeze(-1)  # add a feature dimension
         input = input.permute(1, 0, 2)  # permute to (seq_len, batch_size, input_dim)
-        # print(f"input has shape {input.shape}")
-        # target = target.to(device).view(-1, 1)
-        # print(f"target has shape {target.shape}")
-        x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = model(input)
+
+        _, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = model(input)
         
-        loss = (input - mu_x_s)**2
-        loss = torch.sum(loss, dim=2)
-        loss = torch.sum(loss, dim=0)
-        loss = torch.mean(loss)
-        loss = loss / x.shape[0]
+        # loss = (input - mu_x_s)**2
+        # loss = torch.sum(loss, dim=2)
+        # loss = torch.sum(loss, dim=0)
+        # loss = torch.mean(loss)
+        # loss = loss / x.shape[0]
         
-        loss.backward()
+        # loss.backward()
+        # optimizer.step()
+        
+        rec_loss, kl_loss, total_loss = criterion(input, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s)
+        
+        total_loss.backward()
         optimizer.step()
         
-        # rec_loss, kl_loss, total_loss = criterion(input, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s)
-        # total_loss.backward()
-        # optimizer.step()
         # print(f"rec_loss : {rec_loss}")
         # print(f"kl_loss : {kl_loss}")
         # print(f"total_loss : {total_loss}")
         
-        # rec_loss += rec_loss.item()
-        # kl_loss += kl_loss.item()
-        epoch_loss += loss.item()
+        rec_loss += rec_loss.item()
+        kl_loss += kl_loss.item()
+        epoch_loss += total_loss.item()
         
     epoch_loss /= len(train_loader)
-    # rec_loss /= len(train_loader)
-    # kl_loss /= len(train_loader)
+    rec_loss /= len(train_loader)
+    kl_loss /= len(train_loader)
     
-    return epoch_loss
+    return rec_loss, kl_loss, epoch_loss
 
 
-epoch_loss = train_step(dkf, optimizer, loss_fn)
+num_epochs = 30
 
-# print(rec_loss)
-# print(kl_loss)
-print(epoch_loss)
+rec_losses = []
+kl_losses = []
+epoch_losses = []
+
+for i in range(num_epochs):
+    
+    # run the training step
+    rec_loss, kl_loss, epoch_loss = train_step(dkf, optimizer, loss_fn)
+    # log results
+    rec_losses.append(rec_loss)
+    kl_losses.append(kl_loss)
+    epoch_losses.append(epoch_loss)
+    # Print the losses for this epoch
+    print(f"Epoch {i+1:>3}/{num_epochs} - Rec Loss: {rec_loss:.4e}, KL Loss: {kl_loss:.4e}, Total Loss: {epoch_loss:.4e}")
+
+
+# Plot the losses
+plt.figure(figsize=(12, 6))
+plt.plot(torch.tensor(rec_losses).cpu().detach(), label='Rec Loss', color='blue')
+plt.plot(torch.tensor(kl_losses).cpu().detach(), label='KL Loss', color='orange')
+plt.plot(torch.tensor(epoch_losses).cpu().detach(), label='Total Loss', color='green')
+plt.title('Losses during training')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid()
+plt.show()
