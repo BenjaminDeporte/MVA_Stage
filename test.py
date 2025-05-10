@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from tests.unit_tests import test_brick_1, test_brick_2, test_brick_3, test_brick_4, test_brick_5, test_brick_6
-from libs.dkf import DeepKalmanFilter
+from libs.dkf import DeepKalmanFilter, loss_function
     
 if __name__ == "__main__":
     # # Run the test for brick 1
@@ -55,3 +55,9 @@ if __name__ == "__main__":
     # test dkf
     x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = dkf(x)
     
+    # test loss function
+    reconstruction_loss, kl_loss, total_loss = loss_function(x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s, beta=1.0, loss_type='mse')
+    
+    print("Reconstruction Loss:", reconstruction_loss.item())
+    print("KL Loss:", kl_loss.item())
+    print("Total Loss:", total_loss.item())
