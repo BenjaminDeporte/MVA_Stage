@@ -83,6 +83,8 @@ X_valid, y_valid = s[cutoff:,:n_steps], s[cutoff:,-1]
 
 # form datasets, dataloaders, etc
 
+BATCH_SIZE = 8192
+
 from torch.utils.data import Dataset, DataLoader
 
 class TimeSeriesDataset(Dataset):
@@ -99,8 +101,8 @@ class TimeSeriesDataset(Dataset):
 train_dataset = TimeSeriesDataset(X_train, y_train)
 valid_dataset = TimeSeriesDataset(X_valid, y_valid)
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-valid_loader = DataLoader(valid_dataset, batch_size=32, shuffle=True)
+train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+valid_loader = DataLoader(valid_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
 
 xdim = 1
@@ -122,7 +124,7 @@ dkf = DeepKalmanFilter(
 
 
 
-optimizer = torch.optim.Adam(dkf.parameters(), lr=1e-5)
+optimizer = torch.optim.Adam(dkf.parameters(), lr=5e-4)
 loss_fn = loss_function
 
 # Training step : perform training for one epoch
@@ -142,24 +144,11 @@ def train_step(model, optimizer, criterion, train_loader=train_loader, device=de
 
         _, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = model(input)
         
-        # loss = (input - mu_x_s)**2
-        # loss = torch.sum(loss, dim=2)
-        # loss = torch.sum(loss, dim=0)
-        # loss = torch.mean(loss)
-        # loss = loss / x.shape[0]
-        
-        # loss.backward()
-        # optimizer.step()
-        
         rec_loss, kl_loss, total_loss = criterion(input, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s)
         
         total_loss.backward()
         optimizer.step()
-        
-        # print(f"rec_loss : {rec_loss}")
-        # print(f"kl_loss : {kl_loss}")
-        # print(f"total_loss : {total_loss}")
-        
+              
         rec_loss += rec_loss.item()
         kl_loss += kl_loss.item()
         epoch_loss += total_loss.item()
@@ -171,7 +160,7 @@ def train_step(model, optimizer, criterion, train_loader=train_loader, device=de
     return rec_loss, kl_loss, epoch_loss
 
 
-num_epochs = 30
+num_epochs = 500
 
 rec_losses = []
 kl_losses = []
@@ -186,7 +175,8 @@ for i in range(num_epochs):
     kl_losses.append(kl_loss)
     epoch_losses.append(epoch_loss)
     # Print the losses for this epoch
-    print(f"Epoch {i+1:>3}/{num_epochs} - Rec Loss: {rec_loss:.4e}, KL Loss: {kl_loss:.4e}, Total Loss: {epoch_loss:.4e}")
+    if (i+1) % 10 == 0:
+        print(f"Epoch {i+1:>3}/{num_epochs} - Rec Loss: {rec_loss:.4e}, KL Loss: {kl_loss:.4e}, Total Loss: {epoch_loss:.4e}")
 
 
 # Plot the losses
