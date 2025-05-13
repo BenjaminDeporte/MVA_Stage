@@ -628,7 +628,7 @@ class DeepKalmanFilter(nn.Module):
     
 def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
                   z_transition_mean, z_transition_logvar, beta=1.0,
-                  loss_type='mse'):
+                  loss_type='weighted_mse'):
     """
     Compute the total loss for a variational autoencoder (VAE) with a weighted 
     reconstruction loss and a Kullback-Leibler (KL) divergence term.
