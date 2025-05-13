@@ -625,10 +625,98 @@ class DeepKalmanFilter(nn.Module):
         
         return msg
     
+    def predict(self, x, num_steps):
+        """
+        Predicts future steps based on the input sequence.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (seq_len, batch_size, x_dim).
+            num_steps (int): Number of future steps to predict.
+
+        Returns:
+            predicitons (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            containing the predicted future steps.
+            full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
+            containing the reconstrcuted input sequence and the predicted future steps.
+            
+            
+        """
+        
+        with torch.no_grad():
+            
+            # run an inference forward pass to learn the latent variable transition probability distrubution
+            seq_len, batch_size, input_dim = x.shape
+            assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
+            
+            z0 = torch.zeros(batch_size, self.latent_dim).to(self.device)
+            # initialize the hidden state of the backward LSTM at time t=0
+            # NB : they are not used in a first version of this code
+            h0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
+            c0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
+            
+            # initialize the outputs
+            mu_z_s, logvar_z_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+            
+            # run the backward LSTM on the input sequence
+            # outputs are the hidden states, shape (seq_len, batch, hidden_dim)
+            h_t_s = self.backward_lstm(x)
+            
+            # loop to compute the approximate posterior distribution of the latent variables z_t
+            # given the observations x_t
+            # initialize the sequence of sampled latent variables z_t
+            sampled_z_t_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+            
+            for t in range(seq_len):
+                # at time t, get z_t-1 and h_t
+                if t == 0:
+                    sampled_z_t_1 = z0
+                else:
+                    sampled_z_t_1 = sampled_z_t_s[t-1]
+                h_t = h_t_s[t]
+                # compute g_t
+                g_t = self.combiner(h_t, sampled_z_t_1)
+                # compute the parameters of the approximate posterior distribution
+                mu_z, logvar_z = self.encoder(g_t)
+                mu_z_s[t], logvar_z_s[t] = mu_z, logvar_z
+                # sample z_t and store it
+                sampled_z_t = self.sampler(mu_z, logvar_z)
+                sampled_z_t_s[t] = sampled_z_t
+                
+            # compute the parameters of the transition distribution
+            z_t_lagged = torch.cat([z0.unsqueeze(0), sampled_z_t_s[:-1]])  # lagged z_t
+            mu_z_transition_s, logvar_z_transition_s = self.latent_space_transition(z_t_lagged)
+            
+            # compute the parameters of the observation distribution
+            mu_x_s, logvar_x_s = self.decoder(sampled_z_t_s)
+            
+            # use mu_x as the reconstructed x
+            x_hat = mu_x_s
+            
+            # Start with the last inferred latent state
+            z_pred = sampled_z_t_s[-1:, :, :]
+
+            # Start to predict x at the end of the given sequence
+            predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            for s in range(num_steps):
+                # Get the parameters (mean and variance) of the transition
+                # distribution p(z_t|z_{t-1})
+                z_pred_mean, z_pred_logvar = self.latent_space_transition(z_pred)
+
+                # Sample from p(z_t|z_{t-1}) distribution
+                z_pred = self.sampler(z_pred_mean, z_pred_logvar)
+                
+                x_pred, _ = self.decoder(z_pred)
+                
+                predictions[s,:,:] = x_pred
+
+        # Append predictions to the reconstructed x
+        full_x = torch.cat([x_hat, predictions], dim=0)
+        
+        return predictions, full_x
+    
     
 def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
-                  z_transition_mean, z_transition_logvar, beta=1.0,
-                  loss_type='weighted_mse'):
+                  z_transition_mean, z_transition_logvar, beta=1.0):
     """
     Compute the total loss for a variational autoencoder (VAE) with a weighted 
     reconstruction loss and a Kullback-Leibler (KL) divergence term.
@@ -670,7 +758,7 @@ def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
 
     Notes:
     ------
-    - The reconstruction loss can be either MSE or Weighted MSE.
+    - The "reconstruction loss" is based on formula above
     - The KL divergence loss measures the difference between the latent
       variable distribution and the transition distribution in the latent space.
     - Both losses are normalized by the sequence length (`seq_len`) and
@@ -681,69 +769,16 @@ def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
     
     seq_len, batch_size, x_dim = x.shape
     
-    # Define the reconstruction loss based on the loss_type
-    if loss_type == 'weighted_mse':
-        def weighted_mse_loss(x, x_hat, x_hat_logvar):
-            """
-            Compute the weighted mean squared error (MSE) loss for reconstruction.
-
-            Parameters:
-            -----------
-            x : torch.Tensor
-                Ground truth data with shape (seq_len, batch_size, x_dim).
-            x_hat : torch.Tensor
-                Reconstructed data with shape (seq_len, batch_size, x_dim).
-            x_hat_logvar : torch.Tensor
-                Log variance of the reconstructed data with shape
-                (seq_len, batch_size, x_dim).
-
-            Returns:
-            --------
-            loss : torch.Tensor
-                The weighted MSE loss normalized by the sequence length and
-                averaged over the batch.
-            """
-            var = x_hat_logvar.exp()
-            loss = torch.div((x - x_hat)**2, var)
+    # Compute the reconstruction loss
+    var = x_hat_logvar.exp()
+    loss = torch.div((x - x_hat)**2, var)
             
-            loss += x_hat_logvar
-            loss = loss.sum(dim=2)  # Sum over the x_dim
-            loss = loss.sum(dim=0)  # Sum over the sequence length
-            loss = loss.mean()  # Mean over the batch
-            return loss / seq_len
-        
-        reconstruction_loss = weighted_mse_loss(x, x_hat, x_hat_logvar)
-    
-    elif loss_type == 'mse':
-        def mse_loss(x, x_hat):
-            """
-            Compute the mean squared error (MSE) loss for reconstruction.
-
-            Parameters:
-            -----------
-            x : torch.Tensor
-                Ground truth data with shape (seq_len, batch_size, x_dim).
-            x_hat : torch.Tensor
-                Reconstructed data with shape (seq_len, batch_size, x_dim).
-
-            Returns:
-            --------
-            loss : torch.Tensor
-                The MSE loss normalized by the sequence length and
-                averaged over the batch.
-            """
-            loss = (x - x_hat)**2
-            loss = loss.sum(dim=2)  # Sum over the x_dim
-            loss = loss.sum(dim=0)  # Sum over the sequence length
-            loss = loss.mean()  # Mean over the batch
-            return loss / seq_len
-        
-        reconstruction_loss = mse_loss(x, x_hat)
-    
-    else:
-        raise ValueError(f"Unknown loss type: {loss_type}."
-                         "Choose 'mse' or 'weighted_mse'.")
-    
+    loss += x_hat_logvar
+    loss = loss.sum(dim=2)  # Sum over the x_dim
+    loss = loss.sum(dim=0)  # Sum over the sequence length
+    loss = loss.mean()  # Mean over the batch
+    reconstruction_loss = loss / seq_len
+           
     # Compute the KL divergence loss
     kl_loss = (z_transition_logvar - z_logvar +
                torch.div((z_logvar.exp() + 
