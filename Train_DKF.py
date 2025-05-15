@@ -1,3 +1,5 @@
+#-----------------  IMPORTS ------------------------------ 
+
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -5,6 +7,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from libs.dkf import DeepKalmanFilter, loss_function
+
+#------------------ SEED ------------------------------------
 
 def seed_everything(seed=42):
     """
@@ -19,6 +23,8 @@ def seed_everything(seed=42):
 
 # Set seed for reproducibility
 seed_everything(42)
+
+#------------------ DEVICE ------------------------------------
 
 if torch.cuda.is_available():
     device = torch.device('cuda')
@@ -36,7 +42,7 @@ if device.type == 'cuda':
     print('Total GPU Memory:', round(torch.cuda.get_device_properties(0).total_memory/1024**3,1), 'GB')
     
 
-
+#------------------ GENERATE SYNTHETIC DATA --------------------
 
 n_steps = 50
 n_ahead = 10
@@ -61,8 +67,6 @@ def generate_time_series(batch_size, n_steps, noise=0.05):
 
 s = generate_time_series(n_series, n_steps+n_ahead)
 
-
-
 N = 3
 fig, axs = plt.subplots(N, 1, figsize=(16, 3 * N))
 for i in range(N):
@@ -74,6 +78,7 @@ for i in range(N):
 plt.tight_layout()
 plt.show()
 
+#------------------ SPLIT DATASET AND FORM DATALOADERS --------------------
 
 cutoff = int(0.8 * n_series)
 
@@ -104,7 +109,7 @@ test_dataset = TimeSeriesDataset(X_valid, y_valid)
 train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
-
+#------------------ INSTANCIATE DEEP KALMAN FILTER --------------------
 xdim = 1
 latent_dim = 16
 h_dim = 16
@@ -122,14 +127,14 @@ dkf = DeepKalmanFilter(
 
 # print(dkf)
 
-
+#------------------ TRAINING --------------------
 
 optimizer = torch.optim.Adam(dkf.parameters(), lr=5e-4)
 loss_fn = loss_function
 
 # Training step : perform training for one epoch
 
-def train_step(model, optimizer, criterion, train_loader=train_loader, device=device):
+def train_step(model, optimizer, criterion, train_loader=train_loader, device=device, K=None):
     ### training step
     model.train()
     optimizer.zero_grad()
@@ -137,14 +142,31 @@ def train_step(model, optimizer, criterion, train_loader=train_loader, device=de
     rec_loss = 0
     kl_loss = 0
     epoch_loss = 0
+    ### check on K
+    if K is None:
+        K=1
+        
+    x_dim = model.input_dim
+    latent_dim = model.latent_dim
     
     for input, _ in train_loader:
         input = input.to(device).unsqueeze(-1)  # add a feature dimension
         input = input.permute(1, 0, 2)  # permute to (seq_len, batch_size, input_dim)
 
-        _, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = model(input)
         
-        rec_loss, kl_loss, total_loss = criterion(input, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s)
+        mu_x_t = torch.zeros(input.shape[0], input.shape[1], x_dim, K).to(device)
+        logvar_x_t = torch.zeros(input.shape[0], input.shape[1], xdim, K).to(device)
+        mu_phi_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        logvar_phi_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        mu_theta_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        logvar_theta_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+
+        # get K samples of the parameters of each distribution
+        for k in range(K):
+            # get the parameters of the distributions
+            _, mu_x_t[:, :, :, k], logvar_x_t[:, :, :, k], mu_phi_z_t[:, :, :, k], logvar_phi_z_t[:, :, :, k], mu_theta_z_t[:, :, :, k], logvar_theta_z_t[:, :, :, k] = model(input)
+        
+        rec_loss, kl_loss, total_loss = criterion(input, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t)
         
         total_loss.backward()
         optimizer.step()
@@ -191,8 +213,8 @@ def test_step(model, optimizer, criterion, test_loader=test_loader, device=devic
     return rec_loss, kl_loss, epoch_loss
 
 
-num_epochs = 50
-display_frequency = int(num_epochs / 20)
+num_epochs = 25
+display_frequency = int(num_epochs / 10)
 
 rec_losses = []
 kl_losses = []
@@ -202,10 +224,13 @@ val_rec_losses = []
 val_kl_losses = []
 val_epoch_losses = []
 
+# number of samples to use for each batch of training
+K = 3
+
 for i in range(num_epochs):
     
     # run the training step
-    rec_loss, kl_loss, epoch_loss = train_step(dkf, optimizer, loss_fn)
+    rec_loss, kl_loss, epoch_loss = train_step(dkf, optimizer, loss_fn, K=K)
     # log results
     rec_losses.append(rec_loss)
     kl_losses.append(kl_loss)

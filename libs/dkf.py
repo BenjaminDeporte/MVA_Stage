@@ -81,9 +81,17 @@ INTERMEDIATE_LAYER_DIM = 16 # Dimension of the intermediate layers of the MLPs
 class BackwardLSTM(nn.Module):
     """
     Backward LSTM module.
+    Creates a unidirectional LSTM, with num_layers layers, hidden state
+    of dimension hidden_size, and input of dimension input_size.
+    The LSTM is used to process the input sequence in reverse order.
     """
     def __init__(self, input_size, hidden_size, num_layers=1):
         super(BackwardLSTM, self).__init__()
+        """
+        input_size : dimension of the observation space
+        hidden_size : dimension of the hidden state of the LSTM network
+        num_layers : number of layers of the LSTM network (default = 1)
+        """
         
         self.input_size = input_size
         self.num_layers = num_layers
@@ -98,6 +106,18 @@ class BackwardLSTM(nn.Module):
             )
 
     def forward(self, x):
+        """
+        Forward pass of the backward LSTM module. The sequence x
+        is reversed via a torch.flip operation, then passed through the LSTM.
+        The output sequence is reversed again to get the final output.
+        
+        Args:
+            x: input sequence
+            shape (seq_len, batch, input_size)
+        Returns:
+            out: output sequence
+            shape (seq_len, batch, hidden_size)
+        """
         # Reverse the input sequence - axis 0 is the time axis here
         x_reversed = torch.flip(x, [0])
         # Pass through LSTM
@@ -120,12 +140,9 @@ class BackwardLSTM(nn.Module):
 
 class CombinerMLP(nn.Module):
     """Combiner module. Takes the hidden state of the backward LSTM at time t
-    and the latent variable at time t-1, to compute a tensor g at time t,
+    and the (sampled) latent variable at time t-1, to compute a tensor g at time t,
     that will be used to compute the parameters of the approximate posterior
     distribution of the latent variable.
-
-    Args:
-        nn (_type_): _description_
     """
     
     def __init__(self, 
@@ -136,6 +153,22 @@ class CombinerMLP(nn.Module):
                  activation = 'tanh',
                  inter_dim = INTERMEDIATE_LAYER_DIM,
                  ):
+        """Creates a combiner module, ie a MLP layer, to combine h_t (the output of the backward lstm at time t
+        and (sampled) z_t-1, the latent variable at time t-1.
+        The input_dimension is the sum of the latent dimension (dimension of z_t-1) and the hidden dimension
+        (dimension of h_t).
+        The output dimension is the dimension of the combiner output, which is a parameter.
+        The list of intermediate layers is passed in the list layers_dim.
+        The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
+        
+        Inputs:
+            latent_dim : dimension of the latent space
+            hidden_dim : dimension of the hidden state of the LSTM network
+            output_dim : dimension of the combiner output
+            layers_dim : list of layers dimensions, without the input dimension, without the output dimension
+            activation : activation function (default = 'tanh')
+            inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
+        """
         super(CombinerMLP, self).__init__()
         
         self.latent_dim = latent_dim
@@ -173,6 +206,8 @@ class CombinerMLP(nn.Module):
     def forward(self, h, z):
         """
         Forward pass of the combiner module.
+        The use of the combiner module is sequential, so there is no seq_len dimension.
+        
         Args:
             h: hidden state of the backward LSTM at time t
             shape (batch, hidden_dim)
@@ -184,10 +219,10 @@ class CombinerMLP(nn.Module):
         """
         
         # Concatenate the hidden state and the latent variable on their dimension
-        x = torch.cat((h, z), dim=-1)
+        x = torch.cat((h, z), dim=-1) # shape (batch, hidden_dim + latent_dim)
         
         # Pass through MLP
-        g = self.mlp(x)
+        g = self.mlp(x) # output shape (batch, output_dim)
         
         return g     
         
@@ -200,22 +235,36 @@ class CombinerMLP(nn.Module):
 #
 
 class EncoderMLP(nn.Module):
-    """Encoder module. Computes the parameters of the approximate posterior
-    distribution of the latent variable at time t. The approximate posterior
-    distribution is a Gaussian distribution, we use a MLP to compute the mean
+    """Encoder module. 
+    Computes the parameters of the approximate posterior
+    distribution of the latent variable at time t. 
+    The approximate posterior distribution is a Gaussian distribution, we use a MLP to compute the mean
     and the log of the variance.
-
-    Args:
-        nn (_type_): _description_
+    The input variables are g_t (the output of the combiner module at time t) and
+    z_t-1 (the -sampled- latent variable at time t-1).
     """
     
     def __init__(self, 
                  latent_dim=Z_DIM, # Dimension of the latent space
                  combiner_dim=G_DIM, # Dimension of the combiner output
                  inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
-                 layers_dim = None, # Dimension of the MLP layers (without inout nor output)
+                 layers_dim = None, # Dimension of the MLP layers (without input nor output)
                  activation = 'tanh', # Activation function
     ):
+        """Creates the encoder module.
+        This is a MLP, that takes as input the combiner output g_t (combining h_t and z_t-1).
+        The input dimension is the combiner dimension.
+        The output dimension is the 2 * dimension of the latent space (mean, and log variance).
+        The list of intermediate layers is passed in the list layers_dim.
+        The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
+        
+        Inputs:
+            latent_dim : dimension of the latent space
+            combiner_dim : dimension of the combiner output
+            inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
+            layers_dim : list of layers dimensions, without the input dimension, without the output dimension
+            activation : activation function (default = 'tanh')
+        """
         super(EncoderMLP, self).__init__()
         
         self.latent_dim = latent_dim
@@ -237,7 +286,7 @@ class EncoderMLP(nn.Module):
         layers = []
         for i, dim in enumerate(self.layers_dim):
             if i==0:
-                layers.append(nn.Linear(combiner_dim, dim))
+                layers.append(nn.Linear(self.combiner_dim, dim))
             else:
                 layers.append(nn.Linear(layers_dim[i-1], dim))
             layers.append(self.activation_fn)
@@ -251,6 +300,11 @@ class EncoderMLP(nn.Module):
     def forward(self, g):
         """
         Forward pass of the encoder module.
+        Takes g_t (the output of the combiner module at time t) as input, returns the parameters of the
+        approximate posterior distribution of the latent variable at time t.
+        The encoder module is used sequentially, so there is no seq_len dimension.
+        The output is a tuple (mu, logvar), where mu is the mean of the approximate posterior distribution
+        and logvar is the log of the variance of the approximate posterior distribution.
         
         Args:
             g: tensor g at time t
@@ -283,13 +337,10 @@ class EncoderMLP(nn.Module):
 #
 
 class LatentSpaceTransitionMLP(nn.Module):
-    """Latent space transition module. Computes the parameters of the
-    transition distribution of the latent variable at time t. The transition
-    distribution is a Gaussian distribution, we use a MLP to compute the mean
+    """Latent space transition module. 
+    Computes the parameters of the transition distribution of the latent variable at time t (ie "prior").
+    The transition distribution is a Gaussian distribution, we use a MLP to compute the mean
     and the log of the variance.
-
-    Args:
-        nn (_type_): _description_
     """
     
     def __init__(self, 
@@ -298,6 +349,19 @@ class LatentSpaceTransitionMLP(nn.Module):
                  layers_dim = None, # Dimension of the MLP layers
                  activation = 'tanh', # Activation function
     ):
+        """Creates the latent space transition MLP.
+        This is a MLP, that takes as input the -sampled- lagged latent variable z_t-1,
+        and computes the parameters of the transition distribution p(z_t|z_{t-1}).
+        The input dimension is the latent dimension.
+        The output dimension is the 2 * dimension of the latent space (mean, and log variance).
+        The list of intermediate layers is passed in the list layers_dim.
+        The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
+        Inputs:
+            latent_dim : dimension of the latent space
+            inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
+            layers_dim : list of layers dimensions, without the input dimension, without the output dimension
+            activation : activation function (default = 'tanh')
+        """
         super(LatentSpaceTransitionMLP, self).__init__()
         
         self.latent_dim = latent_dim
@@ -311,18 +375,19 @@ class LatentSpaceTransitionMLP(nn.Module):
         
         if layers_dim is None:
             layers_dim = [self.inter_dim]
+        self.layers_dim = layers_dim
             
         # explicitly define the MLP layers
         layers = []
-        for i, dim in enumerate(layers_dim):
+        for i, dim in enumerate(self.layers_dim):
             if i==0:
-                layers.append(nn.Linear(latent_dim, dim))
+                layers.append(nn.Linear(self.latent_dim, dim))
             else:
-                layers.append(nn.Linear(layers_dim[i-1], dim))
+                layers.append(nn.Linear(self.layers_dim[i-1], dim))
             layers.append(self.activation_fn)
             
         # last layer is linear, no activation
-        layers.append(nn.Linear(layers_dim[-1], 2 * latent_dim)) 
+        layers.append(nn.Linear(self.layers_dim[-1], 2 * self.latent_dim)) 
                     
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -330,15 +395,17 @@ class LatentSpaceTransitionMLP(nn.Module):
     def forward(self, z):
         """
         Forward pass of the latent space transition module.
+        This takes as input a whole set of lagged -sampled- latent variables z_t-1,
+        and computes the parameters of the transition distribution p(z_t|z_{t-1}) for each time step t.
         
         Args:
-            z: latent variable at time t-1
+            z: latent variables lagged(set of latent variables at time t-1)
             shape (seq_len, batch, latent_dim)
             
         Returns:
-            mu: mean of the transition distribution
+            mu: means of the transition distribution
             shape (seq_len, batch, latent_dim)
-            logvar: log of the variance of the transition distribution
+            logvar: log of the variances of the transition distribution
             shape (seq_len, batch, latent_dim)
         """
         
@@ -361,13 +428,10 @@ class LatentSpaceTransitionMLP(nn.Module):
 
 class DecoderMLP(nn.Module):
     """Decoder module. Computes the parameters of the distribution of the
-    observed variable 'x', given the latent variable 'z'. The distribution is
-    a Gaussian distribution, we use a MLP to compute the mean and the log of
-    the variance.
-
-    Args:
-        nn (_type_): _description_
-    
+    observed variable 'x', given the latent variable 'z' sampled from the approximate
+    posterior distribution.
+    The distribution is a Gaussian distribution, we use a MLP to compute the mean and the log of
+    the variance.   
     """
     
     def __init__(self, 
@@ -377,6 +441,21 @@ class DecoderMLP(nn.Module):
                  layers_dim = None, # Dimension of the MLP layers
                  activation = 'tanh', # Activation function
     ):
+        """Creates the decoder module.
+        This is a MLP, that takes as input a set of -sampled- latent variables z_t,
+        and computes the parameters of the distribution of the observed variable 'x'.
+        The input dimension is the latent dimension.
+        The output dimension is the 2 * dimension of the observation space (mean, and log variance).
+        The list of intermediate layers is passed in the list layers_dim.
+        The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
+        
+        Inputs:
+            latent_dim : dimension of the latent space
+            observation_dim : dimension of the observation space
+            inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
+            layers_dim : list of layers dimensions, without the input dimension, without the output dimension
+            activation : activation function (default = 'tanh')
+        """
         super(DecoderMLP, self).__init__()
         
         self.latent_dim = latent_dim
@@ -392,18 +471,19 @@ class DecoderMLP(nn.Module):
         
         if layers_dim is None:
             layers_dim = [self.inter_dim] # one layer per default
+        self.layers_dim = layers_dim
             
         # explicitly define the MLP layers
         layers = []
-        for i, dim in enumerate(layers_dim):
+        for i, dim in enumerate(self.layers_dim):
             if i==0:
-                layers.append(nn.Linear(latent_dim, dim))
+                layers.append(nn.Linear(self.latent_dim, dim))
             else:
-                layers.append(nn.Linear(layers_dim[i-1], dim))
+                layers.append(nn.Linear(self.layers_dim[i-1], dim))
             layers.append(self.activation_fn)
             
         # last layer is linear, no activation
-        layers.append(nn.Linear(layers_dim[-1], 2 * self.observation_dim)) 
+        layers.append(nn.Linear(self.layers_dim[-1], 2 * self.observation_dim)) 
                     
         # build the MLP
         self.mlp = nn.Sequential(*layers)
@@ -411,13 +491,17 @@ class DecoderMLP(nn.Module):
     def forward(self, z):
         """
         Forward pass of the decoder module.
+        This takes as input the set of -sampled- latent variables z_t, and 
+        computes the set of parameters of the distribution of the observed variable 'x'.
+        The decoder module is used after the sequential loop, so there is a seq_len dimension.
+        
         Args:
             z: latent variable at time t
             shape (seq_len, batch, latent_dim)
         Returns:
-            mu: mean of the distribution of the observed variable
+            mu: means of the distribution of the observed variable
             shape (seq_len, batch, observation_dim)
-            logvar: log of the variance of the distribution of the observed variable
+            logvar: log of the variances of the distribution of the observed variable
             shape (seq_len, batch, observation_dim)
         """
         # Pass through MLP
@@ -438,9 +522,8 @@ class DecoderMLP(nn.Module):
 class Sampler(nn.Module):
     """Sampler module. Samples from a normal distribution of given mean and
     log variance using the reparameterization trick.
-
-    Args:
-        nn (_type_): _description_
+    
+    NB : to be replaced by batch of tf.distributions.Normal(mu, logvar) ?
     """
     
     def __init__(self):
@@ -547,71 +630,92 @@ class DeepKalmanFilter(nn.Module):
         
         self.sampler = Sampler()
         
-    def forward(self, x):
+    def forward(self, x_t):
         """
-        Forward pass of the Deep Kalman Filter. Runs one step inference
+        Forward pass of the Deep Kalman Filter. 
+        
+        Runs one step inference :
+        
+        0- Initialization are run (sampled latent variable)
+        1- The input sequence x_t (seq_len, batch, input_dimension) is passed through the backward LSTM 
+           to get the hidden states h_t (seq_len, batch, hidden_dim).
+        2- A sequential loop is run from time t=1 to t=T (seq_len):
+            2.1- the sampled latent variable at previous time step z_t-1, and the hidden state h_t, are run
+                 through the combiner module to get the tensor g_t.
+            2.2- the tensor g_t is passed through the encoder module to get the parameters of the approximate posterior 
+                 distribution mu_phi and logvar_phi of the latent variable z_t.
+            2.3- the  latent variable z_t at time t is sampled from the approximate posterior distribution
+                 using the reparameterization trick. The sampled latent variable z_t is stored in the sequence of
+                 sampled latent variables z_t_s.
+        3- The whole sequence of sampled latent variables z_t_s is passed through the decoder module
+           to get the parameters of the distribution of the observed variables x_t.
+        4- The whole sequence of sampled latent variables z_t_s, lagged by one time step, is passed through the
+           transition module to get the parameters of the transition distribution of the latent variable z_t. 
         
         Args:
-            x: input sequence
-            shape (seq_len, batch, input_dim)
+            x_t: input sequence - shape (seq_len, batch, input_dim)
+            
+        Intermediate variables:
+            sampled_z_t : sequence of sampled latent variables - shape (seq_len, batch, latent_dim).
+            NB : z_0 is set to 0.
+            h_t : hidden state of the backward LSTM at time t - shape (seq_len, batch, hidden_dim)
+            
         Returns:
-        
+            mu_x_t: means of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            logvar_x_t: log of the variances of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            mu_phi_z_t: means of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_phi_z_t: log of the variances of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            mu_theta_z_t: means of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_theta_z_t: log of the variances of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
         """
         
-        # we assume that the input sequence is of shape (seq_len, batch, input_dim)
-        seq_len, batch_size, input_dim = x.shape
+        # we assume that the input sequence is of shape (seq_len, batch, input_dim) and check some
+        seq_len, batch_size, input_dim = x_t.shape
         assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
         
-        # initialize the latent variable at time t=0
-        # NB : in INRIA code : self.register_buffer
-        # "If you have parameters in your model, which should be saved and restored in the state_dict, 
-        # but not trained by the optimizer, you should register them as buffers.
-        # Buffers won’t be returned in model.parameters(), 
-        # so that the optimizer won’t have a change to update them.#
-        z0 = torch.zeros(batch_size, self.latent_dim).to(self.device)
-        # initialize the hidden state of the backward LSTM at time t=0
-        # NB : they are not used in a first version of this code
-        h0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
-        c0 = torch.zeros(batch_size, self.hidden_dim).to(self.device)
-        # initialize the outputs
-        # mu_x_s, logvar_x_s = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device), torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
-        mu_z_s, logvar_z_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-        # mu_z_transition_s, logvar_z_transition_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device), torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        # initializations of the tensors for the sequential loop
+                # NB : in INRIA code : self.register_buffer
+                # "If you have parameters in your model, which should be saved and restored in the state_dict, 
+                # but not trained by the optimizer, you should register them as buffers.
+                # Buffers won’t be returned in model.parameters(), 
+                # so that the optimizer won’t have a change to update them.#
+        sampled_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        z0 = torch.zeros(batch_size, self.latent_dim).to(self.device)  # initial latent variable z_0
+        mu_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        logvar_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
         
-        # run the backward LSTM on the input sequence
+        # step 1 : run the backward LSTM on the input sequence
         # outputs are the hidden states, shape (seq_len, batch, hidden_dim)
-        h_t_s = self.backward_lstm(x)
+        h_t = self.backward_lstm(x_t)
         
-        # loop to compute the approximate posterior distribution of the latent variables z_t
-        # given the observations x_t
-        # initialize the sequence of sampled latent variables z_t
-        sampled_z_t_s = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-        
+        # step 2 : loop from t=1 to t=T (seq_len) to compute and sampled the latent variables z_t
         for t in range(seq_len):
-            # at time t, get z_t-1 and h_t
+            
+            # step 2.1 : at time t, get the sampled latent variable z_t-1 and the hidden state h_t
             if t == 0:
                 sampled_z_t_1 = z0
             else:
-                sampled_z_t_1 = sampled_z_t_s[t-1]
-            h_t = h_t_s[t]
-            # compute g_t
-            g_t = self.combiner(h_t, sampled_z_t_1)
-            # compute the parameters of the approximate posterior distribution
-            mu_z, logvar_z = self.encoder(g_t)
-            mu_z_s[t], logvar_z_s[t] = mu_z, logvar_z
-            # sample z_t and store it
-            sampled_z_t = self.sampler(mu_z, logvar_z)
-            sampled_z_t_s[t] = sampled_z_t
+                sampled_z_t_1 = sampled_z_t[t-1]
+            # combine them to compute g_t
+            g_t = self.combiner(h_t[t], sampled_z_t_1) # shpae is (batch_size, combiner_dim)
             
-        # compute the parameters of the transition distribution
-        z_t_lagged = torch.cat([z0.unsqueeze(0), sampled_z_t_s[:-1]])  # lagged z_t
-        mu_z_transition_s, logvar_z_transition_s = self.latent_space_transition(z_t_lagged)
+            # step 2.2 : compute the parameters of the approximate posterior distribution
+            mu_phi, logvar_phi = self.encoder(g_t) 
+            mu_phi_z_t[t], logvar_phi_z_t[t] = mu_phi, logvar_phi
+            
+            # step 2.3 : sample z_t from the approximate posterior distribution and store it
+            sampled_z_t[t] = self.sampler(mu_phi, logvar_phi)
+            
+        # step 3 : compute the parameters of the observation distribution
+        mu_x_t, logvar_x_t = self.decoder(sampled_z_t)
         
-        # compute the parameters of the observation distribution
-        mu_x_s, logvar_x_s = self.decoder(sampled_z_t_s)
-            
+        # step 4 : compute the parameters of the transition distribution
+        # form the lagged sampled latent variable z_t : z_t[0:seq_len-1]
+        lagged_sampled_z_t = torch.cat([z0.unsqueeze(0), sampled_z_t[:-1]])
+        mu_theta_z_t, logvar_theta_z_t = self.latent_space_transition(lagged_sampled_z_t) 
+                        
         # return the outputs
-        return x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s
+        return x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t
     
     def __repr__(self):
         
@@ -714,83 +818,160 @@ class DeepKalmanFilter(nn.Module):
         
         return predictions, full_x
     
-    
-def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
-                  z_transition_mean, z_transition_logvar, beta=1.0):
-    """
-    Compute the total loss for a variational autoencoder (VAE) with a weighted 
-    reconstruction loss and a Kullback-Leibler (KL) divergence term.
 
-    Parameters:
-    -----------
-    x : torch.Tensor
-        Ground truth data with shape (seq_len, batch_size, x_dim).
-    x_hat : torch.Tensor
-        Reconstructed data from the VAE with shape
-        (seq_len, batch_size, x_dim).
-    x_hat_logvar : torch.Tensor
-        Log variance of the reconstructed data with shape
-        (seq_len, batch_size, x_dim).
-    z_mean : torch.Tensor
-        Mean of the latent variable distribution with shape 
-        (seq_len, batch_size, x_dim).
-    z_logvar : torch.Tensor
-        Log variance of the latent variable distribution with shape 
-        (seq_len, batch_size, x_dim).
-    z_transition_mean : torch.Tensor
-        Mean of the transition distribution in the latent space with shape 
-        (seq_len, batch_size, x_dim).
-    z_transition_logvar : torch.Tensor
-        Log variance of the transition distribution in the latent space with 
-        shape (seq_len, batch_size, x_dim).
-    beta : float
-        Weighting factor for the KL divergence term.
-    loss_type : str
-        Type of reconstruction loss to use. Options:
-        - 'mse': Mean Squared Error (MSE) loss.
-        - 'weighted_mse': Weighted Mean Squared Error (MSE) loss.
+# VERSION PRECEDENTE DE LA LOSS  
+# def loss_function(x, x_hat, x_hat_logvar, z_mean, z_logvar,
+#                   z_transition_mean, z_transition_logvar, beta=1.0):
+#     """
+#     Compute the total loss for a variational autoencoder (VAE) with a weighted 
+#     reconstruction loss and a Kullback-Leibler (KL) divergence term.
 
-    Returns:
-    --------
-    total_loss : torch.Tensor
-        The total loss, which is the sum of the reconstruction loss and the 
-        KL divergence loss.
+#     Parameters:
+#     -----------
+#     x : torch.Tensor
+#         Ground truth data with shape (seq_len, batch_size, x_dim).
+#     x_hat : torch.Tensor
+#         Reconstructed data from the VAE with shape
+#         (seq_len, batch_size, x_dim).
+#     x_hat_logvar : torch.Tensor
+#         Log variance of the reconstructed data with shape
+#         (seq_len, batch_size, x_dim).
+#     z_mean : torch.Tensor
+#         Mean of the latent variable distribution with shape 
+#         (seq_len, batch_size, x_dim).
+#     z_logvar : torch.Tensor
+#         Log variance of the latent variable distribution with shape 
+#         (seq_len, batch_size, x_dim).
+#     z_transition_mean : torch.Tensor
+#         Mean of the transition distribution in the latent space with shape 
+#         (seq_len, batch_size, x_dim).
+#     z_transition_logvar : torch.Tensor
+#         Log variance of the transition distribution in the latent space with 
+#         shape (seq_len, batch_size, x_dim).
+#     beta : float
+#         Weighting factor for the KL divergence term.
+#     loss_type : str
+#         Type of reconstruction loss to use. Options:
+#         - 'mse': Mean Squared Error (MSE) loss.
+#         - 'weighted_mse': Weighted Mean Squared Error (MSE) loss.
 
-    Notes:
-    ------
-    - The "reconstruction loss" is based on formula above
-    - The KL divergence loss measures the difference between the latent
-      variable distribution and the transition distribution in the latent space.
-    - Both losses are normalized by the sequence length (`seq_len`) and
-      averaged over the batch.
-    - The total loss is a combination of the reconstruction loss and the 
-      KL divergence loss, weighted by the `beta` parameter.
-    """
+#     Returns:
+#     --------
+#     total_loss : torch.Tensor
+#         The total loss, which is the sum of the reconstruction loss and the 
+#         KL divergence loss.
+
+#     Notes:
+#     ------
+#     - The "reconstruction loss" is based on formula above
+#     - The KL divergence loss measures the difference between the latent
+#       variable distribution and the transition distribution in the latent space.
+#     - Both losses are normalized by the sequence length (`seq_len`) and
+#       averaged over the batch.
+#     - The total loss is a combination of the reconstruction loss and the 
+#       KL divergence loss, weighted by the `beta` parameter.
+#     """
     
-    seq_len, batch_size, x_dim = x.shape
+#     seq_len, batch_size, x_dim = x.shape
     
-    # Compute the reconstruction loss
-    var = x_hat_logvar.exp()
-    loss = torch.div((x - x_hat)**2, var)
+#     # Compute the reconstruction loss
+#     var = x_hat_logvar.exp()
+#     loss = torch.div((x - x_hat)**2, var)
             
-    loss += x_hat_logvar
-    loss = loss.sum(dim=2)  # Sum over the x_dim
-    loss = loss.sum(dim=0)  # Sum over the sequence length
-    loss = loss.mean()  # Mean over the batch
-    reconstruction_loss = loss / seq_len
+#     loss += x_hat_logvar
+#     loss = loss.sum(dim=2)  # Sum over the x_dim
+#     loss = loss.sum(dim=0)  # Sum over the sequence length
+#     loss = loss.mean()  # Mean over the batch
+#     reconstruction_loss = loss / seq_len
            
-    # Compute the KL divergence loss
-    kl_loss = (z_transition_logvar - z_logvar +
-               torch.div((z_logvar.exp() + 
-                         (z_transition_mean - z_mean).pow(2)),
-                         z_transition_logvar.exp()))
+#     # Compute the KL divergence loss
+#     kl_loss = (z_transition_logvar - z_logvar +
+#                torch.div((z_logvar.exp() + 
+#                          (z_transition_mean - z_mean).pow(2)),
+#                          z_transition_logvar.exp()))
     
-    kl_loss = kl_loss.sum(dim=2)  # Sum over the z_dim
-    kl_loss = kl_loss.sum(dim=0)  # Sum over the sequence length
-    kl_loss = kl_loss.mean()  # Mean over the batch
-    kl_loss = kl_loss / seq_len
+#     kl_loss = kl_loss.sum(dim=2)  # Sum over the z_dim
+#     kl_loss = kl_loss.sum(dim=0)  # Sum over the sequence length
+#     kl_loss = kl_loss.mean()  # Mean over the batch
+#     kl_loss = kl_loss / seq_len
                 
-    # Combine the reconstruction loss and the KL divergence loss
-    total_loss = reconstruction_loss + beta * kl_loss
+#     # Combine the reconstruction loss and the KL divergence loss
+#     total_loss = reconstruction_loss + beta * kl_loss
     
-    return reconstruction_loss, kl_loss, total_loss
+#     return reconstruction_loss, kl_loss, total_loss
+
+def loss_function(x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t, beta=None):
+    """
+    Version 2.0 of the loss function for the Deep Kalman Filter.
+    All distributions parameters are assumed to have been computed from K samples of each z_t.
+    The K samples are used to compute the expectations within the loss function.
+
+    Args:
+        x_t (tensor): the original input sequence - shape (seq_len, batch_size, x_dim)
+
+        mu_x_t (tensor): the mean of the distribution of the observed variable - shape (seq_len, batch_size, x_dim, K)
+        logvar_x_t (tensor): the log of the variance of the distribution of the observed variable - shape (seq_len, batch_size, x_dim, K)
+        mu_phi_z_t (tensor): the mean of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch_size, x_dim, K)
+        logvar_phi_z_t (tensor): the log of the variance of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch_size, x_dim, K)
+        mu_theta_z_t (tensor): the mean of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch_size, x_dim, K)
+        logvar_theta_z_t (tensor): the log of the variance of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch_size, x_dim, K)
+
+        beta (float, optional): the weight of the KL divergence term in the loss function. Defaults to None.
+        
+    Returns:
+        rec_loss (tensor): the reconstruction loss - shape (1,)
+        kl_loss (tensor): the KL divergence loss - shape (1,)
+        total_loss (tensor): the total loss - shape (1,)
+    """
+    
+    seq_len, batch_size, x_dim = x_t.shape
+    
+    # choose beta
+    if beta is None:
+        beta = 1.0
+        
+    # check whether there is a K dimension or not, add K=1 if none given
+    if mu_x_t.dim() == 3:
+        K = 1
+        mu_x_t = mu_x_t.unsqueeze(-1)
+        logvar_x_t = logvar_x_t.unsqueeze(-1)
+        mu_phi_z_t = mu_phi_z_t.unsqueeze(-1)
+        logvar_phi_z_t = logvar_phi_z_t.unsqueeze(-1)
+        mu_theta_z_t = mu_theta_z_t.unsqueeze(-1)
+        logvar_theta_z_t = logvar_theta_z_t.unsqueeze(-1)
+    else:
+        K = mu_x_t.shape[-1]
+        
+    z_dim = mu_phi_z_t.shape[-2]
+        
+    # compute the expectation of the reconstruction loss with K samples
+    
+    x_t_extended = x_t.unsqueeze(-1)  # (seq_len, batch_size, x_dim, K)
+    var_x = logvar_x_t.exp() # (seq_len, batch_size, x_dim, K)
+    
+    rec_loss = torch.div((x_t_extended - mu_x_t)**2, var_x)  # (seq_len, batch_size, x_dim, K) - x_t_extended is broadcasted along last axis
+    rec_loss += logvar_x_t # (seq_len, batch_size, x_dim, K)
+    
+    rec_loss = torch.mean(rec_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, x_dim)
+    rec_loss = torch.sum(rec_loss, dim=2)  # Sum over the x_dim - (seq_len, batch_size)
+    rec_loss = torch.sum(rec_loss, dim=0)  # Sum over the sequence length - (batch_size)
+    rec_loss = torch.mean(rec_loss)  # Mean over the batch - ()
+    
+    rec_loss = 1/2 * (rec_loss / seq_len)
+    
+    # compute the expectation of the KL divergence loss with K samples
+    
+    kl_loss = logvar_theta_z_t - logvar_phi_z_t  # (seq_len, batch_size, z_dim, K)
+    kl_loss += torch.div(logvar_phi_z_t.exp(), logvar_theta_z_t.exp()) # (seq_len, batch_size, z_dim, K)
+    kl_loss += torch.div((mu_theta_z_t - mu_phi_z_t).pow(2), logvar_theta_z_t.exp())
+    # kl_loss -= z_dim # shape (seq_len, batch_size, z_dim, K)
+       
+    kl_loss = torch.mean(kl_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, z_dim)
+    kl_loss = torch.sum(kl_loss, dim=2)  # Sum over the z_dim - (seq_len, batch_size)
+    kl_loss = torch.sum(kl_loss, dim=0)  # Sum over the sequence length - (batch_size)
+    kl_loss = torch.mean(kl_loss)  # Mean over the batch
+    
+    kl_loss = 1/2 * kl_loss / seq_len
+    
+    return rec_loss, kl_loss, rec_loss + beta * kl_loss
+    
