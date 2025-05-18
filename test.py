@@ -3,61 +3,118 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from tests.unit_tests import test_brick_1, test_brick_2, test_brick_3, test_brick_4, test_brick_5, test_brick_6
-from libs.dkf import DeepKalmanFilter, loss_function
+from libs.vrnn_lib import BidLSTM, ForwardLSTM, EncoderMLP, LatentStateTransitionMLP, DecoderMLP
+
     
 if __name__ == "__main__":
-    # # Run the test for brick 1
-    # print("\nTesting brick 1: Backward LSTM")
-    # test_brick_1()
+
+    print(f"Running Tests")
     
-    # # Run the test for brick 2
-    # print("\nTesting brick 2: Combiner")
-    # test_brick_2()
+    # # Test 1
+    # seq_len = 50
+    # batch_size = 32
+    # x_dim = 10
+    # h_dim = 20
     
-    # # Run the test for brick 3
-    # print("\nTesting brick 3: Encoder")
-    # test_brick_3()
+    # bd = BidLSTM(input_size=x_dim, hidden_size=h_dim, num_layers=2)
+   
+    # x = torch.randn(seq_len, batch_size, x_dim)
     
-    # # Run the test for brick 4
-    # print("\nTesting brick 4: Transition Model")
-    # test_brick_4()
+    # out_f, out_b = bd(x)
     
-    # Run the test for brick 5
-    # print("\nTesting brick 5: Decoder")
-    # test_brick_5()
+    # print(f"Output shape: {out_f.shape}, {out_b.shape}")
+    # # Check if the output shapes are correct
     
-    # # Run the test for brick 6
-    # print("\nTesting brick 6: Sampler")
-    # test_brick_6()
+    # assert out_f.shape == (seq_len, batch_size, h_dim)
+    # assert out_b.shape == (seq_len, batch_size, h_dim)
     
-    xdim = 1
-    zdim = 8
-    hdim = 16
-    gdim = 2
-    num_layers = 2
-    layer_dim = [128, 128, 64, 32]
+    # # test 2
+    # print(bd)
     
-    dkf = DeepKalmanFilter(
-        input_dim = xdim,
-        latent_dim = zdim,
-        hidden_dim = hdim,
-        combiner_dim = gdim,
-        num_layers = num_layers
+    # # test 3
+    # z_dim = 8
+    # fl = ForwardLSTM(input_size=z_dim, hidden_size=h_dim, num_layers=2)
+    
+    # z = torch.randn(seq_len, batch_size, z_dim)
+    # out = fl(z)
+    
+    # print(f"output shape: {out.shape}")
+    # # Check if the output shape is correct
+    # assert out.shape == (seq_len, batch_size, h_dim)
+    
+    # print(fl)
+    
+    # # Test Encoder
+    
+    # z_dim = 8
+    # rnn_z_hidden_dim = 16
+    # rnn_x_hidden_dim = 32
+    # layers_dim = [128,128,128]
+    # batch_size = 4
+    # seq_len = 50
+    # K = 3
+    
+    # enc = EncoderMLP(
+    #     z_dim=z_dim,
+    #     rnn_z_hidden_dim=rnn_z_hidden_dim,
+    #     rnn_x_hidden_dim=rnn_x_hidden_dim,
+    #     layers_dim=layers_dim
+    # )
+    # print(enc)
+    
+    # h = torch.randn(batch_size, rnn_z_hidden_dim, K)
+    # g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
+    # g_bwd = torch.randn(batch_size, rnn_x_hidden_dim)
+    
+    # mu, logvar = enc(h, g_fwd, g_bwd)
+    # print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
+    
+    # Test Latent State Transition
+    
+    # z_dim = 8
+    # rnn_z_hidden_dim = 16
+    # rnn_x_hidden_dim = 32
+    # layers_dim = [128,128,128]
+    # batch_size = 4
+    # seq_len = 50
+    # K = 3
+    
+    # lst = LatentStateTransitionMLP(
+    #     z_dim=z_dim,
+    #     rnn_z_hidden_dim=rnn_z_hidden_dim,
+    #     rnn_x_hidden_dim=rnn_x_hidden_dim,
+    #     layers_dim=layers_dim
+    # )
+    # print(lst)
+    
+    # h = torch.randn(batch_size, rnn_z_hidden_dim, K)
+    # g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
+    
+    # mu, logvar = lst(h, g_fwd)
+    # print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
+    
+    
+        # Test Latent State Transition
+    
+    x_dim = 2
+    rnn_z_hidden_dim = 16
+    rnn_x_hidden_dim = 32
+    layers_dim = [128,128,128]
+    batch_size = 4
+    seq_len = 50
+    K = 3
+    
+    dec = DecoderMLP(
+        x_dim=x_dim,
+        rnn_z_hidden_dim=rnn_z_hidden_dim,
+        rnn_x_hidden_dim=rnn_x_hidden_dim,
+        layers_dim=layers_dim
     )
+    print(dec)
     
-    seq_len = 10
-    batch_size = 32
+    h = torch.randn(batch_size, rnn_z_hidden_dim, K)
+    g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
     
-    # Create a random input tensor
-    x = torch.randn(seq_len, batch_size, xdim)
+    mu, logvar = dec(h, g_fwd)
+    print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
     
-    # test dkf
-    x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = dkf(x)
-    
-    # test loss function
-    reconstruction_loss, kl_loss, total_loss = loss_function(x, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s, beta=1.0, loss_type='mse')
-    
-    print("Reconstruction Loss:", reconstruction_loss.item())
-    print("KL Loss:", kl_loss.item())
-    print("Total Loss:", total_loss.item())
