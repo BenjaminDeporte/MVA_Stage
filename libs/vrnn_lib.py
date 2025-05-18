@@ -65,10 +65,10 @@ class BidLSTM(nn.Module):
     Bidirectionnal LSTM module.
     
     Creates a bidirectional LSTM, with num_layers layers, hidden state
-    of dimension hidden_x_dim, and input of dimension input_size.
+    of dimension rnn_x_hidden_dim, and input of dimension input_size.
     The LSTM is used to process the input sequence in forward and backward order.
     """
-    def __init__(self, input_size, hidden_size, num_layers=None):
+    def __init__(self, input_size, rnn_x_hidden_size, num_layers=None):
         super(BidLSTM, self).__init__()
         
         self.input_size = input_size
@@ -76,11 +76,11 @@ class BidLSTM(nn.Module):
             self.num_layers = 1
         else:
             self.num_layers = num_layers
-        self.hidden_size = hidden_size
+        self.rnn_x_hidden_size = rnn_x_hidden_size
         
         self.lstm = nn.LSTM(
             input_size,   # dimension of the observation space
-            hidden_size,  # dimension of the hidden state of the LSTM network
+            rnn_x_hidden_size,  # dimension of the hidden state of the LSTM network
             num_layers=num_layers, # number of layers of the LSTM network
             batch_first=False, # using the default PyTorch LSTM implementation, expecting input shape (seq_len, batch, input_size)
             bidirectional=True # bidirectional LSTM here
@@ -92,7 +92,7 @@ class BidLSTM(nn.Module):
         
         Args:
             x: input sequence
-            shape (seq_len, batch, input_size)  - ASSUMING BATCH SECOND
+            shape (seq_len, batch, input_size)  - ASSUMING BATCH SECOND !
         Returns:
             g_fwd: output forward sequence - shape (seq_len, batch, hidden_size) - g_fwd[t] encodes x_{1:t}
             g_bwd: output backward sequence - shape (seq_len, batch, hidden_size) - g_bwd[t] encodes x_{t:T}
@@ -105,7 +105,7 @@ class BidLSTM(nn.Module):
         out, _ = self.lstm(x) # shape (seq_len, batch, hidden_size * 2)
         
         # Split the output sequence in fwd and bwd halves
-        g_fwd, g_bwd = out[:, :, :self.hidden_size], out[:, :, self.hidden_size:]
+        g_fwd, g_bwd = out[:, :, :self.rnn_x_hidden_size], out[:, :, self.rnn_x_hidden_size:]
         
         # return output shape (seq_len, batch, hidden_size) x 2
         # g_fwd : forward LSTM output
@@ -114,7 +114,7 @@ class BidLSTM(nn.Module):
         return g_fwd, g_bwd
     
     def __repr__(self):
-        msg = f"Bidirectional LSTM (input_size={self.input_size}, hidden_size={self.hidden_size}, num_layers={self.num_layers})"
+        msg = f"Bidirectional LSTM (input_size={self.input_size}, hidden_size={self.rnn_x_hidden_size}, num_layers={self.num_layers})"
         return msg
     
 #--- brick 2 : Forward LSTM for latent variable z_t -------------
@@ -124,11 +124,11 @@ class ForwardLSTM(nn.Module):
     Forward LSTM module.
     
     Creates a forward LSTM, with num_layers layers, hidden state
-    of dimension hidden_z_dim, and input of dimension input_size.
+    of dimension rnn_z_hidden_dim, and input of dimension input_size.
     The LSTM is used to process the input sequence of (sampled)
     latent variables in forward order.
     """
-    def __init__(self, input_size, hidden_size, num_layers=None):
+    def __init__(self, input_size, rnn_z_hidden_size, num_layers=None):
         super(ForwardLSTM, self).__init__()
         
         self.input_size = input_size
@@ -136,11 +136,11 @@ class ForwardLSTM(nn.Module):
             self.num_layers = 1
         else:
             self.num_layers = num_layers
-        self.hidden_size = hidden_size
+        self.rnn_z_hidden_size = rnn_z_hidden_size
         
         self.lstm = nn.LSTM(
             input_size,   # dimension of the observation space
-            hidden_size,  # dimension of the hidden state of the LSTM network
+            rnn_z_hidden_size,  # dimension of the hidden state of the LSTM network
             num_layers=num_layers, # number of layers of the LSTM network
             batch_first=False, # using the default PyTorch LSTM implementation, expecting input shape (seq_len, batch, input_size)
             bidirectional=False # unidirectional LSTM here
@@ -168,7 +168,7 @@ class ForwardLSTM(nn.Module):
         return h
     
     def __repr__(self):
-        msg = f"Forward LSTM (input_size={self.input_size}, hidden_size={self.hidden_size}, num_layers={self.num_layers})"
+        msg = f"Forward LSTM (input_size={self.input_size}, hidden_size={self.rnn_z_hidden_size}, num_layers={self.num_layers})"
         return msg
 
     
@@ -181,7 +181,7 @@ class ForwardLSTM(nn.Module):
 #
 
 class EncoderMLP(nn.Module):
-    """Encoder module. 
+    """Encoder module. q_phi.
     
     Computes the parameters of the approximate posterior
     distribution of the latent variable at time t.
@@ -190,10 +190,10 @@ class EncoderMLP(nn.Module):
     and the log of the variance.
     
     The input variables of the encoder are:
-    - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (seq_len x batch_size x hidden_RNN_z x K)
-    NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-    - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (seq_len x batch_size x hidden_RNN_x)
-    - the tensor g_bwd of the Bidirectional LSTM for observations x_t. g_bwd_t encodes x_{t:T} - shape (seq_len x batch_size x hidden_RNN_x)
+    - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
+    NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
+    - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+    - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
     """
     
     default_num_units = 16 # Default dimension of the intermediate layers if no architecture provided
@@ -209,10 +209,10 @@ class EncoderMLP(nn.Module):
     ):
         """Creates the encoder module.
         This is a MLP, that takes as input:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
-            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. g_bwd_t encodes x_{t:T} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
+            NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
 
         The input dimension is hidden_rnn_z_dim + 2 * hidden_rnn_x_dim.
         
@@ -270,10 +270,10 @@ class EncoderMLP(nn.Module):
         Forward pass of the encoder module.
         
         Takes as inputs:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
-            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. g_bwd_t encodes x_{t:T} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (seq_len x batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
+            NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (seq_len x batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (seq_len x batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
 
         The input dimension is hidden_rnn_z_dim + 2 * hidden_rnn_x_dim.
         
