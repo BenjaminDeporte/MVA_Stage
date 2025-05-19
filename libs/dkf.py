@@ -745,7 +745,7 @@ class DeepKalmanFilter(nn.Module):
             num_steps (int): Number of future steps to predict.
 
         Returns:
-            predicitons (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
             containing the predicted future steps.
             full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
             containing the reconstrcuted input sequence and the predicted future steps.

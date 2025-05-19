@@ -872,6 +872,7 @@ class VRNN(nn.Module):
                 g_fwd_t_minus_1 = g_fwd[seq_len + s-1,:,:] # shape (batch_size, rnn_x_hidden_dim)
                 
                 # predict parameters of z_t at the current time step
+                # NB : SAMPLE from the distribution, do not use the mean !
                 mu_theta_z, logvar_theta_z = self.latent_state_transition(h_t_minus_1, g_fwd_t_minus_1)
                 mu_full_theta_z[seq_len + s], logvar_full_theta_z[seq_len + s] = mu_theta_z, logvar_theta_z
                 
