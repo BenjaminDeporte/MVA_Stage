@@ -671,7 +671,7 @@ class VRNN(nn.Module):
             activation=self.activation,
         )        
             
-        self.latent_space_transition = LatentStateTransitionMLP(
+        self.latent_state_transition = LatentStateTransitionMLP(
             z_dim = self.latent_dim,
             rnn_z_hidden_dim = self.rnn_z_hidden_dim,
             rnn_x_hidden_dim = self.rnn_x_hidden_dim,
@@ -697,7 +697,7 @@ class VRNN(nn.Module):
         msg += f"\n{self.observation_lstm}"
         msg += f"\n{self.latent_lstm}"
         msg += f"\n{self.encoder}"
-        msg += f"\n{self.latent_space_transition}"
+        msg += f"\n{self.latent_state_transition}"
         msg += f"\n{self.decoder}"
         msg += f"\n{self.sampler}"
         
@@ -784,25 +784,25 @@ class VRNN(nn.Module):
                 # at time t=0, we use the initial value z_0=0
                 h_t = self.latent_lstm(z0) # shape (seq_len, batch_size, rnn_z_hidden_dim)
                 h_t_minus_1 = h_t[0,:,:] # shape (batch_size, rnn_z_hidden_dim)
-                g_fwd_t_minus_1 = g0 # shape (1, batch_size, rnn_x_hidden_dim)
+                g_fwd_t_minus_1 = g0.squeeze(0) # shape (batch_size, rnn_x_hidden_dim)
             else:
                 # when t>=1, we run the whole sequence of sampled latent variables
                 # into the latent state LSTM to get the hidden state h[t-1]
                 # h_t = self.latent_lstm(sampled_z_t) has been done at the end of the previous loop
-                h_t_minus_1 = h_t[t-1,:,:] # shape (1, batch_size, rnn_z_hidden_dim)
-                g_fwd_t_minus_1 = g_fwd[t-1,:,:] # shape (1, batch_size, rnn_x_hidden_dim)
+                h_t_minus_1 = h_t[t-1,:,:] # shape (batch_size, rnn_z_hidden_dim)
+                g_fwd_t_minus_1 = g_fwd[t-1,:,:] # shape (batch_size, rnn_x_hidden_dim)
                 
             # step 2.2 : ENCODER : h[t-1] and g_fwd[t-1], g_bwd[t] are passed through the encoder module
-            mu_phi, logvar_phi = self.encoder(h_t_minus_1.squeeze(), g_fwd_t_minus_1.squeeze(), g_bwd[t,:,:])
+            mu_phi, logvar_phi = self.encoder(h_t_minus_1, g_fwd_t_minus_1, g_bwd[t,:,:])
             mu_phi_z_t[t], logvar_phi_z_t[t] = mu_phi, logvar_phi
             
             # step 2.3 : TRANSITION PRIOR : h[t-1] and g_fwd[t-1] are passed through the transition module
-            mu_theta_z, logvar_theta_z = self.latent_space_transition(h_t_minus_1.squeeze(), g_fwd_t_minus_1.squeeze())
+            mu_theta_z, logvar_theta_z = self.latent_state_transition(h_t_minus_1, g_fwd_t_minus_1)
             mu_theta_z_t[t], logvar_theta_z_t[t] = mu_theta_z, logvar_theta_z
             
             # step 2.4 : sample z_t from the approximate posterior distribution
-            # NB : here, cloning is used to avoid in-place operation, breaking the computation graph
-            # and raising a runtime error when computing the gradients
+            # NB : here, cloning is used to avoid in-place operation, that would break the computation graph
+            # and raise a runtime error when computing the gradients !
             temp = sampled_z_t.clone()
             temp[t,:,:] = self.sampler(mu_phi, logvar_phi)
             sampled_z_t = temp
@@ -811,7 +811,7 @@ class VRNN(nn.Module):
             h_t = self.latent_lstm(sampled_z_t) # ( seq_len, batch_size, rnn_z_hidden_dim)
             
             # step 2.6 : DECODER : h[t] and g_fwd[t-1] are passed through the decoder module
-            mu_x, logvar_x = self.decoder(h_t[t,:,:].squeeze(), g_fwd_t_minus_1.squeeze())
+            mu_x, logvar_x = self.decoder(h_t[t,:,:], g_fwd_t_minus_1)
             mu_x_t[t], logvar_x_t[t] = mu_x, logvar_x
                                    
         # return the outputs
@@ -819,68 +819,74 @@ class VRNN(nn.Module):
     
 
     
-#     def predict(self, x, num_steps):
-#         """
-#         Predicts future steps based on the input sequence.
+    def predict(self, x, num_steps):
+        """
+        Predicts future steps based on the input sequence.
 
-#         Args:
-#             x_t (torch.Tensor): Input tensor of shape (seq_len, batch_size, x_dim).
-#             num_steps (int): Number of future steps to predict.
+        Args:
+            x_t (torch.Tensor): Input tensor of shape (seq_len, batch_size, x_dim).
+            num_steps (int): Number of future steps to predict.
 
-#         Returns:
-#             mu_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
-#             containing the means of the predicted observations at future steps.
-#             logvar_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
-#             containing the log variances of the predicted observations at future steps.
+        Returns:
+            mu_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            containing the means of the predicted observations at future steps.
+            logvar_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            containing the log variances of the predicted observations at future steps.
             
-#             mu_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
-#             containing the reconstructed input sequence and the means of the predicted future steps.
-#             logvar_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
-#             containing the log variances of the reconstructed input sequence and the predicted future steps.
-#         """
+            mu_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
+            containing the reconstructed input sequence and the means of the predicted future steps.
+            logvar_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
+            containing the log variances of the reconstructed input sequence and the predicted future steps.
+        """
         
-#         with torch.no_grad():
+        with torch.no_grad():
             
-#             # get hyperparameters
-#             seq_len, batch_size, input_dim = x.shape
-#             assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
+            # get hyperparameters
+            seq_len, batch_size, input_dim = x.shape
+            assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
             
-#             # run an inference forward pass to get the parameters of the observation distribution,
-#             # the approximate posterior distribution of the latent variable,
-#             # and the transition distribution of the latent variable            
-#             x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t = self.forward(x)
-            
-            
-#             # use mu_x_t as the first known values of reconstructed x
-#             x_hat = mu_x_t
-            
-#             # Then, start with the last inferred latent state
-#             z_pred = mu_phi_z_t[-1:, :, :]
+            # run an inference forward pass to get the parameters of the observation distribution,
+            # and the transition distribution of the latent variable
+            x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t = self.forward(x)
 
-#             # Start to predict x at the end of the given sequence
-#             mu_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
-#             logvar_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            # Initialize predictions
+            mu_x_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            logvar_x_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            mu_theta_z_predictions = torch.zeros(num_steps, batch_size, self.latent_dim).to(self.device)
+            logvar_theta_z_predictions = torch.zeros(num_steps, batch_size, self.latent_dim).to(self.device)
             
-#             for s in range(num_steps):
-#                 # Get the parameters (mean and variance) of the transition
-#                 # distribution p(z_t|z_{t-1})
-#                 z_pred_mean, z_pred_logvar = self.latent_space_transition(z_pred)
-
-#                 # Sample from p(z_t|z_{t-1}) distribution
-#                 z_pred = self.sampler(z_pred_mean, z_pred_logvar)
+            # Initialize the whole sequence (input + predictions)
+            mu_full_x = torch.cat([mu_x_t, mu_x_predictions], dim=0)
+            logvar_full_x = torch.cat([logvar_x_t, logvar_x_predictions], dim=0)
+            mu_full_theta_z = torch.cat([mu_theta_z_t, mu_theta_z_predictions], dim=0)
+            logvar_full_theta_z = torch.cat([logvar_theta_z_t, logvar_theta_z_predictions], dim=0)
+            
+            # compute predicted z_t and x_t with autoregression
+            for s in range(num_steps):
                 
-#                 # get the parameters of the predicted observation distribution
-#                 mu_x_pred, logvar_x_pred = self.decoder(z_pred)
+                # first, compute h[t-1] with the last sampled latent variable
+                h_t = self.latent_lstm(mu_full_theta_z) # shape (seq_len + num_steps, batch_size, rnn_z_hidden_dim)
+                h_t_minus_1 = h_t[seq_len + s-1,:,:] # shape (batch_size, rnn_z_hidden_dim)
+                # second, get the g_fwd[t-1] from the observation LSTM
+                g_fwd, _ = self.observation_lstm(mu_full_x) # shape (seq_len + num_steps, batch_size, rnn_x_hidden_dim)
+                g_fwd_t_minus_1 = g_fwd[seq_len + s-1,:,:] # shape (batch_size, rnn_x_hidden_dim)
                 
-#                 # store those parameters
-#                 mu_predictions[s,:,:] = mu_x_pred
-#                 logvar_predictions[s,:,:] = logvar_x_pred
-
-#         # Append predictions to the reconstructed x
-#         mu_full_x = torch.cat([x_hat, mu_predictions], dim=0)
-#         logvar_full_x = torch.cat([logvar_x_t, logvar_predictions], dim=0)
+                # predict parameters of z_t at the current time step
+                mu_theta_z, logvar_theta_z = self.latent_state_transition(h_t_minus_1, g_fwd_t_minus_1)
+                mu_full_theta_z[seq_len + s], logvar_full_theta_z[seq_len + s] = mu_theta_z, logvar_theta_z
+                
+                # update h_t with the predicted z_t
+                h_t = self.latent_lstm(mu_full_theta_z) # shape (seq_len + num_steps, batch_size, rnn_z_hidden_dim)
+                # get the parameters of the predicted observation distribution
+                mu_x_pred, logvar_x_pred = self.decoder(h_t[seq_len + s,:,:], g_fwd_t_minus_1)
+                
+                # store those parameters
+                mu_x_predictions[s,:,:] = mu_x_pred
+                mu_full_x[seq_len + s,:,:] = mu_x_pred
+                logvar_x_predictions[s,:,:] = logvar_x_pred
+                logvar_full_x[seq_len + s,:,:] = logvar_x_pred
         
-#         return mu_predictions, logvar_predictions, mu_full_x, logvar_full_x
+        return mu_x_predictions, logvar_x_predictions, mu_full_x, logvar_full_x
 
 
 
@@ -1316,46 +1322,46 @@ def plot_losses(rec_losses, kl_losses, epoch_losses, val_rec_losses, val_kl_loss
     
     
     
-# #----------------------------------------------------------------------
-# #
-# #  Sampling predictions
-# #
-# #----------------------------------------------------------------------
+#----------------------------------------------------------------------
+#
+#  Sampling predictions
+#
+#----------------------------------------------------------------------
 
 
-# def sample_predictions(N_SAMPLES=3, model=None, X_valid=None, y_valid=None, n_steps=None, n_ahead=None, device=None):
+def sample_predictions(N_SAMPLES=3, model=None, X_valid=None, y_valid=None, n_steps=None, n_ahead=None, device=None):
     
-#     idx = np.random.randint(0, len(X_valid), N_SAMPLES)
-#     X_valid_subset = X_valid[idx]
-#     y_valid_subset = y_valid[idx]
+    idx = np.random.randint(0, len(X_valid), N_SAMPLES)
+    X_valid_subset = X_valid[idx]
+    y_valid_subset = y_valid[idx]
     
-#     fig, axs = plt.subplots(N_SAMPLES, 1, figsize=(16, 3 * N_SAMPLES))
-#     for i in range(N_SAMPLES):
-#         input = torch.tensor(X_valid_subset[i], device=device).unsqueeze(1).unsqueeze(2)
-#         # print(f"input shape : {input.shape}")
-#         target = torch.tensor(y_valid_subset[i], device=device)
-#         target = target.cpu().detach().numpy()
-#         mu_predictions, logvar_predictions, mu_full_x, logvar_full_x = model.predict(input, n_ahead)
+    fig, axs = plt.subplots(N_SAMPLES, 1, figsize=(16, 3 * N_SAMPLES))
+    for i in range(N_SAMPLES):
+        input = torch.tensor(X_valid_subset[i], device=device).unsqueeze(1).unsqueeze(2)
+        # print(f"input shape : {input.shape}")
+        target = torch.tensor(y_valid_subset[i], device=device)
+        target = target.cpu().detach().numpy()
+        mu_predictions, logvar_predictions, mu_full_x, logvar_full_x = model.predict(input, n_ahead)
               
-#         # display data
-#         axs[i].plot(input.squeeze().cpu().detach().numpy(), color='blue', marker=".", linewidth=1, label="input")
-#         axs[i].plot(np.arange(len(target))+n_steps, target, color='red', marker="o", linewidth=1, label="ground truth")
+        # display data
+        axs[i].plot(input.squeeze().cpu().detach().numpy(), color='blue', marker=".", linewidth=1, label="input")
+        axs[i].plot(np.arange(len(target))+n_steps, target, color='red', marker="o", linewidth=1, label="ground truth")
         
-#         # display predictions and credible intervals
-#         all_times = np.arange(n_steps+n_ahead)
-#         mu_full_x = mu_full_x.squeeze().cpu().detach().numpy()
-#         logvar_full_x = logvar_full_x.squeeze().cpu().detach().numpy()
-#         std_full_x = np.exp(logvar_full_x / 2)
+        # display predictions and credible intervals
+        all_times = np.arange(n_steps+n_ahead)
+        mu_full_x = mu_full_x.squeeze().cpu().detach().numpy()
+        logvar_full_x = logvar_full_x.squeeze().cpu().detach().numpy()
+        std_full_x = np.exp(logvar_full_x / 2)
         
-#         axs[i].scatter(all_times, mu_full_x, color='green', marker="x", linewidth=1, label="reconstructed and predicted")
-#         axs[i].fill_between(all_times, mu_full_x-2*std_full_x, mu_full_x+2*std_full_x, color='orange', label='+/- 2 std', alpha=0.2)
+        axs[i].scatter(all_times, mu_full_x, color='green', marker="x", linewidth=1, label="reconstructed and predicted")
+        axs[i].fill_between(all_times, mu_full_x-2*std_full_x, mu_full_x+2*std_full_x, color='orange', label='+/- 2 std', alpha=0.2)
         
-#         axs[i].set_title(f"Time series {idx[i]}")
-#         axs[i].set_xlabel("Time")
-#         axs[i].set_ylabel("Value")
-#         axs[i].legend()
-#         axs[i].grid(True)
+        axs[i].set_title(f"Time series {idx[i]}")
+        axs[i].set_xlabel("Time")
+        axs[i].set_ylabel("Value")
+        axs[i].legend()
+        axs[i].grid(True)
         
-#     plt.tight_layout()
-#     plt.show()
+    plt.tight_layout()
+    plt.show()
 

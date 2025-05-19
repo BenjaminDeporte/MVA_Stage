@@ -7,7 +7,7 @@ import numpy as np
 from libs.vrnn_lib import seed_everything, VRNN
 from libs.vrnn_lib import loss_function, train
 from libs.vrnn_lib import BetaLinearScheduler, BetaThresholdScheduler
-from libs.vrnn_lib import plot_losses # sample_predictions
+from libs.vrnn_lib import plot_losses, sample_predictions
 
 from libs.vrnn_lib import ObservationLSTM, LatentLSTM, EncoderMLP, LatentStateTransitionMLP, DecoderMLP, VRNN
 
@@ -267,3 +267,7 @@ if __name__ == "__main__":
         display_frequency=display_frequency, 
         K=K
     )
+    
+    n_ahead = 10
+    
+    sample_predictions(N_SAMPLES=3, model=vrnn, X_valid=X_valid, y_valid=y_valid, n_steps=n_steps, n_ahead=n_ahead, device=device)
