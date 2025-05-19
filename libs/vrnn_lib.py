@@ -60,7 +60,7 @@ def seed_everything(seed=42):
 
 #--- brick 1 : Bidirectionnal LSTM for observations x_t -------------
 
-class BidLSTM(nn.Module):
+class ObservationLSTM(nn.Module):
     """
     Bidirectionnal LSTM module.
     
@@ -69,19 +69,19 @@ class BidLSTM(nn.Module):
     The LSTM is used to process the input sequence in forward and backward order.
     """
     def __init__(self, input_size, rnn_x_hidden_size, num_layers=None):
-        super(BidLSTM, self).__init__()
+        super(ObservationLSTM, self).__init__()
         
-        self.input_size = input_size
+        self.input_size = int(input_size)
         if num_layers is None:
             self.num_layers = 1
         else:
-            self.num_layers = num_layers
-        self.rnn_x_hidden_size = rnn_x_hidden_size
+            self.num_layers = int(num_layers)
+        self.rnn_x_hidden_size = int(rnn_x_hidden_size)
         
         self.lstm = nn.LSTM(
-            input_size,   # dimension of the observation space
-            rnn_x_hidden_size,  # dimension of the hidden state of the LSTM network
-            num_layers=num_layers, # number of layers of the LSTM network
+            input_size = self.input_size,   # dimension of the observation space
+            hidden_size = self.rnn_x_hidden_size,  # dimension of the hidden state of the LSTM network
+            num_layers = self.num_layers, # number of layers of the LSTM network
             batch_first=False, # using the default PyTorch LSTM implementation, expecting input shape (seq_len, batch, input_size)
             bidirectional=True # bidirectional LSTM here
             )
@@ -114,14 +114,14 @@ class BidLSTM(nn.Module):
         return g_fwd, g_bwd
     
     def __repr__(self):
-        msg = f"Bidirectional LSTM (input_size={self.input_size}, hidden_size={self.rnn_x_hidden_size}, num_layers={self.num_layers})"
+        msg = f"Bidirectional LSTM (input_size={self.input_size}, rnn_x_hidden_size={self.rnn_x_hidden_size}, num_layers={self.num_layers})"
         return msg
     
 #--- brick 2 : Forward LSTM for latent variable z_t -------------
 
-class ForwardLSTM(nn.Module):
+class LatentLSTM(nn.Module):
     """
-    Forward LSTM module.
+    Forward LSTM module for latent variables.
     
     Creates a forward LSTM, with num_layers layers, hidden state
     of dimension rnn_z_hidden_dim, and input of dimension input_size.
@@ -129,19 +129,19 @@ class ForwardLSTM(nn.Module):
     latent variables in forward order.
     """
     def __init__(self, input_size, rnn_z_hidden_size, num_layers=None):
-        super(ForwardLSTM, self).__init__()
+        super(LatentLSTM, self).__init__()
         
-        self.input_size = input_size
+        self.input_size = int(input_size)
         if num_layers is None:
             self.num_layers = 1
         else:
-            self.num_layers = num_layers
-        self.rnn_z_hidden_size = rnn_z_hidden_size
+            self.num_layers = int(num_layers)
+        self.rnn_z_hidden_size = int(rnn_z_hidden_size)
         
         self.lstm = nn.LSTM(
-            input_size,   # dimension of the observation space
-            rnn_z_hidden_size,  # dimension of the hidden state of the LSTM network
-            num_layers=num_layers, # number of layers of the LSTM network
+            input_size = self.input_size,   # dimension of the observation space
+            hidden_size = self.rnn_z_hidden_size,  # dimension of the hidden state of the LSTM network
+            num_layers = self.num_layers, # number of layers of the LSTM network
             batch_first=False, # using the default PyTorch LSTM implementation, expecting input shape (seq_len, batch, input_size)
             bidirectional=False # unidirectional LSTM here
             )
@@ -155,7 +155,7 @@ class ForwardLSTM(nn.Module):
             shape (seq_len, batch, z_dim)
             
         Returns:
-            h: output sequence of hidden states. Hidden state out[t] encodes z_{1:t-1}
+            h: output sequence of hidden states. Hidden state out[t] encodes z_{1:t}
             shape (seq_len, batch, hidden_size)
         """
         
@@ -168,7 +168,7 @@ class ForwardLSTM(nn.Module):
         return h
     
     def __repr__(self):
-        msg = f"Forward LSTM (input_size={self.input_size}, hidden_size={self.rnn_z_hidden_size}, num_layers={self.num_layers})"
+        msg = f"Forward LSTM (input_size={self.input_size}, rnn_z_hidden_size={self.rnn_z_hidden_size}, num_layers={self.num_layers})"
         return msg
 
     
@@ -190,13 +190,13 @@ class EncoderMLP(nn.Module):
     and the log of the variance.
     
     The input variables of the encoder are:
-    - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
-    NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
-    - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
-    - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
+    - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. - shape (batch_size x hidden_RNN_z) - NB: h[t-1] encodes z[1:t-1] 
+    - the tensor g_fwd of the Bidirectional LSTM for observations x_t, at time t-1. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+    - the tensor g_bwd of the Bidirectional LSTM for observations x_t, at time t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
     """
     
     default_num_units = 16 # Default dimension of the intermediate layers if no architecture provided
+    default_num_layers = 2 # Default number of layers if no architecture provided
     
     def __init__(self, 
                  z_dim, # dimension of the latent space
@@ -209,10 +209,9 @@ class EncoderMLP(nn.Module):
     ):
         """Creates the encoder module.
         This is a MLP, that takes as input:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
-            NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
-            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. - shape (batch_size x hidden_RNN_z) - NB: h[t-1] encodes z[1:t-1] 
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t, at time t-1. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+            - the tensor g_bwd of the Bidirectional LSTM for observations x_t, at time t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
 
         The input dimension is hidden_rnn_z_dim + 2 * hidden_rnn_x_dim.
         
@@ -230,9 +229,9 @@ class EncoderMLP(nn.Module):
         """
         super(EncoderMLP, self).__init__()
         
-        self.z_dim = z_dim
-        self.rnn_z_hidden_dim = rnn_z_hidden_dim
-        self.rnn_x_hidden_dim = rnn_x_hidden_dim
+        self.z_dim = int(z_dim)
+        self.rnn_z_hidden_dim = int(rnn_z_hidden_dim)
+        self.rnn_x_hidden_dim = int(rnn_x_hidden_dim)
 
         # define activation
         if activation == 'tanh':
@@ -245,7 +244,7 @@ class EncoderMLP(nn.Module):
         # get architecture list ready
         if layers_dim is None:
             # if no architecture provided, create a MLP with 2 layers of default_num_units
-            self.layers_dim = [self.default_num_units] * 2
+            self.layers_dim = [self.default_num_units] * self.default_num_layers
         else:
             self.layers_dim = layers_dim
             
@@ -270,58 +269,37 @@ class EncoderMLP(nn.Module):
         Forward pass of the encoder module.
         
         Takes as inputs:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. - shape (seq_len x batch_size x hidden_RNN_z x K) - NB: h[t-1] encodes z[1:t-1] 
-            NB : the latent variables z_t are sampled K times, so the tensor h_t_minus_1 has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. - shape (seq_len x batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
-            - the tensor g_bwd of the Bidirectional LSTM for observations x_t. - shape (seq_len x batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. - shape (batch_size x hidden_RNN_z) - NB: h[t-1] encodes z[1:t-1] 
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t, at time t-1. - shape (batch_size x hidden_RNN_x) - NB: g_fwd[t-1] encodes x[1:t-1] 
+            - the tensor g_bwd of the Bidirectional LSTM for observations x_t, at time t. - shape (batch_size x hidden_RNN_x) - NB: g_bwd[t] encodes x[t:T]
 
         The input dimension is hidden_rnn_z_dim + 2 * hidden_rnn_x_dim.
         
         The output dimension is the 2 * dimension of the latent space (mean, and log variance).
 
         The encoder module is used sequentially, so there is no seq_len dimension.
+        
         The output is a tuple (mu, logvar), where mu is the mean of the approximate posterior distribution
         and logvar is the log of the variance of the approximate posterior distribution.
         
         Args:
-            h: tensor h at time t - shape (batch, rnn_z_hidden_dim, K)
-            g_fwd: tensor g_fwd at time t - shape (batch, rnn_x_hidden_dim)
+            h: tensor h at time t-1 - shape (batch, rnn_z_hidden_dim)
+            g_fwd: tensor g_fwd at time t-1 - shape (batch, rnn_x_hidden_dim)
             g_bwd: tensor g_bwd at time t - shape (batch, rnn_x_hidden_dim)
             
         Returns:
             mu: mean of the approximate posterior distribution
-            shape (batch, z_dim, K)
+            shape (batch, z_dim)
             logvar: log of the variance of the approximate posterior distribution
-            shape (batch, z_dim, K)
+            shape (batch, z_dim)
         """
-        
-        # check if h has a dimension "sample" equal to K
-        # if not, add one with K=1
-        if len(h.shape) == 2:
-            h = h.unsqueeze(2)
-            K=1
-        else:
-            K = h.shape[2]
-            
-        # dims
-        batch_size = h.shape[0]
-            
-        # Pass through MLP massaging the axis
-        #
-        # -- NB : hoping that the reshapes don't mess up the gradients
-        # -- test first with K=1...
-        #
-        #
-        g_fwd = g_fwd.unsqueeze(2).repeat(1,1,K) # clone g_fwd into K samples
-        g_bwd = g_bwd.unsqueeze(2).repeat(1,1,K) # clone g_bwd into K samples
-        input = torch.cat((h, g_fwd, g_bwd), dim=1) # shape (batch, rnn_z_hidden_dim + 2 * rnn_x_hidden_dim, K)
-        input = torch.reshape(input, (batch_size * K, self.rnn_z_hidden_dim + 2 * self.rnn_x_hidden_dim)) # shape (batch * K, rnn_z_hidden_dim + 2 * rnn_x_hidden_dim)
-        out = self.mlp(input) # shape (batch * K, 2 * self.z_dim)
-        out = torch.reshape(out, (batch_size, 2 * self.z_dim, K))
+                   
+        input = torch.cat((h, g_fwd, g_bwd), dim=1) # shape (batch, rnn_z_hidden_dim + 2 * rnn_x_hidden_dim)
+        out = self.mlp(input) # shape (batch, 2 * self.z_dim)
         
         # Split the output into mean and log variance
         # each with shape (batch, latent_dim)
-        mu, logvar = out[:, :self.z_dim, :], out[:, self.z_dim:, :]
+        mu, logvar = out[:, :self.z_dim], out[:, self.z_dim:]
         
         return mu, logvar
     
@@ -342,9 +320,8 @@ class LatentStateTransitionMLP(nn.Module):
     and the log of the variance.
     
     The input variables of the latent state transition MLP are:
-    - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (seq_len x batch_size x hidden_RNN_z x K)
-    NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-    - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (seq_len x batch_size x hidden_RNN_x)
+    - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. h[t-1] encodes z[1:t-1] - shape (batch_size x hidden_RNN_z)
+    - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
     """
     
     default_num_units = 16 # Default dimension of the intermediate layers if no architecture provided
@@ -360,9 +337,8 @@ class LatentStateTransitionMLP(nn.Module):
     ):
         """Creates the latent state transition module.
         This is a MLP, that takes as input:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. h[t-1] encodes z[1:t-1] - shape (batch_size x hidden_RNN_z)
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
 
         The input dimension is hidden_rnn_z_dim + hidden_rnn_x_dim.
         
@@ -420,55 +396,35 @@ class LatentStateTransitionMLP(nn.Module):
         Forward pass of the latent state transition module.
         
         Takes as inputs:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t-1. h[t-1] encodes z[1:t-1] - shape (batch_size x hidden_RNN_z)
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
 
         The input dimension is hidden_rnn_z_dim + hidden_rnn_x_dim.
         
         The output dimension is the 2 * dimension of the latent space (mean, and log variance).
 
         The latent state transition module is used sequentially, so there is no seq_len dimension.
+        
         The output is a tuple (mu, logvar), where mu is the mean of the approximate posterior distribution
         and logvar is the log of the variance of the approximate posterior distribution.
         
         Args:
-            h: tensor h at time t - shape (batch, rnn_z_hidden_dim, K)
-            g_fwd: tensor g_fwd at time t - shape (batch, rnn_x_hidden_dim)
+            h: tensor h at time t-1 - shape (batch, rnn_z_hidden_dim)
+            g_fwd: tensor g_fwd at time t-1 - shape (batch, rnn_x_hidden_dim)
             
         Returns:
             mu: mean of the approximate posterior distribution
-            shape (batch, z_dim, K)
+            shape (batch, z_dim)
             logvar: log of the variance of the approximate posterior distribution
-            shape (batch, z_dim, K)
+            shape (batch, z_dim)
         """
-        
-        # check if h has a dimension "sample" equal to K
-        # if not, add one with K=1
-        if len(h.shape) == 2:
-            h = h.unsqueeze(2)
-            K=1
-        else:
-            K = h.shape[2]
-            
-        # dims
-        batch_size = h.shape[0]
-            
-        # Pass through MLP massaging the axis
-        #
-        # -- NB : hoping that the reshapes don't mess up the gradients
-        # -- test first with K=1...
-        #
-        #
-        g_fwd = g_fwd.unsqueeze(2).repeat(1,1,K) # clone g_fwd into K samples
-        input = torch.cat((h, g_fwd), dim=1) # shape (batch, rnn_z_hidden_dim + rnn_x_hidden_dim, K)
-        input = torch.reshape(input, (batch_size * K, self.rnn_z_hidden_dim + self.rnn_x_hidden_dim)) # shape (batch * K, rnn_z_hidden_dim + rnn_x_hidden_dim)
-        out = self.mlp(input) # shape (batch * K, 2 * self.z_dim)
-        out = torch.reshape(out, (batch_size, 2 * self.z_dim, K))
+                   
+        input = torch.cat((h, g_fwd), dim=1) # shape (batch, rnn_z_hidden_dim + rnn_x_hidden_dim)
+        out = self.mlp(input) # shape (batch, 2 * self.z_dim)
         
         # Split the output into mean and log variance
         # each with shape (batch, latent_dim)
-        mu, logvar = out[:, :self.z_dim, :], out[:, self.z_dim:, :]
+        mu, logvar = out[:, :self.z_dim], out[:, self.z_dim:]
         
         return mu, logvar
     
@@ -490,13 +446,12 @@ class DecoderMLP(nn.Module):
     and the log of the variance.
     
     The input variables of the latent state transition MLP are:
-    - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (seq_len x batch_size x hidden_RNN_z x K)
-    NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-    - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (seq_len x batch_size x hidden_RNN_x)
-    - do we need z_t ?
+        - the tensor h of the Forward RNN for sampled latent variables z_t at time t. h[t] encodes z[1:t] - shape (batch_size x hidden_RNN_z)
+        - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
     """
     
     default_num_units = 16 # Default dimension of the intermediate layers if no architecture provided
+    default_num_layers = 2 # Default number of layers if no architecture provided
     
     def __init__(self, 
                 #  z_dim, # dimension of the latent space, unused.
@@ -509,9 +464,8 @@ class DecoderMLP(nn.Module):
     ):
         """Creates the decoder module.
         This is a MLP, that takes as input:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t. h[t] encodes z[1:t] - shape (batch_size x hidden_RNN_z)
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
 
         The input dimension is hidden_rnn_z_dim + hidden_rnn_x_dim.
         
@@ -529,9 +483,9 @@ class DecoderMLP(nn.Module):
         """
         super(DecoderMLP, self).__init__()
         
-        self.x_dim = x_dim
-        self.rnn_z_hidden_dim = rnn_z_hidden_dim
-        self.rnn_x_hidden_dim = rnn_x_hidden_dim
+        self.x_dim = int(x_dim)
+        self.rnn_z_hidden_dim = int(rnn_z_hidden_dim)
+        self.rnn_x_hidden_dim = int(rnn_x_hidden_dim)
 
         # define activation
         if activation == 'tanh':
@@ -544,7 +498,7 @@ class DecoderMLP(nn.Module):
         # get architecture list ready
         if layers_dim is None:
             # if no architecture provided, create a MLP with 2 layers of default_num_units
-            self.layers_dim = [self.default_num_units] * 2
+            self.layers_dim = [self.default_num_units] * self.default_num_layers
         else:
             self.layers_dim = layers_dim
             
@@ -569,55 +523,35 @@ class DecoderMLP(nn.Module):
         Forward pass of the decoder module.
         
         Takes as inputs:
-            - the tensor h of the Forward RNN for sampled latent variables z_t. h_t encodes z_{1:t} - shape (batch_size x rnn_z_hidden_dim x K)
-            NB : the latent variables z_t are sampled K times, so the tensor h_t has a last dimension of size K.
-            - the tensor g_fwd of the Bidirectional LSTM for observations x_t. g_fwd_t encodes x_{1:t} - shape (batch_size x rnn_x_hidden_dim)
+            - the tensor h of the Forward RNN for sampled latent variables z_t at time t. h[t] encodes z[1:t] - shape (batch_size x hidden_RNN_z)
+            - the tensor g_fwd of the Bidirectional LSTM for observations x_t at time t-1. g_fwd[t-1] encodes x[1:t-1] - shape (batch_size x hidden_RNN_x)
 
         The input dimension is hidden_rnn_z_dim + hidden_rnn_x_dim.
         
         The output dimension is the 2 * dimension of the observation space (mean, and log variance).
 
         The latent state transition module is used sequentially, so there is no seq_len dimension.
+        
         The output is a tuple (mu, logvar), where mu is the mean of the approximate posterior distribution
         and logvar is the log of the variance of the approximate posterior distribution.
         
         Args:
-            h: tensor h at time t - shape (batch, rnn_z_hidden_dim, K)
-            g_fwd: tensor g_fwd at time t - shape (batch, rnn_x_hidden_dim)
+            h: tensor h at time t - shape (batch, rnn_z_hidden_dim)
+            g_fwd: tensor g_fwd at time t-1 - shape (batch, rnn_x_hidden_dim)
             
         Returns:
             mu: mean of the approximate posterior distribution
-            shape (batch, x_dim, K)
+            shape (batch, x_dim)
             logvar: log of the variance of the approximate posterior distribution
-            shape (batch, x_dim, K)
+            shape (batch, x_dim)
         """
         
-        # check if h has a dimension "sample" equal to K
-        # if not, add one with K=1
-        if len(h.shape) == 2:
-            h = h.unsqueeze(2)
-            K=1
-        else:
-            K = h.shape[2]
-            
-        # dims
-        batch_size = h.shape[0]
-            
-        # Pass through MLP massaging the axis
-        #
-        # -- NB : hoping that the reshapes don't mess up the gradients
-        # -- test first with K=1...
-        #
-        #
-        g_fwd = g_fwd.unsqueeze(2).repeat(1,1,K) # clone g_fwd into K samples
-        input = torch.cat((h, g_fwd), dim=1) # shape (batch, rnn_z_hidden_dim + rnn_x_hidden_dim, K)
-        input = torch.reshape(input, (batch_size * K, self.rnn_z_hidden_dim + self.rnn_x_hidden_dim)) # shape (batch * K, rnn_z_hidden_dim + rnn_x_hidden_dim)
-        out = self.mlp(input) # shape (batch * K, 2 * self.x_dim)
-        out = torch.reshape(out, (batch_size, 2 * self.x_dim, K))
+        input = torch.cat((h, g_fwd), dim=1) # shape (batch, rnn_z_hidden_dim + rnn_x_hidden_dim)
+        out = self.mlp(input) # shape (batch, 2 * self.x_dim)
         
         # Split the output into mean and log variance
         # each with shape (batch, latent_dim)
-        mu, logvar = out[:, :self.x_dim, :], out[:, self.x_dim:, :]
+        mu, logvar = out[:, :self.x_dim], out[:, self.x_dim:]
         
         return mu, logvar
     
@@ -627,527 +561,256 @@ class DecoderMLP(nn.Module):
         return msg
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##--- brick 2 : combiner -----------------------------
+    
+    
+# --- brick 6 : Sampler with reparameterization trick -----------------------------
 #
-# this combines the latent variable at time t-1
-# with the hidden state from the backward LSTM at time t,
-# to compute a t
-    # X_DIM = 1 # Dimension of the observation space
-    # Z_DIM = 16 # Dimension of the latent space
-    # H_DIM = 16 # Dimension of the hidden state of the LSTM network(s)
-    # G_DIM = 8 # Dimension of the output of the combiner
-    # INTERMEDIATE_LAYER_DIM = 16 # Dimension of the intermediate layers of the MLPsensor g at time t, that will be used
-# to compute the parameters of the approximate posterior distribution
-# of the latent variable
+# This samples from a normal distribution of given mean and log variance
+# using the reparameterization trick.
+
+class Sampler(nn.Module):
+    """Sampler module. Samples from a normal distribution of given mean and
+    log variance using the reparameterization trick.
+    
+    NB : to be replaced by batch of tf.distributions.Normal(mu, logvar) ?
+    """
+    
+    def __init__(self):
+        super(Sampler, self).__init__()
+        
+    def forward(self, mu, logvar):
+        """
+        Forward pass of the sampler module.
+        
+        Args:
+            mu: mean of the distribution
+            shape (batch, dim)
+            logvar: log of the variance of the distribution
+            shape (batch, dim)
+            
+        Returns:
+            v: sampled variables
+            shape (batch, dim)
+        """
+        
+        # Sample from a normal distribution using the reparameterization trick
+        std = torch.exp(0.5 * logvar)  # standard deviation
+        eps = torch.randn_like(std)  # random noise
+        v = mu + eps * std  # sampled variables
+        
+        return v
+    
+    
+
+
+#-----------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 #
+# --- Class VRNN : Variational RNN --------------------------------
+#
+#-----------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 
-# class CombinerMLP(nn.Module):
-#     """Combiner module. Takes the hidden state of the backward LSTM at time t
-#     and the (sampled) latent variable at time t-1, to compute a tensor g at time t,
-#     that will be used to compute the parameters of the approximate posterior
-#     distribution of the latent variable.
-#     """
-    
-#     def __init__(self, 
-#                  latent_dim=Z_DIM, 
-#                  hidden_dim=H_DIM, 
-#                  output_dim=G_DIM,
-#                  layers_dim = None,  # list of layers dimensions, without the input dimnesion, without the output dimension
-#                  activation = 'tanh',
-#                  inter_dim = INTERMEDIATE_LAYER_DIM,
-#                  ):
-#         """Creates a combiner module, ie a MLP layer, to combine h_t (the output of the backward lstm at time t
-#         and (sampled) z_t-1, the latent variable at time t-1.
-#         The input_dimension is the sum of the latent dimension (dimension of z_t-1) and the hidden dimension
-#         (dimension of h_t).
-#         The output dimension is the dimension of the combiner output, which is a parameter.
-#         The list of intermediate layers is passed in the list layers_dim.
-#         The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
-        
-#         Inputs:
-#             latent_dim : dimension of the latent space
-#             hidden_dim : dimension of the hidden state of the LSTM network
-#             output_dim : dimension of the combiner output
-#             layers_dim : list of layers dimensions, without the input dimension, without the output dimension
-#             activation : activation function (default = 'tanh')
-#             inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
-#         """
-#         super(CombinerMLP, self).__init__()
-        
-#         self.latent_dim = latent_dim
-#         self.hidden_dim = hidden_dim
-#         self.output_dim = output_dim
-#         if activation == 'tanh':
-#             self.activation_fn = nn.Tanh()
-#         elif activation == 'relu':
-#             self.activation_fn = nn.ReLU()
-#         else:
-#             raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
-#         self.inter_dim = inter_dim
-#         self.layers_dim = layers_dim
-        
-#         if self.layers_dim is None:
-#             self.layers_dim = [self.inter_dim] * 2
-#         else:
-#             self.layers_dim = layers_dim
-            
-#         # explicitly define the MLP layers
-#         layers = []
-#         for i, dim in enumerate(self.layers_dim):
-#             if i==0:  #first layer, latent_dim + hidden_dim => layers_dim[0]
-#                 layers.append(nn.Linear(latent_dim + hidden_dim, dim))
-#             else:  # all other layers
-#                 layers.append(nn.Linear(self.layers_dim[i-1], dim))
-#             layers.append(self.activation_fn)
-#         # last layer : layers_dim[-1] => output_dim
-#         layers.append(nn.Linear(self.layers_dim[-1], output_dim))
-            
-#         # build the MLP
-#         self.mlp = nn.Sequential(*layers)
-            
-        
-#     def forward(self, h, z):
-#         """
-#         Forward pass of the combiner module.
-#         The use of the combiner module is sequential, so there is no seq_len dimension.
-        
-#         Args:
-#             h: hidden state of the backward LSTM at time t
-#             shape (batch, hidden_dim)
-#             z: latent variable at time t-1
-#             shape (batch, latent_dim)
-#         Returns:
-#             g: tensor g at time t
-#             shape (batch, output_dim)
-#         """
-        
-#         # Concatenate the hidden state and the latent variable on their dimension
-#         x = torch.cat((h, z), dim=-1) # shape (batch, hidden_dim + latent_dim)
-        
-#         # Pass through MLP
-#         g = self.mlp(x) # output shape (batch, output_dim)
-        
-#         return g     
-    
-    
-    
-# #--- brick 4 : Latent Space Transition -----------------------------       
-# #
-# # This computes the parameters of the transition distribution
-# # of the latent variable at time t. Ie the prior distribution, 
-# # before inference.
-# # The transition distribution is a Gaussian distribution,
-# # we use a MLP to compute the mean and the log of the variance.
-# #
 
-# class LatentSpaceTransitionMLP(nn.Module):
-#     """Latent space transition module. 
-#     Computes the parameters of the transition distribution of the latent variable at time t (ie "prior").
-#     The transition distribution is a Gaussian distribution, we use a MLP to compute the mean
-#     and the log of the variance.
-#     """
+class VRNN(nn.Module):
+    """Variational RNN module. Implement the VRNN model.
     
-#     def __init__(self, 
-#                  latent_dim=Z_DIM, # Dimension of the latent space
-#                  inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
-#                  layers_dim = None, # Dimension of the MLP layers
-#                  activation = 'tanh', # Activation function
-#     ):
-#         """Creates the latent space transition MLP.
-#         This is a MLP, that takes as input the -sampled- lagged latent variable z_t-1,
-#         and computes the parameters of the transition distribution p(z_t|z_{t-1}).
-#         The input dimension is the latent dimension.
-#         The output dimension is the 2 * dimension of the latent space (mean, and log variance).
-#         The list of intermediate layers is passed in the list layers_dim.
-#         The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
-#         Inputs:
-#             latent_dim : dimension of the latent space
-#             inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
-#             layers_dim : list of layers dimensions, without the input dimension, without the output dimension
-#             activation : activation function (default = 'tanh')
-#         """
-#         super(LatentSpaceTransitionMLP, self).__init__()
+    Args:
+        nn (_type_): _description_
         
-#         self.latent_dim = latent_dim
-#         if activation == 'tanh':
-#             self.activation_fn = nn.Tanh()
-#         elif activation == 'relu':
-#             self.activation_fn = nn.ReLU()
-#         else:
-#             raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
-#         self.inter_dim = inter_dim
-        
-#         if layers_dim is None:
-#             layers_dim = [self.inter_dim]
-#         self.layers_dim = layers_dim
-            
-#         # explicitly define the MLP layers
-#         layers = []
-#         for i, dim in enumerate(self.layers_dim):
-#             if i==0:
-#                 layers.append(nn.Linear(self.latent_dim, dim))
-#             else:
-#                 layers.append(nn.Linear(self.layers_dim[i-1], dim))
-#             layers.append(self.activation_fn)
-            
-#         # last layer is linear, no activation
-#         layers.append(nn.Linear(self.layers_dim[-1], 2 * self.latent_dim)) 
-                    
-#         # build the MLP
-#         self.mlp = nn.Sequential(*layers)
-               
-#     def forward(self, z):
-#         """
-#         Forward pass of the latent space transition module.
-#         This takes as input a whole set of lagged -sampled- latent variables z_t-1,
-#         and computes the parameters of the transition distribution p(z_t|z_{t-1}) for each time step t.
-        
-#         Args:
-#             z: latent variables lagged(set of latent variables at time t-1)
-#             shape (seq_len, batch, latent_dim)
-            
-#         Returns:
-#             mu: means of the transition distribution
-#             shape (seq_len, batch, latent_dim)
-#             logvar: log of the variances of the transition distribution
-#             shape (seq_len, batch, latent_dim)
-#         """
-        
-#         # Pass through MLP
-#         out = self.mlp(z)
-        
-#         # Split the output into mean and log variance
-#         # each with shape (batch, latent_dim)
-#         mu, logvar = out[:, :, :self.latent_dim], out[:, :, self.latent_dim:]
-        
-#         return mu, logvar
+    Returns:
+        _type_: _description_
+    """
     
-    
-# #--- brick 5 : Decoder (ie Observation Model) -----------------------------
-# #
-# # This computes the parameters of the distribution of 
-# # the observed variable 'x', given the latent variable 'z'.
-# # The distribution is a Gaussian distribution,
-# # we use a MLP to compute the mean and the log of the variance.
-# #
+    def __init__(self,
+                 input_dim, # Dimension of the observation space
+                 latent_dim, # Dimension of the latent space
+                 rnn_x_hidden_dim, # Dimension of the hidden state of the LSTM network for observations
+                 rnn_z_hidden_dim, # Dimension of the hidden state of the LSTM network for latent variables
+                 rnn_num_layers=1, # Number of layers of the LSTM networks
+                 inter_dim=None, # Dimension of the intermediate layers
+                 layers_dim_encoder = None, # list of layers dimensions for the encoder module
+                 layers_dim_transition = None, # list of layers dimensions for the transition module
+                 layers_dim_decoder = None, # list of layers dimensions for the decoder module
+                 activation='tanh', # Activation function
+                 device='cpu' # Device to use (cpu or cuda)
+                 ):
+        super(VRNN, self).__init__()
+        
+        self.input_dim = int(input_dim)
+        self.latent_dim = int(latent_dim)
+        self.rnn_x_hidden_dim = int(rnn_x_hidden_dim)
+        self.rnn_z_hidden_dim = int(rnn_z_hidden_dim)
+        self.inter_dim = inter_dim
+        self.activation = activation
+        self.layers_dim_encoder = layers_dim_encoder
+        self.layers_dim_transition = layers_dim_transition
+        self.layers_dim_decoder = layers_dim_decoder
+        self.device = device
+        
+        # define the modules
+        
+        self.observation_lstm = ObservationLSTM(
+            input_size=self.input_dim,
+            rnn_x_hidden_size=self.rnn_x_hidden_dim,
+            num_layers=rnn_num_layers
+        )
+        
+        self.latent_lstm = LatentLSTM(
+            input_size=self.latent_dim,
+            rnn_z_hidden_size=self.rnn_z_hidden_dim,
+            num_layers=rnn_num_layers
+        )
+        
+        self.encoder = EncoderMLP(
+            z_dim=self.latent_dim,
+            rnn_z_hidden_dim=self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim=self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_encoder, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )        
+            
+        self.latent_space_transition = LatentStateTransitionMLP(
+            z_dim = self.latent_dim,
+            rnn_z_hidden_dim = self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim = self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_transition, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )
+        
+        self.decoder = DecoderMLP(
+            x_dim=self.input_dim,
+            rnn_z_hidden_dim=self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim=self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_decoder, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )
+                
+        self.sampler = Sampler()
+        
+    def __repr__(self):
+        
+        msg = f"VRNN" +f"(observation_dim={self.input_dim}, latent_dim={self.latent_dim})"
+        msg += f"\n{self.observation_lstm}"
+        msg += f"\n{self.latent_lstm}"
+        msg += f"\n{self.encoder}"
+        msg += f"\n{self.latent_space_transition}"
+        msg += f"\n{self.decoder}"
+        msg += f"\n{self.sampler}"
+        
+        return msg
 
-# class DecoderMLP(nn.Module):
-#     """Decoder module. Computes the parameters of the distribution of the
-#     observed variable 'x', given the latent variable 'z' sampled from the approximate
-#     posterior distribution.
-#     The distribution is a Gaussian distribution, we use a MLP to compute the mean and the log of
-#     the variance.   
-#     """
-    
-#     def __init__(self, 
-#                  latent_dim=Z_DIM, # Dimension of the latent space
-#                  observation_dim=X_DIM, # Dimension of the observation space
-#                  inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
-#                  layers_dim = None, # Dimension of the MLP layers
-#                  activation = 'tanh', # Activation function
-#     ):
-#         """Creates the decoder module.
-#         This is a MLP, that takes as input a set of -sampled- latent variables z_t,
-#         and computes the parameters of the distribution of the observed variable 'x'.
-#         The input dimension is the latent dimension.
-#         The output dimension is the 2 * dimension of the observation space (mean, and log variance).
-#         The list of intermediate layers is passed in the list layers_dim.
-#         The activation function is passed as a string, either 'tanh' or 'relu'. (default = 'tanh')
+    def forward(self, x_t):
+        """Forward pass of the Variational RNN.
         
-#         Inputs:
-#             latent_dim : dimension of the latent space
-#             observation_dim : dimension of the observation space
-#             inter_dim : dimension of the intermediate layers (default = INTERMEDIATE_LAYER_DIM)
-#             layers_dim : list of layers dimensions, without the input dimension, without the output dimension
-#             activation : activation function (default = 'tanh')
-#         """
-#         super(DecoderMLP, self).__init__()
+        Runs one step inference :
         
-#         self.latent_dim = latent_dim
-#         self.observation_dim = observation_dim
-#         self.inter_dim = inter_dim
-        
-#         if activation == 'tanh':
-#             self.activation_fn = nn.Tanh()
-#         elif activation == 'relu':
-#             self.activation_fn = nn.ReLU()
-#         else:
-#             raise ValueError(f"Activation function {activation} not supported. Use 'tanh' or 'relu'.")
-        
-#         if layers_dim is None:
-#             layers_dim = [self.inter_dim] # one layer per default
-#         self.layers_dim = layers_dim
-            
-#         # explicitly define the MLP layers
-#         layers = []
-#         for i, dim in enumerate(self.layers_dim):
-#             if i==0:
-#                 layers.append(nn.Linear(self.latent_dim, dim))
-#             else:
-#                 layers.append(nn.Linear(self.layers_dim[i-1], dim))
-#             layers.append(self.activation_fn)
-            
-#         # last layer is linear, no activation
-#         layers.append(nn.Linear(self.layers_dim[-1], 2 * self.observation_dim)) 
-                    
-#         # build the MLP
-#         self.mlp = nn.Sequential(*layers)
-        
-#     def forward(self, z):
-#         """
-#         Forward pass of the decoder module.
-#         This takes as input the set of -sampled- latent variables z_t, and 
-#         computes the set of parameters of the distribution of the observed variable 'x'.
-#         The decoder module is used after the sequential loop, so there is a seq_len dimension.
-        
-#         Args:
-#             z: latent variable at time t
-#             shape (seq_len, batch, latent_dim)
-#         Returns:
-#             mu: means of the distribution of the observed variable
-#             shape (seq_len, batch, observation_dim)
-#             logvar: log of the variances of the distribution of the observed variable
-#             shape (seq_len, batch, observation_dim)
-#         """
-#         # Pass through MLP
-#         out = self.mlp(z)
-        
-#         # Split the output into mean and log variance
-#         # each with shape (batch, observation_dim)
-#         mu, logvar = out[:, :, :self.observation_dim], out[:, :, self.observation_dim:]
-        
-#         return mu, logvar
-    
-    
-    
-# # --- brick 6 : Sampler with reparameterization trick -----------------------------
-# #
-# # This samples from a normal distribution of given mean and log variance
-# # using the reparameterization trick.
+        0- Initialization are run (sampled latent variables of sequence length)
+        1- The input sequence x_t (seq_len, batch, input_dimension) is passed through the bidirectional observation LSTM 
+           to get the hidden states g_fwd and g_bwd (seq_len, batch, rnn_x_hidden_dim).
+        2- A sequential loop is run from time t=1 to t=T (seq_len):
+            2.1- the sampled latent variables tensor, up to previous time step z_samples[1:t-1], is run throught the forward
+                latent state LSTM, to get the hidden state h[t-1] (encoding z[1:t-1]).
+            2.2- ENCODER : the tensor h[t-1] (encoding z[1:t-1]), the tensor g_fwd[t-1] (encoding x[1:t-1]), and the tensor g_bwd[t] 
+                (encoding x[t:T]) are passed through the encoder module to get the parameters of the approximate posterior 
+                distribution mu_phi and logvar_phi of the latent variable z_t.
+            2.3- TRANSITION PRIOR : the tensor h[t-1] (encoding z[1:t-1]) and the tensor g_fwd[t-1] (encoding x[1:t-1]) are
+                passed through the transition module to get the parameters of the transition distribution of the 
+                latent variable z_t, mu_theta_z and logvar_theta_z.
+            2.4- the latent variable z_t at time t is sampled from the approximate posterior distribution and stored
+                into the sequence of sampled latent variables z_samples at index t.
+            2.5- the sampled latent variables tensor, now updated with sample z[t], is passed through the forward
+                latent state LSTM to get the hidden state h[t] (encoding z[1:t]).
+            2.6- DECODER : the tensor h[t] (encoding z[1:t]), and the tensor g_fwd[t-1] (encoding x[1:t-1]) are passed 
+                through the decoder module to get the parameters of the distribution of the observed variables x_t,
+                mu_x_t and logvar_x_t. 
 
-# class Sampler(nn.Module):
-#     """Sampler module. Samples from a normal distribution of given mean and
-#     log variance using the reparameterization trick.
-    
-#     NB : to be replaced by batch of tf.distributions.Normal(mu, logvar) ?
-#     """
-    
-#     def __init__(self):
-#         super(Sampler, self).__init__()
-        
-#     def forward(self, mu, logvar):
-#         """
-#         Forward pass of the sampler module.
-        
-#         Args:
-#             mu: mean of the distribution
-#             shape (batch, dim)
-#             logvar: log of the variance of the distribution
-#             shape (batch, dim)
+        Args:
+            x_t: input sequence - shape (seq_len, batch, input_dim)
             
-#         Returns:
-#             v: sampled variables
-#             shape (batch, dim)
-#         """
+        Intermediate variables:
+            sampled_z_t : sequence of sampled latent variables - shape (seq_len, batch, latent_dim).
+            NB : z_0 is set to 0.
+            g_fwd : hidden states of the forward pass of the bidirectional observation LSTM - shape (seq_len, batch, rnn_x_hidden_dim)
+            g_bwd : hidden states of the backward pass of the bidirectional observation LSTM - shape (seq_len, batch, rnn_x_hidden_dim)
+            h_t : hidden states of the forward latent state LSTM - shape (seq_len, batch, rnn_z_hidden_dim)
         
-#         # Sample from a normal distribution using the reparameterization trick
-#         std = torch.exp(0.5 * logvar)  # standard deviation
-#         eps = torch.randn_like(std)  # random noise
-#         v = mu + eps * std  # sampled variables
+        Returns:
+            mu_x_t: means of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            logvar_x_t: log of the variances of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            mu_phi_z_t: means of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_phi_z_t: log of the variances of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            mu_theta_z_t: means of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_theta_z_t: log of the variances of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
+        """
         
-#         return v
-    
-    
-    
-# class DeepKalmanFilter(nn.Module):
-#     """Deep Kalman Filter (DKF) module. Implements the DKF algorithm.
-    
-#     Args:
-#         nn (_type_): _description_
+       
+        # we assume that the input sequence is of shape (seq_len, batch, input_dim) and check some
+        seq_len, batch_size, input_dim = x_t.shape
+        assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
         
-#     Returns:
-#         _type_: _description_
-#     """
-    
-#     def __init__(self,
-#                  input_dim=X_DIM, # Dimension of the observation space
-#                  latent_dim=Z_DIM, # Dimension of the latent space
-#                  hidden_dim=H_DIM, # Dimension of the hidden state of the LSTM network
-#                  combiner_dim=G_DIM, # Dimension of the combiner output
-#                  inter_dim=INTERMEDIATE_LAYER_DIM, # Dimension of the intermediate layers
-#                  activation='tanh', # Activation function
-#                  num_layers=1, # Number of layers of the LSTM network
-#                  device='cpu' # Device to use (cpu or cuda)
-#                  ):
-#         super(DeepKalmanFilter, self).__init__()
+        # initializations of the tensors for the sequential loop
+                # NB : in INRIA code : self.register_buffer
+                # "If you have parameters in your model, which should be saved and restored in the state_dict, 
+                # but not trained by the optimizer, you should register them as buffers.
+                # Buffers won’t be returned in model.parameters(), 
+                # so that the optimizer won’t have a change to update them.#
+                
+        # sampled latent variables tensor, shape (seq_len, batch_size, latent_dim)
+        sampled_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        z0 = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)  # initial latent variable z_0
+        g0 = torch.zeros(1, batch_size, self.rnn_x_hidden_dim).to(self.device)  # initial hidden state of the observation LSTM
         
-#         self.input_dim = input_dim
-#         self.latent_dim = latent_dim
-#         self.hidden_dim = hidden_dim
-#         self.combiner_dim = combiner_dim
-#         self.inter_dim = inter_dim
-#         self.device = device
+        # place holders for the parameters of the distributions
+        mu_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        logvar_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        mu_theta_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        logvar_theta_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        mu_x_t = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
+        logvar_x_t = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
         
-#         # define the modules
+        # step 1 : run the bidirectional observation LSTM on the input sequence
+        g_fwd, g_bwd = self.observation_lstm(x_t) # shape (seq_len, batch_size, rnn_x_hidden_dim) each
         
-#         self.backward_lstm = BackwardLSTM(
-#             input_size=self.input_dim,
-#             hidden_size=self.hidden_dim,
-#             num_layers=num_layers
-#         )
-        
-#         self.combiner = CombinerMLP(
-#             latent_dim=self.latent_dim,
-#             hidden_dim=self.hidden_dim,
-#             output_dim=self.combiner_dim,
-#             activation=activation,
-#             layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
-#             inter_dim=self.inter_dim
-#         )
-        
-#         self.encoder = EncoderMLP(
-#             latent_dim=self.latent_dim,
-#             combiner_dim=self.combiner_dim,
-#             inter_dim=self.inter_dim,
-#             activation=activation,
-#             layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
-#         )
-        
-#         self.latent_space_transition = LatentSpaceTransitionMLP(
-#             latent_dim=self.latent_dim,
-#             inter_dim=self.inter_dim,
-#             activation=activation,
-#             layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
-#         )
-        
-#         self.decoder = DecoderMLP(
-#             latent_dim=self.latent_dim,
-#             observation_dim=self.input_dim,
-#             inter_dim=self.inter_dim,
-#             activation=activation,
-#             layers_dim=None, # list of layers dimensions, without the input dimension, without the output dimension
-#         )
-        
-#         self.sampler = Sampler()
-        
-#     def forward(self, x_t):
-#         # """Forward pass of the Deep Kalman Filter.
-#         # Runs one step inference :
-#         # 0- Initialization are run (sampled latent variable)
-#         # 1- The input sequence x_t (seq_len, batch, input_dimension) is passed through the backward LSTM 
-#         #    to get the hidden states h_t (seq_len, batch, hidden_dim).
-#         # 2- A sequential loop is run from time t=1 to t=T (seq_len):
-#         #     2.1- the sampled latent variable at previous time step z_t-1, and the hidden state h_t, are run
-#         #          through the combiner module to get the tensor g_t.
-#         #     2.2- the tensor g_t is passed through the encoder module to get the parameters of the approximate posterior 
-#         #          distribution mu_phi and logvar_phi of the latent variable z_t.
-#         #     2.3- the  latent variable z_t at time t is sampled from the approximate posterior distribution
-#         #          using the reparameterization trick. The sampled latent variable z_t is stored in the sequence of
-#         #          sampled latent variables z_t_s.
-#         # 3- The whole sequence of sampled latent variables z_t_s is passed through the decoder module
-#         #    to get the parameters of the distribution of the observed variables x_t.
-#         # 4- The whole sequence of sampled latent variables z_t_s, lagged by one time step, is passed through the
-#         #    transition module to get the parameters of the transition distribution of the latent variable z_t. 
-        
-#         # Args:
-#         #     x_t: input sequence - shape (seq_len, batch, input_dim)
+        # step 2 : loop from t=0 to t=T-1 (T = seq_len) for the sequential logic
+        for t in range(seq_len):
             
-#         # Intermediate variables:
-#         #     sampled_z_t : sequence of sampled latent variables - shape (seq_len, batch, latent_dim).
-#         #     NB : z_0 is set to 0.
-#         #     h_t : hidden state of the backward LSTM at time t - shape (seq_len, batch, hidden_dim)
+            # step 2.1 : at time t, we need the value h[t-1] of the fwd RNN of the latent variables (encoding z[1:t-1]))
+            if t == 0:
+                # at time t=0, we use the initial value z_0=0
+                h_t = self.latent_lstm(z0) # shape (seq_len, batch_size, rnn_z_hidden_dim)
+                h_t_minus_1 = h_t[0,:,:] # shape (1, batch_size, rnn_z_hidden_dim)
+                g_fwd_t_minus_1 = g0 # shape (1, batch_size, rnn_x_hidden_dim)
+            else:
+                h_t = self.latent_lstm(sampled_z_t)
+                h_t_minus_1 = h_t[t-1,:,:] # shape (1, batch_size, rnn_z_hidden_dim)
+                g_fwd_t_minus_1 = g_fwd[t-1,:,:] # shape (1, batch_size, rnn_x_hidden_dim)
+                
+            # step 2.2 : ENCODER : h[t-1] and g_fwd[t-1], g_bwd[t] are passed through the encoder module
+            mu_phi, logvar_phi = self.encoder(h_t_minus_1.squeeze(), g_fwd_t_minus_1.squeeze(), g_bwd[t,:,:])
+            mu_phi_z_t[t], logvar_phi_z_t[t] = mu_phi, logvar_phi
             
-#         # Returns:
-#         #     mu_x_t: means of the distribution of the observed variables - shape (seq_len, batch, input_dim)
-#         #     logvar_x_t: log of the variances of the distribution of the observed variables - shape (seq_len, batch, input_dim)
-#         #     mu_phi_z_t: means of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
-#         #     logvar_phi_z_t: log of the variances of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
-#         #     mu_theta_z_t: means of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
-#         #     logvar_theta_z_t: log of the variances of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
-#         # """
-        
-#         # we assume that the input sequence is of shape (seq_len, batch, input_dim) and check some
-#         seq_len, batch_size, input_dim = x_t.shape
-#         assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
-        
-#         # initializations of the tensors for the sequential loop
-#                 # NB : in INRIA code : self.register_buffer
-#                 # "If you have parameters in your model, which should be saved and restored in the state_dict, 
-#                 # but not trained by the optimizer, you should register them as buffers.
-#                 # Buffers won’t be returned in model.parameters(), 
-#                 # so that the optimizer won’t have a change to update them.#
-#         sampled_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-#         z0 = torch.zeros(batch_size, self.latent_dim).to(self.device)  # initial latent variable z_0
-#         mu_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-#         logvar_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
-        
-#         # step 1 : run the backward LSTM on the input sequence
-#         # outputs are the hidden states, shape (seq_len, batch, hidden_dim)
-#         h_t = self.backward_lstm(x_t)
-        
-#         # step 2 : loop from t=1 to t=T (seq_len) to compute and sampled the latent variables z_t
-#         for t in range(seq_len):
+            # step 2.3 : TRANSITION PRIOR : h[t-1] and g_fwd[t-1] are passed through the transition module
+            mu_theta_z, logvar_theta_z = self.latent_space_transition(h_t_minus_1.squeeze(), g_fwd_t_minus_1.squeeze())
+            mu_theta_z_t[t], logvar_theta_z_t[t] = mu_theta_z, logvar_theta_z
             
-#             # step 2.1 : at time t, get the sampled latent variable z_t-1 and the hidden state h_t
-#             if t == 0:
-#                 sampled_z_t_1 = z0
-#             else:
-#                 sampled_z_t_1 = sampled_z_t[t-1]
-#             # combine them to compute g_t
-#             g_t = self.combiner(h_t[t], sampled_z_t_1) # shpae is (batch_size, combiner_dim)
+            # step 2.4 : sample z_t from the approximate posterior distribution and store it
+            sampled_z_t[t] = self.sampler(mu_phi, logvar_phi)
             
-#             # step 2.2 : compute the parameters of the approximate posterior distribution
-#             mu_phi, logvar_phi = self.encoder(g_t) 
-#             mu_phi_z_t[t], logvar_phi_z_t[t] = mu_phi, logvar_phi
+            # step 2.5 : update the output of the forward latent state LSTM with the new sampled latent variable
+            h_t = self.latent_lstm(sampled_z_t) # ( seq_len, batch_size, rnn_z_hidden_dim)
             
-#             # step 2.3 : sample z_t from the approximate posterior distribution and store it
-#             sampled_z_t[t] = self.sampler(mu_phi, logvar_phi)
-            
-#         # step 3 : compute the parameters of the observation distribution
-#         mu_x_t, logvar_x_t = self.decoder(sampled_z_t)
-        
-#         # step 4 : compute the parameters of the transition distribution
-#         # form the lagged sampled latent variable z_t : z_t[0:seq_len-1]
-#         lagged_sampled_z_t = torch.cat([z0.unsqueeze(0), sampled_z_t[:-1]])
-#         mu_theta_z_t, logvar_theta_z_t = self.latent_space_transition(lagged_sampled_z_t) 
-                        
-#         # return the outputs
-#         return x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t
+            # step 2.6 : DECODER : h[t] and g_fwd[t-1] are passed through the decoder module
+            mu_x_t, logvar_x_t = self.decoder(h_t[t,:,:].squeeze(), g_fwd_t_minus_1.squeeze())
+            mu_x_t[t], logvar_x_t[t] = mu_x_t, logvar_x_t
+                                   
+        # return the outputs
+        return x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t
     
-#     def __repr__(self):
-        
-#         msg = f"DeepKalmanFilter(input_dim={self.input_dim}, latent_dim={self.latent_dim}, hidden_dim={self.hidden_dim}, combiner_dim={self.combiner_dim}, inter_dim={self.inter_dim})"
-#         msg += f"\n{self.backward_lstm}"
-#         msg += f"\n{self.combiner}"
-#         msg += f"\n{self.encoder}"
-#         msg += f"\n{self.latent_space_transition}"
-#         msg += f"\n{self.decoder}"
-#         msg += f"\n{self.sampler}"
-        
-#         return msg
+
     
 #     def predict(self, x, num_steps):
 #         """

@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from libs.vrnn_lib import BidLSTM, ForwardLSTM, EncoderMLP, LatentStateTransitionMLP, DecoderMLP
+from libs.vrnn_lib import ObservationLSTM, LatentLSTM, EncoderMLP, LatentStateTransitionMLP, DecoderMLP, VRNN
 
     
 if __name__ == "__main__":
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     
     # print(fl)
     
-    # # Test Encoder
+    # Test Encoder
     
     # z_dim = 8
     # rnn_z_hidden_dim = 16
@@ -52,7 +52,6 @@ if __name__ == "__main__":
     # layers_dim = [128,128,128]
     # batch_size = 4
     # seq_len = 50
-    # K = 3
     
     # enc = EncoderMLP(
     #     z_dim=z_dim,
@@ -62,7 +61,7 @@ if __name__ == "__main__":
     # )
     # print(enc)
     
-    # h = torch.randn(batch_size, rnn_z_hidden_dim, K)
+    # h = torch.randn(batch_size, rnn_z_hidden_dim)
     # g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
     # g_bwd = torch.randn(batch_size, rnn_x_hidden_dim)
     
@@ -77,7 +76,6 @@ if __name__ == "__main__":
     # layers_dim = [128,128,128]
     # batch_size = 4
     # seq_len = 50
-    # K = 3
     
     # lst = LatentStateTransitionMLP(
     #     z_dim=z_dim,
@@ -87,34 +85,50 @@ if __name__ == "__main__":
     # )
     # print(lst)
     
-    # h = torch.randn(batch_size, rnn_z_hidden_dim, K)
+    # h = torch.randn(batch_size, rnn_z_hidden_dim)
     # g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
     
     # mu, logvar = lst(h, g_fwd)
     # print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
     
     
-        # Test Latent State Transition
+    # Decoder
+    
+    # x_dim = 2
+    # rnn_z_hidden_dim = 16
+    # rnn_x_hidden_dim = 32
+    # layers_dim = [128,128,128]
+    # batch_size = 4
+    # seq_len = 50
+
+    
+    # dec = DecoderMLP(
+    #     x_dim=x_dim,
+    #     rnn_z_hidden_dim=rnn_z_hidden_dim,
+    #     rnn_x_hidden_dim=rnn_x_hidden_dim,
+    #     layers_dim=layers_dim
+    # )
+    # print(dec)
+    
+    # h = torch.randn(batch_size, rnn_z_hidden_dim)
+    # g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
+    
+    # mu, logvar = dec(h, g_fwd)
+    # print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
+    
+    
+    # test VRNN
     
     x_dim = 2
+    z_dim = 8
     rnn_z_hidden_dim = 16
     rnn_x_hidden_dim = 32
-    layers_dim = [128,128,128]
-    batch_size = 4
-    seq_len = 50
-    K = 3
     
-    dec = DecoderMLP(
-        x_dim=x_dim,
+    vrnn = VRNN(
+        input_dim=x_dim,
+        latent_dim=z_dim,
         rnn_z_hidden_dim=rnn_z_hidden_dim,
-        rnn_x_hidden_dim=rnn_x_hidden_dim,
-        layers_dim=layers_dim
+        rnn_x_hidden_dim=rnn_x_hidden_dim
     )
-    print(dec)
     
-    h = torch.randn(batch_size, rnn_z_hidden_dim, K)
-    g_fwd = torch.randn(batch_size, rnn_x_hidden_dim)
-    
-    mu, logvar = dec(h, g_fwd)
-    print(f"mu shape: {mu.shape}, logvar shape: {logvar.shape}")
-    
+    print(vrnn)
