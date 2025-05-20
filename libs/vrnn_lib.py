@@ -985,7 +985,7 @@ def loss_function(x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_
 #
 #----------------------------------------------------------------------
 
-def train_step(model, optimizer, criterion, train_loader=None, device=None, beta=None, K=None):
+def train_step(model, optimizer, loss_fn, train_loader=None, device=None, beta=None, K=None):
     ### training step
     model.train()
     optimizer.zero_grad()
@@ -1017,7 +1017,7 @@ def train_step(model, optimizer, criterion, train_loader=None, device=None, beta
             # get the parameters of the distributions
             _, mu_x_t[:, :, :, k], logvar_x_t[:, :, :, k], mu_phi_z_t[:, :, :, k], logvar_phi_z_t[:, :, :, k], mu_theta_z_t[:, :, :, k], logvar_theta_z_t[:, :, :, k] = model(input)
         
-        rec_loss, kl_loss, total_loss = criterion(input, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t, beta=beta)
+        rec_loss, kl_loss, total_loss = loss_fn(input, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t, beta=beta)
         
         total_loss.backward()
         optimizer.step()
@@ -1036,7 +1036,7 @@ def train_step(model, optimizer, criterion, train_loader=None, device=None, beta
 
 # Test step : perform validation test for one epoch
 
-def test_step(model, optimizer, loss_fn, test_loader=None, device=None, beta=None):
+def test_step(model, loss_fn, test_loader=None, device=None, beta=None):
     ### test step
     model.eval()
     
@@ -1118,7 +1118,7 @@ def train(model, optimizer, loss_fn, num_epochs=100, train_loader=None, test_loa
         epoch_losses.append(epoch_loss)
         
         # run test step
-        val_rec_loss, val_kl_loss, val_epoch_loss = test_step(model, optimizer, loss_fn, test_loader=test_loader, device=device, beta=beta)
+        val_rec_loss, val_kl_loss, val_epoch_loss = test_step(model, loss_fn, test_loader=test_loader, device=device, beta=beta)
             
         # log results
         val_rec_losses.append(val_rec_loss)
