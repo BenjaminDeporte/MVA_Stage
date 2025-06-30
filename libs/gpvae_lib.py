@@ -1,0 +1,1454 @@
+#------------------------------------------------------------------
+#
+#
+#------   MODELs, FUNCTIONS, CLASSES for GP-VAE              ------
+#
+#
+#------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+#
+# Default parameters
+#
+#--------------------------------------------------------------------
+
+X_DIM = 1 # Dimension of the observation space
+Z_DIM = 1 # Dimension of the latent space (first version)
+INTERMEDIATE_LAYER_DIM = 16 # Dimension of the intermediate layers of the MLPs
+
+
+# --------------------------------------------------------------------
+# Imports
+# --------------------------------------------------------------------
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import matplotlib.pyplot as plt
+
+
+#--------------------------------------------------------------------
+#
+#    Utilities
+#
+# --------------------------------------------------------------------
+
+# Set the random seeds for reproducibility --------------------------
+
+def seed_everything(seed=42):
+    """
+    Set seed for reproducibility.
+    """
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)  # if you are using multi-GPU.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    
+    
+    
+#--------------------------------------------------------------------
+#
+# CLASS GP-VAE
+#
+#--------------------------------------------------------------------
+
+#---------------------------------------------------------------------
+# ENCODER
+#---------------------------------------------------------------------
+
+# brick 0.1 : Encoder Mean
+
+class EncoderMean(nn.Module):
+    """ Neural Net to compute the mean of the Gaussian Encoder distribution.
+    """
+    
+    def __init__(self,
+                 sequence_length = None,
+                 x_dimension = 1,
+                 z_dimension = 1,
+                 n_layers = 3,
+                 inter_dim = 128,
+                 activation = nn.ReLU,
+                 ):
+        """_summary_
+
+        Args:
+            sequence_length (_type_, optional): Longueur des time series. Doit être spécifié. Defaults to None.
+            x_dimension (_type_, optional): Dimension des observations. Defaults to 1.
+            z_dimension (_type_, optional): Dimension de l'espace latent. Defaults to 1.
+            n_layers (int, optional): Nombre total de layers du MLP. Defaults to 3.
+            inter_dim (int, optional): Nombre de neurones des hidden layers. Defaults to 128.
+            activation (_type_, optional): Activation. Defaults to nn.ReLU. NB : la dernière couche n'a pas d'activation.
+        """
+        super(EncoderMean, self).__init__()
+        
+        assert sequence_length is not None, "sequence_length must be specified"
+        assert n_layers > 0, "n_layers must be greater than 0"
+        assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        
+        self.sequence_length = int(sequence_length)
+        self.x_dimension = int(x_dimension)
+        self.z_dimension = int(z_dimension)
+        self.n_layers = int(n_layers)
+        self.inter_dim = int(inter_dim)
+        self.activation = activation
+        
+        # form the list of layers
+        layers = []
+        for i in range(n_layers):
+            if i == 0:
+                input_dim = sequence_length * x_dimension
+            else:
+                input_dim = inter_dim
+                
+            if i == n_layers - 1:
+                output_dim = sequence_length
+            else:
+                output_dim = inter_dim
+        
+            layers.append(nn.Linear(input_dim, output_dim))
+            if i < n_layers - 1:
+                layers.append(self.activation())
+        
+        self.mlp = nn.Sequential(*layers)
+    
+    def forward(self, x):
+        """
+        Forward pass of the EncoderMean.
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, sequence_length, x_dimension) or (sequence_length, x_dimension). 
+            If no batch dimension is specified, then add batch_size=1 for the forward pass, and remove the batch_dimension in the output.
+        Returns:
+            torch.Tensor: Output tensor of shape (batch_size, sequence_length) or (sequence_length)
+            (nb :z_dimension=1)
+            (Return without batch_size if not specified.)
+        """
+        
+        batch_specified = (x.dim() == 3)
+        if batch_specified:
+            batch_size = x.size(0)
+        else:
+            batch_size = 1
+            x = x.unsqueeze(0)
+        # x has shape (B or 1, sequence_length, x_dimension)
+        
+        x = x.view(x.size(0), -1)  # Flatten the input tensor
+        x = self.mlp(x)  # Apply the MLP
+        
+        if batch_specified:
+            x = x.view(x.size(0), self.sequence_length)
+        else:
+            x = x.view(self.sequence_length)
+            
+        return x
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
+                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+                f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
+                f"activation={self.activation.__name__})")
+        
+        
+# brick 0.2 : Encoder CoVariance
+
+class EncoderCovariance(nn.Module):
+    """ Neural Net to compute the covariance of the Gaussian Encoder distribution.
+    Uses a MLP to compute the lower triangular matrix of the Cholesky decomposition of the covariance matrix.
+    L is triangular inferior, with diagonal elements strictly positive.
+    """
+    
+    def __init__(self,
+                 sequence_length = None,
+                 x_dimension = 1,
+                 z_dimension = 1,  # we assume z_dimension = 1 for now
+                 n_layers = 3,
+                 inter_dim = 128,
+                 activation = nn.ReLU,
+                 ):
+        """_summary_
+
+        Args:
+            sequence_length (_type_, optional): Longueur des time series. Doit être spécifié. Defaults to None.
+            x_dimension (_type_, optional): Dimension des observations. Defaults to 1.
+            z_dimension (_type_, optional): Dimension de l'espace latent. Defaults to 1.
+            n_layers (int, optional): Nombre total de layers du MLP. Defaults to 3.
+            inter_dim (int, optional): Nombre de neurones des hidden layers. Defaults to 128.
+            activation (_type_, optional): Activation. Defaults to nn.ReLU. NB : la dernière couche n'a pas d'activation.
+        """
+        super(EncoderCovariance, self).__init__()
+        
+        assert sequence_length is not None, "sequence_length must be specified"
+        assert n_layers > 0, "n_layers must be greater than 0"
+        assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        
+        self.sequence_length = int(sequence_length)
+        self.x_dimension = int(x_dimension)
+        self.z_dimension = int(z_dimension)
+        self.n_layers = int(n_layers)
+        self.inter_dim = int(inter_dim)
+        self.activation = activation
+        
+        # NN to compute the elements of the diagonal. 
+        # There are sequence_length * z_dimension elements in the diagonal of the covariance matrix.
+        # Outputs must be strictly positive. This is done in the forward pass by applying the exponential function.
+ 
+        # form the list of layers
+        layers = []
+        for i in range(n_layers):
+            if i == 0:
+                input_dim = sequence_length * x_dimension
+            else:
+                input_dim = inter_dim
+                
+            if i == n_layers - 1:
+                output_dim = sequence_length
+            else:
+                output_dim = inter_dim
+                
+            layers.append(nn.Linear(input_dim, output_dim))
+            if i < n_layers - 1:
+                layers.append(self.activation())
+                       
+        self.diagonal_mlp = nn.Sequential(*layers) # IN : (B or 1) x (T * Dx) => OUT: (B or 1) x T (nb Dz = 1)
+        
+        # NN to compute the elements of the lower triangular part of the covariance matrix.
+        # The covariance matrix is of shape (sequence_length * z_dimension, sequence_length * z_dimension). (here z_dimension = 1)
+        # We actually compute a full matrix of shape (sequence_length * z_dim) x (sequence_length * z_dim), but we will only use the lower triangular part.
+        
+        layers = []
+        for i in range(self.n_layers):
+            if i == 0:
+                input_dim = self.sequence_length * self.x_dimension
+            else:
+                input_dim = self.inter_dim
+                
+            if i == self.n_layers - 1:
+                output_dim = self.sequence_length * self.sequence_length
+            else:
+                output_dim = self.inter_dim
+                
+            layers.append(nn.Linear(input_dim, output_dim))
+            if i < n_layers - 1:
+                layers.append(self.activation())
+        
+        self.full_matrix_mlp = nn.Sequential(*layers) # IN : (B or 1) x (T * Dx) => OUT: (B or 1) x (T*T)
+    
+    def forward(self, x):
+        """
+        Forward pass of the EncoderCovariance.
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, sequence_length, x_dimension) or (sequence_length, x_dimension). 
+            If not batch_dimension is specified, add batch_size=1 for the forward pass, and remove the batch_dimension in the output.
+        Returns:
+            L (torch.Tensor): Lower triangular matrix of shape (batch_size, sequence_length * z_dimension, sequence_length * z_dimension) 
+                or (sequence_length * z_dimension, sequence_length * z_dimension) if no batch specified.
+                Here : z_dimension = 1.
+            C (torch.Tensor): Covariance matrix of shape (batch_size, sequence_length * z_dimension, sequence_length * z_dimension) 
+                or (sequence_length * z_dimension, sequence_length * z_dimension) if no batch specified.
+                Here : z_dimension = 1.
+            C is computed as L @ L^T, where L is the lower triangular matrix. (Cholesky decomposition)
+        """
+        
+        # manages batch or no batch specified 
+        batch_specified = (x.dim() == 3)
+        if batch_specified:
+            batch_size = x.size(0)
+        else:
+            batch_size = 1
+            x = x.unsqueeze(0)
+        # here, x has shape (B or 1, sequence_length, x_dimension)
+            
+        assert x.size(1) == self.sequence_length, f"Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        assert x.size(2) == self.x_dimension, f"Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        
+        x = x.view(x.size(0), -1)  # Flatten the input tensor => x has shape B x (T * Dx)
+        
+        # Compute the diagonal elements of the covariance matrix
+        D = self.diagonal_mlp(x)  # out : (B or 1) x T (Dz=1)
+        D = torch.exp(self.diagonal_mlp(x)) # out : (B or 1) x T. Ensure strictly positive diagonal elements.
+        D = torch.diag_embed(D) # shape (B or 1) x T x T
+        
+        # Get the elements outside the diagonal
+        M = self.full_matrix_mlp(x) # shape (B or 1) x (T*T)
+        M = M.reshape(batch_size, self.sequence_length * self.z_dimension, self.sequence_length * self.z_dimension) # M is a full matrix of shape (B or 1) x T x T
+        idx = torch.arange(self.sequence_length * self.z_dimension, device=x.device)  # Create an index tensor for the diagonal elements
+        M[:,idx,idx] = 0.0  # Fill the diagonal with 0s
+        
+        # Assemble the lower triangular matrix L
+        L = torch.zeros_like(M, device=x.device)  # Initialize L with zeros
+        L = D + M
+        L[:] = torch.tril(L[:])
+        
+        if not batch_specified:
+            L = L.view(self.sequence_length * self.z_dimension, self.sequence_length * self.z_dimension)
+            
+        return L, L @ L.transpose(-1, -2)
+    
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
+                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+                f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
+                f"activation={self.activation.__name__})")
+
+
+# brick 1 : Encoder q_phi
+
+class Encoder(nn.Module):
+    """Encoder module. 
+    - Takes a sequence of length T of observations x_{1:T}
+    - Computes the parameters of the multivariate normal distribution q_phi(z_{1:T}|x_{1:T}):
+        - mu_phi(x_{1:T}): mean of the approximate posterior distribution
+        - Sigma_phi(x_{1:T}): covariance matrix the approximate posterior distribution
+    - Outputs the parameters and the distribution itself.
+    """
+    
+    def __init__(self,                  
+                 sequence_length = None,
+                 x_dimension = 1,
+                 z_dimension = 1,  # we assume z_dimension = 1 for now
+                 n_layers = 3,
+                 inter_dim = 128,
+                 activation = nn.ReLU,):
+        
+        self.sequence_length = sequence_length
+        self.x_dimension = x_dimension
+        self.z_dimension = z_dimension
+        
+        self.encoder_mean = EncoderMean(
+            sequence_length=sequence_length,
+            x_dimension=x_dimension,
+            z_dimension=z_dimension,
+            n_layers=n_layers,
+            inter_dim=inter_dim,
+            activation=activation,
+        )
+        
+        self.encoder_covariance = EncoderCovariance(
+            sequence_length=sequence_length,
+            x_dimension=x_dimension,
+            z_dimension=z_dimension,
+            n_layers=n_layers,
+            inter_dim=inter_dim,
+            activation=activation,
+        )
+    
+    def forward(self, x):
+        """
+        Forward pass of the Encoder.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, sequence_length, x_dimension) or (sequence_length, x_dimension). 
+            If no batch dimension is specified, then add batch_size=1 for the forward pass, and remove the batch_dimension in the output.
+        Returns:
+            mu (torch.Tensor): Mean of the approximate posterior distribution of shape (batch_size, sequence_length) or (sequence_length) if no batch specified.
+            Sigma (torch.Tensor): Covariance matrix of the approximate posterior distribution of shape (batch_size, sequence_length, sequence_length) or (sequence_length, sequence_length) if no batch specified.
+            q_phi (torch.distributions.MultivariateNormal): Multivariate normal distribution with parameters mu and Sigma.
+        """
+        
+        # check dimensions of x
+        batch_specified = (x.dim() == 3)
+        if batch_specified:
+            batch_size = x.size(0)
+        else:
+            # if x is (T x Dx), add a batch dimension to (B x T x Dx)
+            batch_size = 1
+            x = x.unsqueeze(0)
+        sequence_length = x.size(1)
+        x_dim = x.size(2)
+        assert sequence_length == self.sequence_length, f"Incorrect sequence length passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        assert x_dim == self.x_dimension, f"Incorrect x_dimension passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        
+        # compute parameters of the approximate posterior distribution
+        mu = self.encoder_mean(x)  # shape (batch_size, sequence_length) or (sequence_length)
+        _, sigma = self.encoder_covariance(x)  # shape (batch_size, sequence_length, sequence_length) or (sequence_length, sequence_length)
+        
+        # instantiate the multivariate normal distribution
+        q_phi = torch.distributions.MultivariateNormal(mu, sigma)
+        
+        return mu, sigma, q_phi        
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
+                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+                f"n_layers={self.encoder_mean.n_layers}, inter_dim={self.encoder_mean.inter_dim}, "
+                f"activation={self.encoder_mean.activation.__name__})")
+
+
+#--------------------------------------------------------------------------
+# DECODER
+#--------------------------------------------------------------------------
+
+# brick 0.3 :Decoder Mean
+
+class DecoderMean(nn.Module):
+    """ Neural Net to compute the mean of the Gaussian Decoder distribution.
+    """
+    
+    def __init__(self,
+                 sequence_length = None,
+                 x_dimension = 1,
+                 z_dimension = 1,
+                 n_layers = 3,
+                 inter_dim = 128,
+                 activation = nn.ReLU,
+                 ):
+        """_summary_
+
+        Args:
+            sequence_length (_type_, optional): Longueur des time series. Doit être spécifié. Defaults to None.
+            x_dimension (_type_, optional): Dimension des observations. Defaults to 1.
+            z_dimension (_type_, optional): Dimension de l'espace latent. Defaults to 1.
+            n_layers (int, optional): Nombre total de layers du MLP. Defaults to 3.
+            inter_dim (int, optional): Nombre de neurones des hidden layers. Defaults to 128.
+            activation (_type_, optional): Activation. Defaults to nn.ReLU. NB : la dernière couche n'a pas d'activation.
+        """
+        super(DecoderMean, self).__init__()
+        
+        assert sequence_length is not None, "sequence_length must be specified"
+        assert n_layers > 0, "n_layers must be greater than 0"
+        assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        
+        self.sequence_length = int(sequence_length)
+        self.x_dimension = int(x_dimension)
+        self.z_dimension = int(z_dimension)
+        self.n_layers = int(n_layers)
+        self.inter_dim = int(inter_dim)
+        self.activation = activation
+        
+        # form the list of layers
+        layers = []
+        for i in range(n_layers):
+            if i == 0:
+                input_dim = sequence_length * x_dimension
+            else:
+                input_dim = inter_dim
+                
+            if i == n_layers - 1:
+                output_dim = sequence_length
+            else:
+                output_dim = inter_dim
+        
+            layers.append(nn.Linear(input_dim, output_dim))
+            if i < n_layers - 1:
+                layers.append(self.activation())
+        
+        self.mlp = nn.Sequential(*layers)
+    
+    def forward(self, z):
+        """
+        Forward pass of the DecoderMean.
+        Args:
+            z (torch.Tensor): Input tensor of shape (batch_size, sequence_length, z_dimension) or (sequence_length, z_dimension) or (z_dimension,).
+            The output shape matches the input shape.
+        Returns:
+            torch.Tensor: mu_x : Output tensor of shape (batch_size, sequence_length, x_dimension) or (sequence_length, x_dimension) or (x_dimension,).
+        """
+        
+        # manages input shape
+        if z.dim() == 1:
+            z_dim = z.size(0)
+            z = z.unsqueeze(0, 1)  # Add batch and length dimensions
+            batch_size = 1
+            sequence_length = 1
+            batch_specified = False
+            length_specified = False
+        elif z.dim() == 2:
+            z_dim = z.size(1)
+            sequence_length = z.size(0)
+            batch_specified = False
+            length_specified = True
+            z = z.unsqueeze(0)  # Add batch dimension
+            batch_size = 1
+        elif z.dim() == 3:
+            z_dim = z.size(2)
+            sequence_length = z.size(1)
+            batch_size = z.size(0)
+            batch_specified = True
+            length_specified = True
+        else:
+            raise ValueError("Input tensor z must have 1, 2, or 3 dimensions.")
+        
+        assert z_dim == self.z_dimension, f"Incorrect latent dim. Input tensor z must have shape (batch_size, sequence_length, {self.z_dimension}) or ({self.z_dimension},) or ({self.z_dimension}, sequence_length) or (sequence_length, {self.z_dimension})"
+                   
+        z = z.view(z.size(0), -1)  # Flatten the input tensor
+        mu_x = self.mlp(z)  # Apply the MLP
+        mu_x = mu_x.view(batch_size, sequence_length, self.x_dimension)  # Reshape to (batch_size, sequence_length, z_dimension)
+        
+        # gives back the original shape
+        if not batch_specified and not length_specified:
+            mu_x = mu_x.squeeze(0, 1)
+        if not batch_specified and length_specified:
+            mu_x = mu_x.squeeze(0)
+            
+        return mu_x
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
+                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+                f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
+                f"activation={self.activation.__name__})")
+        
+# brick 0.4 : Decoder Covariance
+
+class DecoderCovariance(nn.Module):
+    """ Neural Net to compute the covariance of the Gaussian Decoder distribution.
+    """
+    
+    def __init__(self,
+                 sequence_length = None,
+                 x_dimension = 1,
+                 z_dimension = 1,
+                 n_layers = 3,
+                 inter_dim = 128,
+                 activation = nn.ReLU,
+                 ):
+        """_summary_
+
+        Args:
+            sequence_length (_type_, optional): Longueur des time series. Doit être spécifié. Defaults to None.
+            x_dimension (_type_, optional): Dimension des observations. Defaults to 1.
+            z_dimension (_type_, optional): Dimension de l'espace latent. Defaults to 1.
+            n_layers (int, optional): Nombre total de layers du MLP. Defaults to 3.
+            inter_dim (int, optional): Nombre de neurones des hidden layers. Defaults to 128.
+            activation (_type_, optional): Activation. Defaults to nn.ReLU. NB : la dernière couche n'a pas d'activation.
+        """
+        super(DecoderCovariance, self).__init__()
+        
+        assert sequence_length is not None, "sequence_length must be specified"
+        assert n_layers > 0, "n_layers must be greater than 0"
+        assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        
+        self.sequence_length = int(sequence_length)
+        self.x_dimension = int(x_dimension)
+        self.z_dimension = int(z_dimension)
+        self.n_layers = int(n_layers)
+        self.inter_dim = int(inter_dim)
+        self.activation = activation
+        
+        # form the list of layers
+        layers = []
+        for i in range(n_layers):
+            if i == 0:
+                input_dim = sequence_length * x_dimension
+            else:
+                input_dim = inter_dim
+                
+            if i == n_layers - 1:
+                output_dim = sequence_length
+            else:
+                output_dim = inter_dim
+        
+            layers.append(nn.Linear(input_dim, output_dim))
+            if i < n_layers - 1:
+                layers.append(self.activation())
+        
+        self.mlp = nn.Sequential(*layers)
+    
+    def forward(self, z):
+        """
+        Forward pass of the DecoderCovariance.
+        Args:
+            z (torch.Tensor): Input tensor of shape (batch_size, sequence_length, z_dimension) or (sequence_length, z_dimension) or (z_dimension,).
+            The output shape matches the input shape.
+        Returns:
+            torch.Tensor: Logvar - Output tensor of shape (batch_size, sequence_length, x_dimension) or (sequence_length, x_dimension) or (x_dimension,).
+        """
+        
+        # manages input shape
+        if z.dim() == 1:
+            z_dim = z.size(0)
+            z = z.unsqueeze(0, 1)  # Add batch and length dimensions
+            batch_size = 1
+            sequence_length = 1
+            batch_specified = False
+            length_specified = False
+        elif z.dim() == 2:
+            z_dim = z.size(1)
+            sequence_length = z.size(0)
+            batch_specified = False
+            length_specified = True
+            z = z.unsqueeze(0)  # Add batch dimension
+            batch_size = 1
+        elif z.dim() == 3:
+            z_dim = z.size(2)
+            sequence_length = z.size(1)
+            batch_size = z.size(0)
+            batch_specified = True
+            length_specified = True
+        else:
+            raise ValueError("Input tensor z must have 1, 2, or 3 dimensions.")
+        
+        assert z_dim == self.z_dimension, f"Incorrect latent dim. Input tensor z must have shape (batch_size, sequence_length, {self.z_dimension}) or ({self.z_dimension},) or ({self.z_dimension}, sequence_length) or (sequence_length, {self.z_dimension})"
+                   
+        z = z.view(z.size(0), -1)  # Flatten the input tensor
+        logvar_x = self.mlp(z)  # Apply the MLP
+        logvar_x = logvar_x.view(batch_size, sequence_length, self.x_dimension)  # Reshape to (batch_size, sequence_length, z_dimension)
+        
+        # gives back the original shape
+        if not batch_specified and not length_specified:
+            logvar_x = logvar_x.squeeze(0, 1)
+        if not batch_specified and length_specified:
+            logvar_x = logvar_x.squeeze(0)
+            
+        return logvar_x
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
+                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+                f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
+                f"activation={self.activation.__name__})")
+ 
+
+
+
+
+
+# brick 2 : decoder p_\{theta_x}
+
+class GaussianDecoder(nn.Module):
+    """Decoder module. Takes a sequence of latent variables and computes the parameters of the
+    obervation model p_{\theta_x}. Here, the observation model is a Gaussian distribution,
+    and an observation x_t depends only on the latent variable z_t at time t. Therefore,
+    the computed covariance matrix is diagonal so the observations are independent.
+    """
+
+    def __init__(self):
+        pass
+    
+    def forward(self, z):
+        pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+# --- brick 6 : Sampler with reparameterization trick -----------------------------
+#
+# This samples from a normal distribution of given mean and log variance
+# using the reparameterization trick.
+
+class Sampler(nn.Module):
+    """Sampler module. Samples from a normal distribution of given mean and
+    log variance using the reparameterization trick.
+    
+    NB : to be replaced by batch of tf.distributions.Normal(mu, logvar) ?
+    """
+    
+    def __init__(self):
+        super(Sampler, self).__init__()
+        
+    def forward(self, mu, logvar):
+        """
+        Forward pass of the sampler module.
+        
+        Args:
+            mu: mean of the distribution
+            shape (batch, dim)
+            logvar: log of the variance of the distribution
+            shape (batch, dim)
+            
+        Returns:
+            v: sampled variables
+            shape (batch, dim)
+        """
+        
+        # Sample from a normal distribution using the reparameterization trick
+        std = torch.exp(0.5 * logvar)  # standard deviation
+        eps = torch.randn_like(std)  # random noise
+        v = mu + eps * std  # sampled variables
+        
+        return v
+    
+    
+
+
+#-----------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
+#
+# --- Class VRNN : Variational RNN --------------------------------
+#
+#-----------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
+
+
+class VRNN(nn.Module):
+    """Variational RNN module. Implement the VRNN model.
+    
+    Args:
+        nn (_type_): _description_
+        
+    Returns:
+        _type_: _description_
+    """
+    
+    def __init__(self,
+                 input_dim, # Dimension of the observation space
+                 latent_dim, # Dimension of the latent space
+                 rnn_x_hidden_dim, # Dimension of the hidden state of the LSTM network for observations
+                 rnn_z_hidden_dim, # Dimension of the hidden state of the LSTM network for latent variables
+                 rnn_num_layers=1, # Number of layers of the LSTM networks
+                 inter_dim=None, # Dimension of the intermediate layers
+                 layers_dim_encoder = None, # list of layers dimensions for the encoder module
+                 layers_dim_transition = None, # list of layers dimensions for the transition module
+                 layers_dim_decoder = None, # list of layers dimensions for the decoder module
+                 activation='tanh', # Activation function
+                 device='cpu' # Device to use (cpu or cuda)
+                 ):
+        super(VRNN, self).__init__()
+        
+        self.input_dim = int(input_dim)
+        self.latent_dim = int(latent_dim)
+        self.rnn_x_hidden_dim = int(rnn_x_hidden_dim)
+        self.rnn_z_hidden_dim = int(rnn_z_hidden_dim)
+        self.inter_dim = inter_dim
+        self.activation = activation
+        self.layers_dim_encoder = layers_dim_encoder
+        self.layers_dim_transition = layers_dim_transition
+        self.layers_dim_decoder = layers_dim_decoder
+        self.device = device
+        
+        # define the modules
+        
+        self.observation_lstm = ObservationLSTM(
+            input_size=self.input_dim,
+            rnn_x_hidden_size=self.rnn_x_hidden_dim,
+            num_layers=rnn_num_layers
+        )
+        
+        self.latent_lstm = LatentLSTM(
+            input_size=self.latent_dim,
+            rnn_z_hidden_size=self.rnn_z_hidden_dim,
+            num_layers=rnn_num_layers
+        )
+        
+        self.encoder = EncoderMLP(
+            z_dim=self.latent_dim,
+            rnn_z_hidden_dim=self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim=self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_encoder, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )        
+            
+        self.latent_state_transition = LatentStateTransitionMLP(
+            z_dim = self.latent_dim,
+            rnn_z_hidden_dim = self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim = self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_transition, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )
+        
+        self.decoder = DecoderMLP(
+            x_dim=self.input_dim,
+            rnn_z_hidden_dim=self.rnn_z_hidden_dim,
+            rnn_x_hidden_dim=self.rnn_x_hidden_dim,
+            default_num_units=self.inter_dim,
+            layers_dim=self.layers_dim_decoder, # list of layers dimensions, without the input dimension, without the output dimension
+            activation=self.activation,
+        )
+                
+        self.sampler = Sampler()
+        
+    def __repr__(self):
+        
+        msg = f"VRNN" +f"(observation_dim={self.input_dim}, latent_dim={self.latent_dim})"
+        msg += f"\n{self.observation_lstm}"
+        msg += f"\n{self.latent_lstm}"
+        msg += f"\n{self.encoder}"
+        msg += f"\n{self.latent_state_transition}"
+        msg += f"\n{self.decoder}"
+        msg += f"\n{self.sampler}"
+        
+        return msg
+
+    def forward(self, x_t):
+        """
+        Forward pass of the Variational RNN.
+        
+        Runs one step inference :
+        
+        0- Initialization are run (sampled latent variables of sequence length)
+        1- The input sequence x_t (seq_len, batch, input_dimension) is passed through the bidirectional observation LSTM 
+           to get the hidden states g_fwd and g_bwd (seq_len, batch, rnn_x_hidden_dim).
+        2- A sequential loop is run from time t=1 to t=T (seq_len):
+            2.1- the sampled latent variables tensor, up to previous time step z_samples[1:t-1], is run throught the forward
+                latent state LSTM, to get the hidden state h[t-1] (encoding z[1:t-1]).
+            2.2- ENCODER : the tensor h[t-1] (encoding z[1:t-1]), the tensor g_fwd[t-1] (encoding x[1:t-1]), and the tensor g_bwd[t] 
+                (encoding x[t:T]) are passed through the encoder module to get the parameters of the approximate posterior 
+                distribution mu_phi and logvar_phi of the latent variable z_t.
+            2.3- TRANSITION PRIOR : the tensor h[t-1] (encoding z[1:t-1]) and the tensor g_fwd[t-1] (encoding x[1:t-1]) are
+                passed through the transition module to get the parameters of the transition distribution of the 
+                latent variable z_t, mu_theta_z and logvar_theta_z.
+            2.4- the latent variable z_t at time t is sampled from the approximate posterior distribution and stored
+                into the sequence of sampled latent variables z_samples at index t.
+            2.5- the sampled latent variables tensor, now updated with sample z[t], is passed through the forward
+                latent state LSTM to get the hidden state h[t] (encoding z[1:t]).
+            2.6- DECODER : the tensor h[t] (encoding z[1:t]), and the tensor g_fwd[t-1] (encoding x[1:t-1]) are passed 
+                through the decoder module to get the parameters of the distribution of the observed variables x_t,
+                mu_x_t and logvar_x_t. 
+
+        Args:
+            x_t: input sequence - shape (seq_len, batch, input_dim)
+            
+        Intermediate variables:
+            sampled_z_t : sequence of sampled latent variables - shape (seq_len, batch, latent_dim).
+            NB : z_0 is set to 0.
+            g_fwd : hidden states of the forward pass of the bidirectional observation LSTM - shape (seq_len, batch, rnn_x_hidden_dim)
+            g_bwd : hidden states of the backward pass of the bidirectional observation LSTM - shape (seq_len, batch, rnn_x_hidden_dim)
+            h_t : hidden states of the forward latent state LSTM - shape (seq_len, batch, rnn_z_hidden_dim)
+        
+        Returns:
+            mu_x_t: means of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            logvar_x_t: log of the variances of the distribution of the observed variables - shape (seq_len, batch, input_dim)
+            mu_phi_z_t: means of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_phi_z_t: log of the variances of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch, latent_dim)
+            mu_theta_z_t: means of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
+            logvar_theta_z_t: log of the variances of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch, latent_dim)
+        """
+        
+       
+        # we assume that the input sequence is of shape (seq_len, batch, input_dim) and check some
+        seq_len, batch_size, input_dim = x_t.shape
+        assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
+        
+        # initializations of the tensors for the sequential loop
+                # NB : in INRIA code : self.register_buffer
+                # "If you have parameters in your model, which should be saved and restored in the state_dict, 
+                # but not trained by the optimizer, you should register them as buffers.
+                # Buffers won’t be returned in model.parameters(), 
+                # so that the optimizer won’t have a change to update them.#
+                
+        # sampled latent variables tensor, shape (seq_len, batch_size, latent_dim)
+        sampled_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        z0 = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)  # initial latent variable z_0
+        g0 = torch.zeros(1, batch_size, self.rnn_x_hidden_dim).to(self.device)  # initial hidden state of the observation LSTM
+        
+        # place holders for the parameters of the distributions
+        mu_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        logvar_phi_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        mu_theta_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        logvar_theta_z_t = torch.zeros(seq_len, batch_size, self.latent_dim).to(self.device)
+        mu_x_t = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
+        logvar_x_t = torch.zeros(seq_len, batch_size, self.input_dim).to(self.device)
+        
+        # step 1 : run the bidirectional observation LSTM on the input sequence
+        g_fwd, g_bwd = self.observation_lstm(x_t) # shape (seq_len, batch_size, rnn_x_hidden_dim) each
+        
+        # step 2 : loop from t=0 to t=T-1 (T = seq_len) for the sequential logic
+        for t in range(seq_len):
+            
+            # step 2.1 : at time t, we need the value h[t-1] of the fwd RNN of the latent variables (encoding z[1:t-1]))
+            if t == 0:
+                # at time t=0, we use the initial value z_0=0
+                h_t = self.latent_lstm(z0) # shape (seq_len, batch_size, rnn_z_hidden_dim)
+                h_t_minus_1 = h_t[0,:,:] # shape (batch_size, rnn_z_hidden_dim)
+                g_fwd_t_minus_1 = g0.squeeze(0) # shape (batch_size, rnn_x_hidden_dim)
+            else:
+                # when t>=1, we run the whole sequence of sampled latent variables
+                # into the latent state LSTM to get the hidden state h[t-1]
+                # h_t = self.latent_lstm(sampled_z_t) has been done at the end of the previous loop
+                h_t_minus_1 = h_t[t-1,:,:] # shape (batch_size, rnn_z_hidden_dim)
+                g_fwd_t_minus_1 = g_fwd[t-1,:,:] # shape (batch_size, rnn_x_hidden_dim)
+                
+            # step 2.2 : ENCODER : h[t-1] and g_fwd[t-1], g_bwd[t] are passed through the encoder module
+            mu_phi, logvar_phi = self.encoder(h_t_minus_1, g_fwd_t_minus_1, g_bwd[t,:,:])
+            mu_phi_z_t[t], logvar_phi_z_t[t] = mu_phi, logvar_phi
+            
+            # step 2.3 : TRANSITION PRIOR : h[t-1] and g_fwd[t-1] are passed through the transition module
+            mu_theta_z, logvar_theta_z = self.latent_state_transition(h_t_minus_1, g_fwd_t_minus_1)
+            mu_theta_z_t[t], logvar_theta_z_t[t] = mu_theta_z, logvar_theta_z
+            
+            # step 2.4 : sample z_t from the approximate posterior distribution
+            # NB : here, cloning is used to avoid in-place operation, that would break the computation graph
+            # and raise a runtime error when computing the gradients !
+            temp = sampled_z_t.clone()
+            temp[t,:,:] = self.sampler(mu_phi, logvar_phi)
+            sampled_z_t = temp
+            
+            # step 2.5 : update the output of the forward latent state LSTM with the new sampled latent variable
+            h_t = self.latent_lstm(sampled_z_t) # ( seq_len, batch_size, rnn_z_hidden_dim)
+            
+            # step 2.6 : DECODER : h[t] and g_fwd[t-1] are passed through the decoder module
+            mu_x, logvar_x = self.decoder(h_t[t,:,:], g_fwd_t_minus_1)
+            mu_x_t[t], logvar_x_t[t] = mu_x, logvar_x
+                                   
+        # return the outputs
+        return x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t
+    
+
+    
+    def predict(self, x, num_steps):
+        """
+        Predicts future steps based on the input sequence.
+
+        Args:
+            x_t (torch.Tensor): Input tensor of shape (seq_len, batch_size, x_dim).
+            num_steps (int): Number of future steps to predict.
+
+        Returns:
+            mu_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            containing the means of the predicted observations at future steps.
+            logvar_predictions (torch.Tensor): Tensor of shape (num_steps, batch_size, x_dim)
+            containing the log variances of the predicted observations at future steps.
+            
+            mu_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
+            containing the reconstructed input sequence and the means of the predicted future steps.
+            logvar_full_x (torch.Tensor): Tensor of shape (seq_len + num_steps, batch_size, x_dim)
+            containing the log variances of the reconstructed input sequence and the predicted future steps.
+        """
+        
+        with torch.no_grad():
+            
+            # get hyperparameters
+            seq_len, batch_size, input_dim = x.shape
+            assert input_dim == self.input_dim, f"Input dimension {input_dim} does not match the expected dimension {self.input_dim}"
+            
+            # run an inference forward pass to get the parameters of the observation distribution,
+            # and the transition distribution of the latent variable
+            x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t = self.forward(x)
+
+            # Initialize predictions
+            mu_x_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            logvar_x_predictions = torch.zeros(num_steps, batch_size, self.input_dim).to(self.device)
+            mu_theta_z_predictions = torch.zeros(num_steps, batch_size, self.latent_dim).to(self.device)
+            logvar_theta_z_predictions = torch.zeros(num_steps, batch_size, self.latent_dim).to(self.device)
+            
+            # Initialize the whole sequence (input + predictions)
+            mu_full_x = torch.cat([mu_x_t, mu_x_predictions], dim=0)
+            logvar_full_x = torch.cat([logvar_x_t, logvar_x_predictions], dim=0)
+            mu_full_theta_z = torch.cat([mu_theta_z_t, mu_theta_z_predictions], dim=0)
+            logvar_full_theta_z = torch.cat([logvar_theta_z_t, logvar_theta_z_predictions], dim=0)
+            
+            # compute predicted z_t and x_t with autoregression
+            for s in range(num_steps):
+                
+                # first, compute h[t-1] with the last sampled latent variable
+                h_t = self.latent_lstm(mu_full_theta_z) # shape (seq_len + num_steps, batch_size, rnn_z_hidden_dim)
+                h_t_minus_1 = h_t[seq_len + s-1,:,:] # shape (batch_size, rnn_z_hidden_dim)
+                # second, get the g_fwd[t-1] from the observation LSTM
+                g_fwd, _ = self.observation_lstm(mu_full_x) # shape (seq_len + num_steps, batch_size, rnn_x_hidden_dim)
+                g_fwd_t_minus_1 = g_fwd[seq_len + s-1,:,:] # shape (batch_size, rnn_x_hidden_dim)
+                
+                # predict parameters of z_t at the current time step
+                mu_theta_z, logvar_theta_z = self.latent_state_transition(h_t_minus_1, g_fwd_t_minus_1)
+                
+                # sample z_t from the transition distribution
+                sampled_z_t = self.sampler(mu_theta_z, logvar_theta_z)
+                mu_full_theta_z[seq_len + s], logvar_full_theta_z[seq_len + s] = sampled_z_t, logvar_theta_z
+                
+                # update h_t with the predicted z_t
+                h_t = self.latent_lstm(mu_full_theta_z) # shape (seq_len + num_steps, batch_size, rnn_z_hidden_dim)
+                # get the parameters of the predicted observation distribution
+                mu_x_pred, logvar_x_pred = self.decoder(h_t[seq_len + s,:,:], g_fwd_t_minus_1)
+                
+                # store those parameters
+                mu_x_predictions[s,:,:] = mu_x_pred
+                mu_full_x[seq_len + s,:,:] = mu_x_pred
+                logvar_x_predictions[s,:,:] = logvar_x_pred
+                logvar_full_x[seq_len + s,:,:] = logvar_x_pred
+        
+        return mu_x_predictions, logvar_x_predictions, mu_full_x, logvar_full_x
+
+
+
+
+#----------------------------------------------------------------------
+#
+# Loss Function
+#
+#----------------------------------------------------------------------
+
+
+def loss_function(x_t, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t, beta=None):
+    # """
+    # Version 2.0 of the loss function for the Deep Kalman Filter.
+    # All distributions parameters are assumed to have been computed from K samples of each z_t.
+    # The K samples are used to compute the expectations within the loss function.
+
+    # Args:
+    #     x_t (tensor): the original input sequence - shape (seq_len, batch_size, x_dim)
+
+    #     mu_x_t (tensor): the mean of the distribution of the observed variable - shape (seq_len, batch_size, x_dim, K)
+    #     logvar_x_t (tensor): the log of the variance of the distribution of the observed variable - shape (seq_len, batch_size, x_dim, K)
+    #     mu_phi_z_t (tensor): the mean of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch_size, z_dim, K)
+    #     logvar_phi_z_t (tensor): the log of the variance of the approximate posterior distribution (q_\phi) of the latent variable - shape (seq_len, batch_size, z_dim, K)
+    #     mu_theta_z_t (tensor): the mean of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch_size, z_dim, K)
+    #     logvar_theta_z_t (tensor): the log of the variance of the transition distribution (p_\theta_z) of the latent variable - shape (seq_len, batch_size, z_dim, K)
+
+    #     beta (float, optional): the weight of the KL divergence term in the loss function. Defaults to None.
+        
+    # Returns:
+    #     rec_loss (tensor): the reconstruction loss - shape (1,)
+    #     kl_loss (tensor): the KL divergence loss - shape (1,)
+    #     total_loss (tensor): the total loss - shape (1,)
+    # """
+    
+    seq_len, batch_size, x_dim = x_t.shape
+    
+    # choose beta
+    if beta is None:
+        beta = 1.0
+        
+    # check whether there is a K dimension or not, add K=1 if none given
+    if mu_x_t.dim() == 3:
+        K = 1
+        mu_x_t = mu_x_t.unsqueeze(-1)
+        logvar_x_t = logvar_x_t.unsqueeze(-1)
+        mu_phi_z_t = mu_phi_z_t.unsqueeze(-1)
+        logvar_phi_z_t = logvar_phi_z_t.unsqueeze(-1)
+        mu_theta_z_t = mu_theta_z_t.unsqueeze(-1)
+        logvar_theta_z_t = logvar_theta_z_t.unsqueeze(-1)
+    else:
+        K = mu_x_t.shape[-1]
+        
+    z_dim = mu_phi_z_t.shape[-2]
+        
+    # compute the expectation of the reconstruction loss with K samples
+    
+    x_t_extended = x_t.unsqueeze(-1)  # (seq_len, batch_size, x_dim, K)
+    var_x = logvar_x_t.exp() # (seq_len, batch_size, x_dim, K)
+    
+    rec_loss = torch.div((x_t_extended - mu_x_t)**2, var_x)  # (seq_len, batch_size, x_dim, K) - x_t_extended is broadcasted along last axis
+    rec_loss += logvar_x_t # (seq_len, batch_size, x_dim, K)
+    
+    rec_loss = torch.mean(rec_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, x_dim)
+    rec_loss = torch.sum(rec_loss, dim=2)  # Sum over the x_dim - (seq_len, batch_size)
+    rec_loss += x_dim * torch.log(2 * torch.tensor(torch.pi))  # (seq_len, batch_size) - pour normaliser
+    rec_loss = torch.sum(rec_loss, dim=0)  # Sum over the sequence length - (batch_size)
+    rec_loss = torch.mean(rec_loss)  # Mean over the batch - ()
+    
+    rec_loss = 1/2 * (rec_loss / seq_len)
+    
+    # compute the expectation of the KL divergence loss with K samples
+    
+    kl_loss = logvar_theta_z_t - logvar_phi_z_t  # (seq_len, batch_size, z_dim, K)
+    kl_loss += torch.div(logvar_phi_z_t.exp(), logvar_theta_z_t.exp()) # (seq_len, batch_size, z_dim, K)
+    kl_loss += torch.div((mu_theta_z_t - mu_phi_z_t).pow(2), logvar_theta_z_t.exp())
+       
+    kl_loss = torch.mean(kl_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, z_dim)
+    kl_loss = torch.sum(kl_loss, dim=2)  # Sum over the z_dim - (seq_len, batch_size)
+    kl_loss -= z_dim # shape (seq_len, batch_size), normalisation
+    kl_loss = torch.sum(kl_loss, dim=0)  # Sum over the sequence length - (batch_size)
+    kl_loss = torch.mean(kl_loss)  # Mean over the batch
+    
+    kl_loss = 1/2 * kl_loss / seq_len
+    
+    return rec_loss, kl_loss, rec_loss + beta * kl_loss
+
+
+
+#----------------------------------------------------------------------
+#
+# TRAIN, TEST steps and TRAINING funtions
+#
+#----------------------------------------------------------------------
+
+def train_step(model, optimizer, loss_fn, train_loader=None, device=None, beta=None, K=None):
+    ### training step
+    model.train()
+    optimizer.zero_grad()
+    ### loop on training data
+    rec_loss = 0
+    kl_loss = 0
+    epoch_loss = 0
+    ### check on K
+    if K is None:
+        K=1
+        
+    x_dim = model.input_dim
+    latent_dim = model.latent_dim
+    
+    for input, _ in train_loader:
+        input = input.to(device).unsqueeze(-1)  # add a feature dimension
+        input = input.permute(1, 0, 2)  # permute to (seq_len, batch_size, input_dim)
+
+        
+        mu_x_t = torch.zeros(input.shape[0], input.shape[1], x_dim, K).to(device)
+        logvar_x_t = torch.zeros(input.shape[0], input.shape[1], x_dim, K).to(device)
+        mu_phi_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        logvar_phi_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        mu_theta_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+        logvar_theta_z_t = torch.zeros(input.shape[0], input.shape[1], latent_dim, K).to(device)
+
+        # get K samples of the parameters of each distribution
+        for k in range(K):
+            # get the parameters of the distributions
+            _, mu_x_t[:, :, :, k], logvar_x_t[:, :, :, k], mu_phi_z_t[:, :, :, k], logvar_phi_z_t[:, :, :, k], mu_theta_z_t[:, :, :, k], logvar_theta_z_t[:, :, :, k] = model(input)
+        
+        rec_loss, kl_loss, total_loss = loss_fn(input, mu_x_t, logvar_x_t, mu_phi_z_t, logvar_phi_z_t, mu_theta_z_t, logvar_theta_z_t, beta=beta)
+        
+        total_loss.backward()
+        optimizer.step()
+              
+        rec_loss += rec_loss.item()
+        kl_loss += kl_loss.item()
+        epoch_loss += total_loss.item()
+        
+    epoch_loss /= len(train_loader)
+    rec_loss /= len(train_loader)
+    kl_loss /= len(train_loader)
+    
+    return rec_loss, kl_loss, epoch_loss
+
+
+
+# Test step : perform validation test for one epoch
+
+def test_step(model, loss_fn, test_loader=None, device=None, beta=None):
+    ### test step
+    model.eval()
+    
+    with torch.no_grad():
+        ### loop on test data
+        rec_loss = 0
+        kl_loss = 0
+        epoch_loss = 0
+        
+        for input, _ in test_loader:
+            input = input.to(device).unsqueeze(-1)  # add a feature dimension
+            input = input.permute(1, 0, 2)  # permute to (seq_len, batch_size, input_dim)
+
+            _, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s = model(input)
+            
+            rec_loss, kl_loss, total_loss = loss_fn(input, mu_x_s, logvar_x_s, mu_z_s, logvar_z_s, mu_z_transition_s, logvar_z_transition_s, beta=beta)
+                
+            rec_loss += rec_loss.item()
+            kl_loss += kl_loss.item()
+            epoch_loss += total_loss.item()
+            
+        epoch_loss /= len(test_loader)
+        rec_loss /= len(test_loader)
+        kl_loss /= len(test_loader)
+    
+    return rec_loss, kl_loss, epoch_loss
+
+
+# Train function
+
+def train(model, optimizer, loss_fn, num_epochs=100, train_loader=None, test_loader=None, batch_size=None, device=None, beta=None, beta_scheduler=None, display_frequency=10, K=None):
+    
+    rec_losses = []
+    kl_losses = []
+    epoch_losses = []
+
+    val_rec_losses = []
+    val_kl_losses = []
+    val_epoch_losses = []
+    
+    betas = []
+    rec_loss = 1.0
+    
+    if K is None:
+        K = 1
+    else:
+        K = int(K)
+        
+    print(f"Starting training...")
+    if device.type == 'cuda':
+        print('GPU Name:', torch.cuda.get_device_name(0))
+        print('Total GPU Memory:', round(torch.cuda.get_device_properties(0).total_memory/1024**3,1), 'GB')
+    print(f"Number of epochs: {num_epochs}")
+    print(f"Learning rate: {optimizer.param_groups[0]['lr']:.3e}")
+    print(f"Batch size: {batch_size}")
+    if beta_scheduler is not None:
+        print(f"Beta scheduler: {beta_scheduler}")
+    else:
+        print(f"Beta scheduler: None, beta = {beta:.3e}")
+    print(f"K = {K}")
+    print(f"Training set size: {len(train_loader.dataset)}")
+    print(f"Validation set size: {len(test_loader.dataset)}")
+    print(f"Device: {device}")
+    print(f"\n")
+
+    for i in range(num_epochs):
+        
+        # use the beat scheduler if provided
+        if beta_scheduler is not None:
+            beta = beta_scheduler(i, rec_loss)
+        betas.append(beta)
+        
+        # run the training step
+        rec_loss, kl_loss, epoch_loss = train_step(model, optimizer, loss_fn, train_loader=train_loader, device=device, beta=beta, K=K)
+
+        # log results
+        rec_losses.append(rec_loss)
+        kl_losses.append(kl_loss)
+        epoch_losses.append(epoch_loss)
+        
+        # run test step
+        val_rec_loss, val_kl_loss, val_epoch_loss = test_step(model, loss_fn, test_loader=test_loader, device=device, beta=beta)
+            
+        # log results
+        val_rec_losses.append(val_rec_loss)
+        val_kl_losses.append(val_kl_loss)
+        val_epoch_losses.append(val_epoch_loss)
+        
+        # Print the losses for this epoch
+        if (i+1) % display_frequency == 0:
+            print(f"Epoch {i+1:>5}/{num_epochs} with beta = {beta:.2e} - TRAINING : Rec Loss: {rec_loss:.4e}, KL Loss: {kl_loss:.4e}, Total Loss: {epoch_loss:.4e} - TEST : Rec Loss: {val_rec_loss:.4e}, KL Loss: {val_kl_loss:.4e}, Total Loss: {val_epoch_loss:.4e}")
+            
+    return rec_losses, kl_losses, epoch_losses, val_rec_losses, val_kl_losses, val_epoch_losses, betas        
+
+
+
+#----------------------------------------------------------------------
+#
+# Beta Schedulers
+#
+#----------------------------------------------------------------------
+
+
+class BetaLinearScheduler():
+    """Scheduler linéaire simple du beta, rapport entre la loss de reconstruction et la loss KL
+    """
+    
+    def __init__(self, beta_start=0.0, beta_end=1.0, epoch_start=0, epoch_end=None, num_epochs=None):
+        """Constructeur
+
+        Args:
+            beta_start (float, optional): coefficient beta au démarrage. Defaults to 0.0.
+            beta_end (float, optional): coefficient beta en fin de schedule. Defaults to 1.0.
+            epoch_start (int, optional): epoch de démarrage du schedule. Defaults to 0.
+            epoch_end (int, optional): epoch de fin du schedule. Defaults to None.
+            num_epochs (int, optional): nombre d'epochs sur lequel se fait l'évolution du beta. Defaults to None.
+            
+            Si epoch_end est None, alors num_epochs est utlisé pour la fin du schedule.
+            Si num_epochs est None, alors epoch_end est utilisé pour la fin du schedule.
+            Si num_epochs et epoch_end sont tous les deux None, alors num_epochs est fixé à 100.
+            Si epoch_end et num_epochs sont tous les deux fournis, alors num_epochs est utilisé pour la fin du schedule.
+        """
+        
+        # beta values
+        self.beta_start = beta_start
+        self.beta_end = beta_end
+        
+        # epoch profile
+        self.epoch_start = int(epoch_start)
+        if epoch_end is None and num_epochs is None:
+            self.num_epochs = 100
+            self.epoch_end = self.epoch_start + self.num_epochs
+        elif epoch_end is None and num_epochs is not None:
+            self.epoch_end = self.epoch_start + num_epochs
+            self.num_epochs = num_epochs
+        elif epoch_end is not None and num_epochs is None:
+            self.epoch_end = epoch_end
+            self.num_epochs = self.epoch_end - self.epoch_start
+        else:
+            self.num_epochs = num_epochs
+            self.epoch_end = self.epoch_start + self.num_epochs
+
+        
+    def __call__(self, epoch, rec_loss):
+        """Calcul du beta à l'epoch donnée
+
+        Args:
+            epoch (int): epoch courante
+
+        Returns:
+            float: beta
+        """
+        
+        if epoch < self.epoch_start:
+            return self.beta_start
+        if epoch > self.epoch_end:
+            return self.beta_end
+        # beta évolue linéairement entre beta_start et beta_end
+        # entre epoch_start et epoch_end
+        beta = self.beta_start + (self.beta_end - self.beta_start) * ((epoch - self.epoch_start) / (self.epoch_end - self.epoch_start))
+        
+        return beta
+    
+    def __repr__(self):
+        """String representation of the scheduler
+        """
+        
+        msg = f"BetaLinearScheduler(beta_start={self.beta_start:.3e}, beta_end={self.beta_end:.3e}, epoch_start={self.epoch_start}, epoch_end={self.epoch_end}, num_epochs={self.num_epochs})"
+        
+        return msg
+    
+    
+    
+class BetaThresholdScheduler():
+    """Scheduler du beta, rapport entre la loss de reconstruction et la loss KL.
+    Reste constant jusqu'à ce que la rec_loss soit inférieure à un seuil donné.
+    Ensuite, le beta évolue linéairement entre beta_start et beta_end pendant num_epochs
+    """
+    
+    def __init__(self, rec_loss_threshold=0.0, beta_start=0.0, beta_end=1.0, num_epochs=None):
+        """Constructeur
+
+        Args:
+            rec_loss_threshold (float, optional): seuil de la loss de reconstruction. Defaults to 0.0.
+            beta_start (float, optional): coefficient beta au démarrage. Defaults to 0.0.
+            beta_end (float, optional): coefficient beta en fin de schedule. Defaults to 1.0.
+            num_epochs (int, optional): nombre d'epochs sur lequel se fait l'évolution du beta. Defaults to None.
+        """
+        
+        # beta values
+        self.beta_start = beta_start
+        self.beta_end = beta_end
+        self.beta_schedule_started = False
+        
+        # epoch profile
+        if num_epochs is None:
+            self.num_epochs = 100
+        else:
+            self.num_epochs = num_epochs
+            
+        # rec_loss thershold
+        self.rec_loss_threshold = rec_loss_threshold
+
+        
+    def __call__(self, epoch, rec_loss):
+        """Calcul du beta
+
+        Args:
+            rec_loss (float): loss de reconstruction
+
+        Returns:
+            float: beta
+        """
+        
+        if self.beta_schedule_started is False:
+            if rec_loss < self.rec_loss_threshold:
+                self.beta_schedule_started = True
+                self.epoch = 0
+            return self.beta_start
+        else:     
+            # beta évolue linéairement entre beta_start et beta_end
+            # entre epoch_start et num_epochs
+            beta = self.beta_start + (self.beta_end - self.beta_start) * (self.epoch / self.num_epochs)
+            if self.epoch < self.num_epochs:
+                self.epoch += 1
+                
+            return beta
+    
+    def __repr__(self):
+        """String representation of the scheduler
+        """
+        
+        msg = f"BetaThresholdScheduler(beta_start={self.beta_start:.3e}, beta_end={self.beta_end:.3e}, num_epochs={self.num_epochs}, seuil rec_loss={self.rec_loss_threshold:.3e})"
+        
+        return msg
+    
+    
+    
+#----------------------------------------------------------------------
+#
+# Plotting functions
+#
+#----------------------------------------------------------------------
+
+
+
+def plot_losses(rec_losses, kl_losses, epoch_losses, val_rec_losses, val_kl_losses, val_epoch_losses, betas):
+    
+    # Plot the losses
+
+    fig, axs = plt.subplots(1, 4, figsize=(20, 3))
+
+    axs[0].plot(torch.tensor(rec_losses).cpu().detach(), label='Training', color='blue')
+    axs[0].plot(torch.tensor(val_rec_losses).cpu().detach(), label='Test', color='green')
+    axs[0].set_title('Reconstruction Loss')
+    axs[0].set_xlabel('Epochs')
+    axs[0].set_ylabel('Loss')
+    axs[0].legend()
+    axs[0].grid()
+
+    axs[1].plot(torch.tensor(kl_losses).cpu().detach(), label='Training', color='blue')
+    axs[1].plot(torch.tensor(val_kl_losses).cpu().detach(), label='Test', color='green')
+    axs[1].set_title('KL Loss')
+    axs[1].set_xlabel('Epochs')
+    axs[1].set_ylabel('Loss')
+    axs[1].legend()
+    axs[1].grid()
+
+    axs[2].plot(torch.tensor(epoch_losses).cpu().detach(), label='Training', color='blue')
+    axs[2].plot(torch.tensor(val_epoch_losses).cpu().detach(), label='Test', color='green')
+    axs[2].set_title('Total Loss')
+    axs[2].set_xlabel('Epochs')
+    axs[2].set_ylabel('Loss')
+    axs[2].legend()
+    axs[2].grid()
+    
+    axs[3].plot(betas, label='Beta', color='blue')
+    axs[3].set_title('Beta schedule')
+    axs[3].set_xlabel('Epochs')
+    axs[3].set_ylabel('Beta')
+    axs[3].legend()
+    axs[3].grid()
+
+    plt.tight_layout()
+    plt.show()
+    
+    
+    
+#----------------------------------------------------------------------
+#
+#  Sampling predictions
+#
+#----------------------------------------------------------------------
+
+
+def sample_predictions(N_SAMPLES=3, model=None, X_valid=None, y_valid=None, n_steps=None, n_ahead=None, device=None):
+    
+    idx = np.random.randint(0, len(X_valid), N_SAMPLES)
+    X_valid_subset = X_valid[idx]
+    y_valid_subset = y_valid[idx]
+    
+    fig, axs = plt.subplots(N_SAMPLES, 1, figsize=(16, 3 * N_SAMPLES))
+    for i in range(N_SAMPLES):
+        input = torch.tensor(X_valid_subset[i], device=device).unsqueeze(1).unsqueeze(2)
+        # print(f"input shape : {input.shape}")
+        target = torch.tensor(y_valid_subset[i], device=device)
+        target = target.cpu().detach().numpy()
+        mu_predictions, logvar_predictions, mu_full_x, logvar_full_x = model.predict(input, n_ahead)
+              
+        # display data
+        axs[i].plot(input.squeeze().cpu().detach().numpy(), color='blue', marker=".", linewidth=1, label="input")
+        axs[i].plot(np.arange(len(target))+n_steps, target, color='red', marker="o", linewidth=1, label="ground truth")
+        
+        # display predictions and credible intervals
+        all_times = np.arange(n_steps+n_ahead)
+        mu_full_x = mu_full_x.squeeze().cpu().detach().numpy()
+        logvar_full_x = logvar_full_x.squeeze().cpu().detach().numpy()
+        std_full_x = np.exp(logvar_full_x / 2)
+        
+        axs[i].scatter(all_times, mu_full_x, color='green', marker="x", linewidth=1, label="reconstructed and predicted")
+        axs[i].fill_between(all_times, mu_full_x-2*std_full_x, mu_full_x+2*std_full_x, color='orange', label='+/- 2 std', alpha=0.2)
+        
+        axs[i].set_title(f"Time series {idx[i]}")
+        axs[i].set_xlabel("Time")
+        axs[i].set_ylabel("Value")
+        axs[i].legend()
+        axs[i].grid(True)
+        
+    plt.tight_layout()
+    plt.show()
+
