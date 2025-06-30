@@ -615,6 +615,9 @@ class GPNullMean(nn.Module):
         
         return torch.zeros_like(t, device=t.device, dtype=t.dtype).repeat(1,1,self.z_dimension)  # returns a tensor of zeros of shape (batch_size, sequence_length, z_dimension)
     
+    def __repr__(self):
+        return f"{self.__class__.__name__}(z_dimension={self.z_dimension})"
+    
 
 class CauchyKernel(nn.Module):
     """Cauchy kernel for Gaussian Process.
@@ -626,6 +629,8 @@ class CauchyKernel(nn.Module):
         # the parameters of the kernel are learnable
         self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
         self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
+        
+        self.alpha = torch.tensor(1.0e-3)  # small positive constant to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Cauchy kernel between two sets of time points.
@@ -642,8 +647,17 @@ class CauchyKernel(nn.Module):
         assert t1.size(-1) == 1 and t2.size(-1) == 1, "In kernel computation, Input tensors must have last dimension = 1 (this is a set of times)"
         
         diff = t1 - t2.transpose(1, 2) # (B, N, 1) - (B, 1, N) => (B, N, N)
-        return self.variance**2 * ( 1 + (diff / self.lengthscale)**2 )**(-1)  # (B, N, N) kernel matrix
+        cauchy_kernel_matrix = torch.divide( self.variance**2, 1.0 + (diff / self.lengthscale)**2  )  # (B, N, N) kernel matrix
+        cauchy_kernel_matrix += self.alpha * torch.eye(t1.size(1), device=t1.device, dtype=t1.dtype).unsqueeze(0)  # add identity matrix to ensure positive definiteness
+        
+        return cauchy_kernel_matrix
     
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
+                f"variance={self.variance.item()})")
+        
+        
+        
       
 class GaussianProcessPriorMaison(nn.Module):
     """Prior Processus Gaussien pour les variables latentes z_{1:T}.
@@ -651,11 +665,71 @@ class GaussianProcessPriorMaison(nn.Module):
     """
     
     def __init__(self,
-        z_dimension = 1,  # we assume z_dimension = 1 for now
+        # z_dimension = 1,  # we assume z_dimension = 1 for now
         kernel = None,  # Kernel to use for the Gaussian Process
         mean_function = None,  # Mean function for the Gaussian Process
         ):
-        pass
+        
+        super(GaussianProcessPriorMaison, self).__init__()
+        
+        # assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        
+        if kernel is None:
+            self.kernel = CauchyKernel()
+        else:
+            self.kernel = kernel
+            
+        if mean_function is None:
+            self.mean_function = GPNullMean()
+        else:
+            self.mean_function = mean_function
+            
+    def forward(self, t):
+        """Forward pass of the Gaussian Process prior.
+        
+        Args:
+            t (torch.Tensor): Input tensor of shape (batch_size, sequence_length, 1)
+        
+        Returns:
+            torch.distributions.MultivariateNormal: Multivariate normal distribution representing the prior over z_{1:T}
+                - mean is computed using the mean function, shape (batch_size, sequence_length, z_dimension=1)
+                - covariance is computed using the kernel, shape (batch_size, sequence_length, sequence_length)
+        NB : z_dimension = 1 in this first implementation.
+        """
+        
+        assert t.dim() == 3, "In GPPrior, Input tensor must have shape (batch_size, sequence_length, 1)"
+        assert t.size(-1) == 1, "In GPPrior, Input tensor must have last dimension = 1 (this is a set of times)"
+        
+        mean = self.mean_function(t) # (B, N, 1) => (B, N, Dz=1)
+        covariance = self.kernel(t, t)  # (B, N, N)
+        
+        # instantiate the multivariate normal distribution
+        prior_distribution = torch.distributions.MultivariateNormal(mean.squeeze(-1), covariance)
+        
+        return prior_distribution
+        
+    def __repr__(self):
+        msg = (f"{self.__class__.__name__}(kernel={self.kernel.__class__.__name__}, "
+                f"mean_function={self.mean_function.__class__.__name__})")
+        msg += f"\nKernel: {self.kernel}"
+        msg += f"\nMean Function: {self.mean_function}"
+        return msg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -752,7 +826,7 @@ if __name__ == "__main__":
     
     # GP PRIOR TESTS
     print("\nTest GPNullMean...")
-    B, N, Z = 16, 50, 3 # batch_size, sequence_length, z_dimension
+    B, N, Z = 16, 250, 3 # batch_size, sequence_length, z_dimension
     gp_null_mean = GPNullMean(z_dimension=Z)
     t = torch.randn(B, N, 1)  # batch_size=16
     print(f"Input shape: {t.shape}")
@@ -768,3 +842,38 @@ if __name__ == "__main__":
     print(f"Input shapes: t1={t1.shape}, t2={t2.shape}")
     kernel_output = cauchy_kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
+    
+    try:
+        torch.linalg.cholesky(kernel_output)
+        print("Kernel matrix is positive definite.")
+    except RuntimeError:
+        print("Kernel matrix is NOT positive definite.")
+    
+    # TEST GP PRIOR
+    print("\nTest GaussianProcessPriorMaison...")
+    gp_prior = GaussianProcessPriorMaison()
+    print(gp_prior)
+    
+    print(f"\nTest 1 avec 1ere dimension de t")
+    N = 500  # sequence_length
+    B = 1  # batch_size
+    t = torch.randn(B, N, 1)  # batch_size=16
+    print(f"Input shape (B, N, 1): {t.shape}")
+    gp_prior_output = gp_prior(t)
+    print(f"Output mean shape: {gp_prior_output.loc.shape}")
+    print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
+    print(f"Batch shape: {gp_prior_output.batch_shape}")
+    print(f"Event shape: {gp_prior_output.event_shape}")
+    print(f"Sampled z shape: {gp_prior_output.rsample().shape}")
+    
+    print(f"\nTest 2 avec 2e dimension de t")
+    N = 250  # sequence_length
+    B = 32  # batch_size
+    t = torch.randn(B, N, 1)  # batch_size=16
+    print(f"Input shape: {t.shape}")
+    gp_prior_output = gp_prior(t)
+    print(f"Output mean shape: {gp_prior_output.loc.shape}")
+    print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
+    print(f"Batch shape: {gp_prior_output.batch_shape}")
+    print(f"Event shape: {gp_prior_output.event_shape}")
+    print(f"Sampled z shape: {gp_prior_output.rsample().shape}") 
