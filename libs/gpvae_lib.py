@@ -727,6 +727,10 @@ class GaussianProcessPriorMaison(nn.Module):
 # LOSS FUNCTION
 #---------------------------------------------------------------------
 
+#
+# Just to check....
+#
+
 def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
     """Ugly KL divergence implementation between two multivariate normal distributions.
     
@@ -739,29 +743,25 @@ def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
     Returns:
         torch.Tensor: KL divergence between the two distributions (scalar)
         
-    NB : this is a very ugly implementation, but it works for now. Next step is to be smart using Cholesky decomposition.
+    NB : this is a very ugly implementation, but it works for now. Next step is to be smart using Cholesky decomposition instead of linalg.inv
     """
     
     assert mu_0.shape == mu_1.shape, "mu_0 and mu_1 must have the same shape"
     assert sigma_0.shape == sigma_1.shape, "sigma_0 and sigma_1 must have the same shape"
     
-    # compute the KL divergence
-    trace = torch.einsum('...ii->...', torch.div(sigma_0, sigma_1))  # (batch_size)
-    
-    #----------
-    #
-    # MAHALANOBIS DISTANCE : reprendre avec torch.einsum
-    #
-    #----------
-    # mahalanobis = torch.einsum('...i,...i->...', (mu_0 - mu_1), torch.div(mu_0 - mu_1, sigma_1))  # (batch_size, sequence_length)
-    mahalanobis = 0
-    
-    #
-    #
+    # compute the KL divergence - torch.einsum is my friend : https://ejenner.com/post/einsum/
+    trace = torch.einsum('...ii->...', torch.linalg.inv(sigma_1) @ sigma_0)  # (batch_size)    
+    outer_mu = torch.einsum('...i,...j->...ij', mu_1-mu_0, mu_1-mu_0)  # (batch_size, sequence_length, sequence_length)
+    mahalanobis = torch.linalg.inv(sigma_1) @ outer_mu  # (batch_size, sequence_length, sequence_length)
+    mahalanobis = torch.einsum('...ii->...', mahalanobis)  # (batch_size)
     logdet = torch.log(torch.det(sigma_1)) - torch.log(torch.det(sigma_0))  # (batch_size)
-    kl_maison = 0.5 * (trace + mahalanobis - mu_0.shape[-1] + logdet)  # (batch_size)
+    kl_maison_value = 0.5 * (trace + mahalanobis - mu_0.shape[-1] + logdet)  # (batch_size)
     
-    return kl_maison.mean()  # return the mean KL divergence over the batch
+    return kl_maison_value.mean()  # return the mean KL divergence over the batch
+
+#----------------------------------------------------------------------
+# Variational Lower Bound (VLB)
+#----------------------------------------------------------------------
 
 def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
     """Variational Lower Bound (VLB) for the model.
@@ -774,23 +774,18 @@ def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
         x_sample (torch.Tensor): Sampled observations x_{1:T} from p_theta_x
         
     Returns:
-        torch.Tensor (scaler): The variational lower bound (VLB) value.
+    kl_divergence (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed by torch.distributions.kl.kl_divergence.
+    kl_analytique (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed using the custom kl_maison function (analytical KL divergence between Gaussian distributions).
+    reconstruction_loss (torch.Tensor): The reconstruction loss, computed as the log probability of x_sample under p_theta_x.
+    vlb_value: (torch.Tensor): The variational lower bound (VLB) value, computed as the difference between the reconstruction loss and the KL divergence.
     """
-    
-    # check shapes
-    # assert q_phi.batch_shape == p_theta_x.batch_shape, "q_phi and p_theta_x must have the same batch shape"
-    # assert q_phi.event_shape == p_theta_x.event_shape, "q_phi and p_theta_x must have the same event shape"
-    # assert p_theta_z.batch_shape == q_phi.batch_shape, "p_theta_z and q_phi must have the same batch shape"
-    # assert p_theta_z.event_shape == q_phi.event_shape, "p_theta_z and q_phi must have the same event shape"
-    # assert p_theta_z.event_shape == p_theta_x.event_shape, "p_theta_z and p_theta_x must have the same event shape"
-    # assert p_theta_z.batch_shape == p_theta_x.batch_shape, "p_theta_z and p_theta_x must have the same batch shape"
-    
+       
     # compute reconstruction loss
     log_probs = p_theta_x.log_prob(x_sample) # (B, L)
     reconstruction_loss = log_probs.sum(-1).mean()  # sum over the sequence length and mean over the batch
     
     # compute KL divergence
-    kl_divergence = torch.distributions.kl_divergence(q_phi, p_theta_z).mean()  # average over the batch
+    kl_divergence = torch.distributions.kl.kl_divergence(q_phi, p_theta_z).mean()  # average over the batch
     
     # kl maison
     kl_analytique = kl_maison(
@@ -800,20 +795,10 @@ def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
         sigma_1=p_theta_z.covariance_matrix
     )
     
-    # kl_loss = logvar_theta_z_t - logvar_phi_z_t  # (seq_len, batch_size, z_dim, K)
-    # kl_loss += torch.div(logvar_phi_z_t.exp(), logvar_theta_z_t.exp()) # (seq_len, batch_size, z_dim, K)
-    # kl_loss += torch.div((mu_theta_z_t - mu_phi_z_t).pow(2), logvar_theta_z_t.exp())
-       
-    # kl_loss = torch.mean(kl_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, z_dim)
-    # kl_loss = torch.sum(kl_loss, dim=2)  # Sum over the z_dim - (seq_len, batch_size)
-    # kl_loss -= z_dim # shape (seq_len, batch_size), normalisation
-    # kl_loss = torch.sum(kl_loss, dim=0)  # Sum over the sequence length - (batch_size)
-    # kl_loss = torch.mean(kl_loss)  # Mean over the batch
-    
     # compute the variational lower bound (VLB)
-    vlb_value = reconstruction_loss - kl_divergence  # VLB = E_q[log p_theta_x(x|z)] - D_KL(q_phi(z|x) || p_theta_z(z))
+    vlb = reconstruction_loss - kl_divergence  # VLB = E_q[log p_theta_x(x|z)] - D_KL(q_phi(z|x) || p_theta_z(z))
     
-    return kl_divergence, kl_analytique, reconstruction_loss, vlb_value
+    return kl_divergence, kl_analytique, reconstruction_loss, vlb
 
 
 
@@ -979,7 +964,7 @@ if __name__ == "__main__":
     # TEST LOSS FUNCTION
     print("\nTest VLB...")
     # we need to instantiate the Encoder and Decoder first
-    B, L, Dx = 16, 10, 5  # batch_size, sequence_length, x_dimension
+    B, L, Dx = 32, 5, 10  # batch_size, sequence_length, x_dimension
     sequence_length = L
     x_dimension = Dx
     z_dimension = 1  # we assume z_dimension = 1 for now
@@ -1033,9 +1018,9 @@ if __name__ == "__main__":
     print(f"p_theta_z batch shape: {p_theta_z.batch_shape}")
     print(f"p_theta_z event shape: {p_theta_z.event_shape}")
     
-    kl, kl_maison, reco_loss, vlb_loss = vlb(q_phi, p_theta_x, p_theta_z, x_sample)
-    vlb_loss *= -1
+    kl, kl_maison_value, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_sample)
+    loss = -vlb
     print(f"KL divergence: {kl.item()}")
-    print(f"KL divergence (maison): {kl_maison.item()}")
+    print(f"KL divergence (maison): {kl_maison_value.item()}")
     print(f"Reconstruction loss: {reco_loss.item()}")
-    print(f"VLB loss: {vlb_loss.item()}")
+    print(f"VLB loss: {loss.item()}")
