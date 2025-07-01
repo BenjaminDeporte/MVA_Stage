@@ -337,7 +337,7 @@ class Encoder(nn.Module):
         
         # manage shape of x
         assert x.dim() == 3, f"Incorrect tensor shape in Encoder. Input tensor must have shape (batch_size, sequence_length, x_dimension). Got {x.shape} instead."
-        assert sequence_length == self.sequence_length, f"Incorrect sequence length passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        assert x.size(1) == self.sequence_length, f"Incorrect sequence length passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
         assert x.size(-1) == self.x_dimension, f"Incorrect x_dimension passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
         
         # compute parameters of the approximate posterior distribution
@@ -590,6 +590,8 @@ class GaussianDecoder(nn.Module):
 # GAUSSIAN PROCESS PRIOR
 #---------------------------------------------------------------------
 
+# --- Mean function -----------------------------------------------
+
 class GPNullMean(nn.Module):
     """ Neural Net to compute the mean of the Gaussian Process prior.
     This is a null mean function, i.e. it returns a tensor of zeros.
@@ -621,6 +623,11 @@ class GPNullMean(nn.Module):
         return f"{self.__class__.__name__}(z_dimension={self.z_dimension})"
     
 
+# ----- Cauchy Kernel ---------------------------------------------
+#
+# HIGHLY UNSTABLE KERNEL !  Produces not definite positive matrices from time to time !
+#
+
 class CauchyKernel(nn.Module):
     """Cauchy kernel for Gaussian Process.
     NB : requires a small positive constant alpha to ensure positive definiteness of the kernel matrix.
@@ -634,7 +641,7 @@ class CauchyKernel(nn.Module):
         self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
         self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
         
-        self.alpha = torch.tensor(1.0e-3)  # small positive constant to ensure positive definiteness of the kernel matrix
+        self.alpha = torch.tensor(1.0e-2)  # small positive constant to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Cauchy kernel between two sets of time points.
@@ -660,6 +667,51 @@ class CauchyKernel(nn.Module):
         return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
                 f"variance={self.variance.item()})")
         
+
+#----- Gaussian Kernel --------------------------------------------
+#
+
+class GaussianKernel(nn.Module):  
+    """Gaussian kernel for Gaussian Process.
+    The lengthscale and variance parameters are learnable (nn.Parameter).
+    """
+    
+    def __init__(self):
+        super(GaussianKernel, self).__init__()
+        
+        # the parameters of the kernel are learnable
+        self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
+        self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
+        
+        self.alpha = torch.tensor(1.0e-6)  # small positive constant to ensure positive definiteness of the kernel matrix
+    
+    def forward(self, t1, t2):
+        """Compute the Gaussian kernel between two sets of time points.
+        
+        Args:
+            t1 (torch.Tensor): First set of time points (batch_size, sequence_length, 1)
+            t2 (torch.Tensor): Second set of time points (batch_size, sequence_length, 1)
+        
+        Returns:
+            torch.Tensor: Kernel matrix of shape (batch_size, sequence_length, sequence_length)
+        """
+        
+        assert t1.dim() == 3 and t2.dim() == 3, "In kernel computation, Input tensors must have shape (batch_size, sequence_length, 1)"
+        assert t1.size(-1) == 1 and t2.size(-1) == 1, "In kernel computation, Input tensors must have last dimension = 1 (this is a set of times)"
+        
+        kernel = torch.exp(-0.5 * ((t1 - t2.transpose(1, 2)) / self.lengthscale)**2)  # (B, N, N)
+        gaussian_kernel_matrix = self.variance * kernel  # (B, N, N)
+        gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(1), device=t1.device, dtype=t1.dtype).unsqueeze(0)
+         
+        return gaussian_kernel_matrix
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
+                f"variance={self.variance.item()})")      
+        
+        
+#---------------------------------------------------------------------
+        
       
 class GaussianProcessPriorMaison(nn.Module):
     """Prior Processus Gaussien pour les variables latentes z_{1:T}.
@@ -677,7 +729,7 @@ class GaussianProcessPriorMaison(nn.Module):
         # assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
         
         if kernel is None:
-            self.kernel = CauchyKernel()
+            self.kernel = GaussianKernel()
         else:
             self.kernel = kernel
             
@@ -763,7 +815,7 @@ def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
 # Variational Lower Bound (VLB)
 #----------------------------------------------------------------------
 
-def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
+def vlb(q_phi, p_theta_x, p_theta_z, x_samples):
     """Variational Lower Bound (VLB) for the model.
 
     Args:
@@ -771,18 +823,18 @@ def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
         p_theta_x (torch.distributions.MultivariateNormal): Decoder distribution p_{\theta_x}(x_{1:T}|z_{1:T}).
         p_theta_z (torch.distributions.MultivariateNormal): Gaussian Process prior distribution p_{\theta_z}(z_{1:T}).
         z_sample (torch.Tensor): Sampled latent variables z_{1:T} from q_phi.
-        x_sample (torch.Tensor): Sampled observations x_{1:T} from p_theta_x
+        x_samples (torch.Tensor): Sampled observations x_{1:T} from p_theta_x (K, B, L, Dx) : K samples
         
     Returns:
     kl_divergence (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed by torch.distributions.kl.kl_divergence.
     kl_analytique (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed using the custom kl_maison function (analytical KL divergence between Gaussian distributions).
-    reconstruction_loss (torch.Tensor): The reconstruction loss, computed as the log probability of x_sample under p_theta_x.
+    reconstruction_loss (torch.Tensor): Reconstruction loss, computed as the log likelihood of x_sample under p_theta_x.
     vlb_value: (torch.Tensor): The variational lower bound (VLB) value, computed as the difference between the reconstruction loss and the KL divergence.
     """
        
     # compute reconstruction loss
-    log_probs = p_theta_x.log_prob(x_sample) # (B, L)
-    reconstruction_loss = log_probs.sum(-1).mean()  # sum over the sequence length and mean over the batch
+    log_probs = p_theta_x.log_prob(x_samples) # (K, B, L)
+    reconstruction_loss = log_probs.sum(-1).mean()  # sum over the sequence length and mean over the batch and over the K samples
     
     # compute KL divergence
     kl_divergence = torch.distributions.kl.kl_divergence(q_phi, p_theta_z).mean()  # average over the batch
@@ -1004,8 +1056,9 @@ if __name__ == "__main__":
     z_sample = q_phi.rsample().unsqueeze(2)  # (B, L, Dz=1)
     print(f"Sampled z shape: {z_sample.shape}")
     mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
-    x_sample = p_theta_x.rsample()  # (B, L, Dx)
-    print(f"Sampled x shape: {x_sample.shape}")
+    K = 3 # number of samples to draw from the decoder distribution
+    x_samples = p_theta_x.rsample((K,))  # (B, L, Dx, K)
+    print(f"Sampled x shape: {x_samples.shape}")
     
     print(f"Decoder distribution p_theta_x: {p_theta_x}")
     print(f"p_theta_x batch shape: {p_theta_x.batch_shape}")
@@ -1018,8 +1071,9 @@ if __name__ == "__main__":
     print(f"p_theta_z batch shape: {p_theta_z.batch_shape}")
     print(f"p_theta_z event shape: {p_theta_z.event_shape}")
     
-    kl, kl_maison_value, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_sample)
+    kl, kl_maison_value, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_samples)
     loss = -vlb
+    reco_loss = -reco_loss
     print(f"KL divergence: {kl.item()}")
     print(f"KL divergence (maison): {kl_maison_value.item()}")
     print(f"Reconstruction loss: {reco_loss.item()}")
