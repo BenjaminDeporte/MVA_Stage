@@ -137,7 +137,7 @@ class EncoderMean(nn.Module):
                 
         self.mlp = make_mlp(
             input_dim=sequence_length * x_dimension,
-            output_dim=sequence_length,
+            output_dim=sequence_length * z_dimension,  # output is a vector of length sequence_length * z_dimension
             n_layers=n_layers,
             inter_dim=inter_dim,
             activation=activation
@@ -212,7 +212,8 @@ class EncoderCovariance(nn.Module):
         self.n_layers = int(n_layers)
         self.inter_dim = int(inter_dim)
         self.activation = activation
-                
+        
+        # this network to get the diagonal elements of the covariance matrix
         self.diagonal_mlp = make_mlp(
             input_dim=sequence_length * x_dimension,
             output_dim=sequence_length,  # output is a vector of length sequence_length (* z_dim = 1)
@@ -220,7 +221,8 @@ class EncoderCovariance(nn.Module):
             inter_dim=inter_dim,
             activation=activation
         )
-                                       
+        
+        # this network to get a full matrix, of which we well keep only the lower triangular part                
         self.full_matrix_mlp = make_mlp(
             input_dim=self.sequence_length * self.x_dimension,
             output_dim=self.sequence_length * self.sequence_length,  # output is a full matrix of shape (T*T)
@@ -267,7 +269,7 @@ class EncoderCovariance(nn.Module):
         L = D + M
         L[:] = torch.tril(L[:])
             
-        return L, L @ L.transpose(-1, -2)
+        return L, L @ L.transpose(-1, -2) # (B, T, T) Covariance matrix C
     
     
     def __repr__(self):
@@ -621,6 +623,8 @@ class GPNullMean(nn.Module):
 
 class CauchyKernel(nn.Module):
     """Cauchy kernel for Gaussian Process.
+    NB : requires a small positive constant alpha to ensure positive definiteness of the kernel matrix.
+    The lengthscale and variance parameters are learnable (nn.Parameter).
     """
     
     def __init__(self):
@@ -656,8 +660,6 @@ class CauchyKernel(nn.Module):
         return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
                 f"variance={self.variance.item()})")
         
-        
-        
       
 class GaussianProcessPriorMaison(nn.Module):
     """Prior Processus Gaussien pour les variables latentes z_{1:T}.
@@ -691,6 +693,10 @@ class GaussianProcessPriorMaison(nn.Module):
             t (torch.Tensor): Input tensor of shape (batch_size, sequence_length, 1)
         
         Returns:
+            mean (torch.Tensor): Mean of the prior distribution of shape (batch_size, sequence_length, z_dimension=1)
+                - computed using the mean function
+            covariance (torch.Tensor): Covariance matrix of the prior distribution of shape (batch_size, sequence_length, sequence_length)
+                - computed using the kernel
             torch.distributions.MultivariateNormal: Multivariate normal distribution representing the prior over z_{1:T}
                 - mean is computed using the mean function, shape (batch_size, sequence_length, z_dimension=1)
                 - covariance is computed using the kernel, shape (batch_size, sequence_length, sequence_length)
@@ -706,7 +712,7 @@ class GaussianProcessPriorMaison(nn.Module):
         # instantiate the multivariate normal distribution
         prior_distribution = torch.distributions.MultivariateNormal(mean.squeeze(-1), covariance)
         
-        return prior_distribution
+        return mean, covariance, prior_distribution
         
     def __repr__(self):
         msg = (f"{self.__class__.__name__}(kernel={self.kernel.__class__.__name__}, "
@@ -717,8 +723,97 @@ class GaussianProcessPriorMaison(nn.Module):
 
 
 
+#---------------------------------------------------------------------
+# LOSS FUNCTION
+#---------------------------------------------------------------------
 
+def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
+    """Ugly KL divergence implementation between two multivariate normal distributions.
+    
+    Inputs:
+        mu_0 (torch.Tensor): Mean of the first distribution (shape: (batch_size, sequence_length)
+        sigma_0 (torch.Tensor): Covariance matrix of the first distribution (shape: (batch_size, sequence_length, sequence_length))
+        mu_1 (torch.Tensor): Mean of the second distribution (shape: (batch_size, sequence_length))
+        sigma_1 (torch.Tensor): Covariance matrix of the second distribution (shape: (batch_size, sequence_length, sequence_length))
+        
+    Returns:
+        torch.Tensor: KL divergence between the two distributions (scalar)
+        
+    NB : this is a very ugly implementation, but it works for now. Next step is to be smart using Cholesky decomposition.
+    """
+    
+    assert mu_0.shape == mu_1.shape, "mu_0 and mu_1 must have the same shape"
+    assert sigma_0.shape == sigma_1.shape, "sigma_0 and sigma_1 must have the same shape"
+    
+    # compute the KL divergence
+    trace = torch.einsum('...ii->...', torch.div(sigma_0, sigma_1))  # (batch_size)
+    
+    #----------
+    #
+    # MAHALANOBIS DISTANCE : reprendre avec torch.einsum
+    #
+    #----------
+    # mahalanobis = torch.einsum('...i,...i->...', (mu_0 - mu_1), torch.div(mu_0 - mu_1, sigma_1))  # (batch_size, sequence_length)
+    mahalanobis = 0
+    
+    #
+    #
+    logdet = torch.log(torch.det(sigma_1)) - torch.log(torch.det(sigma_0))  # (batch_size)
+    kl_maison = 0.5 * (trace + mahalanobis - mu_0.shape[-1] + logdet)  # (batch_size)
+    
+    return kl_maison.mean()  # return the mean KL divergence over the batch
 
+def vlb(q_phi, p_theta_x, p_theta_z, x_sample):
+    """Variational Lower Bound (VLB) for the model.
+
+    Args:
+        q_phi (torch.distributions.MultivariateNormal): Encoder distribution q_phi(z_{1:T}|x_{1:T}).
+        p_theta_x (torch.distributions.MultivariateNormal): Decoder distribution p_{\theta_x}(x_{1:T}|z_{1:T}).
+        p_theta_z (torch.distributions.MultivariateNormal): Gaussian Process prior distribution p_{\theta_z}(z_{1:T}).
+        z_sample (torch.Tensor): Sampled latent variables z_{1:T} from q_phi.
+        x_sample (torch.Tensor): Sampled observations x_{1:T} from p_theta_x
+        
+    Returns:
+        torch.Tensor (scaler): The variational lower bound (VLB) value.
+    """
+    
+    # check shapes
+    # assert q_phi.batch_shape == p_theta_x.batch_shape, "q_phi and p_theta_x must have the same batch shape"
+    # assert q_phi.event_shape == p_theta_x.event_shape, "q_phi and p_theta_x must have the same event shape"
+    # assert p_theta_z.batch_shape == q_phi.batch_shape, "p_theta_z and q_phi must have the same batch shape"
+    # assert p_theta_z.event_shape == q_phi.event_shape, "p_theta_z and q_phi must have the same event shape"
+    # assert p_theta_z.event_shape == p_theta_x.event_shape, "p_theta_z and p_theta_x must have the same event shape"
+    # assert p_theta_z.batch_shape == p_theta_x.batch_shape, "p_theta_z and p_theta_x must have the same batch shape"
+    
+    # compute reconstruction loss
+    log_probs = p_theta_x.log_prob(x_sample) # (B, L)
+    reconstruction_loss = log_probs.sum(-1).mean()  # sum over the sequence length and mean over the batch
+    
+    # compute KL divergence
+    kl_divergence = torch.distributions.kl_divergence(q_phi, p_theta_z).mean()  # average over the batch
+    
+    # kl maison
+    kl_analytique = kl_maison(
+        mu_0=q_phi.mean, 
+        sigma_0=q_phi.covariance_matrix, 
+        mu_1=p_theta_z.mean, 
+        sigma_1=p_theta_z.covariance_matrix
+    )
+    
+    # kl_loss = logvar_theta_z_t - logvar_phi_z_t  # (seq_len, batch_size, z_dim, K)
+    # kl_loss += torch.div(logvar_phi_z_t.exp(), logvar_theta_z_t.exp()) # (seq_len, batch_size, z_dim, K)
+    # kl_loss += torch.div((mu_theta_z_t - mu_phi_z_t).pow(2), logvar_theta_z_t.exp())
+       
+    # kl_loss = torch.mean(kl_loss, dim=3)  # Mean over the K samples - (seq_len, batch_size, z_dim)
+    # kl_loss = torch.sum(kl_loss, dim=2)  # Sum over the z_dim - (seq_len, batch_size)
+    # kl_loss -= z_dim # shape (seq_len, batch_size), normalisation
+    # kl_loss = torch.sum(kl_loss, dim=0)  # Sum over the sequence length - (batch_size)
+    # kl_loss = torch.mean(kl_loss)  # Mean over the batch
+    
+    # compute the variational lower bound (VLB)
+    vlb_value = reconstruction_loss - kl_divergence  # VLB = E_q[log p_theta_x(x|z)] - D_KL(q_phi(z|x) || p_theta_z(z))
+    
+    return kl_divergence, kl_analytique, reconstruction_loss, vlb_value
 
 
 
@@ -824,6 +919,9 @@ if __name__ == "__main__":
     sample_x = p_theta_x.rsample()
     print(f"Sampled x shape: {sample_x.shape}")
     
+    print(f"\nTest Decoder 2 : testing log_probability of Decoder")
+    print(f"log_probability of sampled x (shape): {p_theta_x.log_prob(sample_x).size()}")
+    
     # GP PRIOR TESTS
     print("\nTest GPNullMean...")
     B, N, Z = 16, 250, 3 # batch_size, sequence_length, z_dimension
@@ -859,7 +957,7 @@ if __name__ == "__main__":
     B = 1  # batch_size
     t = torch.randn(B, N, 1)  # batch_size=16
     print(f"Input shape (B, N, 1): {t.shape}")
-    gp_prior_output = gp_prior(t)
+    _, _, gp_prior_output = gp_prior(t)
     print(f"Output mean shape: {gp_prior_output.loc.shape}")
     print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
     print(f"Batch shape: {gp_prior_output.batch_shape}")
@@ -871,9 +969,73 @@ if __name__ == "__main__":
     B = 32  # batch_size
     t = torch.randn(B, N, 1)  # batch_size=16
     print(f"Input shape: {t.shape}")
-    gp_prior_output = gp_prior(t)
+    _, _, gp_prior_output = gp_prior(t)
     print(f"Output mean shape: {gp_prior_output.loc.shape}")
     print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
     print(f"Batch shape: {gp_prior_output.batch_shape}")
     print(f"Event shape: {gp_prior_output.event_shape}")
     print(f"Sampled z shape: {gp_prior_output.rsample().shape}") 
+    
+    # TEST LOSS FUNCTION
+    print("\nTest VLB...")
+    # we need to instantiate the Encoder and Decoder first
+    B, L, Dx = 16, 10, 5  # batch_size, sequence_length, x_dimension
+    sequence_length = L
+    x_dimension = Dx
+    z_dimension = 1  # we assume z_dimension = 1 for now
+    
+    encoder = Encoder(
+        sequence_length=sequence_length,
+        x_dimension=x_dimension,
+        z_dimension=z_dimension,
+        # n_layers=n_layers,
+        # inter_dim=inter_dim,
+        # activation=activation
+    )   
+    
+    decoder = GaussianDecoder(
+        sequence_length=sequence_length,
+        x_dimension=x_dimension,
+        z_dimension=z_dimension,
+        # n_layers=n_layers,
+        # inter_dim=inter_dim,
+        # activation=activation
+    )
+    
+    gp_prior = GaussianProcessPriorMaison(
+        # z_dimension=z_dimension,
+        kernel=CauchyKernel(),
+        mean_function=GPNullMean(z_dimension=z_dimension),
+    )
+    
+    x = torch.randn(B, L, Dx)
+    print(f"Input shape x: {x.shape}")
+    
+    mu, sigma, q_phi = encoder(x)  # (B, L, Dz=1)
+    print(f"Encoder distribution q_phi: {q_phi}")
+    print(f"q_phi batch shape: {q_phi.batch_shape}")
+    print(f"q_phi event shape: {q_phi.event_shape}")
+    
+    z_sample = q_phi.rsample().unsqueeze(2)  # (B, L, Dz=1)
+    print(f"Sampled z shape: {z_sample.shape}")
+    mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
+    x_sample = p_theta_x.rsample()  # (B, L, Dx)
+    print(f"Sampled x shape: {x_sample.shape}")
+    
+    print(f"Decoder distribution p_theta_x: {p_theta_x}")
+    print(f"p_theta_x batch shape: {p_theta_x.batch_shape}")
+    print(f"p_theta_x event shape: {p_theta_x.event_shape}")
+    
+    t = torch.randn(B, L, 1)  # batch_size=16
+    print(f"Input shape for GP prior: {t.shape}")
+    _, _, p_theta_z = gp_prior(t)  # (B, L, Dz=1)
+    print(f"GP prior distribution p_theta_z: {p_theta_z}")
+    print(f"p_theta_z batch shape: {p_theta_z.batch_shape}")
+    print(f"p_theta_z event shape: {p_theta_z.event_shape}")
+    
+    kl, kl_maison, reco_loss, vlb_loss = vlb(q_phi, p_theta_x, p_theta_z, x_sample)
+    vlb_loss *= -1
+    print(f"KL divergence: {kl.item()}")
+    print(f"KL divergence (maison): {kl_maison.item()}")
+    print(f"Reconstruction loss: {reco_loss.item()}")
+    print(f"VLB loss: {vlb_loss.item()}")
