@@ -532,7 +532,7 @@ class GaussianDecoder(nn.Module):
     NB : we also assume that the covariance matrix for N(x_t | mu_x(z_t), sigma_x(z_t)) is diagonal.
     """
     
-    alpha = 1e-6  # small value to ensure numerical stability in the covariance matrix
+    alpha = 1e-12  # small value to ensure numerical stability in the covariance matrix
 
     def __init__(self,
                  sequence_length = None,
@@ -746,7 +746,7 @@ class GaussianProcessPriorMaison(nn.Module):
         # assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
         
         if kernel is None:
-            self.kernel = GaussianKernel()
+            self.kernel = CauchyKernel()
         else:
             self.kernel = kernel
             

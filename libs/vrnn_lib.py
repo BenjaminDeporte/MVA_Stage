@@ -1367,4 +1367,3 @@ def sample_predictions(N_SAMPLES=3, model=None, X_valid=None, y_valid=None, n_st
         
     plt.tight_layout()
     plt.show()
-
