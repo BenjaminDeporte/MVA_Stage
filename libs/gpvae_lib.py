@@ -354,14 +354,14 @@ class Encoder(nn.Module):
         assert x.size(-1) == self.x_dimension, f"Incorrect x_dimension passed to Encoder. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
         
         # compute parameters of the approximate posterior distribution
-        mu = self.encoder_mean(x)  # (B, L, Dz=1)
-        mu = mu.squeeze(-1)  # (B, L)
-        _, sigma = self.encoder_covariance(x)  # (B, L, L)
+        mu_phi = self.encoder_mean(x)  # (B, L, Dz=1)
+        mu_phi = mu_phi.squeeze(-1)  # (B, L)
+        _, sigma_phi = self.encoder_covariance(x)  # (B, L, L)
         
         # instantiate the multivariate normal distribution
-        q_phi = torch.distributions.MultivariateNormal(mu, sigma)
+        q_phi = torch.distributions.MultivariateNormal(mu_phi, sigma_phi)
         
-        return mu, sigma, q_phi        
+        return mu_phi, sigma_phi, q_phi        
     
     def __repr__(self):
         msg = f"{self.__class__.__name__}(sequence_length={self.sequence_length}, " +\
@@ -584,13 +584,13 @@ class GaussianDecoder(nn.Module):
         # compute stuff
         mu_x = self.decoder_mean(z)  # (B, N, Dx)
         logvar_x = self.decoder_covariance(z)  # (B, N, Dx)
-        covar_x = torch.diag_embed(torch.exp(logvar_x))  # (B, N, Dx, Dx) - diagonal covariance matrix
-        covar_x += self.alpha * torch.eye(self.x_dimension, device=z.device).unsqueeze(0).unsqueeze(0)  # Add a small value to the diagonal for numerical stability
+        sigma_x = torch.diag_embed(torch.exp(logvar_x))  # (B, N, Dx, Dx) - diagonal covariance matrix
+        sigma_x += self.alpha * torch.eye(self.x_dimension, device=z.device).unsqueeze(0).unsqueeze(0)  # Add a small value to the diagonal for numerical stability
 
         # instantiate the multivariate normal distribution
-        p_theta_x = torch.distributions.MultivariateNormal(mu_x, covar_x) # batch_shape = B, event_shape = (N, Dx)
+        p_theta_x = torch.distributions.MultivariateNormal(mu_x, sigma_x) # batch_shape = B, event_shape = (N, Dx)
         
-        return mu_x, covar_x, p_theta_x
+        return mu_x, sigma_x, p_theta_x
     
     def __repr__(self):
         msg = (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
@@ -863,6 +863,7 @@ def vlb(q_phi, p_theta_x, p_theta_z, x_samples):
         mu_1=p_theta_z.mean, 
         sigma_1=p_theta_z.covariance_matrix
     )
+    # kl_analytique = 0.0
     
     # compute the variational lower bound (VLB)
     vlb = reconstruction_loss - kl_divergence  # VLB = E_q[log p_theta_x(x|z)] - D_KL(q_phi(z|x) || p_theta_z(z))
