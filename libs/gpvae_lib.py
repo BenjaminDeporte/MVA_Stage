@@ -142,6 +142,13 @@ class EncoderMean(nn.Module):
             inter_dim=inter_dim,
             activation=activation
         )
+        
+        # # ATTEMPT TO AVOID EXPLOSION OF THE OUTPUT - 02/07/25
+        # # adding nn.tanh to ensure the output is in the range [-1, 1]
+        # self.mlp = nn.Sequential(
+        #     mlp,
+        #     nn.Tanh()  # Ensure the output is in the range [-1, 1]
+        # )
     
     def forward(self, x):
         """
@@ -181,6 +188,8 @@ class EncoderCovariance(nn.Module):
     Uses a MLP to compute the lower triangular matrix of the Cholesky decomposition of the covariance matrix.
     L is triangular inferior, with diagonal elements strictly positive.
     """
+    
+    alpha = 1e-6  # small value to ensure numerical stability in the covariance matrix
     
     def __init__(self,
                  sequence_length = None,
@@ -268,8 +277,12 @@ class EncoderCovariance(nn.Module):
         L = torch.zeros_like(M, device=x.device)  # Initialize L with zeros
         L = D + M
         L[:] = torch.tril(L[:])
+        
+        # Assemble the covariance matrix C
+        C = L @ L.transpose(-1, -2)  # C = L @ L^T
+        C += self.alpha * torch.eye(self.sequence_length * self.z_dimension, device=x.device).unsqueeze(0) # Add a small value to the diagonal for numerical stability
             
-        return L, L @ L.transpose(-1, -2) # (B, T, T) Covariance matrix C
+        return L, C # (B, T, T) Covariance matrix C
     
     
     def __repr__(self):
@@ -518,6 +531,8 @@ class GaussianDecoder(nn.Module):
     
     NB : we also assume that the covariance matrix for N(x_t | mu_x(z_t), sigma_x(z_t)) is diagonal.
     """
+    
+    alpha = 1e-6  # small value to ensure numerical stability in the covariance matrix
 
     def __init__(self,
                  sequence_length = None,
@@ -569,11 +584,13 @@ class GaussianDecoder(nn.Module):
         # compute stuff
         mu_x = self.decoder_mean(z)  # (B, N, Dx)
         logvar_x = self.decoder_covariance(z)  # (B, N, Dx)
+        covar_x = torch.diag_embed(torch.exp(logvar_x))  # (B, N, Dx, Dx) - diagonal covariance matrix
+        covar_x += self.alpha * torch.eye(self.x_dimension, device=z.device).unsqueeze(0).unsqueeze(0)  # Add a small value to the diagonal for numerical stability
 
         # instantiate the multivariate normal distribution
-        p_theta_x = torch.distributions.MultivariateNormal(mu_x, torch.diag_embed(torch.exp(logvar_x))) # batch_shape = B, event_shape = (N, Dx)
+        p_theta_x = torch.distributions.MultivariateNormal(mu_x, covar_x) # batch_shape = B, event_shape = (N, Dx)
         
-        return mu_x, logvar_x, p_theta_x
+        return mu_x, covar_x, p_theta_x
     
     def __repr__(self):
         msg = (f"{self.__class__.__name__}(sequence_length={self.sequence_length}, "
