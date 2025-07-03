@@ -140,18 +140,22 @@ class EncoderMean(nn.Module):
         )
         
     
-    def forward(self, x):
+    def forward(self, input):
         """
         Forward pass of the EncoderMean.
         Args:
-            x (torch.Tensor): Input tensor (..., x_dimension)
+            x (torch.Tensor): Input tensor (..., N, x_dimension) (possibly N=1, ie a single point)
         Returns:
-            z (torch.Tensor): Output tensor (..., z_dimension)
+            z (torch.Tensor): Output tensor (..., z_dimension, N)
         """
         
-        assert x.size(-1) == self.x_dimension, f"Wrong x_dim in EncoderMean. Input tensor must have shape (..., {self.x_dimension})"
+        assert input.size(-1) == self.x_dimension, f"Wrong x_dim in EncoderMean. Input tensor must have shape (..., {self.x_dimension})"
+        assert input.dim() >= 2, "Input tensor must have at least 2 dimensions (sequence_length -possibly 1- and x_dimension)"
+        
+        output = self.mlp(input)  # (..., N, Dz)
+        output = output.permute(-1, -2)  # (..., Dz, N)
             
-        return self.mlp(x)  # (..., Dz)
+        return output  # (..., Dz, N) : batch of Dz independent but not identical Gaussians of dimension N. (can have N=1).
     
     def __repr__(self):
         return (f"{self.__class__.__name__}, "
@@ -168,19 +172,17 @@ class EncoderCovariance(nn.Module):
     L is triangular inferior, with diagonal elements strictly positive.
     """
     
-    alpha = 1e-6  # small value to ensure numerical stability in the covariance matrix
-    
     def __init__(self,
                  x_dimension = 1,
                  z_dimension = 1,
                  n_layers = 3,
                  inter_dim = 128,
                  activation = nn.ReLU,
+                 alpha = 1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
                  ):
         """_summary_
 
         Args:
-            # sequence_length (_type_, optional): Longueur des time series. Doit être spécifié. Defaults to None.
             x_dimension (_type_, optional): Dimension des observations. Defaults to 1.
             z_dimension (_type_, optional): Dimension de l'espace latent. Defaults to 1.
             n_layers (int, optional): Nombre total de layers du MLP. Defaults to 3.
@@ -196,6 +198,7 @@ class EncoderCovariance(nn.Module):
         self.n_layers = int(n_layers)
         self.inter_dim = int(inter_dim)
         self.activation = activation
+        self.alpha = float(alpha)  # small positive constant to ensure positive definiteness of the kernel matrix
         
         # this network to get the diagonal elements of the covariance matrix
         self.diagonal_mlp = make_mlp(
@@ -206,69 +209,75 @@ class EncoderCovariance(nn.Module):
             activation=activation
         )
         
-        # this network to get a full matrix, of which we well keep only the lower triangular part                
-        self.full_matrix_mlp = nn.Sequential(
-            make_mlp(
-                input_dim=self.x_dimension,
-                output_dim=self.z_dimension * self.z_dimension,  # output is Dz * Dz
-                n_layers=n_layers,
-                inter_dim=inter_dim,
-                activation=activation
-                ),
-            nn.Unflatten(-1, (self.z_dimension, self.z_dimension)) # Reshape the output to (Dz, Dz)
-            )  
+        # this network to get Dz elements that will be the lower triangular part (without the diagonal) of the covariance matrix                
+        self.full_matrix_mlp = make_mlp(
+            input_dim=self.x_dimension,
+            output_dim=self.z_dimension,
+            n_layers=n_layers,
+            inter_dim=inter_dim,
+            activation=activation
+        )
         
     
     def forward(self, x):
         """
         Forward pass of the EncoderCovariance.
         Args:
-            x (torch.Tensor): Input tensor (..., x_dimension) 
+            x (torch.Tensor): Input tensor (..., N, x_dimension) 
+                - N can be 1 (ie a single point) or the sequence length. Must be specified.
 
         Returns:
-            L (torch.Tensor): Lower triangular matrix of shape (..., z_dimension, z_dimension) 
+            L (torch.Tensor): Lower triangular matrix of shape (..., z_dimension, N, N) 
                 L can be used as scale_tril in tf.distributions.MultivariateNormal
-            C (torch.Tensor): Covariance matrix of shape (..., z_dimension, ...z_dimension) 
+            C (torch.Tensor): Covariance matrix of shape (..., z_dimension, N, N) 
                 C can be used as covariance_matrix in tf.distributions.MultivariateNormal. but this creates lots of numerical instabilities.
             C is computed as L @ L^T, where L is the lower triangular matrix. (Cholesky decomposition)
         """
         
         # basic check of shape of input x
         assert x.size(-1) == self.x_dimension, f"Wrong x_dim in EncoderCovariance. Input tensor must have shape (batch_size, {self.sequence_length}, {self.x_dimension}) or ({self.sequence_length}, {self.x_dimension})"
+        assert x.dim() >= 2, "Input tensor must have at least 2 dimensions (sequence_length -possibly 1- and x_dimension)"
         
-        # x is a tensor of shape (..., Dx)
+        # input is a tensor of shape (..., N, Dx)
+        N = x.size(-2)  # sequence length
         
         # Compute the diagonal elements of the covariance matrix
-        D = self.diagonal_mlp(x)  # out : (..., Dz)
-        D = torch.exp(D) # out : (..., Dz). Ensure entries > 0.
-        D = torch.diag_embed(D) # shape (..., Dz, Dz)
+        D = self.diagonal_mlp(x)  # out : (..., N, Dz)
+        D = troch.permute(D, (-1, -2))  # out : (..., Dz, N)
+        D = torch.exp(D) # out : (..., Dz, N). Ensure entries > 0.
+        D = torch.diag_embed(D) # shape (..., Dz, N, N)
         
         # Get the elements outside the diagonal
-        M = self.full_matrix_mlp(x) # shape (..., Dz, Dz)
-        M = torch.tril(M, diagonal=-1)  # Keep only the lower triangular part of the matrix (excluding the diagonal) (..., Dz, Dz)
+        M = self.full_matrix_mlp(x) # shape (..., N, Dz)
+        M = torch.permute(M, (-1, -2))  # shape (..., Dz, N)
+        M1 = M.unsqueeze(-1)  # shape (..., Dz, N, 1)
+        M2 = M.unsqueeze(-2)  # shape (..., Dz, 1, N)
+        M = torch.matmul(M1, M2)  # shape (..., Dz, N, N)
+        M = torch.tril(M, diagonal=-1)  # Keep only the lower triangular part of the matrix (excluding the diagonal) (..., Dz, N, N))
         
         # Assemble the lower triangular matrix L
-        L = D + M # (..., Dz, Dz)
+        L = D + M # (..., Dz, N, N)
         
         # Assemble the covariance matrix C
-        C = L @ L.transpose(-1, -2)  # C = L @ L^T # (..., Dz, Dz)
-        C += self.alpha * torch.eye(self.z_dimension, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
+        C = L @ L.transpose(-1, -2)  # C = L @ L^T # (..., Dz, N, N)
+        C += self.alpha * torch.eye(N, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
             
-        return L, C # (..., Dz, Dz) Covariance matrix C
-    
+        return L, C # (..., Dz, N, N) Covariance matrix C
     
     def __repr__(self):
         return (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})")
+                f"activation={self.activation.__name__})",
+                f"alpha={self.alpha:.3e})")
 
 
 # brick 1 : Encoder q_phi
 
 class Encoder(nn.Module):
     """Encoder module. 
-    - Takes a sequence of length T of observations x_{1:T}
+    - Takes a sequence of length T of observations x_{1:T}, encodes them
+    into a set of Dz independent but not identical Gaussians z_{1:T} of dimension T.
     - Computes the parameters of the multivariate normal distribution q_phi(z_{1:T}|x_{1:T}):
         - mu_phi(x_{1:T}): mean of the approximate posterior distribution
         - Sigma_phi(x_{1:T}): covariance matrix the approximate posterior distribution
@@ -306,23 +315,29 @@ class Encoder(nn.Module):
     
     def forward(self, x):
         """
-        Forward pass of the Encoder.
+        Forward pass of the Encoder. The output is Dz independent but not identical Gaussians, of size the length of the sequence (either 1 or (..., N)).
         
         Args:
-            x (torch.Tensor): Input tensor of shape (..., x_dimension)
+            x (torch.Tensor): Input tensor of shape (..., N, x_dimension)
+                - N can be 1 (ie a single point) or the sequence length. Must be specified.
             
         Returns:
-            mu (torch.Tensor): Mean of the approximate posterior distribution of shape (..., Dx)
-            Sigma (torch.Tensor): Covariance matrix of the approximate posterior distribution of shape (..., Dx, Dx)
-            q_phi (torch.distributions.MultivariateNormal): Multivariate normal distribution with parameters mu and Sigma.
+            mu (torch.Tensor): Mean of the approximate posterior distribution of shape (..., Dz)
+            Sigma (torch.Tensor): Covariance matrix of the approximate posterior distribution of shape (..., Dz, Dz)
+            q_phi (torch.distributions.MultivariateNormal): Multivariate normal distribution with parameters mu:
+                - if x has shape (Dx) (ie one point): MVN(mu, sigma) avec mu (Dz,1), sigma (Dz, 1, 1) => batch_shape = Dz, event_shape = 1.   
+                    => q_phi is a MVN of Dz independent but not identical gaussians of dimension 1.
+                - if x has shape (..., N, Dx) : MVN(mu, sigma) avec mu (...,Dz, N), sigma (..., Dz, N, N) => batch_shape = (..., Dz), event_shape = (N).
+                    => q_phi is a MVN of(..., Dz) independent but not identical gaussians of dimension N.
         """
         
         # basic check of x shape
         assert x.size(-1) == self.x_dimension, f"Incorrect x_dimension passed to Encoder. Input tensor must have shape (..., {self.x_dimension})"
+        assert x.dim() >= 2, "Input tensor must have at least 2 dimensions (sequence_length -possibly 1- and x_dimension)"
         
         # compute parameters of the approximate posterior distribution
-        mu_phi = self.encoder_mean(x)  # (..., Dz)
-        lower_phi, sigma_phi = self.encoder_covariance(x)  # (..., Dz, Dz)
+        mu_phi = self.encoder_mean(x)  # (..., Dz, N)
+        lower_phi, sigma_phi = self.encoder_covariance(x)  # (..., Dz, N, N)
         
         # instantiate the multivariate normal distribution
         # prefer instanciation with lower triangular matrix, less numerical instabilities
@@ -695,13 +710,13 @@ class GaussianKernel(nn.Module):
             kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (..., N, M)
             
         gaussian_kernel_matrix = self.variance * kernel  # (..., N, M)
-        # gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype) # add small value to the diagonal for numerical stability (use broadcasting)
-        
+
         if torch.equal(t1, t2):
             # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
             # so we compute and return the Cholesky decomposition of the kernel matrix
-            # to be used in forming the MultivariateNormal distribution
-            gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)  # add small value to the diagonal for numerical stability (use broadcasting)
+            # to be used in forming the MultivariateNormal distribution, adding
+            # a small value to the diagonal for numerical stability
+            gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
             try:
                 L = torch.linalg.cholesky(gaussian_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
                 return gaussian_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
@@ -714,9 +729,7 @@ class GaussianKernel(nn.Module):
                 raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed. Tolerance alpha is likely too low.") 
         else:
             # If t1 and t2 are different, do not try to compute the Cholesky decomposition
-            L = None
-         
-        return gaussian_kernel_matrix, L
+            return gaussian_kernel_matrix, None
     
     def __repr__(self):
         return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
@@ -734,25 +747,24 @@ class GaussianProcessPriorMaison(nn.Module):
     
     def __init__(self,
         z_dimension = 1,  # dimension of the latent variable z, ie number of different Gaussian Processes
-        kernels = None,  # list of Kernels to use for the Gaussian Processes
-        mean_functions = None,  # list of Mean functions to use for the Gaussian Processes
+        kernel = None,  # list of Kernels to use for the Gaussian Processes
+        mean = None,  # list of Mean functions to use for the Gaussian Processes
+        alpha=1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
         ):
         
         super(GaussianProcessPriorMaison, self).__init__()
         
-        self.mean = GPNullMean()  # default mean function is a null mean function (returns zeros)
-        self.kernel = GaussianKernel()  # default kernel is a Gaussian kernel
+        assert z_dimension == 1, "Currently, only one Gaussian Process is implemented. z_dimension must be 1."
         
-        # we have z_dimension different Gaussian Processes, one for each dimension of the latent variable
-        # if kernels is None:
-        #     self.kernel = GaussianKernel()
-        # else:
-        #     self.kernel = kernel
+        if kernel is None:
+            self.kernel = GaussianKernel(alpha=alpha)  # default kernel is a Gaussian kernel with alpha
+        else:
+            self.kernel = kernel
             
-        # if mean_function is None:
-        #     self.mean_function = GPNullMean()
-        # else:
-        #     self.mean_function = mean_function
+        if mean is None:
+            self.mean = GPNullMean()
+        else:
+            self.mean = mean
             
     def forward(self, t):
         """Forward pass of the Gaussian Process prior.
@@ -762,28 +774,34 @@ class GaussianProcessPriorMaison(nn.Module):
         
         Returns:
             mean (torch.Tensor): Mean of the prior distribution of shape (..., N)
-                - computed using the different mean functions
+                - computed using the mean function
             covariance (torch.Tensor): Covariance matrix of the prior distribution of shape (..., N, N)
-                - computed using the different kernels
+                - computed using the kernel
             torch.distributions.MultivariateNormal: Multivariate normal distribution representing the prior over z
                 - mean is computed using the mean functions, shape (..., N)
                 - covariance is computed using the kernel, shape (..., N, N)
+                NB : the torch.distributions.MultivariateNormal is instantiated with the mean and the Cholesky
+                decomposition of the covariance matrix to ensure numerical stability.
         """
         
         # compute the mean and covariance of the prior distribution
         mean = self.mean(t)  # (..., N)
-        covariance = self.kernel(t, t)  # (..., N, N)
+        covariance, L = self.kernel(t, t)  # (..., N, N)
+        
+        if L is None:
+            raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed. Tolerance alpha is likely too low.")
         
         # instantiate the multivariate normal distribution
-        prior_distribution = torch.distributions.MultivariateNormal(mean, covariance)
+        prior_distribution = torch.distributions.MultivariateNormal(loc=mean, scale_tril=L)
         
         return mean, covariance, prior_distribution
         
     def __repr__(self):
         msg = (f"{self.__class__.__name__}(kernel={self.kernel.__class__.__name__}, "
-                f"mean_function={self.mean_function.__class__.__name__})")
+                f"mean_function={self.mean.__class__.__name__})")
         msg += f"\nKernel: {self.kernel}"
-        msg += f"\nMean Function: {self.mean_function}"
+        msg += f"\nMean Function: {self.mean}"
+        msg += f"\nAlpha: {self.kernel.alpha.item():.3e}"
         return msg
 
 
@@ -915,56 +933,56 @@ if __name__ == "__main__":
     # print(mlp)
     
     # ENCODER TESTS  
-    # print(f"\nTest Encoder 0 : instantiation")
-    # n_layers = 3
-    # inter_dim = 128
-    # activation = nn.ReLU
+    print(f"\nTest Encoder 0 : instantiation")
+    n_layers = 3
+    inter_dim = 128
+    activation = nn.ReLU
     
-    # encoder = Encoder(
-    #     x_dimension=x_dimension,
-    #     z_dimension=z_dimension,
-    #     n_layers=n_layers,
-    #     inter_dim=inter_dim,
-    #     activation=activation
-    # )
+    encoder = Encoder(
+        x_dimension=x_dimension,
+        z_dimension=z_dimension,
+        n_layers=n_layers,
+        inter_dim=inter_dim,
+        activation=activation
+    )
     
-    # print(encoder)
+    print(encoder)
     
-    # print("\nTest Encoder 1 : forward pass with (Dx) dimension")
-    # x = torch.randn(x_dimension)
-    # print(f"Input shape: {x.shape}")
-    # mu, sigma, q_phi = encoder(x)
-    # print(f"Output mu shape: {mu.shape}")
-    # print(f"Output sigma shape: {sigma.shape}")
-    # print(f"Output q_phi: {q_phi}")
-    # print(f"q_phi batch shape: {q_phi.batch_shape}")
-    # print(f"q_phi event shape: {q_phi.event_shape}")
-    # sample_z = q_phi.rsample()
-    # print(f"Sampled z shape: {sample_z.shape}")
+    print("\nTest Encoder 1 : forward pass with (Dx) dimension")
+    x = torch.randn(x_dimension)
+    print(f"Input shape: {x.shape}")
+    mu, sigma, q_phi = encoder(x)
+    print(f"Output mu shape: {mu.shape}")
+    print(f"Output sigma shape: {sigma.shape}")
+    print(f"Output q_phi: {q_phi}")
+    print(f"q_phi batch shape: {q_phi.batch_shape}")
+    print(f"q_phi event shape: {q_phi.event_shape}")
+    sample_z = q_phi.rsample()
+    print(f"Sampled z shape: {sample_z.shape}")
     
-    # print("\nTest Encoder 2 : forward pass with (N, Dx) dimension")
-    # x = torch.randn(sequence_length, x_dimension)
-    # print(f"Input shape: {x.shape}")
-    # mu, sigma, q_phi = encoder(x)
-    # print(f"Output mu shape: {mu.shape}")
-    # print(f"Output sigma shape: {sigma.shape}")
-    # print(f"Output q_phi: {q_phi}")
-    # print(f"q_phi batch shape: {q_phi.batch_shape}")
-    # print(f"q_phi event shape: {q_phi.event_shape}")
-    # sample_z = q_phi.rsample()
-    # print(f"Sampled z shape: {sample_z.shape}")
+    print("\nTest Encoder 2 : forward pass with (N, Dx) dimension")
+    x = torch.randn(sequence_length, x_dimension)
+    print(f"Input shape: {x.shape}")
+    mu, sigma, q_phi = encoder(x)
+    print(f"Output mu shape: {mu.shape}")
+    print(f"Output sigma shape: {sigma.shape}")
+    print(f"Output q_phi: {q_phi}")
+    print(f"q_phi batch shape: {q_phi.batch_shape}")
+    print(f"q_phi event shape: {q_phi.event_shape}")
+    sample_z = q_phi.rsample()
+    print(f"Sampled z shape: {sample_z.shape}")
     
-    # print("\nTest Encoder 3 : forward pass with (B, N, Dx) dimension")
-    # x = torch.randn(batch_size, sequence_length, x_dimension)  # batch_size=2
-    # print(f"Input shape: {x.shape}")
-    # mu, sigma, q_phi = encoder(x)
-    # print(f"Output mu shape: {mu.shape}")
-    # print(f"Output sigma shape: {sigma.shape}")
-    # print(f"Output q_phi: {q_phi}")
-    # print(f"q_phi batch shape: {q_phi.batch_shape}")
-    # print(f"q_phi event shape: {q_phi.event_shape}")
-    # sample_z = q_phi.rsample()
-    # print(f"Sampled z shape: {sample_z.shape}")
+    print("\nTest Encoder 3 : forward pass with (B, N, Dx) dimension")
+    x = torch.randn(batch_size, sequence_length, x_dimension)  # batch_size=2
+    print(f"Input shape: {x.shape}")
+    mu, sigma, q_phi = encoder(x)
+    print(f"Output mu shape: {mu.shape}")
+    print(f"Output sigma shape: {sigma.shape}")
+    print(f"Output q_phi: {q_phi}")
+    print(f"q_phi batch shape: {q_phi.batch_shape}")
+    print(f"q_phi event shape: {q_phi.event_shape}")
+    sample_z = q_phi.rsample()
+    print(f"Sampled z shape: {sample_z.shape}")
     
     # # DECODER TESTS
     # print("\nTest Decoder 0 : instantiation...")
@@ -1099,21 +1117,21 @@ if __name__ == "__main__":
     # print(f"Output shape: {kernel_output.shape}")
     # print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
     
-    # Brute force for positive definiteness
-    print("\nBrute force check for positive definiteness...")
-    gaussian_kernel = GaussianKernel(alpha=1e-3)
-    print(gaussian_kernel)
-    TESTS = int(1e+2)
-    B = 32 # batch_size
-    N = 1000  # sequence_length 2880 = 2 days @ 1 minute
-    print(f"Running {TESTS} tests with B={B}, N={N}")
-    failures = 0
-    for i in tqdm(range(TESTS)):
-        t1 = torch.randn(B,N)
-        kernel_output, L = gaussian_kernel(t1, t1)  # same input
-        if L is None:
-            failures += 1
-    print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")
+    # # Brute force for positive definiteness
+    # print("\nBrute force check for positive definiteness...")
+    # gaussian_kernel = GaussianKernel(alpha=1e-3)
+    # print(gaussian_kernel)
+    # TESTS = int(1e+2)
+    # B = 32 # batch_size
+    # N = 1000  # sequence_length 2880 = 2 days @ 1 minute
+    # print(f"Running {TESTS} tests with B={B}, N={N}")
+    # failures = 0
+    # for i in tqdm(range(TESTS)):
+    #     t1 = torch.randn(B,N)
+    #     kernel_output, L = gaussian_kernel(t1, t1)  # same input
+    #     if L is None:
+    #         failures += 1
+    # print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")
     
 
     
@@ -1127,8 +1145,8 @@ if __name__ == "__main__":
     # print(f"\nTest 1 avec 1ere dimension de t")
     # N = 500  # sequence_length
     # B = 1  # batch_size
-    # t = torch.randn(B, N, 1)  # batch_size=16
-    # print(f"Input shape (B, N, 1): {t.shape}")
+    # t = torch.randn(N)
+    # print(f"Input shape: {t.shape}")
     # _, _, gp_prior_output = gp_prior(t)
     # print(f"Output mean shape: {gp_prior_output.loc.shape}")
     # print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
@@ -1139,7 +1157,7 @@ if __name__ == "__main__":
     # print(f"\nTest 2 avec 2e dimension de t")
     # N = 250  # sequence_length
     # B = 32  # batch_size
-    # t = torch.randn(B, N, 1)  # batch_size=16
+    # t = torch.randn(B, N)
     # print(f"Input shape: {t.shape}")
     # _, _, gp_prior_output = gp_prior(t)
     # print(f"Output mean shape: {gp_prior_output.loc.shape}")
@@ -1155,9 +1173,9 @@ if __name__ == "__main__":
     # sequence_length = L
     # x_dimension = Dx
     # z_dimension = 1  # we assume z_dimension = 1 for now
+    # print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={B}")
     
     # encoder = Encoder(
-    #     sequence_length=sequence_length,
     #     x_dimension=x_dimension,
     #     z_dimension=z_dimension,
     #     # n_layers=n_layers,
@@ -1166,7 +1184,6 @@ if __name__ == "__main__":
     # )   
     
     # decoder = GaussianDecoder(
-    #     sequence_length=sequence_length,
     #     x_dimension=x_dimension,
     #     z_dimension=z_dimension,
     #     # n_layers=n_layers,
@@ -1176,8 +1193,8 @@ if __name__ == "__main__":
     
     # gp_prior = GaussianProcessPriorMaison(
     #     # z_dimension=z_dimension,
-    #     kernel=CauchyKernel(),
-    #     mean_function=GPNullMean(z_dimension=z_dimension),
+    #     kernel=GaussianKernel(),
+    #     mean=GPNullMean(),
     # )
     
     # x = torch.randn(B, L, Dx)
@@ -1185,26 +1202,26 @@ if __name__ == "__main__":
     
     # mu, sigma, q_phi = encoder(x)  # (B, L, Dz=1)
     # print(f"Encoder distribution q_phi: {q_phi}")
-    # print(f"q_phi batch shape: {q_phi.batch_shape}")
-    # print(f"q_phi event shape: {q_phi.event_shape}")
+    # print(f"\tq_phi batch shape: {q_phi.batch_shape}")
+    # print(f"\tq_phi event shape: {q_phi.event_shape}")
     
-    # z_sample = q_phi.rsample().unsqueeze(2)  # (B, L, Dz=1)
+    # z_sample = q_phi.rsample()  # (B, L, Dz=1)
     # print(f"Sampled z shape: {z_sample.shape}")
     # mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
     # K = 3 # number of samples to draw from the decoder distribution
     # x_samples = p_theta_x.rsample((K,))  # (B, L, Dx, K)
-    # print(f"Sampled x shape: {x_samples.shape}")
+    # print(f"Sampling {K} x's, shape: {x_samples.shape}")
     
     # print(f"Decoder distribution p_theta_x: {p_theta_x}")
-    # print(f"p_theta_x batch shape: {p_theta_x.batch_shape}")
-    # print(f"p_theta_x event shape: {p_theta_x.event_shape}")
+    # print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
+    # print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
     
     # t = torch.randn(B, L, 1)  # batch_size=16
     # print(f"Input shape for GP prior: {t.shape}")
     # _, _, p_theta_z = gp_prior(t)  # (B, L, Dz=1)
     # print(f"GP prior distribution p_theta_z: {p_theta_z}")
-    # print(f"p_theta_z batch shape: {p_theta_z.batch_shape}")
-    # print(f"p_theta_z event shape: {p_theta_z.event_shape}")
+    # print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
+    # print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
     
     # kl, kl_maison_value, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_samples)
     # loss = -vlb
