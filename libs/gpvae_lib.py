@@ -26,6 +26,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
+from tqdm import tqdm
 
 
 #--------------------------------------------------------------------
@@ -578,34 +579,27 @@ class GaussianDecoder(nn.Module):
 # --- Mean function -----------------------------------------------
 
 class GPNullMean(nn.Module):
-    """ Neural Net to compute the mean of the Gaussian Process prior.
-    This is a null mean function, i.e. it returns a tensor of zeros.
+    """ Neural Net to compute the mean of one univariate Gaussian Process
+    This is a null mean function, i.e. it returns a tensor of zeros...
     """
     
-    def __init__(self,
-                 z_dimension = 1,  # z dimension is 1
-                 ):
+    def __init__(self):
         super(GPNullMean, self).__init__()
-        
-        # assert z_dimension == 1, "in GPNullMean, code is not ready for z_dimension > 1 yet, sorry"
-        self.z_dimension = int(z_dimension)
     
     def forward(self, t):
         """Forward pass of the GPNullMean.
-        Just returns a tensor of zeros of shape (batch_size, sequence_length, z_dimension).
+        Just returns a tensor of zeros of shape identical to the input.
         
         Inputs:
-            t (torch.Tensor): Input tensor of shape (batch_size, sequence_length, 1)
+            t (torch.Tensor): Input tensor of shape (..., N) - N is typically the sequence length.
         Returns:
-            torch.Tensor: Output tensor of ZEROS of shape (batch_size, sequence_length, z_dimension)
+            torch.Tensor: Output tensor of ZEROS of shape (..., N)
         """
-        assert t.dim() == 3, "In GPMeanNull, Input tensor must have shape (batch_size, sequence_length, x_dimension)"
-        assert t.size(-1) == 1, "In GPMeanNull, Input tensor must have shape (batch_size, sequence_length, 1) - this is a set of times"
         
-        return torch.zeros_like(t, device=t.device, dtype=t.dtype).repeat(1,1,self.z_dimension)  # returns a tensor of zeros of shape (batch_size, sequence_length, z_dimension)
+        return torch.zeros_like(t, dtype=t.dtype, device=t.device)  # (..., N)
     
     def __repr__(self):
-        return f"{self.__class__.__name__}(z_dimension={self.z_dimension})"
+        return f"{self.__class__.__name__}"
     
 
 # ----- Cauchy Kernel ---------------------------------------------
@@ -613,86 +607,121 @@ class GPNullMean(nn.Module):
 # HIGHLY UNSTABLE KERNEL !  Produces not definite positive matrices from time to time !
 #
 
-class CauchyKernel(nn.Module):
-    """Cauchy kernel for Gaussian Process.
-    NB : requires a small positive constant alpha to ensure positive definiteness of the kernel matrix.
-    The lengthscale and variance parameters are learnable (nn.Parameter).
-    """
+# class CauchyKernel(nn.Module):
+#     """Cauchy kernel for Gaussian Process.
+#     NB : requires a small positive constant alpha to ensure positive definiteness of the kernel matrix.
+#     The lengthscale and variance parameters are learnable (nn.Parameter).
+#     """
     
-    def __init__(self):
-        super(CauchyKernel, self).__init__()
+#     def __init__(self):
+#         super(CauchyKernel, self).__init__()
         
-        # the parameters of the kernel are learnable
-        self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
-        self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
+#         # the parameters of the kernel are learnable
+#         self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
+#         self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
         
-        self.alpha = torch.tensor(1.0e-2)  # small positive constant to ensure positive definiteness of the kernel matrix
+#         self.alpha = torch.tensor(1.0e-2)  # small positive constant to ensure positive definiteness of the kernel matrix
     
-    def forward(self, t1, t2):
-        """Compute the Cauchy kernel between two sets of time points.
+#     def forward(self, t1, t2):
+#         """Compute the Cauchy kernel between two sets of time points.
         
-        Args:
-            t1 (torch.Tensor): First set of time points (batch_size, sequence_length, 1)
-            t2 (torch.Tensor): Second set of time points (batch_size, sequence_length, 1)
+#         Args:
+#             t1 (torch.Tensor): First set of time points (batch_size, sequence_length, 1)
+#             t2 (torch.Tensor): Second set of time points (batch_size, sequence_length, 1)
         
-        Returns:
-            torch.Tensor: Kernel matrix of shape (batch_size, sequence_length, sequence_length)
-        """
+#         Returns:
+#             torch.Tensor: Kernel matrix of shape (batch_size, sequence_length, sequence_length)
+#         """
         
-        assert t1.dim() == 3 and t2.dim() == 3, "In kernel computation, Input tensors must have shape (batch_size, sequence_length, 1)"
-        assert t1.size(-1) == 1 and t2.size(-1) == 1, "In kernel computation, Input tensors must have last dimension = 1 (this is a set of times)"
+#         assert t1.dim() == 3 and t2.dim() == 3, "In kernel computation, Input tensors must have shape (batch_size, sequence_length, 1)"
+#         assert t1.size(-1) == 1 and t2.size(-1) == 1, "In kernel computation, Input tensors must have last dimension = 1 (this is a set of times)"
         
-        diff = t1 - t2.transpose(1, 2) # (B, N, 1) - (B, 1, N) => (B, N, N)
-        cauchy_kernel_matrix = torch.divide( self.variance**2, 1.0 + (diff / self.lengthscale)**2  )  # (B, N, N) kernel matrix
-        cauchy_kernel_matrix += self.alpha * torch.eye(t1.size(1), device=t1.device, dtype=t1.dtype).unsqueeze(0)  # add identity matrix to ensure positive definiteness
+#         diff = t1 - t2.transpose(1, 2) # (B, N, 1) - (B, 1, N) => (B, N, N)
+#         cauchy_kernel_matrix = torch.divide( self.variance**2, 1.0 + (diff / self.lengthscale)**2  )  # (B, N, N) kernel matrix
+#         cauchy_kernel_matrix += self.alpha * torch.eye(t1.size(1), device=t1.device, dtype=t1.dtype).unsqueeze(0)  # add identity matrix to ensure positive definiteness
         
-        return cauchy_kernel_matrix
+#         return cauchy_kernel_matrix
     
-    def __repr__(self):
-        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
-                f"variance={self.variance.item()})")
+#     def __repr__(self):
+#         return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
+#                 f"variance={self.variance.item()})")
         
 
 #----- Gaussian Kernel --------------------------------------------
 #
 
 class GaussianKernel(nn.Module):  
-    """Gaussian kernel for Gaussian Process.
+    """Gaussian kernel for one univariate Gaussian Process.
     The lengthscale and variance parameters are learnable (nn.Parameter).
     """
     
-    def __init__(self):
+    # we need to add a small positive constant to ensure positive definiteness of the kernel matrix
+    # 1e-3 is ok for time series up to 10,000 time points.
+    # 1e-4 is ok for time series up to 2,880 time points. (ie 2 days @ 1 minute resolution).
+    # 1e-4 is ok for time series up to 1,000 time points.
+    # 1e-6 is ok for time series up to 100 time points.
+    # the value can be decreased for shorter time series.
+    # but it should not be too small, otherwise the Cholesky decomposition will fail.
+    
+    def __init__(self, alpha=1e-3):
         super(GaussianKernel, self).__init__()
         
-        # the parameters of the kernel are learnable
+        # learnable parameters for the Gaussian kernel
         self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
         self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
-        
-        self.alpha = torch.tensor(1.0e-6)  # small positive constant to ensure positive definiteness of the kernel matrix
+        self.alpha = torch.tensor(alpha)  # tolerance to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Gaussian kernel between two sets of time points.
         
         Args:
-            t1 (torch.Tensor): First set of time points (batch_size, sequence_length, 1)
-            t2 (torch.Tensor): Second set of time points (batch_size, sequence_length, 1)
+            t1 (torch.Tensor): First set of time points (..., N) - N is typically the sequence length.
+            t2 (torch.Tensor): Second set of time points (..., M)
         
         Returns:
-            torch.Tensor: Kernel matrix of shape (batch_size, sequence_length, sequence_length)
+            torch.Tensor: Kernel matrix of shape (..., N, M)
         """
         
-        assert t1.dim() == 3 and t2.dim() == 3, "In kernel computation, Input tensors must have shape (batch_size, sequence_length, 1)"
-        assert t1.size(-1) == 1 and t2.size(-1) == 1, "In kernel computation, Input tensors must have last dimension = 1 (this is a set of times)"
+        assert t1.dim() == t2.dim(), "GaussianKernel object : Input tensors must have the same number of dimensions"
         
-        kernel = torch.exp(-0.5 * ((t1 - t2.transpose(1, 2)) / self.lengthscale)**2)  # (B, N, N)
-        gaussian_kernel_matrix = self.variance * kernel  # (B, N, N)
-        gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(1), device=t1.device, dtype=t1.dtype).unsqueeze(0)
+        # compute the Gaussian kernel matrix
+        if t1.dim() == 1:
+            t1_b = t1.unsqueeze(-1)  # (N, 1)
+            t2_b = t2.unsqueeze(0)   # (1, M)
+            kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (N, M)
+        else:
+            t1_b = t1.unsqueeze(-1) # (...,N, 1)
+            t2_b = t2.unsqueeze(-2) # (...,1, M)
+            kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (..., N, M)
+            
+        gaussian_kernel_matrix = self.variance * kernel  # (..., N, M)
+        # gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype) # add small value to the diagonal for numerical stability (use broadcasting)
+        
+        if torch.equal(t1, t2):
+            # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
+            # so we compute and return the Cholesky decomposition of the kernel matrix
+            # to be used in forming the MultivariateNormal distribution
+            gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)  # add small value to the diagonal for numerical stability (use broadcasting)
+            try:
+                L = torch.linalg.cholesky(gaussian_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
+                return gaussian_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
+            except RuntimeError:
+                # If the Cholesky decomposition fails, it means the matrix is not positive definite
+                # We can return None or raise an error, depending on how we want to handle this case
+                # print("Warning: Cholesky decomposition failed.")
+                # print(f"Kernel : {gaussian_kernel_matrix}")
+                # return gaussian_kernel_matrix, None  # Return the kernel matrix and None for L
+                raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed. Tolerance alpha is likely too low.") 
+        else:
+            # If t1 and t2 are different, do not try to compute the Cholesky decomposition
+            L = None
          
-        return gaussian_kernel_matrix
+        return gaussian_kernel_matrix, L
     
     def __repr__(self):
         return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
-                f"variance={self.variance.item()})")      
+                f"variance={self.variance.item()}), "
+                f"alpha={self.alpha.item():.3e})")      
         
         
 #---------------------------------------------------------------------
@@ -704,50 +733,49 @@ class GaussianProcessPriorMaison(nn.Module):
     """
     
     def __init__(self,
-        # z_dimension = 1,  # we assume z_dimension = 1 for now
-        kernel = None,  # Kernel to use for the Gaussian Process
-        mean_function = None,  # Mean function for the Gaussian Process
+        z_dimension = 1,  # dimension of the latent variable z, ie number of different Gaussian Processes
+        kernels = None,  # list of Kernels to use for the Gaussian Processes
+        mean_functions = None,  # list of Mean functions to use for the Gaussian Processes
         ):
         
         super(GaussianProcessPriorMaison, self).__init__()
         
-        # assert z_dimension == 1, "the code is not ready for z_dimension > 1 yet, sorry"
+        self.mean = GPNullMean()  # default mean function is a null mean function (returns zeros)
+        self.kernel = GaussianKernel()  # default kernel is a Gaussian kernel
         
-        if kernel is None:
-            self.kernel = CauchyKernel()
-        else:
-            self.kernel = kernel
+        # we have z_dimension different Gaussian Processes, one for each dimension of the latent variable
+        # if kernels is None:
+        #     self.kernel = GaussianKernel()
+        # else:
+        #     self.kernel = kernel
             
-        if mean_function is None:
-            self.mean_function = GPNullMean()
-        else:
-            self.mean_function = mean_function
+        # if mean_function is None:
+        #     self.mean_function = GPNullMean()
+        # else:
+        #     self.mean_function = mean_function
             
     def forward(self, t):
         """Forward pass of the Gaussian Process prior.
         
         Args:
-            t (torch.Tensor): Input tensor of shape (batch_size, sequence_length, 1)
+            t (torch.Tensor): Input tensor of shape (..., N) - N is typically the sequence length.
         
         Returns:
-            mean (torch.Tensor): Mean of the prior distribution of shape (batch_size, sequence_length, z_dimension=1)
-                - computed using the mean function
-            covariance (torch.Tensor): Covariance matrix of the prior distribution of shape (batch_size, sequence_length, sequence_length)
-                - computed using the kernel
-            torch.distributions.MultivariateNormal: Multivariate normal distribution representing the prior over z_{1:T}
-                - mean is computed using the mean function, shape (batch_size, sequence_length, z_dimension=1)
-                - covariance is computed using the kernel, shape (batch_size, sequence_length, sequence_length)
-        NB : z_dimension = 1 in this first implementation.
+            mean (torch.Tensor): Mean of the prior distribution of shape (..., N)
+                - computed using the different mean functions
+            covariance (torch.Tensor): Covariance matrix of the prior distribution of shape (..., N, N)
+                - computed using the different kernels
+            torch.distributions.MultivariateNormal: Multivariate normal distribution representing the prior over z
+                - mean is computed using the mean functions, shape (..., N)
+                - covariance is computed using the kernel, shape (..., N, N)
         """
         
-        assert t.dim() == 3, "In GPPrior, Input tensor must have shape (batch_size, sequence_length, 1)"
-        assert t.size(-1) == 1, "In GPPrior, Input tensor must have last dimension = 1 (this is a set of times)"
-        
-        mean = self.mean_function(t) # (B, N, 1) => (B, N, Dz=1)
-        covariance = self.kernel(t, t)  # (B, N, N)
+        # compute the mean and covariance of the prior distribution
+        mean = self.mean(t)  # (..., N)
+        covariance = self.kernel(t, t)  # (..., N, N)
         
         # instantiate the multivariate normal distribution
-        prior_distribution = torch.distributions.MultivariateNormal(mean.squeeze(-1), covariance)
+        prior_distribution = torch.distributions.MultivariateNormal(mean, covariance)
         
         return mean, covariance, prior_distribution
         
@@ -872,148 +900,224 @@ if __name__ == "__main__":
     print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={batch_size}")
     
     # UTILITIES TESTS
-    print("Testing Make MLP...")
-    n_layers = 3
-    inter_dim = 128
-    activation = nn.ReLU
+    # print("Testing Make MLP...")
+    # n_layers = 3
+    # inter_dim = 128
+    # activation = nn.ReLU
     
-    mlp = make_mlp(
-        input_dim=x_dimension,
-        output_dim=z_dimension,  # output is a vector of length sequence_length * x_dimension
-        n_layers=n_layers,
-        inter_dim=inter_dim,
-        activation=activation
-    )
-    print(mlp)
+    # mlp = make_mlp(
+    #     input_dim=x_dimension,
+    #     output_dim=z_dimension,  # output is a vector of length sequence_length * x_dimension
+    #     n_layers=n_layers,
+    #     inter_dim=inter_dim,
+    #     activation=activation
+    # )
+    # print(mlp)
     
     # ENCODER TESTS  
-    print(f"\nTest Encoder 0 : instantiation")
-    n_layers = 3
-    inter_dim = 128
-    activation = nn.ReLU
+    # print(f"\nTest Encoder 0 : instantiation")
+    # n_layers = 3
+    # inter_dim = 128
+    # activation = nn.ReLU
     
-    encoder = Encoder(
-        x_dimension=x_dimension,
-        z_dimension=z_dimension,
-        n_layers=n_layers,
-        inter_dim=inter_dim,
-        activation=activation
-    )
+    # encoder = Encoder(
+    #     x_dimension=x_dimension,
+    #     z_dimension=z_dimension,
+    #     n_layers=n_layers,
+    #     inter_dim=inter_dim,
+    #     activation=activation
+    # )
     
-    print(encoder)
+    # print(encoder)
     
-    print("\nTest Encoder 1 : forward pass with (Dx) dimension")
-    x = torch.randn(x_dimension)
-    print(f"Input shape: {x.shape}")
-    mu, sigma, q_phi = encoder(x)
-    print(f"Output mu shape: {mu.shape}")
-    print(f"Output sigma shape: {sigma.shape}")
-    print(f"Output q_phi: {q_phi}")
-    print(f"q_phi batch shape: {q_phi.batch_shape}")
-    print(f"q_phi event shape: {q_phi.event_shape}")
-    sample_z = q_phi.rsample()
-    print(f"Sampled z shape: {sample_z.shape}")
+    # print("\nTest Encoder 1 : forward pass with (Dx) dimension")
+    # x = torch.randn(x_dimension)
+    # print(f"Input shape: {x.shape}")
+    # mu, sigma, q_phi = encoder(x)
+    # print(f"Output mu shape: {mu.shape}")
+    # print(f"Output sigma shape: {sigma.shape}")
+    # print(f"Output q_phi: {q_phi}")
+    # print(f"q_phi batch shape: {q_phi.batch_shape}")
+    # print(f"q_phi event shape: {q_phi.event_shape}")
+    # sample_z = q_phi.rsample()
+    # print(f"Sampled z shape: {sample_z.shape}")
     
-    print("\nTest Encoder 2 : forward pass with (N, Dx) dimension")
-    x = torch.randn(sequence_length, x_dimension)
-    print(f"Input shape: {x.shape}")
-    mu, sigma, q_phi = encoder(x)
-    print(f"Output mu shape: {mu.shape}")
-    print(f"Output sigma shape: {sigma.shape}")
-    print(f"Output q_phi: {q_phi}")
-    print(f"q_phi batch shape: {q_phi.batch_shape}")
-    print(f"q_phi event shape: {q_phi.event_shape}")
-    sample_z = q_phi.rsample()
-    print(f"Sampled z shape: {sample_z.shape}")
+    # print("\nTest Encoder 2 : forward pass with (N, Dx) dimension")
+    # x = torch.randn(sequence_length, x_dimension)
+    # print(f"Input shape: {x.shape}")
+    # mu, sigma, q_phi = encoder(x)
+    # print(f"Output mu shape: {mu.shape}")
+    # print(f"Output sigma shape: {sigma.shape}")
+    # print(f"Output q_phi: {q_phi}")
+    # print(f"q_phi batch shape: {q_phi.batch_shape}")
+    # print(f"q_phi event shape: {q_phi.event_shape}")
+    # sample_z = q_phi.rsample()
+    # print(f"Sampled z shape: {sample_z.shape}")
     
-    print("\nTest Encoder 3 : forward pass with (B, N, Dx) dimension")
-    x = torch.randn(batch_size, sequence_length, x_dimension)  # batch_size=2
-    print(f"Input shape: {x.shape}")
-    mu, sigma, q_phi = encoder(x)
-    print(f"Output mu shape: {mu.shape}")
-    print(f"Output sigma shape: {sigma.shape}")
-    print(f"Output q_phi: {q_phi}")
-    print(f"q_phi batch shape: {q_phi.batch_shape}")
-    print(f"q_phi event shape: {q_phi.event_shape}")
-    sample_z = q_phi.rsample()
-    print(f"Sampled z shape: {sample_z.shape}")
+    # print("\nTest Encoder 3 : forward pass with (B, N, Dx) dimension")
+    # x = torch.randn(batch_size, sequence_length, x_dimension)  # batch_size=2
+    # print(f"Input shape: {x.shape}")
+    # mu, sigma, q_phi = encoder(x)
+    # print(f"Output mu shape: {mu.shape}")
+    # print(f"Output sigma shape: {sigma.shape}")
+    # print(f"Output q_phi: {q_phi}")
+    # print(f"q_phi batch shape: {q_phi.batch_shape}")
+    # print(f"q_phi event shape: {q_phi.event_shape}")
+    # sample_z = q_phi.rsample()
+    # print(f"Sampled z shape: {sample_z.shape}")
     
-    # DECODER TESTS
-    print("\nTest Decoder 0 : instantiation...")
+    # # DECODER TESTS
+    # print("\nTest Decoder 0 : instantiation...")
     
-    decoder = GaussianDecoder(
-        x_dimension=x_dimension,
-        z_dimension=z_dimension,
-        n_layers=n_layers,
-        inter_dim=inter_dim,
-        activation=activation
-    )
+    # decoder = GaussianDecoder(
+    #     x_dimension=x_dimension,
+    #     z_dimension=z_dimension,
+    #     n_layers=n_layers,
+    #     inter_dim=inter_dim,
+    #     activation=activation
+    # )
     
-    print(decoder)
+    # print(decoder)
     
-    print("\nTest Decoder 1 : forward pass with (Dz) dimension")
-    z = torch.randn(z_dimension)
-    print(f"Input shape: {z.shape}")
-    mu_x, sigma_x, p_theta_x = decoder(z)
-    print(f"Output mu_x shape: {mu_x.shape}")
-    print(f"Output sigma_x shape: {sigma_x.shape}")
-    print(f"Output p_theta_x: {p_theta_x}")
-    print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
-    print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
-    sample_x = p_theta_x.rsample()
-    print(f"Sampled x shape: {sample_x.shape}")
+    # print("\nTest Decoder 1 : forward pass with (Dz) dimension")
+    # z = torch.randn(z_dimension)
+    # print(f"Input shape: {z.shape}")
+    # mu_x, sigma_x, p_theta_x = decoder(z)
+    # print(f"Output mu_x shape: {mu_x.shape}")
+    # print(f"Output sigma_x shape: {sigma_x.shape}")
+    # print(f"Output p_theta_x: {p_theta_x}")
+    # print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
+    # print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
+    # sample_x = p_theta_x.rsample()
+    # print(f"Sampled x shape: {sample_x.shape}")
     
-    print("\nTest Decoder 2 : forward pass with (N, Dz) dimension")
-    z = torch.randn(sequence_length, z_dimension)
-    print(f"Input shape: {z.shape}")
-    mu_x, sigma_x, p_theta_x = decoder(z)
-    print(f"Output mu_x shape: {mu_x.shape}")
-    print(f"Output sigma_x shape: {sigma_x.shape}")
-    print(f"Output p_theta_x: {p_theta_x}")
-    print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
-    print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
-    sample_x = p_theta_x.rsample()
-    print(f"Sampled x shape: {sample_x.shape}")
+    # print("\nTest Decoder 2 : forward pass with (N, Dz) dimension")
+    # z = torch.randn(sequence_length, z_dimension)
+    # print(f"Input shape: {z.shape}")
+    # mu_x, sigma_x, p_theta_x = decoder(z)
+    # print(f"Output mu_x shape: {mu_x.shape}")
+    # print(f"Output sigma_x shape: {sigma_x.shape}")
+    # print(f"Output p_theta_x: {p_theta_x}")
+    # print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
+    # print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
+    # sample_x = p_theta_x.rsample()
+    # print(f"Sampled x shape: {sample_x.shape}")
     
-    print("\nTest Decoder 3 : forward pass with (B,N,Dx) dimension")
-    z = torch.randn(batch_size, sequence_length, z_dimension)
-    print(f"Input shape: {z.shape}")
-    mu_x, sigma_x, p_theta_x = decoder(z)
-    print(f"Output mu_x shape: {mu_x.shape}")
-    print(f"Output sigma_x shape: {sigma_x.shape}")
-    print(f"Output p_theta_x: {p_theta_x}")
-    print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
-    print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
-    sample_x = p_theta_x.rsample()
-    print(f"Sampled x shape: {sample_x.shape}")
+    # print("\nTest Decoder 3 : forward pass with (B,N,Dx) dimension")
+    # z = torch.randn(batch_size, sequence_length, z_dimension)
+    # print(f"Input shape: {z.shape}")
+    # mu_x, sigma_x, p_theta_x = decoder(z)
+    # print(f"Output mu_x shape: {mu_x.shape}")
+    # print(f"Output sigma_x shape: {sigma_x.shape}")
+    # print(f"Output p_theta_x: {p_theta_x}")
+    # print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
+    # print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
+    # sample_x = p_theta_x.rsample()
+    # print(f"Sampled x shape: {sample_x.shape}")
     
-    print(f"\nTest Decoder 4 : testing log_probability of Decoder")
-    print(f"log_probability of sampled x (shape): {p_theta_x.log_prob(sample_x).size()}")
+    # print(f"\nTest Decoder 4 : testing log_probability of Decoder")
+    # print(f"log_probability of sampled x (shape): {p_theta_x.log_prob(sample_x).size()}")
     
     # # GP PRIOR TESTS
     # print("\nTest GPNullMean...")
-    # B, N, Z = 16, 250, 3 # batch_size, sequence_length, z_dimension
-    # gp_null_mean = GPNullMean(z_dimension=Z)
-    # t = torch.randn(B, N, 1)  # batch_size=16
+    # B, N, Z = 1, 2, 3 # batch_size, sequence_length, z_dimension
+    # gp_null_mean = GPNullMean()
+    # print(gp_null_mean)
+    # print()
+    
+    # t = torch.randn(N)
     # print(f"Input shape: {t.shape}")
     # gp_mean_output = gp_null_mean(t)
     # print(f"Output shape: {gp_mean_output.shape}")
     # print(f"Output unique values: {gp_mean_output.unique()}")  # should be all zeros
+    # print()
     
-    # # CAUCHY KERNEL TESTS
-    # print("\nTest CauchyKernel...")
-    # cauchy_kernel = CauchyKernel()
-    # t1 = torch.randn(B, N, 1)  # batch_size=16
-    # t2 = torch.randn(B, N, 1)  # batch_size=16
-    # print(f"Input shapes: t1={t1.shape}, t2={t2.shape}")
-    # kernel_output = cauchy_kernel(t1, t2)
+    # t = torch.randn(B, N)
+    # print(f"Input shape: {t.shape}")
+    # gp_mean_output = gp_null_mean(t)
+    # print(f"Output shape: {gp_mean_output.shape}")
+    # print(f"Output unique values: {gp_mean_output.unique()}")  # should be all zeros
+    # print()
+    
+    # # GAUSSIAN KERNEL TESTS
+    # print("\nTest Gaussian Kernel...")
+    
+    # gaussian_kernel = GaussianKernel()
+    # print(gaussian_kernel)
+    # print()
+    
+    # # Test with same 1D input
+    # N = 4
+    # t1 = torch.randn(N)  # sequence_length
+    # t2 = t1  # same input
+    # print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
     # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")
     
-    # try:
-    #     torch.linalg.cholesky(kernel_output)
-    #     print("Kernel matrix is positive definite.")
-    # except RuntimeError:
-    #     print("Kernel matrix is NOT positive definite.")
+    # # test with different 1D inputs, same sequence lengths
+    # N = 16  # sequence_length
+    # t1 = torch.randn(N)  # sequence_length
+    # t2 = torch.randn(N)  # sequence_length
+    # print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
+    # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # # Test with 1D input, and different sequence lengths
+    # N, M = 4, 8
+    # t1 = torch.randn(N)  # sequence_length
+    # t2 = torch.randn(M)  # sequence_length
+    # print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
+    # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
+    
+    # # test with same 2D inputs, same sequence lengths
+    # B = 16  # batch_size
+    # N, M = 3, 3  # sequence_length
+    # t1 = torch.randn(B, N)  # batch_size, sequence_length
+    # t2 = t1  # same input
+    # print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
+    # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # # Test with different 2D inputs, same shape
+    # t1 = torch.randn(B, N)  # batch_size, sequence_length
+    # t2 = torch.randn(B, N)  # same input
+    # print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
+    # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # # Test with 2D input, different sequence lengths
+    # t1 = torch.randn(B, N)
+    # t2 = torch.randn(B, M)
+    # print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    # kernel_output, L = gaussian_kernel(t1, t2)
+    # print(f"Output shape: {kernel_output.shape}")
+    # print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
+    
+    # Brute force for positive definiteness
+    print("\nBrute force check for positive definiteness...")
+    gaussian_kernel = GaussianKernel(alpha=1e-3)
+    print(gaussian_kernel)
+    TESTS = int(1e+2)
+    B = 32 # batch_size
+    N = 1000  # sequence_length 2880 = 2 days @ 1 minute
+    print(f"Running {TESTS} tests with B={B}, N={N}")
+    failures = 0
+    for i in tqdm(range(TESTS)):
+        t1 = torch.randn(B,N)
+        kernel_output, L = gaussian_kernel(t1, t1)  # same input
+        if L is None:
+            failures += 1
+    print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")
+    
+
+    
+
     
     # # TEST GP PRIOR
     # print("\nTest GaussianProcessPriorMaison...")
