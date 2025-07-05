@@ -132,11 +132,11 @@ class EncoderMean(nn.Module):
         self.activation = activation
                 
         self.mlp = make_mlp(
-            input_dim=x_dimension,
-            output_dim=z_dimension,  # output is a vector of length sequence_length * z_dimension
-            n_layers=n_layers,
-            inter_dim=inter_dim,
-            activation=activation
+            input_dim=self.x_dimension,
+            output_dim=self.z_dimension,  # output is a vector of length sequence_length * z_dimension
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
+            activation=self.activation
         )
         
     
@@ -153,7 +153,7 @@ class EncoderMean(nn.Module):
         assert input.dim() >= 2, "Input tensor must have at least 2 dimensions (sequence_length -possibly 1- and x_dimension)"
         
         output = self.mlp(input)  # (..., N, Dz)
-        output = output.permute(-1, -2)  # (..., Dz, N)
+        output = torch.transpose(output,-1, -2)  # (..., Dz, N)
             
         return output  # (..., Dz, N) : batch of Dz independent but not identical Gaussians of dimension N. (can have N=1).
     
@@ -204,8 +204,8 @@ class EncoderCovariance(nn.Module):
         self.diagonal_mlp = make_mlp(
             input_dim=self.x_dimension,
             output_dim=self.z_dimension,
-            n_layers=n_layers,
-            inter_dim=inter_dim,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
             activation=activation
         )
         
@@ -213,8 +213,8 @@ class EncoderCovariance(nn.Module):
         self.full_matrix_mlp = make_mlp(
             input_dim=self.x_dimension,
             output_dim=self.z_dimension,
-            n_layers=n_layers,
-            inter_dim=inter_dim,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
             activation=activation
         )
         
@@ -243,13 +243,13 @@ class EncoderCovariance(nn.Module):
         
         # Compute the diagonal elements of the covariance matrix
         D = self.diagonal_mlp(x)  # out : (..., N, Dz)
-        D = troch.permute(D, (-1, -2))  # out : (..., Dz, N)
+        D = torch.transpose(D, -1, -2)  # out : (..., Dz, N)
         D = torch.exp(D) # out : (..., Dz, N). Ensure entries > 0.
         D = torch.diag_embed(D) # shape (..., Dz, N, N)
         
         # Get the elements outside the diagonal
         M = self.full_matrix_mlp(x) # shape (..., N, Dz)
-        M = torch.permute(M, (-1, -2))  # shape (..., Dz, N)
+        M = torch.transpose(M, -1, -2)  # shape (..., Dz, N)
         M1 = M.unsqueeze(-1)  # shape (..., Dz, N, 1)
         M2 = M.unsqueeze(-2)  # shape (..., Dz, 1, N)
         M = torch.matmul(M1, M2)  # shape (..., Dz, N, N)
@@ -268,7 +268,7 @@ class EncoderCovariance(nn.Module):
         return (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})",
+                f"activation={self.activation.__name__})"
                 f"alpha={self.alpha:.3e})")
 
 
@@ -293,23 +293,25 @@ class Encoder(nn.Module):
         
         super(Encoder, self).__init__()
         
-        self.sequence_length = sequence_length
+        # self.sequence_length = sequence_length
         self.x_dimension = x_dimension
         self.z_dimension = z_dimension
+        self.n_layers = n_layers
+        self.inter_dim = inter_dim
         
         self.encoder_mean = EncoderMean(
-            x_dimension=x_dimension,
-            z_dimension=z_dimension,
-            n_layers=n_layers,
-            inter_dim=inter_dim,
+            x_dimension=self.x_dimension,
+            z_dimension=self.z_dimension,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
             activation=activation,
         )
         
         self.encoder_covariance = EncoderCovariance(
-            x_dimension=x_dimension,
-            z_dimension=z_dimension,
-            n_layers=n_layers,
-            inter_dim=inter_dim,
+            x_dimension=self.x_dimension,
+            z_dimension=self.z_dimension,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
             activation=activation,
         )
     
@@ -346,13 +348,12 @@ class Encoder(nn.Module):
         return mu_phi, sigma_phi, q_phi        
     
     def __repr__(self):
-        msg = f"{self.__class__.__name__}," +\
-            f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, " +\
-            f"n_layers={self.encoder_mean.n_layers}, inter_dim={self.encoder_mean.inter_dim}, " +\
+        return (f"{self.__class__.__name__},"
+            f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+            f"n_layers={self.encoder_mean.n_layers}, inter_dim={self.encoder_mean.inter_dim}, "
             f"activation={self.encoder_mean.activation.__name__})" 
-        msg += f"\nEncoderMean: {self.encoder_mean}"
-        msg += f"\nEncoderCovariance: {self.encoder_covariance}"
-        return msg
+            f"\nEncoderMean: {self.encoder_mean}"
+            f"\nEncoderCovariance: {self.encoder_covariance}")
 
 
 #--------------------------------------------------------------------------
@@ -393,7 +394,7 @@ class DecoderMean(nn.Module):
         
         self.mlp = make_mlp(
             input_dim=z_dimension,
-            output_dim=x_dimension,  # output is a vector of length sequence_length * x_dimension
+            output_dim=x_dimension,
             n_layers=n_layers,
             inter_dim=inter_dim,
             activation=activation
@@ -951,6 +952,8 @@ if __name__ == "__main__":
     print("\nTest Encoder 1 : forward pass with (Dx) dimension")
     x = torch.randn(x_dimension)
     print(f"Input shape: {x.shape}")
+    x = x.unsqueeze(0)  # expand to (1, Dx) for batch processing
+    print(f"Expanding x to (1, Dx) for batch processing... : {x.shape}")
     mu, sigma, q_phi = encoder(x)
     print(f"Output mu shape: {mu.shape}")
     print(f"Output sigma shape: {sigma.shape}")
