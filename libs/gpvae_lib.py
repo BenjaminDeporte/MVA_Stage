@@ -629,12 +629,12 @@ class CauchyKernel(nn.Module):
     The lengthscale and variance parameters are learnable (nn.Parameter).
     """
     
-    def __init__(self, alpha=1e-3):
+    def __init__(self, lengthscale=1.0, variance=1.0, alpha=1e-3):
         super(CauchyKernel, self).__init__()
         
         # the parameters of the kernel are learnable
-        self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
-        self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter (ie sigma**2)
+        self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter       
+        self.variance = nn.Parameter(torch.tensor(variance))  # learnable variance parameter (ie sigma**2)
         self.alpha = torch.tensor(alpha)  # small positive constant to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
@@ -704,12 +704,12 @@ class GaussianKernel(nn.Module):
     # the value can be decreased for shorter time series.
     # but it should not be too small, otherwise the Cholesky decomposition will fail.
     
-    def __init__(self, alpha=1e-3):
+    def __init__(self, lengthscale=1.0, variance=1.0, alpha=1e-3):
         super(GaussianKernel, self).__init__()
         
         # learnable parameters for the Gaussian kernel
-        self.lengthscale = nn.Parameter(torch.tensor(1.0))  # learnable lengthscale parameter       
-        self.variance = nn.Parameter(torch.tensor(1.0))  # learnable variance parameter
+        self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter       
+        self.variance = nn.Parameter(torch.tensor(variance))  # learnable variance parameter
         self.alpha = torch.tensor(alpha)  # tolerance to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
@@ -1322,13 +1322,13 @@ if __name__ == "__main__":
     # decoder_tests()
     
     # # GAUSSIAN KERNEL TESTS
-    # gaussian_kernel_tests()
+    gaussian_kernel_tests()
     
     # CAUCHY KERNEL TESTS
-    # cauchy_kernel_tests()
+    cauchy_kernel_tests()
     
     # GP PRIOR TESTS
-    gp_prior_tests()
+    # gp_prior_tests()
     
 
     
