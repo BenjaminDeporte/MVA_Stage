@@ -675,9 +675,6 @@ class GPLinearMean(nn.Module):
     
 
 # ----- Cauchy Kernel ---------------------------------------------
-#
-# HIGHLY UNSTABLE KERNEL !  Produces not definite positive matrices from time to time !
-#
 
 class CauchyKernel(nn.Module):
     """Cauchy kernel for Gaussian Process.
@@ -745,9 +742,7 @@ class CauchyKernel(nn.Module):
                 f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
                 f"epsilon={self.epsilon.item():.3e})")     
         
-
 #----- Gaussian Kernel --------------------------------------------
-#
 
 class GaussianKernel(nn.Module):  
     """Gaussian kernel for one univariate Gaussian Process.
@@ -890,6 +885,89 @@ class RQKernel(nn.Module):
                 f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
                 f"epsilon={self.epsilon:.3e})")      
         
+# --- MATERN kernel --------------------------------------------
+
+class MaternKernel(nn.Module):
+    """Matern kernel for one univariate Gaussian Process.
+    Takes nu = 0.5, 1.5, 2.5 in the constructor.
+    The lengthscale, variance and alpha parameters are learnable (nn.Parameter).
+    """
+    
+    def __init__(self, nu, lengthscale=1.0, sigma=1.0, epsilon=1e-3):
+        super(MaternKernel, self).__init__()
+        
+        # check
+        if nu not in [0.5, 1.5, 2.5]:
+            raise ValueError("MaternKernel: nu must be one of [0.5, 1.5, 2.5]")
+        self.nu = nu  # Matern parameter nu
+        
+        # learnable parameters for the RQ kernel
+        self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable alpha parameter (shape parameter)
+        self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance = sigma**2 parameter
+
+        self.epsilon = epsilon  # small value to ensure positive definiteness of the kernel matrix
+    
+    def forward(self, t1, t2):
+        """Compute the Matern kernel between two sets of time points.
+        
+        Args:
+            t1 (torch.Tensor): First set of time points (..., N) - N is typically the sequence length.
+            t2 (torch.Tensor): Second set of time points (..., M)
+        
+        Returns:
+            torch.Tensor: Kernel matrix of shape (..., N, M)
+        """
+        
+        assert t1.dim() == t2.dim(), "Matern Kernel object : Input tensors must have the same number of dimensions"
+        
+        if t1.dim() == 1:
+            t1_b = t1.unsqueeze(-1)  # (N, 1)
+            t2_b = t2.unsqueeze(0)   # (1, M)
+        else:
+            t1_b = t1.unsqueeze(-1) # (..., N, 1)
+            t2_b = t2.unsqueeze(-2) # (..., 1, M)
+        
+        d = torch.abs(t1_b - t2_b)  # (..., N, M)
+        
+        if self.nu == 0.5:
+            # Matern kernel with nu = 0.5
+            matern_kernel = self.sigma**2 * torch.exp(-d / self.lengthscale)
+        elif self.nu == 1.5:
+            # Matern kernel with nu = 1.5
+            matern_kernel = self.sigma**2 * (1 + (d * torch.sqrt(torch.tensor(3))) / self.lengthscale) * torch.exp(-d * torch.sqrt(torch.tensor(3)) / self.lengthscale)
+        elif self.nu == 2.5:
+            # Matern kernel with nu = 2.5
+            matern_kernel = self.sigma**2 * (1 + ((d * torch.sqrt(torch.tensor(5))) / self.lengthscale) + (5 * d**2 / (3 * self.lengthscale**2))) * torch.exp(-d * torch.sqrt(torch.tensor(5)) / self.lengthscale)
+        else:
+            raise ValueError("MaternKernel: nu must be one of [0.5, 1.5, 2.5]")
+
+        if torch.equal(t1, t2):
+            # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
+            # so we compute and return the Cholesky decomposition of the kernel matrix
+            # to be used in forming the MultivariateNormal distribution, adding
+            # a small value to the diagonal for numerical stability
+            matern_kernel += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            try:
+                L = torch.linalg.cholesky(matern_kernel)  # Cholesky decomposition to ensure positive definiteness
+                return matern_kernel, L  # Return the kernel matrix and its Cholesky factor L
+            except RuntimeError:
+                # If the Cholesky decomposition fails, it means the matrix is not positive definite
+                # We can return None or raise an error, depending on how we want to handle this case
+                # print("Warning: Cholesky decomposition failed.")
+                # print(f"Kernel : {gaussian_kernel_matrix}")
+                # return gaussian_kernel_matrix, None  # Return the kernel matrix and None for L
+                raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed in Matern Kernel. Tolerance epsilon is likely too low.") 
+        else:
+            # If t1 and t2 are different, do not try to compute the Cholesky decomposition
+            return matern_kernel, None
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(nu={self.nu}, "
+                f"lenghtscale={self.lengthscale.item():.3e}, "
+                f"sigma={self.sigma.item():.3e}, "
+                f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
+                f"epsilon={self.epsilon:.3e})")      
+
         
 #---------------------------------------------------------------------
         
@@ -1270,14 +1348,13 @@ def gp_prior_tests():
     print(f"Event shape: {gp_prior_output.event_shape}")
     print(f"Sampled z shape: {gp_prior_output.rsample().shape}") 
     
-#-------------------------------------------------------
+#--- Generic Kernel Test function ---
 
-def gaussian_kernel_tests():
-    print(f"*" * 10 + " GAUSSIAN KERNEL TESTS " + "*" * 10)
-    print("\nTest Gaussian Kernel...")
+def kernel_tests(kernel):
+    print(f"*" * 10 + " KERNEL TESTS " + "*" * 10)
+    print("\nTesting Kernel :")
     
-    gaussian_kernel = GaussianKernel()
-    print(gaussian_kernel)
+    print(kernel)
     print()
     
     # Test with same 1D input
@@ -1285,7 +1362,7 @@ def gaussian_kernel_tests():
     t1 = torch.randn(N)  # sequence_length
     t2 = t1  # same input
     print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")
     
@@ -1294,7 +1371,7 @@ def gaussian_kernel_tests():
     t1 = torch.randn(N)  # sequence_length
     t2 = torch.randn(N)  # sequence_length
     print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")
     
@@ -1303,7 +1380,7 @@ def gaussian_kernel_tests():
     t1 = torch.randn(N)  # sequence_length
     t2 = torch.randn(M)  # sequence_length
     print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
     
@@ -1313,7 +1390,7 @@ def gaussian_kernel_tests():
     t1 = torch.randn(B, N)  # batch_size, sequence_length
     t2 = t1  # same input
     print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")
     
@@ -1321,7 +1398,7 @@ def gaussian_kernel_tests():
     t1 = torch.randn(B, N)  # batch_size, sequence_length
     t2 = torch.randn(B, N)  # same input
     print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")
     
@@ -1329,14 +1406,12 @@ def gaussian_kernel_tests():
     t1 = torch.randn(B, N)
     t2 = torch.randn(B, M)
     print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = gaussian_kernel(t1, t2)
+    kernel_output, L = kernel(t1, t2)
     print(f"Output shape: {kernel_output.shape}")
     print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
     
     # Brute force for positive definiteness
     print("\nBrute force check for positive definiteness...")
-    gaussian_kernel = GaussianKernel(epsilon=1e-3)
-    print(gaussian_kernel)
     TESTS = int(1e+2)
     B = 32 # batch_size
     N = 1000  # sequence_length 2880 = 2 days @ 1 minute
@@ -1344,170 +1419,11 @@ def gaussian_kernel_tests():
     failures = 0
     for i in tqdm(range(TESTS)):
         t1 = torch.randn(B,N)
-        kernel_output, L = gaussian_kernel(t1, t1)  # same input
-        if L is None:
-            failures += 1
-    print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
-    
-#---------------------------------------------------------------------
-    
-def cauchy_kernel_tests():
-    print(f"*" * 10 + " CAUCHY KERNEL TESTS " + "*" * 10)
-    print("\nTest Cauchy Kernel...")
-    
-    cauchy_kernel = CauchyKernel()
-    print(cauchy_kernel)
-    print()
-    
-    # Test with same 1D input
-    N = 4
-    t1 = torch.randn(N)  # sequence_length
-    t2 = t1  # same input
-    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # test with different 1D inputs, same sequence lengths
-    N = 16  # sequence_length
-    t1 = torch.randn(N)  # sequence_length
-    t2 = torch.randn(N)  # sequence_length
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with 1D input, and different sequence lengths
-    N, M = 4, 8
-    t1 = torch.randn(N)  # sequence_length
-    t2 = torch.randn(M)  # sequence_length
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
-    
-    # test with same 2D inputs, same sequence lengths
-    B = 16  # batch_size
-    N, M = 3, 3  # sequence_length
-    t1 = torch.randn(B, N)  # batch_size, sequence_length
-    t2 = t1  # same input
-    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with different 2D inputs, same shape
-    t1 = torch.randn(B, N)  # batch_size, sequence_length
-    t2 = torch.randn(B, N)  # same input
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with 2D input, different sequence lengths
-    t1 = torch.randn(B, N)
-    t2 = torch.randn(B, M)
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = cauchy_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
-    
-    # Brute force for positive definiteness
-    print("\nBrute force check for positive definiteness...")
-    cauchy_kernel = CauchyKernel(epsilon=1e-3)
-    print(cauchy_kernel)
-    TESTS = int(1e+2)
-    B = 32 # batch_size
-    N = 1000  # sequence_length 2880 = 2 days @ 1 minute
-    print(f"Running {TESTS} tests with B={B}, N={N}")
-    failures = 0
-    for i in tqdm(range(TESTS)):
-        t1 = torch.randn(B,N)
-        kernel_output, L = cauchy_kernel(t1, t1)  # same input
-        if L is None:
-            failures += 1
-    print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
-    
-#--- RQ Kernel Tests ---
-
-def rq_kernel_tests():
-    print(f"*" * 10 + " RATIONAL QUADRATIC KERNEL TESTS " + "*" * 10)
-    print("\nTest Rational Quadratic Kernel...")
-    
-    rq_kernel = RQKernel()
-    print(rq_kernel)
-    print()
-    
-    # Test with same 1D input
-    N = 4
-    t1 = torch.randn(N)  # sequence_length
-    t2 = t1  # same input
-    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # test with different 1D inputs, same sequence lengths
-    N = 16  # sequence_length
-    t1 = torch.randn(N)  # sequence_length
-    t2 = torch.randn(N)  # sequence_length
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with 1D input, and different sequence lengths
-    N, M = 4, 8
-    t1 = torch.randn(N)  # sequence_length
-    t2 = torch.randn(M)  # sequence_length
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
-    
-    # test with same 2D inputs, same sequence lengths
-    B = 16  # batch_size
-    N, M = 3, 3  # sequence_length
-    t1 = torch.randn(B, N)  # batch_size, sequence_length
-    t2 = t1  # same input
-    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with different 2D inputs, same shape
-    t1 = torch.randn(B, N)  # batch_size, sequence_length
-    t2 = torch.randn(B, N)  # same input
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")
-    
-    # Test with 2D input, different sequence lengths
-    t1 = torch.randn(B, N)
-    t2 = torch.randn(B, M)
-    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
-    kernel_output, L = rq_kernel(t1, t2)
-    print(f"Output shape: {kernel_output.shape}")
-    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
-    
-    # Brute force for positive definiteness
-    print("\nBrute force check for positive definiteness...")
-    rq_kernel = RQKernel(epsilon=1e-3)
-    print(rq_kernel)
-    TESTS = int(1e+2)
-    B = 32 # batch_size
-    N = 1000  # sequence_length 2880 = 2 days @ 1 minute
-    print(f"Running {TESTS} tests with B={B}, N={N}")
-    failures = 0
-    for i in tqdm(range(TESTS)):
-        t1 = torch.randn(B,N)
-        kernel_output, L = rq_kernel(t1, t1)  # same input
+        kernel_output, L = kernel(t1, t1)  # same input
         if L is None:
             failures += 1
     print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
 
-  
 #----------------------------------------------------------------    
 
 if __name__ == "__main__":
@@ -1518,7 +1434,7 @@ if __name__ == "__main__":
     sequence_length = 10
     x_dimension = 16
     z_dimension = 4
-    print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={batch_size}")
+    # print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={batch_size}")
     
     # # UTILITIES TESTS
     # utilities_test()
@@ -1530,13 +1446,26 @@ if __name__ == "__main__":
     # decoder_tests()
     
     # # GAUSSIAN KERNEL TESTS
-    gaussian_kernel_tests()
+    kernel = GaussianKernel()
+    kernel_tests(kernel)
     
     # CAUCHY KERNEL TESTS
-    cauchy_kernel_tests()
+    kernel = CauchyKernel()
+    kernel_tests(kernel)
     
     # RQ KERNEL TESTS
-    rq_kernel_tests()
+    kernel = RQKernel()
+    kernel_tests(kernel)
+    
+    # MATERN KERNEL TESTS
+    matern_kernel = MaternKernel(nu=0.5, lengthscale=1.0, epsilon=1e-3)
+    kernel_tests(matern_kernel)
+    
+    matern_kernel = MaternKernel(nu=1.5, lengthscale=1.0, epsilon=1e-3)
+    kernel_tests(matern_kernel)
+    
+    matern_kernel = MaternKernel(nu=2.5, lengthscale=1.0, epsilon=1e-3)
+    kernel_tests(matern_kernel)
     
     # GP PRIOR TESTS
     # gp_prior_tests()
