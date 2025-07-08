@@ -963,7 +963,7 @@ class MaternKernel(nn.Module):
     
     def __repr__(self):
         return (f"{self.__class__.__name__}(nu={self.nu}, "
-                f"lenghtscale={self.lengthscale.item():.3e}, "
+                f"lengthscale={self.lengthscale.item():.3e}, "
                 f"sigma={self.sigma.item():.3e}, "
                 f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
                 f"epsilon={self.epsilon:.3e})")      
