@@ -592,7 +592,9 @@ class GaussianDecoder(nn.Module):
 # GAUSSIAN PROCESS PRIOR
 #---------------------------------------------------------------------
 
-# --- Mean function -----------------------------------------------
+# --- Mean functions -----------------------------------------------
+
+# --- Null Mean Function ---------------------------------------------
 
 class GPNullMean(nn.Module):
     """ Neural Net to compute the mean of one univariate Gaussian Process
@@ -617,6 +619,60 @@ class GPNullMean(nn.Module):
     def __repr__(self):
         return f"{self.__class__.__name__}"
     
+# --- Constant Mean Function ---------------------------------
+
+class GPConstantMean(nn.Module):
+    """ Neural Net to compute the mean of one univariate Gaussian Process
+    This is a constant mean function, with a learnable parameter.
+    """
+    
+    def __init__(self, constant_init=0.0):
+        super(GPConstantMean, self).__init__()
+        
+        self.constant_value = nn.Parameter(torch.tensor(constant_init))  # learnable constant value
+    
+    def forward(self, t):
+        """Forward pass of the GPNullMean.
+        Just returns a tensor of zeros of shape identical to the input.
+        
+        Inputs:
+            t (torch.Tensor): Input tensor of shape (..., N) - N is typically the sequence length.
+        Returns:
+            torch.Tensor: Output tensor of ZEROS of shape (..., N)
+        """
+        
+        return self.constant_value * torch.ones_like(t, dtype=t.dtype, device=t.device)  # (..., N)
+    
+    def __repr__(self):
+        return f"{self.__class__.__name__}"
+    
+# --- Linear Mean Function ---------------------------------
+
+class GPLinearMean(nn.Module):
+    """ Neural Net to compute the mean of one univariate Gaussian Process
+    This is a linear mean function, with a learnable parameter.
+    """
+    
+    def __init__(self, slope_init=0.0, intercept_init=0.0):
+        super(GPLinearMean, self).__init__()
+        
+        self.slope = nn.Parameter(torch.tensor(slope_init))  # learnable slope parameter
+        self.intercept = nn.Parameter(torch.tensor(intercept_init))  # learnable intercept parameter
+    
+    def forward(self, t):
+        """Forward pass of the GPLinearMean.
+        
+        Inputs:
+            t (torch.Tensor): Input tensor of shape (..., N) - N is typically the sequence length.
+        Returns:
+            torch.Tensor: Output tensor of shape (..., N)
+        """
+        
+        return self.slope * t + self.intercept  # (..., N)
+    
+    def __repr__(self):
+        return f"{self.__class__.__name__}"
+    
 
 # ----- Cauchy Kernel ---------------------------------------------
 #
@@ -629,13 +685,14 @@ class CauchyKernel(nn.Module):
     The lengthscale and variance parameters are learnable (nn.Parameter).
     """
     
-    def __init__(self, lengthscale=1.0, variance=1.0, alpha=1e-3):
+    def __init__(self, lengthscale=1.0, sigma=1.0, epsilon=1e-3):
         super(CauchyKernel, self).__init__()
         
         # the parameters of the kernel are learnable
         self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter       
-        self.variance = nn.Parameter(torch.tensor(variance))  # learnable variance parameter (ie sigma**2)
-        self.alpha = torch.tensor(alpha)  # small positive constant to ensure positive definiteness of the kernel matrix
+        self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable sigma parameter (ie variance = sigma**2)
+        
+        self.epsilon = torch.tensor(epsilon)  # small positive constant to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Gaussian kernel between two sets of time points.
@@ -660,14 +717,14 @@ class CauchyKernel(nn.Module):
             mat = 1 + ((t1_b - t2_b)**2 / self.lengthscale**2)  # (..., N, M)
             
         # compute the Cauchy kernel matrix
-        cauchy_kernel_matrix = self.variance / mat  # (..., N, M)
+        cauchy_kernel_matrix = self.sigma**2 / mat  # (..., N, M)
         
         if torch.equal(t1, t2):
             # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
             # so we compute and return the Cholesky decomposition of the kernel matrix
             # to be used in forming the MultivariateNormal distribution, adding
             # a small value to the diagonal for numerical stability
-            cauchy_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            cauchy_kernel_matrix += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
             try:
                 L = torch.linalg.cholesky(cauchy_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
                 return cauchy_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
@@ -683,9 +740,10 @@ class CauchyKernel(nn.Module):
             return cauchy_kernel_matrix, None
     
     def __repr__(self):
-        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
-                f"variance={self.variance.item()}), "
-                f"alpha={self.alpha.item():.3e})")     
+        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item():.3e}, "
+                f"sigma={self.sigma.item():.3e}, "
+                f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
+                f"epsilon={self.epsilon.item():.3e})")     
         
 
 #----- Gaussian Kernel --------------------------------------------
@@ -704,13 +762,14 @@ class GaussianKernel(nn.Module):
     # the value can be decreased for shorter time series.
     # but it should not be too small, otherwise the Cholesky decomposition will fail.
     
-    def __init__(self, lengthscale=1.0, variance=1.0, alpha=1e-3):
+    def __init__(self, lengthscale=1.0, sigma=1.0, epsilon=1e-3):
         super(GaussianKernel, self).__init__()
         
         # learnable parameters for the Gaussian kernel
         self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter       
-        self.variance = nn.Parameter(torch.tensor(variance))  # learnable variance parameter
-        self.alpha = torch.tensor(alpha)  # tolerance to ensure positive definiteness of the kernel matrix
+        self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance parameter
+        
+        self.epsilon = torch.tensor(epsilon)  # tolerance to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Gaussian kernel between two sets of time points.
@@ -735,14 +794,14 @@ class GaussianKernel(nn.Module):
             t2_b = t2.unsqueeze(-2) # (...,1, M)
             kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (..., N, M)
             
-        gaussian_kernel_matrix = self.variance * kernel  # (..., N, M)
+        gaussian_kernel_matrix = self.sigma**2 * kernel  # (..., N, M)
 
         if torch.equal(t1, t2):
             # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
             # so we compute and return the Cholesky decomposition of the kernel matrix
             # to be used in forming the MultivariateNormal distribution, adding
             # a small value to the diagonal for numerical stability
-            gaussian_kernel_matrix += self.alpha * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            gaussian_kernel_matrix += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
             try:
                 L = torch.linalg.cholesky(gaussian_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
                 return gaussian_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
@@ -758,9 +817,78 @@ class GaussianKernel(nn.Module):
             return gaussian_kernel_matrix, None
     
     def __repr__(self):
-        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item()}, "
-                f"variance={self.variance.item()}), "
-                f"alpha={self.alpha.item():.3e})")      
+        return (f"{self.__class__.__name__}(lengthscale={self.lengthscale.item():.3e}, "
+                f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
+                f"sigma={self.sigma.item():.3e}, "
+                f"epsilon={self.epsilon.item():.3e})")      
+        
+#----- Rational Quadratic Kernel --------------------------------
+
+class RQKernel(nn.Module):
+    """Rational Quadratic kernel for one univariate Gaussian Process.
+    The lengthscale, variance and alpha parameters are learnable (nn.Parameter).
+    """
+    
+    def __init__(self, alpha=1.0, beta=1.0, sigma=1.0, epsilon=1e-3):
+        super(RQKernel, self).__init__()
+        
+        # learnable parameters for the RQ kernel
+        self.alpha = nn.Parameter(torch.tensor(alpha))  # learnable alpha parameter (shape parameter)
+        self.beta = nn.Parameter(torch.tensor(beta))  # learnable beta parameter       
+        self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance = sigma**2 parameter
+
+        self.epsilon = epsilon  # small value to ensure positive definiteness of the kernel matrix
+    
+    def forward(self, t1, t2):
+        """Compute the Rational Quadratic kernel between two sets of time points.
+        
+        Args:
+            t1 (torch.Tensor): First set of time points (..., N) - N is typically the sequence length.
+            t2 (torch.Tensor): Second set of time points (..., M)
+        
+        Returns:
+            torch.Tensor: Kernel matrix of shape (..., N, M)
+        """
+        
+        assert t1.dim() == t2.dim(), "RQKernel object : Input tensors must have the same number of dimensions"
+        
+        if t1.dim() == 1:
+            t1_b = t1.unsqueeze(-1)  # (N, 1)
+            t2_b = t2.unsqueeze(0)   # (1, M)
+            mat = 1 + ((t1_b - t2_b)**2 / (2 * self.alpha / self.beta)) # (N, M)
+        else:
+            t1_b = t1.unsqueeze(-1) # (..., N, 1)
+            t2_b = t2.unsqueeze(-2) # (..., 1, M)
+            mat = 1 + ((t1_b - t2_b)**2 / (2 * self.alpha / self.beta))  # (N, M)
+            
+        rq_kernel_matrix = self.sigma**2 * mat**(-self.alpha)  # (..., N, M)
+
+        if torch.equal(t1, t2):
+            # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
+            # so we compute and return the Cholesky decomposition of the kernel matrix
+            # to be used in forming the MultivariateNormal distribution, adding
+            # a small value to the diagonal for numerical stability
+            rq_kernel_matrix += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            try:
+                L = torch.linalg.cholesky(rq_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
+                return rq_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
+            except RuntimeError:
+                # If the Cholesky decomposition fails, it means the matrix is not positive definite
+                # We can return None or raise an error, depending on how we want to handle this case
+                # print("Warning: Cholesky decomposition failed.")
+                # print(f"Kernel : {gaussian_kernel_matrix}")
+                # return gaussian_kernel_matrix, None  # Return the kernel matrix and None for L
+                raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed in RQKernel. Tolerance epsilon is likely too low.") 
+        else:
+            # If t1 and t2 are different, do not try to compute the Cholesky decomposition
+            return rq_kernel_matrix, None
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(alpha={self.alpha.item():.3e}, "
+                f"beta={self.beta.item():.3e}, "
+                f"sigma={self.sigma.item():.3e}, "
+                f"variance (sigma**2)={self.sigma.item()**2:.3e}, "
+                f"epsilon={self.epsilon:.3e})")      
         
         
 #---------------------------------------------------------------------
@@ -1207,7 +1335,7 @@ def gaussian_kernel_tests():
     
     # Brute force for positive definiteness
     print("\nBrute force check for positive definiteness...")
-    gaussian_kernel = GaussianKernel(alpha=1e-3)
+    gaussian_kernel = GaussianKernel(epsilon=1e-3)
     print(gaussian_kernel)
     TESTS = int(1e+2)
     B = 32 # batch_size
@@ -1286,7 +1414,7 @@ def cauchy_kernel_tests():
     
     # Brute force for positive definiteness
     print("\nBrute force check for positive definiteness...")
-    cauchy_kernel = CauchyKernel(alpha=1e-3)
+    cauchy_kernel = CauchyKernel(epsilon=1e-3)
     print(cauchy_kernel)
     TESTS = int(1e+2)
     B = 32 # batch_size
@@ -1299,6 +1427,86 @@ def cauchy_kernel_tests():
         if L is None:
             failures += 1
     print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
+    
+#--- RQ Kernel Tests ---
+
+def rq_kernel_tests():
+    print(f"*" * 10 + " RATIONAL QUADRATIC KERNEL TESTS " + "*" * 10)
+    print("\nTest Rational Quadratic Kernel...")
+    
+    rq_kernel = RQKernel()
+    print(rq_kernel)
+    print()
+    
+    # Test with same 1D input
+    N = 4
+    t1 = torch.randn(N)  # sequence_length
+    t2 = t1  # same input
+    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # test with different 1D inputs, same sequence lengths
+    N = 16  # sequence_length
+    t1 = torch.randn(N)  # sequence_length
+    t2 = torch.randn(N)  # sequence_length
+    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # Test with 1D input, and different sequence lengths
+    N, M = 4, 8
+    t1 = torch.randn(N)  # sequence_length
+    t2 = torch.randn(M)  # sequence_length
+    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
+    
+    # test with same 2D inputs, same sequence lengths
+    B = 16  # batch_size
+    N, M = 3, 3  # sequence_length
+    t1 = torch.randn(B, N)  # batch_size, sequence_length
+    t2 = t1  # same input
+    print(f"Input shapes: t1 = t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # Test with different 2D inputs, same shape
+    t1 = torch.randn(B, N)  # batch_size, sequence_length
+    t2 = torch.randn(B, N)  # same input
+    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")
+    
+    # Test with 2D input, different sequence lengths
+    t1 = torch.randn(B, N)
+    t2 = torch.randn(B, M)
+    print(f"Input shapes: t1 != t2, t1={t1.shape}, t2={t2.shape}")
+    kernel_output, L = rq_kernel(t1, t2)
+    print(f"Output shape: {kernel_output.shape}")
+    print(f"L : {L.shape if L is not None else 'None'}")  # L is None if t1 != t2
+    
+    # Brute force for positive definiteness
+    print("\nBrute force check for positive definiteness...")
+    rq_kernel = RQKernel(epsilon=1e-3)
+    print(rq_kernel)
+    TESTS = int(1e+2)
+    B = 32 # batch_size
+    N = 1000  # sequence_length 2880 = 2 days @ 1 minute
+    print(f"Running {TESTS} tests with B={B}, N={N}")
+    failures = 0
+    for i in tqdm(range(TESTS)):
+        t1 = torch.randn(B,N)
+        kernel_output, L = rq_kernel(t1, t1)  # same input
+        if L is None:
+            failures += 1
+    print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
+
   
 #----------------------------------------------------------------    
 
@@ -1326,6 +1534,9 @@ if __name__ == "__main__":
     
     # CAUCHY KERNEL TESTS
     cauchy_kernel_tests()
+    
+    # RQ KERNEL TESTS
+    rq_kernel_tests()
     
     # GP PRIOR TESTS
     # gp_prior_tests()
