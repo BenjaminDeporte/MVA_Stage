@@ -1629,41 +1629,41 @@ if __name__ == "__main__":
     # print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={batch_size}")
     
     # # UTILITIES TESTS
-    # utilities_test()
+    utilities_test()
     
     # # ENCODER TESTS
-    # encoder_tests()
+    encoder_tests()
     
     # # DECODER TESTS
-    # decoder_tests()
+    decoder_tests()
     
     # # GAUSSIAN KERNEL TESTS
     kernel = GaussianKernel()
-    # kernel_tests(kernel)
+    kernel_tests(kernel)
     
     # CAUCHY KERNEL TESTS
     kernel = CauchyKernel()
-    # kernel_tests(kernel)
+    kernel_tests(kernel)
     
     # RQ KERNEL TESTS
     kernel = RQKernel()
-    # kernel_tests(kernel)
+    kernel_tests(kernel)
     
     # MATERN KERNEL TESTS
     matern_kernel = MaternKernel(nu=0.5, lengthscale=1.0, epsilon=1e-3)
-    # kernel_tests(matern_kernel)
+    kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=1.5, lengthscale=1.0, epsilon=1e-3)
-    # kernel_tests(matern_kernel)
+    kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=2.5, lengthscale=1.0, epsilon=1e-3)
-    # kernel_tests(matern_kernel)
+    kernel_tests(matern_kernel)
     
     # GP PRIOR TESTS
-    # gp_prior_tests()
+    gp_prior_tests()
     
     # KL TESTS
-    # KL_tests()
+    KL_tests()
     
     # VLB TESTS
     vlb_tests()
