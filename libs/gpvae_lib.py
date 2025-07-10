@@ -1070,14 +1070,19 @@ class GaussianProcessPriorMaison(nn.Module):
 # Just to check....
 #
 
-def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
-    """Ugly KL divergence implementation between two multivariate normal distributions.
+def kl_maison(q_phi, p_theta_z):
+    """Ugly KL divergence implementation between the encoder and the prior.
     
     Inputs:
-        mu_0 (torch.Tensor): Mean of the first distribution (shape: (batch_size, sequence_length)
-        sigma_0 (torch.Tensor): Covariance matrix of the first distribution (shape: (batch_size, sequence_length, sequence_length))
-        mu_1 (torch.Tensor): Mean of the second distribution (shape: (batch_size, sequence_length))
-        sigma_1 (torch.Tensor): Covariance matrix of the second distribution (shape: (batch_size, sequence_length, sequence_length))
+        q_phi : torch.distributions.MultivariateNormal: Encoder distribution q_phi(z_{1:N}|x_{1:N}).
+            this is the tf.dist.MVN object returned by the Encoder.
+                - batch_shape : (B, Dz) where B is the batch size and Dz is the number of different Gaussian Processes.
+                - event_shape : (N) where N is the sequence length
+        p_theta_z : torch.distributions.MultivariateNormal: Prior distribution p_{\theta_z}(z_{1:N}).
+            this is the tf.dist.MVN object returned by the GaussianProcessPriorMaison.
+                - batch_shape : (B, Dz) where B is the batch size and Dz is the number of different Gaussian Processes.
+                - event_shape : (N) where N is the sequence length
+        The KLs over the batch shape are independent, so we sum the KLs computed for each MVN of size N over the batch shape.
         
     Returns:
         torch.Tensor: KL divergence between the two distributions (scalar)
@@ -1085,18 +1090,30 @@ def kl_maison(mu_0, sigma_0, mu_1, sigma_1):
     NB : this is a very ugly implementation, but it works for now. Next step is to be smart using Cholesky decomposition instead of linalg.inv
     """
     
-    assert mu_0.shape == mu_1.shape, "mu_0 and mu_1 must have the same shape"
-    assert sigma_0.shape == sigma_1.shape, "sigma_0 and sigma_1 must have the same shape"
+    # minimal sanity checks
+    assert isinstance(q_phi, torch.distributions.MultivariateNormal), "q_phi must be a torch.distributions.MultivariateNormal object"
+    assert isinstance(p_theta_z, torch.distributions.MultivariateNormal), "p_theta_z must be a torch.distributions.MultivariateNormal object"
+    
+    assert q_phi.batch_shape == p_theta_z.batch_shape, "Home made KL function : q_phi and p_theta_z must have the same batch shape"
+    assert q_phi.event_shape == p_theta_z.event_shape, "Home made Kl function : q_phi and p_theta_z must have the same event shape"
+    
+    # extract the means and covariance matrices
+    mu_0 = q_phi.mean  # (B, Dz, N)
+    sigma_0 = q_phi.covariance_matrix  # (B, Dz, N, N)
+    mu_1 = p_theta_z.mean  # (B, Dz, N)
+    sigma_1 = p_theta_z.covariance_matrix  # (B, Dz, N, N)
+    n = mu_0.shape[-1]  # sequence length N, dimension of the MVNs
     
     # compute the KL divergence - torch.einsum is my friend : https://ejenner.com/post/einsum/
-    trace = torch.einsum('...ii->...', torch.linalg.inv(sigma_1) @ sigma_0)  # (batch_size)    
-    outer_mu = torch.einsum('...i,...j->...ij', mu_1-mu_0, mu_1-mu_0)  # (batch_size, sequence_length, sequence_length)
-    mahalanobis = torch.linalg.inv(sigma_1) @ outer_mu  # (batch_size, sequence_length, sequence_length)
-    mahalanobis = torch.einsum('...ii->...', mahalanobis)  # (batch_size)
-    logdet = torch.log(torch.det(sigma_1)) - torch.log(torch.det(sigma_0))  # (batch_size)
-    kl_maison_value = 0.5 * (trace + mahalanobis - mu_0.shape[-1] + logdet)  # (batch_size)
+    # ok, this is where this is ugly, as we compute the inverse of sigma_1, which is not numerically stable.
+    trace = torch.einsum('...ii->...', torch.linalg.inv(sigma_1) @ sigma_0)  # (B, Dz)  
+    outer_mu = torch.einsum('...i,...j->...ij', mu_1-mu_0, mu_1-mu_0)  # (B, Dz, N, N)
+    mahalanobis = torch.linalg.inv(sigma_1) @ outer_mu  # (B, Dz, N, N)
+    mahalanobis = torch.einsum('...ii->...', mahalanobis)  # (B, Dz)
+    logdet = torch.log(torch.det(sigma_1)) - torch.log(torch.det(sigma_0))  # (B, Dz)
+    kls = 0.5 * (trace + mahalanobis - n + logdet)  # (B, Dz)
     
-    return kl_maison_value.mean()  # return the mean KL divergence over the batch
+    return kls  # return the KLs (B, Dz). Needs to be summed over Dz, and/or B
 
 #----------------------------------------------------------------------
 # Variational Lower Bound (VLB)
@@ -1427,6 +1444,100 @@ def kernel_tests(kernel):
             failures += 1
     print(f"All tests completed. - {TESTS - failures} passed, {failures} failed.")  
 
+# --- Tests KL computations ---------
+
+def KL_tests():
+    print(f"*" * 10 + " KL TESTS " + "*" * 10)
+    print("\nTesting KL divergence between two torch.dist.MVN objects of different shapes...")
+    
+    # ---- T1 ------------------------------------
+    print(f"\nTest 1 - with simple MVN batch=[], event=[N]")
+    N = 10
+    m0 = torch.randn(N)  # mean of the first distribution
+    r = torch.randn((N,N)) 
+    s0 = torch.diag_embed(torch.exp(torch.randn(N))) + r @ r.T  # PSD cov matrix of the first distribution
+    q_phi = torch.distributions.MultivariateNormal(loc=m0, covariance_matrix=s0)  # first distribution
+    
+    m1 = torch.randn(N)  # mean of the second distribution
+    r = torch.randn((N,N)) 
+    s1 = torch.diag_embed(torch.exp(torch.randn(N))) + r @ r.T  # PSD cov matrix of the first distribution
+    p_theta_z = torch.distributions.MultivariateNormal(loc=m1, covariance_matrix=s1)  # second distribution
+    
+    print(f"q_phi: {q_phi}")
+    print(f"\tq_phi batch shape: {q_phi.batch_shape}")
+    print(f"\tq_phi event shape: {q_phi.event_shape}")
+    print(f"p_theta_z: {p_theta_z}")
+    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
+    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
+    
+    kl_divergence = torch.distributions.kl.kl_divergence(q_phi, p_theta_z)
+    print(f"KL divergence (torch.distributions.kl.kl_divergence): {kl_divergence.item()}")
+    
+    kl_analytique = kl_maison(q_phi, p_theta_z)
+    print(f"KL divergence (analytical): {kl_analytique.item()}")
+    
+    #--------- T2 --------------------------------
+    print(f"\nTest 2 - with simple MVN batch=[B], event=[N]")
+    B = 4
+    N = 10
+    
+    m0 = torch.randn((B,N))  # mean of the first distribution
+    r = torch.randn((B,N,N)) 
+    s0 = torch.diag_embed(torch.exp(torch.randn(B,N))) + r @ r.transpose(-1,-2)  # PSD cov matrix of the first distribution
+    q_phi = torch.distributions.MultivariateNormal(loc=m0, covariance_matrix=s0)  # first distribution
+    
+    m1 = torch.randn((B,N))  # mean of the second distribution
+    r = torch.randn((B,N,N)) 
+    s1 = torch.diag_embed(torch.exp(torch.randn(B,N))) + r @ r.transpose(-1,-2)  # PSD cov matrix of the first distribution
+    p_theta_z = torch.distributions.MultivariateNormal(loc=m1, covariance_matrix=s1)  # second distribution
+    
+    print(f"q_phi: {q_phi}")
+    print(f"\tq_phi batch shape: {q_phi.batch_shape}")
+    print(f"\tq_phi event shape: {q_phi.event_shape}")
+    print(f"p_theta_z: {p_theta_z}")
+    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
+    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
+    
+    kl_divergences = torch.distributions.kl.kl_divergence(q_phi, p_theta_z)
+    print(f"KL divergences (torch.distributions.kl.kl_divergence): {kl_divergences}")
+    print(f"Sum of KL divergences (torch.distributions.kl.kl_divergence): {kl_divergences.sum().item()}")
+    
+    kls_analytique = kl_maison(q_phi, p_theta_z)
+    print(f"KLs analytique (analytical): {kls_analytique}")
+    print(f"Sum of KL divergences (analytical): {kls_analytique.sum().item()}")
+
+    #--------- T3 --------------------------------
+    print(f"\nTest 3 - with simple MVN batch=[B, Dz], event=[N]")
+    B = 4
+    Dz = 2
+    N = 10
+    
+    m0 = torch.randn((B,Dz,N))  # mean of the first distribution
+    r = torch.randn((B,Dz,N,N)) 
+    s0 = torch.diag_embed(torch.exp(torch.randn(B,Dz,N))) + r @ r.transpose(-1,-2)  # PSD cov matrix of the first distribution
+    q_phi = torch.distributions.MultivariateNormal(loc=m0, covariance_matrix=s0)  # first distribution
+    
+    m1 = torch.randn((B,Dz,N))  # mean of the second distribution
+    r = torch.randn((B,Dz,N,N)) 
+    s1 = torch.diag_embed(torch.exp(torch.randn(B,Dz,N))) + r @ r.transpose(-1,-2)  # PSD cov matrix of the first distribution
+    p_theta_z = torch.distributions.MultivariateNormal(loc=m1, covariance_matrix=s1)  # second distribution
+    
+    print(f"q_phi: {q_phi}")
+    print(f"\tq_phi batch shape: {q_phi.batch_shape}")
+    print(f"\tq_phi event shape: {q_phi.event_shape}")
+    print(f"p_theta_z: {p_theta_z}")
+    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
+    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
+    
+    kl_divergences = torch.distributions.kl.kl_divergence(q_phi, p_theta_z)
+    print(f"KL divergences (torch.distributions.kl.kl_divergence): {kl_divergences}")
+    print(f"Sum of KL divergences (torch.distributions.kl.kl_divergence): {kl_divergences.sum().item()}")
+    
+    kls_analytique = kl_maison(q_phi, p_theta_z)
+    print(f"KLs analytique (analytical): {kls_analytique}")
+    print(f"Sum of KL divergences (analytical): {kls_analytique.sum().item()}")
+    
+    
 #----------------------------------------------------------------    
 
 if __name__ == "__main__":
@@ -1471,7 +1582,10 @@ if __name__ == "__main__":
     # kernel_tests(matern_kernel)
     
     # GP PRIOR TESTS
-    gp_prior_tests()
+    # gp_prior_tests()
+    
+    # KL TESTS
+    KL_tests()
     
 
     
