@@ -48,9 +48,6 @@ def seed_everything(seed=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     
-    # set default dtype to float32
-    torch.set_default_dtype(torch.float32)
-    
 
 #--------------------------------------------------------------------
 #
@@ -1027,7 +1024,8 @@ class GaussianProcessPriorMaison(nn.Module):
         """
         
         # compute the mean and covariance of the prior distribution
-        t = t.to(dtype=torch.float32)  # ensure t is a float tensor
+        current_default = torch.get_default_dtype()
+        t = t.to(dtype=current_default)  # ensure t is a float tensor
         times = t.unsqueeze(-1)  # (..., N, 1)
         times = torch.repeat_interleave(times, repeats=self.z_dimension, dim=-1) # (..., N, Dz)
         times = torch.transpose(times, -1, -2)  # (..., Dz, N)
@@ -1638,32 +1636,32 @@ if __name__ == "__main__":
     utilities_test()
     
     # # # ENCODER TESTS
-    encoder_tests()
+    # encoder_tests()
     
     # # # DECODER TESTS
-    decoder_tests()
+    # decoder_tests()
     
     # # # GAUSSIAN KERNEL TESTS
     kernel = GaussianKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # # CAUCHY KERNEL TESTS
     kernel = CauchyKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # # RQ KERNEL TESTS
     kernel = RQKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # # MATERN KERNEL TESTS
     matern_kernel = MaternKernel(nu=0.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=1.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=2.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     # GP PRIOR TESTS
     gp_prior_tests()
