@@ -1124,33 +1124,36 @@ def vlb(q_phi, p_theta_x, p_theta_z, x_samples):
 
     Args:
         q_phi (torch.distributions.MultivariateNormal): Encoder distribution q_phi(z_{1:T}|x_{1:T}).
+            batch_shape (B, Dz), event_shape (N) where B is the batch size, Dz is the number of different Gaussian Processes, and N is the sequence length.
         p_theta_x (torch.distributions.MultivariateNormal): Decoder distribution p_{\theta_x}(x_{1:T}|z_{1:T}).
+            batch_shape (B, N), event_shape (Dx) where B is the batch size, N is the sequence length, and Dx is the dimension of the observations.
         p_theta_z (torch.distributions.MultivariateNormal): Gaussian Process prior distribution p_{\theta_z}(z_{1:T}).
-        z_sample (torch.Tensor): Sampled latent variables z_{1:T} from q_phi.
+            batch_shape (B, Dz), event_shape (N) where B is the batch size, Dz is the number of different Gaussian Processes, and N is the sequence length.
         x_samples (torch.Tensor): Sampled observations x_{1:T} from p_theta_x (K, B, L, Dx) : K samples
+            shape (K, B, N, Dx) where K is the number of samples, B is the batch size, N is the sequence length, and Dx is the dimension of the observations.
+            NB : the sampling of x is done outside this function, in the training loop.
         
     Returns:
     kl_divergence (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed by torch.distributions.kl.kl_divergence.
     kl_analytique (torch.Tensor): The KL divergence between q_phi and p_theta_z, computed using the custom kl_maison function (analytical KL divergence between Gaussian distributions).
-    reconstruction_loss (torch.Tensor): Reconstruction loss, computed as the log likelihood of x_sample under p_theta_x.
+    reconstruction_loss (torch.Tensor): Reconstruction loss, computed as the log likelihood of x_sample under p_theta_x, averaged over the number of samples, batch size, and sequence length.
     vlb_value: (torch.Tensor): The variational lower bound (VLB) value, computed as the difference between the reconstruction loss and the KL divergence.
     """
        
     # compute reconstruction loss
-    log_probs = p_theta_x.log_prob(x_samples) # (K, B, L)
-    reconstruction_loss = log_probs.sum(-1).mean()  # sum over the sequence length and mean over the batch and over the K samples
+    log_probs = p_theta_x.log_prob(x_samples) # (K, B, N)
+    reconstruction_loss = log_probs.sum(-1).mean()  # summed over the sequence length, averaged over the batch and over the K samples
     
     # compute KL divergence
-    kl_divergence = torch.distributions.kl.kl_divergence(q_phi, p_theta_z).mean()  # average over the batch
-    
+    kl_divergences = torch.distributions.kl.kl_divergence(q_phi, p_theta_z) # (B, Dz) 
+    kl_divergence = kl_divergences.sum() # sum over B and Dz.
+        
     # kl maison
-    kl_analytique = kl_maison(
-        mu_0=q_phi.mean, 
-        sigma_0=q_phi.covariance_matrix, 
-        mu_1=p_theta_z.mean, 
-        sigma_1=p_theta_z.covariance_matrix
-    )
-    # kl_analytique = 0.0
+    kl_analytiques = kl_maison(
+        q_phi=q_phi,
+        p_theta_z=p_theta_z
+    ) # (B, Dz)
+    kl_analytique = kl_analytiques.sum()  # sum over B and Dz.
     
     # compute the variational lower bound (VLB)
     vlb = reconstruction_loss - kl_divergence  # VLB = E_q[log p_theta_x(x|z)] - D_KL(q_phi(z|x) || p_theta_z(z))
@@ -1537,6 +1540,73 @@ def KL_tests():
     print(f"KLs analytique (analytical): {kls_analytique}")
     print(f"Sum of KL divergences (analytical): {kls_analytique.sum().item()}")
     
+# ---- Test VLB function ----
+
+def vlb_tests():
+    
+    print("\nTest VLB...")
+    # we need to instantiate the Encoder and Decoder first
+    B, L, Dx, Dz = 32, 5, 10, 4  # batch_size, sequence_length, x_dimension
+    sequence_length = L
+    x_dimension = Dx
+    z_dimension = Dz  # we assume z_dimension = 1 for now
+    print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={B}")
+    
+    encoder = Encoder(
+        x_dimension=x_dimension,
+        z_dimension=z_dimension,
+        # n_layers=n_layers,
+        # inter_dim=inter_dim,
+        # activation=activation
+    )   
+    
+    decoder = GaussianDecoder(
+        x_dimension=x_dimension,
+        z_dimension=z_dimension,
+        # n_layers=n_layers,
+        # inter_dim=inter_dim,
+        # activation=activation
+    )
+    
+    gp_prior = GaussianProcessPriorMaison(
+        z_dimension=z_dimension,
+        kernel=GaussianKernel(),
+        mean=GPNullMean(),
+    )
+    
+    x = torch.randn(B, L, Dx)
+    print(f"Input shape x: {x.shape}")
+    
+    mu, sigma, q_phi = encoder(x)  # (B, L, Dz)
+    print(f"Encoder distribution q_phi: {q_phi}")
+    print(f"\tq_phi batch shape: {q_phi.batch_shape}")
+    print(f"\tq_phi event shape: {q_phi.event_shape}")
+    
+    z_sample = q_phi.rsample()  # (B, L, Dz)
+    print(f"Sampled z shape: {z_sample.shape}")
+    mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
+    K = 3 # number of samples to draw from the decoder distribution
+    x_samples = p_theta_x.rsample((K,))  # (B, L, Dx, K)
+    print(f"Sampling {K} x's, shape: {x_samples.shape}")
+    
+    print(f"Decoder distribution p_theta_x: {p_theta_x}")
+    print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
+    print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
+    
+    t = torch.randn(B, L)  # batch_size=16
+    print(f"Input shape for GP prior: {t.shape}")
+    _, _, p_theta_z = gp_prior(t)  # (B, L, Dz)
+    print(f"GP prior distribution p_theta_z: {p_theta_z}")
+    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
+    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
+    
+    kl_torch, kl_analytique, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_samples)
+    loss = -vlb
+    reco_loss = -reco_loss
+    print(f"KL divergence: {kl_torch.item()}")
+    print(f"KL divergence (maison): {kl_analytique.item()}")
+    print(f"Reconstruction loss: {reco_loss.item()}")
+    print(f"VLB loss: {loss.item()}")
     
 #----------------------------------------------------------------    
 
@@ -1585,75 +1655,9 @@ if __name__ == "__main__":
     # gp_prior_tests()
     
     # KL TESTS
-    KL_tests()
+    # KL_tests()
     
-
+    # VLB TESTS
+    vlb_tests()
     
-
-    
-
-    
-    # # TEST LOSS FUNCTION
-    # print("\nTest VLB...")
-    # # we need to instantiate the Encoder and Decoder first
-    # B, L, Dx = 32, 5, 10  # batch_size, sequence_length, x_dimension
-    # sequence_length = L
-    # x_dimension = Dx
-    # z_dimension = 1  # we assume z_dimension = 1 for now
-    # print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={B}")
-    
-    # encoder = Encoder(
-    #     x_dimension=x_dimension,
-    #     z_dimension=z_dimension,
-    #     # n_layers=n_layers,
-    #     # inter_dim=inter_dim,
-    #     # activation=activation
-    # )   
-    
-    # decoder = GaussianDecoder(
-    #     x_dimension=x_dimension,
-    #     z_dimension=z_dimension,
-    #     # n_layers=n_layers,
-    #     # inter_dim=inter_dim,
-    #     # activation=activation
-    # )
-    
-    # gp_prior = GaussianProcessPriorMaison(
-    #     # z_dimension=z_dimension,
-    #     kernel=GaussianKernel(),
-    #     mean=GPNullMean(),
-    # )
-    
-    # x = torch.randn(B, L, Dx)
-    # print(f"Input shape x: {x.shape}")
-    
-    # mu, sigma, q_phi = encoder(x)  # (B, L, Dz=1)
-    # print(f"Encoder distribution q_phi: {q_phi}")
-    # print(f"\tq_phi batch shape: {q_phi.batch_shape}")
-    # print(f"\tq_phi event shape: {q_phi.event_shape}")
-    
-    # z_sample = q_phi.rsample()  # (B, L, Dz=1)
-    # print(f"Sampled z shape: {z_sample.shape}")
-    # mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
-    # K = 3 # number of samples to draw from the decoder distribution
-    # x_samples = p_theta_x.rsample((K,))  # (B, L, Dx, K)
-    # print(f"Sampling {K} x's, shape: {x_samples.shape}")
-    
-    # print(f"Decoder distribution p_theta_x: {p_theta_x}")
-    # print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
-    # print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
-    
-    # t = torch.randn(B, L, 1)  # batch_size=16
-    # print(f"Input shape for GP prior: {t.shape}")
-    # _, _, p_theta_z = gp_prior(t)  # (B, L, Dz=1)
-    # print(f"GP prior distribution p_theta_z: {p_theta_z}")
-    # print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
-    # print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
-    
-    # kl, kl_maison_value, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_samples)
-    # loss = -vlb
-    # reco_loss = -reco_loss
-    # print(f"KL divergence: {kl.item()}")
-    # print(f"KL divergence (maison): {kl_maison_value.item()}")
-    # print(f"Reconstruction loss: {reco_loss.item()}")
-    # print(f"VLB loss: {loss.item()}")
+    print("All tests completed successfully.")    
