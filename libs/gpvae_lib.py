@@ -161,7 +161,7 @@ class EncoderMean(nn.Module):
         return (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})")
+                f"activation={self.activation.__name__}")
         
         
 # brick 0.2 : Encoder CoVariance
@@ -178,7 +178,7 @@ class EncoderCovariance(nn.Module):
                  n_layers = 3,
                  inter_dim = 128,
                  activation = nn.ReLU,
-                 alpha = 1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
+                 epsilon = 1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
                  ):
         """_summary_
 
@@ -198,7 +198,7 @@ class EncoderCovariance(nn.Module):
         self.n_layers = int(n_layers)
         self.inter_dim = int(inter_dim)
         self.activation = activation
-        self.alpha = float(alpha)  # small positive constant to ensure positive definiteness of the kernel matrix
+        self.epsilon = float(epsilon)  # small positive constant to ensure positive definiteness of the kernel matrix
         
         # this network to get the diagonal elements of the covariance matrix
         self.diagonal_mlp = make_mlp(
@@ -260,7 +260,7 @@ class EncoderCovariance(nn.Module):
         
         # Assemble the covariance matrix C
         C = L @ L.transpose(-1, -2)  # C = L @ L^T # (..., Dz, N, N)
-        C += self.alpha * torch.eye(N, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
+        C += self.epsilon * torch.eye(N, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
             
         return L, C # (..., Dz, N, N) Covariance matrix C
     
@@ -268,8 +268,8 @@ class EncoderCovariance(nn.Module):
         return (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})"
-                f"alpha={self.alpha:.3e})")
+                f"activation={self.activation.__name__}, "
+                f"epsilon (to ensure PSD)={self.epsilon:.3e}")
 
 
 # brick 1 : Encoder q_phi
@@ -348,10 +348,10 @@ class Encoder(nn.Module):
         return mu_phi, sigma_phi, q_phi        
     
     def __repr__(self):
-        return (f"{self.__class__.__name__},"
+        return (f"{self.__class__.__name__}, "
             f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
             f"n_layers={self.encoder_mean.n_layers}, inter_dim={self.encoder_mean.inter_dim}, "
-            f"activation={self.encoder_mean.activation.__name__})" 
+            f"activation={self.encoder_mean.activation.__name__}" 
             f"\nEncoderMean: {self.encoder_mean}"
             f"\nEncoderCovariance: {self.encoder_covariance}")
 
@@ -418,7 +418,7 @@ class DecoderMean(nn.Module):
         return (f"{self.__class__.__name__} "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})")
+                f"activation={self.activation.__name__}")
         
 # brick 0.4 : Decoder Covariance
 
@@ -426,14 +426,13 @@ class DecoderCovariance(nn.Module):
     """ Neural Net to compute the covariance of the Gaussian Decoder distribution.
     """
     
-    alpha = 1e-6  # small value to ensure numerical stability in the covariance matrix
-    
     def __init__(self,
                  x_dimension = 1,
                  z_dimension = 1,
                  n_layers = 3,
                  inter_dim = 128,
                  activation = nn.ReLU,
+                 epsilon = 1e-6 # small value to ensure numerical stability in the covariance matrix
                  ):
         """_summary_
 
@@ -453,6 +452,7 @@ class DecoderCovariance(nn.Module):
         self.n_layers = int(n_layers)
         self.inter_dim = int(inter_dim)
         self.activation = activation
+        self.epsilon = epsilon
         
         # this network to get the diagonal elements of the covariance matrix
         self.diagonal_mlp = make_mlp(
@@ -505,7 +505,7 @@ class DecoderCovariance(nn.Module):
         
         # Assemble the covariance matrix C
         C = L @ L.transpose(-1, -2)  # C = L @ L^T # (..., Dz, Dz)
-        C += self.alpha * torch.eye(self.x_dimension, device=z.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
+        C += self.epsilon * torch.eye(self.x_dimension, device=z.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
             
         return L, C # (..., Dx, Dx) Covariance matrix C
     
@@ -513,7 +513,8 @@ class DecoderCovariance(nn.Module):
         return (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
-                f"activation={self.activation.__name__})")
+                f"activation={self.activation.__name__}, "
+                f"epsilon (to ensure PSD)={self.epsilon:.3e}")
  
 # brick 2 : decoder p_\{theta_x}
 
@@ -565,7 +566,7 @@ class GaussianDecoder(nn.Module):
         """
         
         # manage shape of z
-        assert z.size(-1) == self.z_dimension, f"Incorrect x_dimension passed to Decoder. Input tensor must have shape (..., {self.z_dimension})"
+        assert z.size(-1) == self.z_dimension, f"Incorrect z_dimension passed to Decoder. Input tensor must have shape (..., {self.z_dimension})"
         
         # compute parameters of the observation model        
         mu_x = self.decoder_mean(z)  # (..., Dx)
@@ -581,7 +582,7 @@ class GaussianDecoder(nn.Module):
         msg = (f"{self.__class__.__name__}, "
                 f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.decoder_mean.n_layers}, inter_dim={self.decoder_mean.inter_dim}, "
-                f"activation={self.decoder_mean.activation.__name__})")
+                f"activation={self.decoder_mean.activation.__name__}")
         msg += f"\nDecoderMean: {self.decoder_mean}"
         msg += f"\nDecoderCovariance: {self.decoder_covariance}"
         return msg
@@ -1119,7 +1120,7 @@ def kl_maison(q_phi, p_theta_z):
 # Variational Lower Bound (VLB)
 #----------------------------------------------------------------------
 
-def vlb(q_phi, p_theta_x, p_theta_z, x_samples):
+def compute_vlb(q_phi, p_theta_x, p_theta_z, x_samples):
     """Variational Lower Bound (VLB) for the model.
 
     Args:
@@ -1546,7 +1547,7 @@ def vlb_tests():
     
     print("\nTest VLB...")
     # we need to instantiate the Encoder and Decoder first
-    B, L, Dx, Dz = 32, 5, 10, 4  # batch_size, sequence_length, x_dimension
+    B, L, Dx, Dz = 16, 10, 4, 2  # batch_size, sequence_length, x_dimension
     sequence_length = L
     x_dimension = Dx
     z_dimension = Dz  # we assume z_dimension = 1 for now
@@ -1559,6 +1560,7 @@ def vlb_tests():
         # inter_dim=inter_dim,
         # activation=activation
     )   
+    print(f"\nEncoder instantiated: {encoder}")
     
     decoder = GaussianDecoder(
         x_dimension=x_dimension,
@@ -1567,26 +1569,31 @@ def vlb_tests():
         # inter_dim=inter_dim,
         # activation=activation
     )
-    
+    print(f"\nDecoder instantiated: {decoder}")
+     
     gp_prior = GaussianProcessPriorMaison(
         z_dimension=z_dimension,
-        kernel=GaussianKernel(),
-        mean=GPNullMean(),
+        kernels_list = None,
+        mean_functions_list=None,
     )
+    print(f"\nGP Prior instantiated: {gp_prior}")
     
+    print(f"\nTesting pipeline")
     x = torch.randn(B, L, Dx)
     print(f"Input shape x: {x.shape}")
     
     mu, sigma, q_phi = encoder(x)  # (B, L, Dz)
     print(f"Encoder distribution q_phi: {q_phi}")
-    print(f"\tq_phi batch shape: {q_phi.batch_shape}")
-    print(f"\tq_phi event shape: {q_phi.event_shape}")
+    print(f"\tq_phi batch shape: {q_phi.batch_shape}") # (B, Dz)
+    print(f"\tq_phi event shape: {q_phi.event_shape}") # (N)
     
-    z_sample = q_phi.rsample()  # (B, L, Dz)
+    z_sample = q_phi.rsample()  # (B, Dz, L)
     print(f"Sampled z shape: {z_sample.shape}")
+    z_sample = z_sample.permute(0, 2, 1) # (B, L, Dz)
+    print(f"Permuted z_sample shape for decoder: {z_sample.shape}")
     mu_x, logvar_x, p_theta_x = decoder(z_sample)  # (B, L, Dx)
     K = 3 # number of samples to draw from the decoder distribution
-    x_samples = p_theta_x.rsample((K,))  # (B, L, Dx, K)
+    x_samples = p_theta_x.rsample((K,))  # (K, B, L, Dx)
     print(f"Sampling {K} x's, shape: {x_samples.shape}")
     
     print(f"Decoder distribution p_theta_x: {p_theta_x}")
@@ -1597,12 +1604,13 @@ def vlb_tests():
     print(f"Input shape for GP prior: {t.shape}")
     _, _, p_theta_z = gp_prior(t)  # (B, L, Dz)
     print(f"GP prior distribution p_theta_z: {p_theta_z}")
-    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}")
-    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}")
+    print(f"\tp_theta_z batch shape: {p_theta_z.batch_shape}") # (B, Dz)
+    print(f"\tp_theta_z event shape: {p_theta_z.event_shape}") # (N)
     
-    kl_torch, kl_analytique, reco_loss, vlb = vlb(q_phi, p_theta_x, p_theta_z, x_samples)
+    kl_torch, kl_analytique, reco_loss, vlb = compute_vlb(q_phi, p_theta_x, p_theta_z, x_samples)
     loss = -vlb
     reco_loss = -reco_loss
+    print()
     print(f"KL divergence: {kl_torch.item()}")
     print(f"KL divergence (maison): {kl_analytique.item()}")
     print(f"Reconstruction loss: {reco_loss.item()}")
