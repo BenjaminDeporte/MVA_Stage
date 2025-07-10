@@ -48,6 +48,9 @@ def seed_everything(seed=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     
+    # set default dtype to float32
+    torch.set_default_dtype(torch.float32)
+    
 
 #--------------------------------------------------------------------
 #
@@ -1024,6 +1027,7 @@ class GaussianProcessPriorMaison(nn.Module):
         """
         
         # compute the mean and covariance of the prior distribution
+        t = t.to(dtype=torch.float32)  # ensure t is a float tensor
         times = t.unsqueeze(-1)  # (..., N, 1)
         times = torch.repeat_interleave(times, repeats=self.z_dimension, dim=-1) # (..., N, Dz)
         times = torch.transpose(times, -1, -2)  # (..., Dz, N)
@@ -1600,7 +1604,9 @@ def vlb_tests():
     print(f"\tp_theta_x batch shape: {p_theta_x.batch_shape}")
     print(f"\tp_theta_x event shape: {p_theta_x.event_shape}")
     
-    t = torch.randn(B, L)  # batch_size=16
+    # t = torch.randn(B, L)  # batch_size=16
+    t = torch.arange(L).unsqueeze(0)  # (1, N)
+    t = t.repeat(B, 1)  # (B, N)
     print(f"Input shape for GP prior: {t.shape}")
     _, _, p_theta_z = gp_prior(t)  # (B, L, Dz)
     print(f"GP prior distribution p_theta_z: {p_theta_z}")
@@ -1628,28 +1634,28 @@ if __name__ == "__main__":
     z_dimension = 4
     # print(f"Dx= {x_dimension}, Dz={z_dimension}, sequence_length={sequence_length}, batch_size={batch_size}")
     
-    # # UTILITIES TESTS
+    # # # UTILITIES TESTS
     utilities_test()
     
-    # # ENCODER TESTS
+    # # # ENCODER TESTS
     encoder_tests()
     
-    # # DECODER TESTS
+    # # # DECODER TESTS
     decoder_tests()
     
-    # # GAUSSIAN KERNEL TESTS
+    # # # GAUSSIAN KERNEL TESTS
     kernel = GaussianKernel()
     kernel_tests(kernel)
     
-    # CAUCHY KERNEL TESTS
+    # # CAUCHY KERNEL TESTS
     kernel = CauchyKernel()
     kernel_tests(kernel)
     
-    # RQ KERNEL TESTS
+    # # RQ KERNEL TESTS
     kernel = RQKernel()
     kernel_tests(kernel)
     
-    # MATERN KERNEL TESTS
+    # # MATERN KERNEL TESTS
     matern_kernel = MaternKernel(nu=0.5, lengthscale=1.0, epsilon=1e-3)
     kernel_tests(matern_kernel)
     
