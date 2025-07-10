@@ -981,18 +981,19 @@ class GaussianProcessPriorMaison(nn.Module):
         z_dimension = 1,  # dimension of the latent variable z, ie number of different Gaussian Processes
         kernels_list = None,  # list of Kernels to use for the Gaussian Processes
         mean_functions_list = None,  # list of Mean functions to use for the Gaussian Processes
-        alpha=1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
+        epsilon=1e-3,  # small positive constant to ensure positive definiteness of the kernel matrix
         ):
         
         super(GaussianProcessPriorMaison, self).__init__()
         
-        self.alpha = torch.tensor(alpha)  # small positive constant to ensure positive definiteness of the kernel matrix
+        self.epsilon = epsilon  # small positive constant to ensure positive definiteness of the kernel matrix
         
         # assert z_dimension == 1, "Currently, only one Gaussian Process is implemented. z_dimension must be 1."
-        self.z_dimension = int(z_dimension)  # number of different Gaussian Processes²
+        self.z_dimension = int(z_dimension)  # number of different Gaussian Processes
         
+        # instantiate Dz different kernels and mean functions for each of the Gaussian Processes
         if kernels_list is None:
-            self.kernels_list = [GaussianKernel(alpha=alpha)] * self.z_dimension  # default kernel is a Gaussian kernel with alpha
+            self.kernels_list = [GaussianKernel(epsilon=self.epsilon)] * self.z_dimension  # default kernel is a Gaussian kernel with alpha
         else:
             self.kernels_list = kernel_list
             
@@ -1018,6 +1019,7 @@ class GaussianProcessPriorMaison(nn.Module):
                 NB : the torch.distributions.MultivariateNormal is instantiated with the mean and the Cholesky
                 decomposition of the covariance matrix to ensure numerical stability.
                 => the MVN has batch_shape (..., Dz) and event_shape (N).
+                This means that the Dz GPs are independent, not necessarily identically distributed.
         """
         
         # compute the mean and covariance of the prior distribution
@@ -1037,6 +1039,7 @@ class GaussianProcessPriorMaison(nn.Module):
         for i in range(self.z_dimension):
             means[..., i, :] = self.mean_functions_list[i](times[..., i, :])  # (..., Dz, N)
             covariances[..., i, :, :], Ls[..., i, :, :] = self.kernels_list[i](times[..., i, :], times[..., i, :])  # (..., Dz, N, N)
+        # At this point, means is (..., Dz, N), covariances is (..., Dz, N, N) and Ls is (..., Dz, N, N)
         
         # if L is None:
         #     raise NameError("Cholesky decomposition of a supposedly PSD kernel matrix failed. Tolerance alpha is likely too low.")
@@ -1054,7 +1057,7 @@ class GaussianProcessPriorMaison(nn.Module):
             #     f"mean_function={self.mean.__class__.__name__})")
         msg += f"\nKernels list: {self.kernels_list}"
         msg += f"\nMean Functions list: {self.mean_functions_list}"
-        msg += f"\nAlpha: {self.alpha.item():.3e}"
+        msg += f"\nEpsilon (added to ensure PSD): {self.epsilon:.3e}"
         return msg
 
 
@@ -1298,22 +1301,22 @@ def decoder_tests():
 def gp_prior_tests():
     print(f"*" * 10 + " GP PRIOR TESTS " + "*" * 10)
     print("\nTest GPNullMean...")
-    B, N, Z = 1, 2, 3 # batch_size, sequence_length, z_dimension
+    B, N, Z = 16, 200, 3 # batch_size, sequence_length, z_dimension
     gp_null_mean = GPNullMean()
     print(gp_null_mean)
     print()
     
     t = torch.randn(N)
-    print(f"Input shape: {t.shape}")
+    print(f"Input shape t : {t.shape}")
     gp_mean_output = gp_null_mean(t)
-    print(f"Output shape: {gp_mean_output.shape}")
+    print(f"Output shape mean: {gp_mean_output.shape}")
     print(f"Output unique values: {gp_mean_output.unique()}")  # should be all zeros
     print()
     
     t = torch.randn(B, N)
-    print(f"Input shape: {t.shape}")
+    print(f"Input shape t : {t.shape}")
     gp_mean_output = gp_null_mean(t)
-    print(f"Output shape: {gp_mean_output.shape}")
+    print(f"Output shape mean: {gp_mean_output.shape}")
     print(f"Output unique values: {gp_mean_output.unique()}")  # should be all zeros
     print()
     
@@ -1328,7 +1331,7 @@ def gp_prior_tests():
     N = 500  # sequence_length
     B = 1  # batch_size
     t = torch.randn(N)
-    print(f"Input shape: {t.shape}")
+    print(f"Input shape t: {t.shape}")
     _, _, gp_prior_output = gp_prior(t)
     print(f"Output mean shape: {gp_prior_output.loc.shape}")
     print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
@@ -1340,7 +1343,7 @@ def gp_prior_tests():
     N = 250  # sequence_length
     B = 32  # batch_size
     t = torch.randn(B, N)
-    print(f"Input shape: {t.shape}")
+    print(f"Input shape t: {t.shape}")
     _, _, gp_prior_output = gp_prior(t)
     print(f"Output mean shape: {gp_prior_output.loc.shape}")
     print(f"Output covariance shape: {gp_prior_output.covariance_matrix.shape}")
@@ -1447,28 +1450,28 @@ if __name__ == "__main__":
     
     # # GAUSSIAN KERNEL TESTS
     kernel = GaussianKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # CAUCHY KERNEL TESTS
     kernel = CauchyKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # RQ KERNEL TESTS
     kernel = RQKernel()
-    kernel_tests(kernel)
+    # kernel_tests(kernel)
     
     # MATERN KERNEL TESTS
     matern_kernel = MaternKernel(nu=0.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=1.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     matern_kernel = MaternKernel(nu=2.5, lengthscale=1.0, epsilon=1e-3)
-    kernel_tests(matern_kernel)
+    # kernel_tests(matern_kernel)
     
     # GP PRIOR TESTS
-    # gp_prior_tests()
+    gp_prior_tests()
     
 
     
