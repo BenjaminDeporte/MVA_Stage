@@ -1139,6 +1139,11 @@ def compute_vlb(q_phi, p_theta_x, p_theta_z, x_samples):
             batch_shape (B, N), event_shape (Dx) where B is the batch size, N is the sequence length, and Dx is the dimension of the observations.
         p_theta_z (torch.distributions.MultivariateNormal): Gaussian Process prior distribution p_{\theta_z}(z_{1:T}).
             batch_shape (B, Dz), event_shape (N) where B is the batch size, Dz is the number of different Gaussian Processes, and N is the sequence length.
+        
+        #-----------------
+        # A CORRIGER, ON CALCULE LE LIKELIHOOD SUR x, PAS SUR DES ECHANTILLONS DE x.
+        #-----------------
+        
         x_samples (torch.Tensor): Sampled observations x_{1:T} from p_theta_x (K, B, L, Dx) : K samples
             shape (K, B, N, Dx) where K is the number of samples, B is the batch size, N is the sequence length, and Dx is the dimension of the observations.
             NB : the sampling of x is done outside this function, in the training loop.
