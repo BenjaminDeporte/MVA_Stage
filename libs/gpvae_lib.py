@@ -996,7 +996,7 @@ class GaussianProcessPriorMaison(nn.Module):
         if kernels_list is None:
             self.kernels_list = [GaussianKernel(epsilon=self.epsilon)] * self.z_dimension  # default kernel is a Gaussian kernel with alpha
         else:
-            self.kernels_list = kernel_list
+            self.kernels_list = kernels_list
             
         if mean_functions_list is None:
             self.mean_functions_list = [ GPNullMean() ] * self.z_dimension  # default mean function is a null mean function
