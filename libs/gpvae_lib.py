@@ -289,7 +289,9 @@ class Encoder(nn.Module):
                  z_dimension = 1,
                  n_layers = 3,
                  inter_dim = 128,
-                 activation = nn.ReLU,):
+                 activation = nn.ReLU,
+                 epsilon = 1e-3
+                 ):
         
         super(Encoder, self).__init__()
         
@@ -298,6 +300,7 @@ class Encoder(nn.Module):
         self.z_dimension = z_dimension
         self.n_layers = n_layers
         self.inter_dim = inter_dim
+        self.epsilon = epsilon
         
         self.encoder_mean = EncoderMean(
             x_dimension=self.x_dimension,
@@ -313,6 +316,7 @@ class Encoder(nn.Module):
             n_layers=self.n_layers,
             inter_dim=self.inter_dim,
             activation=activation,
+            epsilon=self.epsilon
         )
     
     def forward(self, x):
@@ -532,13 +536,15 @@ class GaussianDecoder(nn.Module):
                  z_dimension = 1, 
                  n_layers = 3,
                  inter_dim = 128,
-                 activation = nn.ReLU
+                 activation = nn.ReLU,
+                 epsilon = 1e-6  # small value to ensure numerical stability in the covariance matrix
                  ):
         
         super(GaussianDecoder, self).__init__()
         
         self.x_dimension = x_dimension
         self.z_dimension = z_dimension
+        self.epsilon = epsilon
         
         self.decoder_mean = DecoderMean(
             x_dimension=x_dimension,
@@ -554,6 +560,7 @@ class GaussianDecoder(nn.Module):
             n_layers=n_layers,
             inter_dim=inter_dim,
             activation=activation,
+            epsilon=self.epsilon
         )
     
     def forward(self, z):
