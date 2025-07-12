@@ -804,7 +804,7 @@ class GaussianKernel(nn.Module):
             # so we compute and return the Cholesky decomposition of the kernel matrix
             # to be used in forming the MultivariateNormal distribution, adding
             # a small value to the diagonal for numerical stability
-            gaussian_kernel_matrix += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            gaussian_kernel_matrix = gaussian_kernel_matrix + self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
             try:
                 L = torch.linalg.cholesky(gaussian_kernel_matrix)  # Cholesky decomposition to ensure positive definiteness
                 return gaussian_kernel_matrix, L  # Return the kernel matrix and its Cholesky factor L
