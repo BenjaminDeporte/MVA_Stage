@@ -272,6 +272,81 @@ class EncoderCovariance(nn.Module):
                 f"epsilon (to ensure PSD)={self.epsilon:.3e})")
 
 
+# brick 0.3 : Encoder Precision
+
+class EncoderPrecision(nn.Module):
+    """Reprise de l'implémentation du papier GPVAE avec
+    matrice de précision triangulaire supérieure à deux bandes
+    """
+    
+    def __init__(self,
+                 x_dimension = 1,
+                 z_dimension = 1,
+                 n_layers = 2,
+                 inter_dim = 32,
+                 activation = nn.ReLU,
+                 epsilon = 1e-3
+                 ):
+        
+        super(EncoderPrecision, self).__init__()
+        
+        self.x_dimension = int(x_dimension)
+        self.z_dimension = int(z_dimension)
+        self.n_layers = int(n_layers)
+        self.inter_dim = int(inter_dim)
+        self.activation = activation
+        self.epsilon = float(epsilon) 
+        
+        self.diagonal_mlp = make_mlp(
+            input_dim=self.x_dimension,
+            output_dim=self.z_dimension,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
+            activation=activation
+        )
+        
+        self.off_diagonal_mlp = make_mlp(
+            input_dim=self.x_dimension,
+            output_dim=self.z_dimension,
+            n_layers=self.n_layers,
+            inter_dim=self.inter_dim,
+            activation=activation
+        )
+        
+    def forward(self, x):
+        """
+        x : (B, N, Dx)
+        return : (B, Dz, Dz)
+        """
+        N = x.size(-2)
+        
+        # Compute the diagonal part
+        D = self.diagonal_mlp(x) # (B, N, Dz)
+        D = torch.transpose(D, -1, -2)  # (B, Dz, N)
+        D = torch.exp(D) # ensure > 0
+        D = torch.diag_embed(D) # (B, Dz, N, N)
+        
+        # compute the upper band
+        U = self.off_diagonal_mlp(x) # (B, N, Dz)
+        U = torch.transpose(U, -1, -2)  # (B, Dz, N)
+        U = torch.diag_embed(U[...,:-1], offset=1)  # (B, Dz, N, N)
+        
+        # Combine diagonal and upper band
+        B = D + U # (B, Dz, N, N)
+
+        precision_matrix = torch.transpose(B, -1, -2) @ B  # (B, N, Dz, Dz)        
+        # Add epsilon to the diagonal to ensure PSD numerical stability
+        precision_matrix = precision_matrix + self.epsilon * torch.eye(N, device=device).reshape(1, 1, N, N)
+        
+        return D, B, precision_matrix  # (B, Dz, N, N)
+    
+    def __repr__(self):
+        return (f"{self.__class__.__name__}(x_dimension={self.x_dimension}, "
+                f"z_dimension={self.z_dimension}, n_layers={self.n_layers}, "
+                f"inter_dim={self.inter_dim}, activation={self.activation.__name__}, "
+                f"epsilon={self.epsilon})")
+
+
 # brick 1 : Encoder q_phi
 
 class Encoder(nn.Module):
