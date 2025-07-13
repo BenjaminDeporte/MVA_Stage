@@ -260,16 +260,16 @@ class EncoderCovariance(nn.Module):
         
         # Assemble the covariance matrix C
         C = L @ L.transpose(-1, -2)  # C = L @ L^T # (..., Dz, N, N)
-        C += self.epsilon * torch.eye(N, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
+        C = C + self.epsilon * torch.eye(N, device=x.device) # Add a small value to the diagonal for numerical stability (use broadcasting)
             
         return L, C # (..., Dz, N, N) Covariance matrix C
     
     def __repr__(self):
-        return (f"{self.__class__.__name__}, "
-                f"x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
+        return (f"{self.__class__.__name__} : "
+                f"(x_dimension={self.x_dimension}, z_dimension={self.z_dimension}, "
                 f"n_layers={self.n_layers}, inter_dim={self.inter_dim}, "
                 f"activation={self.activation.__name__}, "
-                f"epsilon (to ensure PSD)={self.epsilon:.3e}")
+                f"epsilon (to ensure PSD)={self.epsilon:.3e})")
 
 
 # brick 1 : Encoder q_phi
@@ -652,7 +652,7 @@ class GPConstantMean(nn.Module):
         return self.constant_value * torch.ones_like(t, dtype=t.dtype, device=t.device)  # (..., N)
     
     def __repr__(self):
-        return f"{self.__class__.__name__}"
+        return f"{self.__class__.__name__}, constant_value={self.constant_value.item():.3e})"
     
 # --- Linear Mean Function ---------------------------------
 
