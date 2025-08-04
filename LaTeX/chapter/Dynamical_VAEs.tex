@@ -1,0 +1,117 @@
+\chapter{Dynamical Variational Auto Encoders}\label{sec:DVAEs}
+
+\gls{vae} models are well known and documented (see for example the seminal paper \cite{kingma_introduction_2019}. (A self-contained brief summary of \gls{vae} can be found in appendix \ref{Vanilla VAE}). 
+
+When dealing with sequential data, the i.i.d assumption on latent variables $z_i$ is a limitation. By D-separation, all $x_i$'s are independent of each other conditionally by $z_i$ : $p(x_i \vert x_1, x_2,...,x_{i-1},x_{i+1},..,x_n,z_i) = p(x_i \vert z_i)$. Therefore, a vanilla VAE can not account for correlations between $x_i$ across time.
+
+\glspl{dvae} encode a temporal dependency in the latent variables prior distribution. In this chapter, we review the general discrete-time setting, where the latent variables are countable and indexed by time. An exhaustive review of discrete-time \glspl{dvae} can be found in \cite{girin_dynamical_2022}.
+
+We start by some notations.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Notations]
+\begin{itemize}
+    \item the data is a sequence of $T$ points noted \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\} \in \mathbb{R}^F$.
+    \item the sequence of the associated $T$ latent variables is \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$
+    \item optionally, there may be a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$
+\end{itemize}
+\end{tcolorbox}
+
+The generative model is given by the general expression of the joint distribution (here with a sequence of inputs) $p(x_{1:T}, z_{1:T} \vert u_{1:T})$:
+
+\begin{align*}
+    p(x_{1:T}, z_{1:T} \vert u_{1:T}) &= \prod_{t=1}^T p(x_t, z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
+    &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:T}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
+    &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
+\end{align*}
+
+where the only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$
+
+In the rest of the report, we will consider systems with no input, and drop the conditioning on $u_{1:t}$ to simplify notations. However, the reasoning remains the same with inputs.
+
+The true posterior  $p(z_{1:T} \vert x_{1:T})$ is usually untractable, but can be developed:
+\begin{align*}
+    p(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T p(z_t \vert z_{1:t-1}, x_{1:T})
+\end{align*}
+
+It can be noted that the true posterior exhibits a dependence of $z_t$ on \textit{past} $z_{1:t-1}$, but a dependence on the \textit{whole} data sequence $x_{1:T}$ (think Kalman smoother).
+
+As in vanilla \glspl{vae}, the inference model is the approximation of the true posterior by an parametric encoder $q_{\phi}(z_{1:T} \vert x_{1:T})$, where $\phi$ is the set of parameters:
+\begin{align*}
+    q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T})
+\end{align*}
+
+Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ will simplify. 
+
+It is also considered a good practice to copy the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
+
+Equipped with the generative model and the inference model, we compute the log likelihood of the data $x_{1:T}$ and derive an \gls{vlb} for training (using the same manipulation as for vanilla \gls{vae} : multiplying both sides of the equation by $q_\phi$ and integrating over $dz_{1:T}$)
+\begin{align}
+    \log{p(x_{1:T})} &= \log{\frac{p(x_{1:T}, z_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+    &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})} \frac{q_{\phi}(z_{1:T}\vert x_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+    &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})} + \KL{q_{\phi}(z_{1:T}\vert x_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+    &\geq \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})}} = \VLB
+\end{align}
+
+The dependence of $\VLB$ on $\theta$ is made more obvious when developing $\VLB$.
+
+Remember we have (making the set of parameters explicit) :
+\begin{align}
+    p_{\theta}(x_{1:T}, z_{1:T}) &= \prod_{t=1}^T p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1}) \\
+    \label{q_phi_dev}
+    q_\phi(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi (z_t \vert z_{1:t-1}, x_{1:T})
+\end{align}
+Therefore
+\begin{align}
+    \VLB &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\left( \frac{\prod_{t=1}^T p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}{\prod_{t=1}^T q_\phi (z_t \vert z_{1:t-1}, x_{1:T})} \right)} \\
+    &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \left(  \sum_{t=1}^T \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} - \sum_{t=1}^T \log{\frac{q_\phi (z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}}
+    \right)
+\end{align}
+
+At this point, the expectations require some work. First, we note that, as $q_\phi$ develops as \ref{q_phi_dev}, for any function $\Psi$, the first expectation can be written (note the change in indexes of $z$)
+\begin{align*}
+    \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \Psi(z_{1:t}) &= \E{q_\phi(z_{1:t} \vert x_{1:T})}\Psi(z_{1:t})
+\end{align*}
+
+Second, we develop further and write:
+\begin{align*}
+    \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \Psi(z_{1:t}) &= \E{q_\phi(z_{1:t} \vert x_{1:T})}\Psi(z_{1:t}) \\
+    &= \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \E{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})} \Psi(z_{1:t})
+\end{align*}
+Therefore the \gls{vlb} becomes:
+\begin{align}
+    \VLB &= \E{q_\phi(z_{1:t} \vert x_{1:T})}\sum_{t=1}^T \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} - \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \left[ \E{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})} \log{\frac{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}}\right] \\
+    &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} - \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
+\end{align}
+
+As for the vanilla \gls{vae}, the \gls{vlb} contains two terms.
+
+\begin{itemize}
+    \item The first term is the reconstruction error. it is the sum over the time steps, of the average log likelihood the data at time $t$, given the approximate distribution of the past and present latent variables, and the past data.
+    \item The second term is a regularization term, summing over the time steps the average divergence between the approximate posterior distribution of the latent variable at time $t$, and its real distribution.
+\end{itemize}
+
+As in vanilla \gls{vae}, the sampling over $q_\phi$ requires the use of the "re parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
+
+Here is the summary regarding \gls{dvae}:
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=General Dynamical VAEs]
+\begin{itemize}
+    \item \textbf{generative model}
+    \begin{align}
+        \label{gen_model_dvae}
+        p(x_{1:T}, z_{1:T}) &= \prod_{t=1}^T p_{\theta_x} (x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})
+    \end{align}
+    \item \textbf{inference model}
+    \begin{align}
+        \label{inf_model_dvae}
+        q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T})
+    \end{align}
+    \item \textbf{\gls{vlb} for training}
+    \begin{align}
+        \label{vlb_dvae}
+        \begin{split}
+         \VLB &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} \\ &- \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
+         \end{split}
+    \end{align}
+\end{itemize}
+\end{tcolorbox}

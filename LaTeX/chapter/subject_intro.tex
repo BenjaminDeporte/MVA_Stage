@@ -1,0 +1,9 @@
+\chapter{Subject}\label{sec:Subject}
+
+Variational Autoencoders are a well-known class of generative models, where the latent variables are usually assumed to be idependent and identically distributed. This assumption is inappropriate when the data is time-dependent, such as in time-series, images sequences or videos. It is then natural to structure some sort of temporal dependency in the latent prior : this is the main idea of Dynamical VAEs.
+
+A first question is whether the use of Dynamical VAEs on time-dependent data allow better performance than the "legacy" models. A natural test framework is time series, where the usual models -such as ARIMA- have been performing successfully for quite a while.
+
+A second question takes the thinking a little bit deeper. If we consider a time-dependent data sequence as the realization of a stochastic process -which is quite natural for time series, but can be envisioned as well for videos or other sources-, then we infer that some data sequences are, by design, easier than others to predict and learn generative models on. An idea is then to quantity the "randomness" of a data sequence -and more importantly, the "randomness" of the underlying stochastic process-, so we can measure when the use of Dynamical VAEs is likely to add value. A natural tool is Information Theory, where some results exist regarding stochastic processes.
+
+Last but not least, assuming that we have learnt "reasonably well" a generative model, we can wonder how good the model performs at detecting anomalies in the data sequence. The Pandora's box of anomaly detection is vast, and covers connex notions such as detecting outliers in a stationary distribution, detecting shifts of a distribution towards a new one, etc. If using the likelihood of the data according to the learnt distribution is quite straightforward an idea, some recent results show that this may be misleading.

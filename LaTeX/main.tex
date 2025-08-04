@@ -1,0 +1,95 @@
+\documentclass[twoside,11pt]{report}
+% available document structure commands :
+% Report: \part{}, \chapter{}, \section{}, \subsection{}, \subsubsection{}, \paragraph{}, \subparagraph{}.
+
+\input{preamble}
+\input{glossary}
+\input{newcommands}
+
+% files for bibliography
+% \addbibresource{chapter/references.bib}
+\addbibresource{chapter/citations.bib}
+\addbibresource{chapter/citations_2.bib}
+
+
+\title{Discrete and continuous-time\\ Dynamical Variational Autoencoders\\ for data sequences predictions\\
+\vspace{1cm}
+{\Large{ENS Paris-Saclay, MVA}}}
+
+\author{
+Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.deporte@ens-paris-saclay.fr}% student 1
+}
+
+\date{August 2025}
+
+\begin{document}
+
+\everymath{\displaystyle}
+\maketitle
+
+% * means no number
+\chapter*{Abstract}
+The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
+
+\chapter*{Acknowledgements}
+Merci Papa et merci Maman
+
+\newpage
+\singlespacing
+\tableofcontents
+
+\newpage
+\listoffigures
+
+\part{Introduction}
+    
+    \include{chapter/subject_intro}
+    \include{chapter/outline}
+    \include{chapter/related_work}
+
+\part{Stochastic Processes are not created equal}
+
+    \include{chapter/stochastic_processes_basics}
+    \include{chapter/Entropy_and_randomness}
+
+\part{Discrete Time Dynamical VAE}
+
+    \include{chapter/D-separation}
+    \include{chapter/Dynamical_VAEs}
+    \include{chapter/Deep_Kalman_Filter}
+    \include{chapter/VRNN}
+    \include{chapter/Torch_implementation_take_aways}
+
+\part{Continuous Time Dynamical VAE}
+
+    % \include{chapter/Gaussian_Process}
+    \include{chapter/GPVAE}
+    \include{chapter/Stochastic_calculus}
+    \include{chapter/Torch_implementation_take_aways_2}
+
+\part{Experiments}
+
+    \include{chapter/experiments}
+
+\part{Conclusion and Discussion}
+
+    \include{chapter/Perspective_1}
+    \include{chapter/Perspective_2}
+    \include{chapter/conclusions}
+
+\part{Appendices}
+\begin{appendices}
+   \include{chapter/appendix} 
+\end{appendices}
+
+\clearpage
+
+\printglossary
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\printbibliography
+\clearpage
+
+\end{document}

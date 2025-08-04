@@ -1,0 +1,195 @@
+%-----------------------------------------------------------------
+%--- VAE 
+%-----------------------------------------------------------------
+
+\chapter{Vanilla Variational Auto Encoder}\label{Vanilla VAE}
+    
+We consider a sequence of i.i.d points $(x_i)_{i=1,...,N} \in \mathbb{R}^D$, and the associated latent variables $(z_i)_{i=1,...,N} \in \mathbb{R}^L$. 
+
+In the vanilla VAE setting, the observation model (decoder) is $p_{\theta_x}(x \vert z)$, the approximate posterior (encoder) is $q_{\phi}(z \vert x)$, the latent prior is $p_{\theta_z}(z)$.
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}
+%nodes
+\node[latent]   (z)     {$z_i$};
+\node[obs, below= of z]       (x) {$x_i$};
+% edges
+\path[->] (z) edge [bend left=-45] node[mid left] {$p_{\theta_x}(x_i\vert z_i)$} (x)
+            (x) edge [bend left=-45] node[mid right] {$q_{\phi}(z_i\vert x_i)$} (z);
+
+\plate [inner sep = 1.35cm, xshift=0.25cm] {plate1} { %
+    (x)%
+    (z)%
+  } {$i=1,..,N$}; %
+\end{tikzpicture}
+\caption{Vanilla VAE}
+\label{fig:vanilla_vae}
+\end{center}
+\end{figure}
+
+The log likelihood of the data is:
+\begin{align*}
+    \log{p_{\theta}(x)} = \log{\frac{p(x,z)}{p(z\vert x)}}
+\end{align*}
+
+Multiplying both sides by $q_\phi(z \vert x)$ and integrating over $dz$ leads to:
+\begin{align*}
+    \log{p_{\theta}(x)} &= \int q_\phi(z \vert x) \log{\frac{p_\theta(x,z)}{p(z\vert x)}}dz \\
+    &= \int q_\phi(z\vert x) \log{\frac{p_\theta(x,z)}{q_\phi(z\vert x)}\frac{q_\phi(z \vert x)}{p(z \vert x)}}dz \\
+    &= \mathbb{E}_{q_\phi(z \vert x)} \log{\frac{p_\theta(x,z)}{q_\phi(z \vert x)}} + \mathbb{KL}(q_\phi(z \vert x) \vert\vert p(z \vert x)) \\
+    &\geq \mathbb{E}_{q_\phi(z \vert x)} \log{\frac{p_\theta(x,z)}{q_\phi(z \vert x)}} = \mathcal{L}(\theta, \phi, X)
+\end{align*}
+
+In this setting, the D-separation is obvious and the joint distribution factorizes over $n$:
+\begin{align*}
+    p_{\theta}(x,z) &= \prod_{i=1}^n p_{\theta_x}(x_i \vert z_i) p_{\theta_z}(z_i) \\
+    q_{\phi}(z \vert x) &= \prod_{i=1}^n q_{\phi}(z_i \vert x_i)
+\end{align*}
+The \gls{vlb} (or \gls{elbo}) $\mathcal{L}(\theta, \phi, X)$ simplifies into:
+\begin{align*}
+    \mathcal{L}(\theta, \phi, X) &= \mathbb{E}_{q_{\phi}(z \vert x)} \log{\frac{\prod_{i=1}^n p_{\theta_x}(x_i \vert z_i) p_{\theta_z}(z_i)}{\prod_{i=1}^n q_{\phi}(z_i \vert x_i)}} \\
+    &= \sum_{i=1}^n \mathbb{E}_{q_{\phi}(z_i \vert x_i)} p_{\theta_x}(x_i \vert z_i) - \sum_{i=1}^n \mathbb{KL}(q_{\phi}(z_i \vert x_i) \vert\vert p_{\theta_z}(z_i) )
+\end{align*}
+The first term is the reconstruction loss, and is estimated via Monte Carlo sampling over $z_i \sim q_{\phi}(z_i \vert x_i)$. The second term is a KL-divergence, which can be computed analytically when $q_\phi$ and $p_{\theta_z}$ are chosen to be Gaussians.
+
+% ---- CODE DE LILIAN ---------------------------------------
+% \begin{figure}[H]
+% \centering
+% \begin{tikzpicture}
+
+% % Nodes
+% \node[const] (alpha) {$\alpha$};
+% \node[latent, right=of alpha, xshift=1.5cm] (pi) {$\pi$};
+% \node[latent, below=of pi, yshift=-1.5cm] (zi) {$z_i$};
+% \node[obs, below=of zi, yshift=-1.5cm] (xi) {$x_i$};
+% \node[const, left=of xi, yshift=0.5cm, xshift=-1.5cm] (mu) {$\mu$};
+% \node[const, left=of xi, yshift=-0.5cm, xshift=-1.5cm] (sigma) {$\Sigma$};
+
+
+% % Plates
+% \plate [inner sep=0.3cm, xshift=0cm, yshift=0cm] {plate1} {(zi)(xi)} {$N$};
+
+% % Edges
+% \edge {alpha} {pi};
+% \edge {mu, sigma} {xi};
+% % \edge {pi} {zi};
+% % \edge {zi} {xi};
+
+% % Variational Arrows (dashed arrows for q distributions)
+% \path [->] (pi) edge [bend right] node[left] {$p(z | \pi)$} (zi);
+% \path [->] (zi) edge [bend right] node[right] {$q_{\phi}(\pi | z)$} (pi);
+
+% \path [->] (zi) edge [bend right] node[left] {$p(x | z)$} (xi);
+% \path [->] (xi) edge [bend right] node[right] {$q_{\phi}(z | x)$} (zi);
+
+
+% \end{tikzpicture}
+% \caption{Markovian Hierarchical VAE}
+% \label{fig:graphical_variational}
+% \end{figure}
+
+
+%---------------------------------------------------------------------
+%--- GAUSSIAN PROCESS 
+%---------------------------------------------------------------------
+
+\chapter{Gaussian Process}\label{sec:Gaussian Process}
+
+We summarize here most of the results of the Gaussian Process, and refers the reader to \cite{rasmussen_gaussian_2008} for further details.
+
+We first recall the Gaussian marginal and conditional result:
+
+Let $x$ and $y$ be jointly Gaussian vectors, ie:
+\begin{align}
+    \begin{bmatrix}
+        x \\ y
+    \end{bmatrix} &\sim \mathcal{N} \left( 
+    \begin{bmatrix}
+        \mu_x \\ \mu_y
+    \end{bmatrix},
+        \begin{bmatrix}
+            A & C \\
+            C^T & B
+        \end{bmatrix}
+    \right) = \mathcal{N} \left( 
+        \begin{bmatrix}
+        \mu_x \\ \mu_y
+    \end{bmatrix},
+        \begin{bmatrix}
+            \tilde{A} & \tilde{C} \\
+            \tilde{C}^T & \tilde{B}
+        \end{bmatrix}^{-1}
+    \right)
+\end{align}
+where $A, B, C$ is the block decomposition of the covariance matrix, and $\tilde{A}, \tilde{B}, \tilde{C}$ the block decomposition of the precision matrix.
+
+Then the marginal distribution of $x$ and the conditional distribution of $x$ given $y$ are :
+\begin{align}
+    x &\sim \mathcal{N}(\mu_x, A) \\
+    x \vert y &\sim \mathcal{N}(\mu_x + CB^{-1}(y-\mu_y), A-CB^{-1}C^T) \\
+    &= \mathcal{N}(\mu_x - \tilde{A}^{-1}\tilde{C}(y-\mu_y), \tilde{A}^{-1})
+\end{align}
+
+We now consider a Gaussian Process with mean function $m(.)$ and kernel $k(.,.)$
+\begin{align}
+    f(x) \sim \mathcal{GP}(m(x), k(x,x'))
+\end{align}
+At the training points $X = \{x_1,...,x_n\}$, the observations are $Y=\{y_1,...,y_n\}$ with some noise $y = f(x) + \epsilon$ with $\epsilon \overset{i.i.d}{\sim} \mathcal{N}(0,\sigma_n^2)$.
+
+The covariance between observations writes:
+\begin{align}
+    \text{cov}(y_p,y_q) &= k(x_p, x_q) + \delta_{pd}\sigma_n^2 \\
+    \text{cov}(y) &= K(X,X) + \sigma_n^2 I
+\end{align}
+
+At some test points $X_*$, we aim to predict $f_* = f(X_*)$. Then:
+\begin{align}
+    \begin{bmatrix}
+        y \\ f_*
+    \end{bmatrix} \sim \mathcal{N} \left( 0, \begin{bmatrix}
+        K(X,X)+\sigma_n^2I & K(X,X_*) \\ K(X_*,X) & K(X_*,X_*)
+    \end{bmatrix}\right)
+\end{align}
+
+From which we get:
+\begin{align}
+    f_* \vert X_*, X, Y &\sim \mathcal{N}(\overline{f_*}, \rm{cov(f_*)}) \\
+    \overline{f_*} &= K(X_*,X) \left( K(X,X) + \sigma_n^2 I\right)^{-1}Y \\
+    \rm{cov}(f_*) &= K(X_*,X_*) - K(X_*,X) \left( K(X,X) + \sigma_n^2I\right)^{-1} K(X,X_*)
+\end{align}
+
+
+\chapter{KL divergence between two exponential-family distributions}\label{sec:KL-two-exponential-family-distributions}
+
+We recall the family of distributions parameterized by $\eta \in \R^K$, over a fixed support $\mathcal{X}^D \in \R^D$ : the \textbf{exponential family} of distributions $p(x \vert \eta)$ is given by:
+\begin{align}
+    p(x \vert \eta) &= \frac{1}{Z(\eta)} h(x) \exp\left(\eta^T \mathcal{T}(x)\right) \\
+    &= h(x) \exp \left( \eta^T \mathcal{T}(x) - A(\eta)\right)
+\end{align}
+with:
+\begin{itemize}
+    \item $h(x)$ is the base measure, ie a scaling constant (often 1)
+    \item $\mathcal{T}(x)$ are the sufficient statistics
+    \item $\eta$ are the natural parameters, or canonical parameters
+    \item $Z(\eta)$ is the partition function, $A(\eta)$ is the log partition function.
+\end{itemize}
+
+The Bernoulli, categorical (ie multinomial for one observation), Gaussian distributions are part of the exponential family.
+
+The \textbf{$\mathbb{KL}$-divergence between two exponential family distributions of the same family} is:
+
+\begin{align}
+    \mathbb{KL}(p(x\vert \eta_1) \vert \vert p(x \vert \eta_2)) &= \mathbb{E}_{\eta_1}\left[ (\eta_1 - \eta_2) \mathcal{T}(x) - A(\eta_1) + A(\eta_2)\right] \\
+    &= (\eta_1 - \eta_2)^T \mathbb{E}_{\eta_1}\mathcal{T}(x) - A(\eta_1) + A(\eta_2)
+\end{align}
+
+The most important example is the $\mathbb{KL}$-divergence between two multivariate Gaussian distributions of dimension $D$:
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=KL between two multivariate Gaussians of dimension $D$]
+\begin{align}
+    \label{KL-two-gaussians}
+    \mathbb{KL}(\mathcal{N}(x \vert \mu_1, \Sigma_1) \vert\vert \mathcal{N}(x \vert \mu_2, \Sigma_2) &=
+    \frac{1}{2}\left[ \text{tr}(\Sigma_2^{-1}\Sigma_1) + (\mu_2-\mu_1)^T \Sigma_2^{-1}(\mu_2-\mu_1) -D + \log{\frac{\vert \Sigma_2\vert}{\vert \Sigma_1 \vert}}\right]
+\end{align}
+\end{tcolorbox}

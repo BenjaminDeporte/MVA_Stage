@@ -1,0 +1,90 @@
+\chapter{Variational Recurrent Neural Network}\label{sec:VRNN}
+
+The \gls{vrnn} is the most expressive \gls{dvae}, in that sense that the general expressions \ref{gen_model_dvae}, \ref{inf_model_dvae} and \gls{vlb} \ref{vlb_dvae} can not be simplified.
+
+The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables, to account for the full unsimplified expressions. Specifically:
+
+\begin{figure}[h]
+    \centering
+    % \includegraphics[width=0.5\linewidth]{}
+    \label{fig:graphical_model_vrnn}
+\begin{tikzpicture}[
+    HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
+    UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
+    OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
+]
+% nodes
+\node[HIDDEN] (zs) {$...$}; % start z
+\node[HIDDEN] (xs) [below= of zs] {$...$}; % start x
+\node[UNOBS] (z_t_1) [right= of zs] {$z_{t-1}$} edge[<-, thin] (a);
+\node[OBS] (x_t_1) [below= of z_t_1] {$x_{t-1}$}    edge[<-, thin] (z_t_1)
+                                                    edge[<-, thin] (xs);
+\node[UNOBS] (z_t)  [right= of z_t_1] {$z_{t}$} edge[<-, thin] (z_t_1)
+                                                edge[<-, thin] (x_t_1);
+\node[OBS] (x_t) [below= of z_t] {$x_{t}$}  edge[<-, thin] (z_t)
+                                            edge[<-, thin] (x_t_1)
+                                            edge[<-, thin] (z_t_1);
+\node[UNOBS] (z_t_p1) [right= of z_t] {$z_{t+1}$}   edge[<-, thin] (z_t)
+                                                    edge[<-, thin] (x_t);
+\node[OBS] (x_t_p1) [below= of z_t_p1] {$x_{t+1}$}  edge[<-, thin] (z_t_p1)
+                                                    edge[<-, thin] (x_t)
+                                                    edge[<-, thin] (z_t);
+\node[HIDDEN] (ze) [right= of z_t_p1] {$...$} edge[<-, thin] (z_t_p1); % end z
+\node[HIDDEN] (xe) [right= of x_t_p1] {$...$} edge[<-, thin] (x_t_p1); % end x
+
+\path[->]   (z_t_1) edge [bend left=+45] node[mid left] {} (z_t_p1)
+            (x_t_1) edge [bend left=-45] node[mid left] {} (x_t_p1);
+\end{tikzpicture}
+\caption{Probabilistic model of a Variational RNN}
+\end{figure}
+
+We remember that:
+\begin{align*}
+    p(x_{1:T}, z_{1:T}) &= \prod_{t=1}^T p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert x_{1:t-1}, z_{1:t-1})
+\end{align*}
+
+And posit Gaussian distributions with diagonal covariance and mean given by two networks:
+\begin{align}
+    p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= \NNdiag{x_t}{\mu_{\theta_x}(x_{1:t-1}, z_{1:t})}{\sigma_{\theta_x}^2(x_{1:t-1}, z_{1:t})} \\
+    p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{1:t-1}, x_{1:t-1})}{\sigma_{\theta_z}^2(z_{1:t-1}, x_{1:t-1})}
+\end{align}
+
+The true posterior being
+\begin{align*}
+    p(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T p(z_t \vert z_{1:t-1}, x_{1:T})
+\end{align*}
+we choose the encoder with the same conditional dependencies and a Gaussian expression:
+\begin{align*}
+    q_{\phi}(z_{t} \vert z_{1:t-1}, x_{1:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{1:t-1}, x_{1:T})}{\sigma_{\phi}^2(z_{1:t-1}, x_{1:T})}
+\end{align*}
+
+The \gls{vlb} is:
+\begin{align*}
+    \VLB &= \sum_{t=1}^T \left[ \E{q_{\phi}(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} - \E{q_{\phi}(z_{1:t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
+    \right]
+\end{align*}
+
+As a summary
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Variational RNN]
+\begin{itemize}
+    \item \textbf{generative model}
+    \begin{align}
+        \label{gen_model_vrnn}
+        p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= \NNdiag{x_t}{\mu_{\theta_x}(x_{1:t-1}, z_{1:t})}{\sigma_{\theta_x}^2(x_{1:t-1}, z_{1:t})} \\
+        p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{1:t-1}, x_{1:t-1})}{\sigma_{\theta_z}^2(z_{1:t-1}, x_{1:t-1})}
+    \end{align}
+    \item \textbf{inference model}
+    \begin{align}
+        \label{inf_model_vrnn}
+        q_{\phi}(z_{t} \vert z_{1:t-1}, x_{1:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{1:t-1}, x_{1:T})}{\sigma_{\phi}^2(z_{1:t-1}, x_{1:T})}
+    \end{align}
+    \item \textbf{\gls{vlb} for training}
+    \begin{align}
+        \label{vlb_vrnn}
+        \begin{split}
+        \VLB &= \sum_{t=1}^T  \E{q_{\phi}(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} \\ &- \sum_{t=1}^T \E{q_{\phi}(z_{1:t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}  \end{split}
+    \end{align}
+\end{itemize}
+\end{tcolorbox}
+
+We have chosen a different implementation from \cite{girin_dynamical_2022} and used three different \gls{lstm} networks to encode $z_{1:t}$, $x_{1:t-1}$ and $x_{t:T}$ respectively.

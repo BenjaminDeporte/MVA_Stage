@@ -1,0 +1,97 @@
+\chapter{Deep Kalman Filter}\label{sec:DKF}
+
+The Kalman Filter is a well known model, widely used to denoise time series observations and make predictions. The latent variables form a Markov Chain, and all the probability distributions (ie encoder, decoder and transition model) are linear Gaussians. This allows to derive close form expressions for the solutions (Kalman filter and Kalman smoother).
+
+In a \textbf{Deep Kalman Filter}, the temporal structure of the latent variables is still a Markov Chain. The probaility models are still Gaussians, but with parameters mean and covariance learnt by neural networks.
+
+More specifically, the \gls{dag} describing a Deep Kalman Filter is:
+
+\begin{figure}[h]
+    \centering
+    % \includegraphics[width=0.5\linewidth]{}
+    \label{fig:graphical_model_dkf}
+\begin{tikzpicture}[
+    HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
+    UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
+    OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
+]
+% nodes
+\node[HIDDEN] (a) {$...$};
+\node[UNOBS] (z_t_1) [right= of a] {$z_{t-1}$} edge[<-, thin] (a);
+\node[UNOBS] (z_t)  [right= of z_t_1] {$z_{t}$} edge[<-, thin] (z_t_1);
+\node[UNOBS] (z_t_p1) [right= of z_t] {$z_{t+1}$} edge[<-, thin] (z_t);
+\node[HIDDEN] (e) [right= of z_t_p1] {$...$} edge[<-, thin] (z_t_p1);
+\node[OBS] (x_t_1) [below= of z_t_1] {$x_{t-1}$} edge[<-, thin] (z_t_1);
+\node[OBS] (x_t) [below= of z_t] {$x_{t}$} edge[<-, thin] (z_t);
+\node[OBS] (x_t_p1) [below= of z_t_p1] {$x_{t+1}$} edge[<-, thin] (z_t_p1);
+\end{tikzpicture}
+\caption{Probabilistic model of a Deep Kalman Filter}
+\end{figure}
+
+It is then particularly useful to use D-separation on the \gls{dag} to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. Conditioning on $z_t$ and $z_{t-1}$ drives:
+\begin{align}
+    p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= p_{\theta_x}(x_t \vert z_t) \\
+    p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t}) &= p_{\theta_z}(z_t \vert z_{t-1}) \\
+    \label{dkf_posterior}
+    q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T}) &= q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) 
+\end{align}
+
+We then choose Gaussian distributions for $p_{\theta_x}, p_{\theta_z}$ and $q_\phi$, with mean and diagonal covariance, learnt by neural networks.
+\begin{align}
+    p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
+    p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}\\
+    q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
+\end{align}
+Some other formulations of the approximate posterior (encoder) are possible. For example:
+\begin{align*}
+    q_{\phi}(z_t \vert z_{t-1}, x_t) \\
+    q_{\phi}(z_t \vert z_{1:t}, x_{1:t}) \\
+    q_{\phi}(z_t \vert z_{1:T}, x_{1:T})
+\end{align*}
+We have chosen \ref{dkf_posterior} for the implementation, as it has the same formulation as the true posterior and respects the corresponding dependencies.
+
+Taking note that:
+\begin{align*}
+    q_{\phi}(z_{1:t} \vert x_{1:T}) = q_{\phi}(z_{1:t-1} \vert z_t, x_{1:T}) q_{\phi}(z_t \vert x_{1:T})
+\end{align*}
+And using D-Separation, the \gls{elbo} \ref{vlb_dvae} simplifies into:
+\begin{align}
+    \VLB &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})} \\
+    &= \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}
+\end{align}
+
+As a summary:
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Deep Kalman Filter]
+\begin{itemize}
+    \item \textbf{generative model}
+    \begin{align}
+        \label{gen_model_dkf}
+        p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
+        p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}
+    \end{align}
+    \item \textbf{inference model}
+    \begin{align}
+        \label{inf_model_dkf}
+        q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
+    \end{align}
+    \item \textbf{\gls{vlb} for training}
+    \begin{align}
+        \label{vlb_dkf}
+        \VLB &= \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}
+    \end{align}
+\end{itemize}
+\end{tcolorbox}
+
+The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians.
+
+From a code stand-point, following \cite{girin_dynamical_2022}, we have used forward \gls{lstm} to encode sequences such as $x_{1:t}$, and backward \gls{lstm} to encode sequences such as $x_{t:T}$, as inputs into the \gls{mlp} parametrizing the distributions. 
+
+For example:
+\begin{align*}
+    \overleftarrow{g_t} &= \text{Backward LSTM}(\overleftarrow{g_{t+1}}, x_t) \,\, (\text{encodes} \,\, x_{t:T}) \\
+    q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, \overleftarrow{g_t})}{\sigma_{\phi}^2(z_{t-1}, \overleftarrow{g_t})}
+\end{align*}
+
+
+
+The PyTorch implementation recipes and tricks are described in a subsequent chapter.
