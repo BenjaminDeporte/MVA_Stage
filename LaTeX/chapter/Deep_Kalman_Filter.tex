@@ -82,7 +82,7 @@ As a summary:
 \end{itemize}
 \end{tcolorbox}
 
-The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians.
+The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians (see \ref{sec:KL-two-exponential-family-distributions})
 
 From a code stand-point, following \cite{girin_dynamical_2022}, we have used forward \gls{lstm} to encode sequences such as $x_{1:t}$, and backward \gls{lstm} to encode sequences such as $x_{t:T}$, as inputs into the \gls{mlp} parametrizing the distributions. 
 
@@ -94,4 +94,135 @@ For example:
 
 
 
-The PyTorch implementation recipes and tricks are described in a subsequent chapter.
+The PyTorch implementation is described below:
+
+\newpage
+%
+%
+%------- DEEP KALMAN FILTER ------------------------------
+%
+%
+
+\begin{landscape}
+\begin{figure}
+\begin{centering}
+\begin{tikzpicture}[
+    scale=0.70,
+    every node/.style={scale=0.70},
+    torch/.style={
+        rectangle, 
+        minimum size=6mm, 
+        thick, 
+        draw=green!100, 
+        fill=green!20, 
+        font=\ttfamily
+        },
+    math/.style={
+        rectangle, 
+        % minimum height=1cm,
+        % minimum width=2cm,
+        rounded corners, 
+        thick, 
+        draw=blue!100,
+        fill=blue!20,
+        align=center,
+        anchor=center,
+        inner sep=5pt
+        },
+    point/.style={
+        circle,
+        inner sep=0pt,
+        minimum size=0pt,
+        }
+    ]
+\matrix[row sep = 1mm, column sep=5mm] {
+% first row
+\node[math] (xt) {
+    $\begin{array}{c}
+            x_{1:T} \\
+            (B,T,D_x)
+    \end{array}$
+}; & 
+\node[torch] (lstm) {LSTM}; & 
+\node[math] (gt) {$\overleftarrow{g_t}(x_{t:T})$}; &
+\node[torch] (enco) {Encoder MLP}; &
+\node[math] (phi) {
+    $\begin{array}{c}
+            \mu_{\phi}(\tilde{z_t}, \overleftarrow{g_t}) \\
+            \sigma_{\phi}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$
+}; &
+\node[torch] (sample) {Sample}; &
+\node[math] (z_tilde) {$\tilde{z_t} = \mu_{\phi} + \sigma_{\phi} \odot \mathcal{N}(0, I_d)$}; &
+\node[math] (q_phi) {$q_{\phi}(z_t \vert z_{t-1}, x_{t:T})$}; &
+\node[torch] (deco) {Decoder MLP}; &
+\node[math] (theta_x) {
+    $\begin{array}{c}
+        \mu_{\theta_x}(\tilde{z_t}, \overleftarrow{g_t}) \\
+        \sigma_{\theta_x}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$
+}; &
+\node[math] (p_theta_x) {$p_{\theta_x}(x_t \vert z_t)$}; &
+\node[math] (x_hat) {
+    $\begin{array}{c}
+            \hat{x}_{1:T} \\
+            (B,T,D_x)
+    \end{array}$
+}; \\
+%second row
+& & & \node[math] (z_t_1) (z_t_1) {$\tilde{z}_{t-1}$}; & & & \node[point] (coin) {}; & & &; \\
+%third row
+& & & \node[torch] (prior) {Prior MLP}; &
+\node[math] (theta_z) {
+    $\begin{array}{c}
+            \mu_{\theta_z}(\tilde{z_t}, \overleftarrow{g_t}) \\
+            \sigma_{\theta_z}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$}; & & &
+\node[math] (p_theta_z) {$p_{\theta_z}(z_t \vert z_{t-1})$}; &
+& & \\
+};
+\path   (xt) edge [->, thin] (lstm)
+        (lstm) edge [->, thin] (gt)
+        (gt) edge [->, thin] (enco)
+        (enco) edge [->, thin] (phi)
+        (phi) edge [->, thin] (sample)
+        (sample) edge [->, thin] (z_tilde)
+        (z_tilde) edge [->, thin] (q_phi)
+        (q_phi) edge[->, thin] (deco)
+        (deco) edge [->, thin] (theta_x)
+        (theta_x) edge [->, thin] (p_theta_x)
+        (p_theta_x) edge [->, thin] (x_hat)
+        (z_t_1) edge [->, thin] (enco)
+        (prior) edge [<-, thin] (z_t_1)
+        (theta_z) edge [<-, thin] (prior)
+        (theta_z) edge[->, thin] (p_theta_z)
+        (z_tilde) edge [-, thin] (coin)
+        (coin) edge [->, thin] (z_t_1);
+\end{tikzpicture}
+
+% --- Loss DKF
+\begin{tikzpicture}[
+    scale=0.90,
+    every node/.style={scale=0.90},
+    math/.style={
+        rectangle, 
+        % minimum height=1cm,
+        % minimum width=2cm,
+        rounded corners, 
+        thick, 
+        draw=black!100,
+        fill=gray!20,
+        align=center,
+        anchor=center,
+        inner sep=5pt
+        },
+    ]
+    \node[math] {
+            $\VLB = \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}$
+    };
+\end{tikzpicture}
+
+\end{centering}
+\caption{Deep Kalman Filter Model Architecture}
+\end{figure}
+\end{landscape}

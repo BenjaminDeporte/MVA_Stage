@@ -12,8 +12,8 @@
 \addbibresource{chapter/citations_2.bib}
 
 
-\title{Dynamical Variational Autoencoders\\ Discrete and continuous time models\\ Links to Stochastic calculus
-\vspace{1cm}
+\title{Dynamical Variational Autoencoders :\\ discrete-time and continuous-time models.\\ Links to Stochastic calculus\\
+\vspace{2cm}
 {\Large{ENS Paris-Saclay, MVA}}}
 
 \author{
@@ -62,25 +62,33 @@ The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
     \include{chapter/outline}
     \include{chapter/related_work}
 
-\part{Stochastic Processes are not created equal}
+\part{Dynamical Variational Autoencoders}
 
-    \include{chapter/stochastic_processes_basics}
-    \include{chapter/Entropy_and_randomness}
-
-\part{Discrete Time Dynamical VAE}
+This part presents the general framework of \glspl{dvae}, after a reminder of the key notion of \textbf{D-separation}, which is key in \glspl{gpm}.
+Three models are described in details:
+\begin{itemize}
+    \item \textbf{Deep Kalman Filter} : this model arises as the first evolution of the well-known Kalman Filter, with richer, \glspl{mlp} networks for the encoder and decoder.
+    \item \textbf{Variational Recurrent Neural Network} : at the other end of the spectrum, \glspl{vrnn} provide the most expressive discrete-time formulation of the encoder and decoder.
+We describe here a different implementation from the one described in \cite{girin_dynamical_2022}.
+    \item \textbf{Gaussian Process Variational Auto Encoder} : in this model, the prior over the latent variables is no longer discrete, but is a \gls{gp}.
+This allows for sampling data at irregular intervals. Another benefit is the use of richer kernel families to encode prior knowledge.
+\end{itemize}
 
     \include{chapter/D-separation}
     \include{chapter/Dynamical_VAEs}
     \include{chapter/Deep_Kalman_Filter}
     \include{chapter/VRNN}
-    \include{chapter/Torch_implementation_take_aways}
-
-\part{Continuous Time Dynamical VAE}
-
-    % \include{chapter/Gaussian_Process}
     \include{chapter/GPVAE}
+    % \include{chapter/Torch_implementation_take_aways}
+    % \include{chapter/Torch_implementation_take_aways_2}
+
+\part{Stochastic Processes and stochastic calculus}
+
+    \include{chapter/Entropy_and_randomness}
     \include{chapter/Stochastic_calculus}
-    \include{chapter/Torch_implementation_take_aways_2}
+    \include{chapter/stochastic_processes_basics}
+    \include{chapter/Perspective_1}
+    \include{chapter/Perspective_2}
 
 \part{Experiments}
 
@@ -88,8 +96,6 @@ The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
 
 \part{Conclusion and Discussion}
 
-    \include{chapter/Perspective_1}
-    \include{chapter/Perspective_2}
     \include{chapter/conclusions}
 
 \part{Appendices}
