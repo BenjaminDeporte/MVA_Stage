@@ -915,3 +915,5 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txsc.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txsc.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxsc.tfm
