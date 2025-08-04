@@ -2358,4 +2358,91 @@
         <bcf:field>isbn</bcf:field>
       </bcf:constraint>
       <bcf:constraint type="data" datatype="issn">
-        <bcf:field>
+        <bcf:field>issn</bcf:field>
+      </bcf:constraint>
+      <bcf:constraint type="data" datatype="ismn">
+        <bcf:field>ismn</bcf:field>
+      </bcf:constraint>
+      <bcf:constraint type="data" datatype="pattern" pattern="(?:sf|sm|sn|pf|pm|pn|pp)">
+        <bcf:field>gender</bcf:field>
+      </bcf:constraint>
+    </bcf:constraints>
+  </bcf:datamodel>
+  <!-- CITATION DATA -->
+  <!-- SECTION 0 -->
+  <bcf:bibdata section="0">
+    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter/citations.bib</bcf:datasource>
+    <bcf:datasource type="file" datatype="bibtex" glob="false">chapter/citations_2.bib</bcf:datasource>
+  </bcf:bibdata>
+  <bcf:section number="0">
+    <bcf:citekey order="1" intorder="1">girin_dynamical_2022</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">PRML</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">ProbabilisticGraphicalModels</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">ProbabilisticMachineLearning</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">kingma_introduction_2019</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">girin_dynamical_2022</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">kingma_introduction_2019</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">girin_dynamical_2022</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">girin_dynamical_2022</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">roberts_gaussian_2013</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">casale_gaussian_2018</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">fortuin_gp-vae:_2020</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">girin_dynamical_2022</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">zhu_markovian_2023</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">sarkka_applied_2019</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">cours-jf-legall</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">fortuin_gp-vae:_2020</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">fortuin_gp-vae:_2020</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">zhu_markovian_2023</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">bishop_pattern_2016</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">ProbabilisticGraphicalModels</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">ProbabilisticMachineLearning</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">cover_elements_2006</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">shannon_mathematical_1948</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">cover_elements_2006</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">cover_elements_2006</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">delgado-bonal_approximate_2019</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">pincus_approximate_1991</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">pincus_approximate_1991</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
+  </bcf:section>
+  <!-- SORTING TEMPLATES -->
+  <bcf:sortingtemplate name="ynt">
+    <bcf:sort order="1">
+      <bcf:sortitem order="1">presort</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="2" final="1">
+      <bcf:sortitem order="1">sortkey</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="3">
+      <bcf:sortitem order="1">sortyear</bcf:sortitem>
+      <bcf:sortitem order="2">year</bcf:sortitem>
+      <bcf:sortitem literal="1" order="3">9999</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="4">
+      <bcf:sortitem order="1">sortname</bcf:sortitem>
+      <bcf:sortitem order="2">author</bcf:sortitem>
+      <bcf:sortitem order="3">editor</bcf:sortitem>
+      <bcf:sortitem order="4">translator</bcf:sortitem>
+      <bcf:sortitem order="5">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="6">title</bcf:sortitem>
+    </bcf:sort>
+    <bcf:sort order="5">
+      <bcf:sortitem order="1">sorttitle</bcf:sortitem>
+      <bcf:sortitem order="2">title</bcf:sortitem>
+    </bcf:sort>
+  </bcf:sortingtemplate>
+  <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="ynt/global//global/global/global"
+                type="entry"
+                sortingtemplatename="ynt"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global"
+                namehashtemplatename="global">
+  </bcf:datalist>
+</bcf:controlfile>

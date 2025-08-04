@@ -2007,3 +2007,297 @@ Overfull \hbox (42.86797pt too wide) in paragraph at lines 235--236
 
 [25])
 \openout2 = `chapter/GPVAE.aux'.
+
+ (./chapter/GPVAE.tex
+Chapter 8.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[26
+
+
+
+
+
+
+]
+Underfull \vbox (badness 2065) has occurred while \output is active []
+
+
+
+[27]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[28]
+
+[29]
+Overfull \hbox (32.1733pt too wide) in paragraph at lines 268--269
+ [][] 
+ []
+
+
+
+[30])
+
+[31
+
+
+
+
+
+]
+\openout2 = `chapter/Entropy_and_randomness.aux'.
+
+ (./chapter/entropy_and_randomness.tex
+Chapter 9.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 5274) has occurred while \output is active []
+
+
+
+[32
+
+
+]
+
+[33]
+
+[34])
+
+[35]
+\openout2 = `chapter/Stochastic_calculus.aux'.
+
+ (./chapter/Stochastic_calculus.tex
+Chapter 10.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[36
+
+
+
+
+]
+\openout2 = `chapter/stochastic_processes_basics.aux'.
+
+ (./chapter/stochastic_processes_basics.tex
+Chapter 11.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+<images/toy_01.png, id=455, 1045.0242pt x 380.1402pt>
+File: images/toy_01.png Graphic file (type png)
+<use images/toy_01.png>
+Package pdftex.def Info: images/toy_01.png  used on input line 5.
+(pdftex.def)             Requested size: 250.24199pt x 91.02669pt.
+)
+
+[37
+
+
+
+
+ <./images/toy_01.png>]
+\openout2 = `chapter/Perspective_1.aux'.
+
+ (./chapter/Perspective_1.tex
+Chapter 12.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[38
+
+
+
+
+]
+\openout2 = `chapter/Perspective_2.aux'.
+
+ (./chapter/Perspective_2.tex
+Chapter 13.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[39
+
+
+
+
+]
+
+[40
+
+
+
+]
+\openout2 = `chapter/experiments.aux'.
+
+ (./chapter/experiments.tex
+Chapter 14.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[41
+
+
+]
+
+[42
+
+
+
+]
+\openout2 = `chapter/conclusions.aux'.
+
+ (./chapter/conclusions.tex
+Chapter 15.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[43
+
+
+]
+
+[44
+
+
+
+]
+
+[45
+
+
+]
+\openout2 = `chapter/appendix.aux'.
+
+ (./chapter/appendix.tex
+Appendix A.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
+[][][][][][][][][]  
+ []
+
+Missing character: There is no ; in font nullfont!
+
+
+[46
+
+
+]
+
+[47]
+Appendix B.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
+[][][][][][][][][]  
+ []
+
+
+
+[48
+
+]
+
+[49]
+Appendix C.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
+[][][][][][][][][]  
+ []
+
+)
+
+[50
+
+]
+No file main.gls.
+
+
+[51
+
+
+
+]
+Overfull \hbox (8.06023pt too wide) in paragraph at lines 114--114
+\OT1/txr/m/n/10.95 books). Cam-bridge: Cam-bridge Uni-ver-sity Press, 2019, \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9781316510087. \OT1/txr/m/sc/10.95 doi\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 10 . 1017 / 9781108186735$[][]
+ []
+
+
+
+[52
+
+
+]
+Overfull \hbox (0.44476pt too wide) in paragraph at lines 114--114
+[]\OT1/txr/m/n/10.95 K. Mur-phy, \OT1/txr/m/it/10.95 Prob-a-bilis-tic macine learn-ing ad-vanced top-ics\OT1/txr/m/n/10.95 , 2023. [On-line]. Avail-able: [][]$\OT1/txtt/m/n/10.95 https : / / mitpress .
+ []
+
+
+
+[53]
+runsystem(latexminted cleantemp  --timestamp 20250804183619 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+
+ (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/Stochastic_calculus.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/Perspective_1.aux) (./chapter/Perspective_2.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/appendix.aux))
+ ***********
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-07-20>
+ ***********
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: F881EF27EECCFE4D381CC6E7BCBB1940;4545.
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 61623 strings out of 467801
+ 1440296 string characters out of 5431917
+ 2662742 words of memory out of 5000000
+ 89008 multiletter control sequences out of 15000+600000
+ 690599 words of font info for 187 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 103i,33n,108p,2554b,1751s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on main.pdf (53 pages, 439557 bytes).
+PDF statistics:
+ 697 PDF objects out of 1000 (max. 8388607)
+ 603 compressed objects within 7 object streams
+ 195 named destinations out of 1000 (max. 500000)
+ 218 words of extra memory for PDF output out of 10000 (max. 10000000)
+
