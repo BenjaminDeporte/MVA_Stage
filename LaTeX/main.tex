@@ -12,7 +12,7 @@
 \addbibresource{chapter/citations_2.bib}
 
 
-\title{Discrete and continuous-time\\ Dynamical Variational Autoencoders\\ for data sequences predictions\\
+\title{Dynamical Variational Autoencoders\\ Discrete and continuous time models\\ Links to Stochastic calculus
 \vspace{1cm}
 {\Large{ENS Paris-Saclay, MVA}}}
 
@@ -29,10 +29,25 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 
 % * means no number
 \chapter*{Abstract}
+This report describes a particular class of \glspl{vae} : the \glspl{dvae}. \glspl{dvae} are a specific class of models, adapted to the study of data sequences.
+In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also), aiming at encoding the temporal dimension of the data. 
+We will review the general formulation of \glspl{dvae} and the detailed implementation of three models : extended Kalman filter, \gls{vrnn}, and \gls{gpvae}.
+
+We then provide an overview of the information theory framework for data sequences -specifically some results on entropy rates- as an attempt to empirically  quantify the degree of "randomness" of data sequences.
+In doing so, we can try and evaluate the expressiveness of \glspl{dvae}, and their relative performance with respect to other well-known models (such as \glspl{lstm}).
+
+However, it is the theory of stochastic calculus that will provide us with great insights regarding the expressiveness of \glspl{dvae}.
+First, we will see that the solution of a \gls{sde} is a Markov Process, that can quite naturally be expressed as a \gls{dvae}.
+Furthermore, if the \gls{sde} is actually linear, we will see that its solution is actually a Gaussian Process, and fits naturally into the \gls{gpvae} model. 
+All the associated results of the kernels theory (notably results on the spectral theory) then apply.
+
+Armed with those results, we carry out some experiments, to demonstrate... SURPRISE.
+
 The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
 
 \chapter*{Acknowledgements}
-Merci Papa et merci Maman
+
+
 
 \newpage
 \singlespacing

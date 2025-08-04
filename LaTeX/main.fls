@@ -280,8 +280,8 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplo
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.tex
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
-INPUT tikzlibrarybayesnet.code.tex
-INPUT tikzlibrarybayesnet.code.tex
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tikz-bayesnet/tikzlibrarybayesnet.code.tex
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tikz-bayesnet/tikzlibrarybayesnet.code.tex
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
 INPUT /usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
