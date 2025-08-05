@@ -1,0 +1,158 @@
+\chapter{Stochastic Calculus}\label{sec:Stochastic Calculus}
+
+The idea is to consider stochastic processes $Y_t$ whose "infinitesimal increments" $dY_t$ (for $t \in [a,b]$) are of the form $dY_t = X_t dB_t$, where $dB_t$ is the infinitesimal increment of the Brownian motion $B$, and $X = (X_t)_{t \in [a,b]}$ is a process adapted to the filtration $(\mathcal{F}_t)_{t \in [a,b]}$ and "smooth enough". The infinitesimal Brownian increment $dB_t$ has a non-null quadratic variation, which will lead eventually to the Itô's formula.
+The stochastic integral is defined on elementary stochastic processes, then extended to broader classes of stochastic processes.
+
+\defn{Elementary process}{
+A stochastic process $X = (X_s)_{s \in [a,b]}$ is called \textbf{elementary} if there exists a subdivision $a = t_0 < t_1 < ... < t_n = b$ of $[a,b]$, such that:
+\[
+\forall t \in [a,b], \forall \omega \in \Omega, X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\]
+with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
+
+This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
+
+We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$)) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$
+}
+
+\defn{Stochastic integral of an elementary process}{
+Let $X \in \mathcal{E}$, ie
+\[
+X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\]
+\textbf{The stochastic integral of $X$ is the real random variable} :
+\[
+\int_a^b X_t dB_t := \sum_{i=0}^{n-1} X_i (B_{t_{i+1}} - B_{t_{i}})
+\]
+}
+
+\prop{
+\begin{enumerate}
+    \item \textbf{linearity}
+    \[
+    \forall X,Y \in \mathcal{E}, \forall \lambda, \mu \in \mathbb{R}, \int_a^b (\lambda X_t + \mu Y_t) dB_t = \lambda \int_a^b X_t dB_t + \mu \int_a^b Y_t dB_t
+    \]
+    \item \textbf{centering}. If $X \in \mathcal{E}_1$, then $\int_a^b X_t dB_t \in \lunomega$ and
+    \[
+    \mathbb{E}\left( \int_a^b X_t dB_t\right) = 0
+    \]
+    \item \textbf{membership in $\ldeuxomega$}. if $X \in \mathcal{E}_2$, then $\int_a^b X_t dB_t \in \ldeuxomega$, and
+    \[
+    \mathbb{E}\left[ \left(\int_a^b X_t dB_t \right)^2 \right] = \mathbb{E}\left( \int_a^b X_t^2 dt\right)
+    \]
+    \item \textbf{corollary}. The application $I$ is an isometry:
+    \begin{align*}
+        I : \mathcal{E}_2 \subset L^2([a,b] \times \Omega, \mathcal{B}_{[a,b]} \otimes \mathcal{F}, dt \otimes d\mathbb{P}) &\rightarrow \ldeuxomega \\
+        X &\mapsto I(X) := \int_a^b X_t dB_t
+    \end{align*}
+\end{enumerate}
+}
+
+% \section{Integrating processes, spaces $\Lambda^2$, $M^2$}
+
+Let $B = \brownian$ be a continuous Brownian motion.
+
+Let $X = (X_t)_{t \in [a,b]}$ a stochastic process defined on $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$, filtered space of $B$, restricted to $[a,b]$.
+
+We define spaces of "smooth" stochastic processes $X$ which allow to generalize the construction of the integral processes.
+
+NB : in all the following, $\int_a^b X_t^2 dt$ is the random variable defined by $\forall \omega \in \Omega$, $\left(\int_a^b X_t^2 dt\right) (\omega) = \int_a^b X_t^2(\omega) dt$.
+
+\defn{Space $M^2$}{
+\textbf{$X \in M^{2}$} if:
+\begin{itemize}
+    \item $X$ is progressively measurable \footnote[1]{ie $X$ is said to be progressively measurable w.r.t. a filtration $(\mathcal{F}_t)_{t \in T}$ if $\forall s \in T$, the application $(t,\omega) \mapsto X_t(\omega)$ is measurable from $([0,\textbf{s}] \times \Omega, \mathcal{B}_{[0,s]} \times \mathcal{F}_s)$ to $(E, \mathcal{B}_E)$.}
+    \item And:
+    \begin{align*}
+    \mathbb{E} \left( \int_a^b X_t^2 dt \right) < +\infty
+    \end{align*}
+\end{itemize}
+
+$M^2$ is a Hilbert space, with norm:
+\begin{align}
+    \norm{X}_{M^2} &:= \norm{X}_{L^2([a,b] \times \Omega, dt \otimes \mathbb{P})} \\
+    \mathbb{E}\left( \int_a^b X_t^2 dt \right) &= \int_{[a,b] \times \Omega} X_t(\omega)^2 dt d\mathbb{P}
+\end{align}
+}
+
+\defn{Space $\Lambda^2$}{
+\textbf{$X \in \Lambda^2$} if:
+\begin{itemize}
+    \item $X$ is progressively measurable
+    \item and:
+        \begin{align*}
+            \int_a^b X_t^2 dt < \infty,  \,\,\, \mathbb{P}-a.s.
+        \end{align*}
+\end{itemize}
+}
+
+\prop{
+$\mathcal{E}_2 \subset M^2 \subset \Lambda^2$
+}
+
+\thmp{
+Density of $\mathcal{E}_2$ in $M^2$
+}{
+$\mathcal{E}_2$, space of the square-integrable elementary processes, is a dense subspace of $M^2$ : 
+\[
+\forall X \in M^2, \exists (X^{(n)})_{n \in \mathbb{N}} \in \mathcal{E}_2, \text{s.t.} \, \underset{n \rightarrow +\infty}{\text{lim}} \norm{X^{(n)} - X}_{M^2} = 0
+\]
+}{p122}
+
+\thmp{Extension of the stochastic integral to $M^2$}{
+For $X \in M^2$, we define $I(X) = \int_a^b X_t dB_t$ by:
+\begin{align*}
+    \text{Let} (X^{(n)})_{n \in \mathbb{N}} \in \mathcal{E}_2, \,\, \text{s.t.} \underset{n \rightarrow +\infty}{\text{lim}} \norm{X^{(n)} - X}_{M^2} = 0 \\
+    \underset{n \rightarrow +\infty}{\text{lim}} \int_a^b X_t^{(n)} dB_t \underset{L^2}{=} \int_a^b X_t dB_t
+\end{align*}
+}{p123}
+
+This means that, to determine $\int X_t dB_t$ with $X \in M^2$, we need to find a sequence $X_t^{(n)} \in \mathcal{E}_2$ that converges (in $L_2$) towards $X$.
+
+\prop{Properties carry from $\mathcal{E}_n$ to $M^2$, most notably:
+\begin{enumerate}
+    \item \textbf{centering}. If $X \in M^2$, then $\int_a^b X_t dB_t \in \lunomega$ and
+    \[
+    \mathbb{E}\left( \int_a^b X_t dB_t\right) = 0
+    \]
+    \item \textbf{membership in $\ldeuxomega$}. if $X \in M^2$, then $\int_a^b X_t dB_t \in \ldeuxomega$, and
+    \[
+    \mathbb{E}\left( (\int_a^b X_t dB_t)^2 \right) = \mathbb{E}\left( \int_a^b X_t^2 dt\right)
+    \]
+    \item \textbf{covariance - dot product conservation by isometry $I$}. $\forall X,Y \in M^2$,
+    \begin{align*}
+        \mathbb{E} \left[ \left( \int_a^b X_t dB_t\right) \left( \int_a^b Y_t dB_t\right) \right] = \mathbb{E} \left( \int_a^b X_tY_t dt\right)
+    \end{align*}
+\end{enumerate}
+}
+
+The extension of the stochastic integral to processes in $\Lambda_2$ also uses the convergence (this time, in probability) of a sequence $X_t^{(n)} \in \mathcal{E}$ towards $X$. Then the integrals $\int_a^b X_t^{(n)} dB_t$ converge towards $\int_a^b X_t dB_t$ also in probability. More formally:
+
+\prop{
+$\forall X \in \Lambda^2, \exists (X^{(n)})_{n \in \mathbb{N}} \in \mathcal{E}$ s.t.:
+\[
+\underset{n \rightarrow \infty}{\text{lim}} \int_a^b \left( X_t - X_t^{(n)}\right)^{2} dt = 0, \,\, \mathbb{P}-a.s.
+\]
+So $X_t^{(n)} \overset{\text{probability}}{\rightarrow} X_t$ also.
+}
+
+\thmp{Extension of the stochastic integral to $\Lambda^2$}{
+For $X \in \Lambda^2$, with $(X^{(n)})_{n \in \mathbb{N}} \in \mathcal{E}$ st $\underset{n \rightarrow \infty}{\text{lim}} \int_a^b \left( X_t - X_t^{(n)}\right)^{2} dt = 0, \,\, \mathbb{P}-a.s.$, then the sequence of random variables $\int_a^b X_t^{(n)} dB_t$ converges in probability towards a random variable that is independent of $(X^{(n)})$:
+\[
+\int_a^b X_t^{(n)} dB_t \underset{\text{probability}}{\longrightarrow} I(X) := \int_a^b X_t dB_t
+\]
+And, if $X \in M^2$, this definition is coincident with the definition of the stochastic integral in $M^2$.
+}{p126}
+
+NB : recall that the convergence in probability is defined by:
+\begin{align*}
+    Z_n \underset{\text{probability}}{\longrightarrow} Z \iff \forall \epsilon > 0, \underset{n \rightarrow \infty}{\text{lim}} \mathbb{P}(\vert Z_n - Z \vert > \epsilon ) = 0
+\end{align*}
+
+
+\thmp{Sums of Riemann-Stieltjes}{
+Let $X \in \Lambda^2$ be a \textbf{continuous} process. Then for all sequence of subdivisions $(\pi_n)_{n \in \mathbb{N}}$, $\pi_n = \{ a = t_{n,0} < t_{n,1} < ... < t_{n,m_n} = b \}$, that verifies $\vert \pi_n \vert \underset{n \rightarrow \infty}{\rightarrow} 0$ (the "step' of the subdivisions converges to 0), then:
+\begin{align*}
+    \sum_{i=0}^{m_n - 1} X_{t_{n,i}} (B_{t_{n,i+1}} - B_{t_{n,i}}) \underset{n \rightarrow \infty}{\longrightarrow} \int_a^b X_t dB_t \,\,\,\,\, \text{in probability}
+\end{align*}
+}{p129}

@@ -1,0 +1,211 @@
+\chapter{Ito's calculus and SDE}\label{sec:Ito_SDE}
+
+
+\asum{context}{
+In all the following, 
+\begin{itemize}
+    \item let $B = \brownian$ be a continuous Brownian motion
+    \item let $T > 0$ a fixed time
+    \item $\Lambda^p(0,T), p\geq 1$ is the set of progressively measurable processes $X$ that verify $\{t \mapsto X_t(\omega)\} \in L^p([0,T])$ $\mathbb{P}$-a.s.
+    \item $M^2([0,T])$ the set of progressively measurable processes $X$ such that $\mathbb{E}\left( \int_0^T X_t^2 dt\right) < \infty $ $\mathbb{P}$-a.s.
+    \item we will always consider the continuous version of the stochastic integrals
+\end{itemize}
+}
+
+\defn{Itô's process}{
+A stochastic process $X = (X_t)_{t \geq 0}$ defined on $\espaceprob$ and adpated to the filtration $(\mathcal{F}_t)_{t \in [0,T]}$ is called \textbf{Itô's process} if it exists two stochastic processes $a_s \in \Lambda^1([0,T])$ and $b_s \in \Lambda^2([0,T])$ such that:
+\begin{align}
+    \forall t \in [0,T], X_t = X_0 + \int_0^t a_s ds + \int_0^t b_s dB_s
+\end{align}
+Then we say that \textbf{$X$ admits the stochastic differential} :
+\begin{align}
+    dX_t = a_t dt + b_t dB_t
+\end{align}
+}
+
+% \section{Formulas}
+The Itô's processes are stable by linear combination and multiplication - the Itô's processes set has an algebra structure.
+\thmp{Stochastic differential of a product, integration by parts}{
+Let $X,Y$ be two Itô's processes on $[0,T]$:
+\begin{align*}
+    dX_t &= a_t^{(1)}dt + b_t^{(1)}dB_t \\
+    dY_t &= a_t^{(2)}dt + b_t^{(2)}dB_t
+\end{align*}
+Then $XY = (X_tY_t)_{t \in [0,T]}$ is also a Itô's process and:
+\begin{align}
+    d(X_tY_t) = X_t dY_t + Y_t dX_t + b_t^{(1)}b_t^{(2)}dt
+\end{align}
+The last term is the Itô's term.
+}{book p155 for a clean proof, next chapter for a heuristic proof}
+
+\thmp{Itô's formula}{
+An Itô's process remains an Itô's process when it is transformed by a deterministic function that is "smooth enough".
+
+Let $X$ be a Itô's process on $[0,T]$ : $dX_t = a_tdt + b_t dB_t$.
+
+Let:
+\begin{align*}
+    f : \mathbb{R} \times \mathbb{R} &\rightarrow \mathbb{R} \\
+    (x,t) &\mapsto f(x,t)
+\end{align*}
+be $\mathcal{C}^{2,1}$ : $\mathcal{C}^2$ in $x$, and $\mathcal{C}^1$ in $t$.
+
+Then $(f(X_t,t))_{t \in [0,T]}$ is also an Itô's process and:
+\begin{align}
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \frac{\partial f}{\partial x}(X_t,t) dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(X_t,t)b_t^2 dt
+\end{align}
+The last term is Itô's complementary term.
+}{see book p159 for a clean proof, and next chapter for a heuristic proof}
+
+\section{Stochastic differential equations - SDE}
+
+Let $0 \leq a < b \in \mathbb{R}$.
+
+\defn{Stochastic differential equation}{
+We call \textbf{stochastic differential equation (SDE)} on $[a,b]$, with the initial data $\xi_a$, a relation such as:
+\begin{align}
+    \label{SDE}
+    dX_t &= \mu(X_t,t)dt + \sigma(X_t,t)dB_t \\
+    X_a &= \xi_a
+\end{align}
+where:
+\begin{itemize}
+    \item $X$ is an Itô's process on $[a,b]$ (the unknown)
+    \item $\xi_a$ is a given random variable, $\mathcal{F}_a$-measurable
+    \item $\mu(x,t)$ and $\sigma(x,t)$ are two given functions defined over $\mathbb{R} \times [a,b] \rightarrow \mathbb{R}$
+\end{itemize}
+Solving the SDE is finding $X$ Itô's process on $[a,b]$ such that:
+\begin{align*}
+    X_t = \xi_a + \int_a^b \mu(X_s,s)ds + \int_a^b \sigma(X_s,s)dB_s \,\,\, \forall t \in [a,b]
+\end{align*}
+}
+NB : a SDE may not have a solution.
+
+\thmp{Existence and Unicity of a solution of a SDE}{
+Let's assume
+\label{existence-unicity}
+\begin{itemize}
+    \item $\sigma : t \mapsto \sigma(0,t)$ and $\mu : t \mapsto \mu(0,t)$ bounded on $[a,b]$
+    \item $\sigma$ and $\mu$ Lipschitz in $x,y$ uniformly in $t$ : $\exists c>0$ st $\forall x,y \in \mathbb{R}, \forall t \in [a,b]$
+    \begin{itemize}
+        \item $\vert \sigma(x,t) - \sigma(y,t) \vert \leq c \vert x-y \vert$
+        \item $\vert \mu(x,t) - \mu(y,t) \vert \leq c \vert x-y \vert$
+    \end{itemize}
+    \item $\mathbb{E}(\xi_a^2) < \infty$
+\end{itemize}
+Then, there exists a solution $X = (X_t)_{t \in [a,b]} \in M^2$ of the SDE, and it unique (up to un-discernibility).
+}{\cite{mouvement-brownien-calcul-ito} p163}
+
+\thmp{Stochastic exponential}{
+\begin{align*}
+    dX_t &= X_t dB_t \\
+    X_0 &= 1
+\end{align*}
+has for unique solution $X_t = e^{B_t - \frac{t}{2}}$ (see next chapter).
+
+More generally, let $Z_t$ be a Itô's process:
+\begin{align*}
+    dZ_t &= a_t dt + b_t dB_t \\
+    Z_0 &= 0
+\end{align*}
+Then the stochastic differential equation
+\begin{align*}
+    dX_t &= X_t dZ_t = a_tX_t dt + b_t X_t dB_t \\
+    X_0 &= 1
+\end{align*}
+has a unique solution called \textbf{the stochastic exponential of $Z$}:
+\[
+\mathcal{E}(Z)(t) = \text{exp}\left( Z_t - \frac{1}{2} \int_0^t b_s^2 ds\right) \,\,\, \forall t \in [0,T]
+\]
+}{\cite{mouvement-brownien-calcul-ito} p184}
+
+\thmp{Numerical approximation of the solution of a SDE - \textbf{Euler-Maruyama}}{
+Let $X$ be a Itô's process solution of:
+\begin{align*}
+    dX_t &= \mu(X_t,t)dt + \sigma(X_t,t)dB_t \\
+    X_a &= \xi_a
+\end{align*}
+
+where $\mu(X_t,t)$ is the \textbf{drift} and $\sigma^2(X_t,t)$ the \textbf{diffusion coefficient}.
+
+Then one can approximate numerically the solution of the SDE by:
+\begin{align*}
+    a &= t_0 < t_1 < ... < t_k < t_{k+1} < ... < t_n = b\\
+    x^{(k+1)} &= x^{(k)} + \mu(x^{(k)},t_k) \Delta t + \sigma(x^{(k)},t_k) \sqrt{\Delta t} \, \mathcal{N}(0,1) \\
+    t_{k+1} &= t_k + \Delta t
+\end{align*}
+}{
+We have $\Delta X_t \sim \mu(X_t,t) \Delta t + \sigma(X_t,t) \Delta B_t$, where $\Delta B_t \sim \mathcal{N}(0,\Delta t)$.
+So $\sigma(X_t,t) \Delta B_t \sim \mathcal{N}(0, \sigma^2(X_t,t) \Delta t)$, and $\Delta X_t \sim \mathcal{N} ( \mu(X_t,t), \sigma^2(X_t,t) \Delta t )$
+}
+
+\textbf{SDE solutions are Markov Processes}
+
+Intuitively, when considering the solution $X_t$ of \ref{SDE} between $t$ and $t+\Delta_t$, leads to:
+\begin{align*}
+    X_{t+\Delta t} &= X_t + \sigma(X_t,t)\Delta B_t + \mu(X_t,t)dt
+\end{align*}
+We know that $\Delta B_t$ is independent of $\mathcal{F}_t$, so $X_{t+\Delta t}$ depends on the past only by $X_t$. This suggest $(X_t)t \geq 0$ is a Markov Process.
+
+We actually have the following theorem:
+
+\thmp{SDE solutions are Markov Processes}{
+Consider the following SDE:
+\begin{align*}
+    dX_t &= \mu(X_t,t)dt + \sigma(X_t,t)dB_t \\
+    X_0 &= \xi_0
+\end{align*}
+where $\sigma$ and $\mu$ verify the hypothesis in \ref{existence-unicity}.
+The solution $X_t$ is given by:
+\begin{align*}
+    X_t &= \xi_0 + \int_0^t \mu(X_u,u)du + \int_0^t \sigma(X_u,u)dB_u
+\end{align*}
+Then $\textbf{X is Markov process}$, with transition kernels given by ($\forall x \in \mathbb{R}, \forall A \in \mathcal{B}_{\mathbb{R}}, \forall t \geq s$):
+\begin{align*}
+    P_{s,t}(x,A) &= \mathbb{P}(X_t^{x,s} \in A) \\
+    X_t^{x,s} &= x + \int_s^t \mu(X_u^{x,s},u)du + \int_s^t \sigma(X_u^{x,s},u)dB_u
+\end{align*}
+ie $X^{x,s} = (X_t^{x,s})_{t \geq s}$ is the solution of the SDE starting from $x$ at time $t$.
+
+If the SDE is time-invariant, ie
+\begin{align}
+\label{LTI-SDE}
+    dX_t &= \mu(X_t)dt + \sigma(X_t)dB_t \\
+    X_0 &= \xi_0 
+\end{align}
+then the Markov process solution $X$ is homogeneous. (ie $P_{s,t}$ depends only on $t-s$). ie (for $f$ Borelian bounded):
+\begin{align*}
+    P_tf(x) &= \int_{\mathbb{R}} f(z) P_t(x,dz) = \int_{\mathbb{R}} f(z) \mathbb{P}(X_t^{x,0} \in dz)
+\end{align*}
+}{\cite{mouvement-brownien-calcul-ito} p173}
+
+We can compute the infinitesimal generator when $f$ is smooth enough:
+
+\thmp{Infinitesimal generator of $X$}{
+In the case of time-invariant SDE \ref{LTI-SDE} (when $X$ is homogeneous), then : for any $f \in \mathcal{C}^2(\mathbb{R})$ bounded, with derivatives bounded, for any $t>0$, for any $x \in \mathbb{R}$:
+\begin{align}
+    P_tf(x) &= f(x) + \int_0^t P_s(Af)(x)ds \\
+    Af(x) &= \frac{1}{2} \sigma^2(x)f''(x) + \mu(x) f'(x)
+\end{align}
+}{}
+
+When the probability transitions have densities, we end up with the Kolmogorov equations:
+\thmp{Kolmogorov equations for a general SDE}{
+Consider SDE:
+\begin{align*}
+    dX_t &= \mu(X_t,t)dt + \sigma(X_t,t)dB_t \\
+    X_0 &= \xi_0
+\end{align*}
+We assume the transition probabilities have densities:
+\begin{align*}
+    P_t(x,dy) = p_t(x,y)dy \,\,\, (x,y) \in \mathbb{R}
+\end{align*}
+Then, remembering that $x$ is the "start" and $y$ the "arrival":
+\begin{itemize}
+    \label{kolmogorov_past}
+    \item $\frac{\partial}{\partial t} p_t(x,y) = \left( \frac{1}{2}\sigma(x)^2 \frac{\partial^2}{\partial x^2} + \mu(x) \frac{\partial}{\partial x} \right)p_t(x,y)$
+    \label{kolmogorov_future}
+    \item $\frac{\partial}{\partial t} p_t(x,y) = \frac{1}{2} \frac{\partial^2}{\partial y^2}(\sigma(y)^2 p_t(x,y)) -  \frac{\partial}{\partial y}(\mu(y) p_t(x,y))$
+\end{itemize}
+The second equation ("futur Kolmogorov") is also known as the Fokker-Plank equation.
+}{}

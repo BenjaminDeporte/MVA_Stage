@@ -5,6 +5,7 @@
 \input{preamble}
 \input{glossary}
 \input{newcommands}
+\input{theorems.tex}
 
 % files for bibliography
 % \addbibresource{chapter/references.bib}
@@ -64,8 +65,9 @@ The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
 
 \part{Dynamical Variational Autoencoders}
 
-This part presents the general framework of \glspl{dvae}, after a reminder of the key notion of \textbf{D-separation}, which is key in \glspl{gpm}.
-Three models are described in details:
+This part presents the general framework of \glspl{dvae}. We start with a reminder of the key notion of \textbf{D-separation}, which is central in \glspl{gpm}.
+
+Then, we describe three models in details:
 \begin{itemize}
     \item \textbf{Deep Kalman Filter} : this model arises as the first evolution of the well-known Kalman Filter, with richer, \glspl{mlp} networks for the encoder and decoder.
     \item \textbf{Variational Recurrent Neural Network} : at the other end of the spectrum, \glspl{vrnn} provide the most expressive discrete-time formulation of the encoder and decoder.
@@ -82,11 +84,22 @@ This allows for sampling data at irregular intervals. Another benefit is the use
     % \include{chapter/Torch_implementation_take_aways}
     % \include{chapter/Torch_implementation_take_aways_2}
 
-\part{Stochastic Processes and stochastic calculus}
+\part{Notions on stochastic differential equations and their relationships to \glspl{dvae}}
+
+This part intends to present a self-contained material on stochastic calculus. 
+The goal is to highlight the relationships between \glspl{sde} and \glspl{dvae}.
+The part is designed so a complete beginner on the matter -with sufficient mathematical background though !- may grasp enough notions so the relationships appear natural.
+However, stochastic calculus is a full mathematical field in itself, and a detailed presentation is out of the scope of this report.
+
+The interested reader will likely enjoy \cite{mouvement-brownien-calcul-ito}, \cite{sarkka_applied_2019}, and refer to \cite{cours-jf-legall}, for a fuller review of the subject.
+
+    \include{chapter/stochastic_processes_basics}
+    \include{chapter/stochastic_calculus}
+    \include{chapter/ito_calculus_sde}
 
     \include{chapter/Entropy_and_randomness}
-    \include{chapter/Stochastic_calculus}
-    \include{chapter/stochastic_processes_basics}
+    
+
     \include{chapter/Perspective_1}
     \include{chapter/Perspective_2}
 
