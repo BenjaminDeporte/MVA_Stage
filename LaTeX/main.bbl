@@ -240,6 +240,69 @@
       \field{title}{Gaussian processes for machine learning}
       \field{year}{2008}
     \endentry
+    \entry{titsias_bayesian_2010}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=81ef8fd5b7b50d8f80ae8da790ccba73}{%
+           family={Titsias},
+           familyi={T\bibinitperiod},
+           given={Michalis},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f83d1b861ef00c2c1e490eb5f7360434}{%
+           family={Lawrence},
+           familyi={L\bibinitperiod},
+           given={Neil\bibnamedelima D.},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=a71fae003da84f44e31d26e868859945}{%
+           family={Teh},
+           familyi={T\bibinitperiod},
+           given={Yee\bibnamedelima Whye},
+           giveni={Y\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=4f07cb446ab04d4d77854b6722712e32}{%
+           family={Titterington},
+           familyi={T\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Chia Laguna Resort, Sardinia, Italy}%
+      }
+      \list{publisher}{1}{%
+        {PMLR}%
+      }
+      \strng{namehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{fullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{fullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{bibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorbibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authornamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorfullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorfullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{editorbibnamehash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editornamehash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editorfullhash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editorfullhashraw}{ea4550790536e3c5e0b1f0cd5656198b}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We introduce a variational inference framework for training the Gaussian process latent variable model and thus performing Bayesian nonlinear dimensionality reduction. This method allows us to variationally integrate out the input variables of the Gaussian process and compute a lower bound on the exact marginal likelihood of the nonlinear latent variable model. The maximization of the variational lower bound provides a Bayesian training procedure that is robust to overfitting and can automatically select the dimensionality of the nonlinear latent space. We demonstrate our method on real world datasets. The focus in this paper is on dimensionality reduction problems, but the methodology is more general. For example, our algorithm is immediately applicable for training Gaussian process models in the presence of missing or uncertain inputs.}
+      \field{booktitle}{Proceedings of the {Thirteenth} {International} {Conference} on {Artificial} {Intelligence} and {Statistics}}
+      \field{month}{5}
+      \field{series}{Proceedings of {Machine} {Learning} {Research}}
+      \field{title}{Bayesian {Gaussian} {Process} {Latent} {Variable} {Model}}
+      \field{volume}{9}
+      \field{year}{2010}
+      \field{pages}{844\bibrangedash 851}
+      \range{pages}{8}
+      \verb{urlraw}
+      \verb https://proceedings.mlr.press/v9/titsias10a.html
+      \endverb
+      \verb{url}
+      \verb https://proceedings.mlr.press/v9/titsias10a.html
+      \endverb
+    \endentry
     \entry{roberts_gaussian_2013}{article}{}{}
       \name{author}{6}{}{%
         {{hash=67e21120146db1b8190e7e1e2a299d8a}{%

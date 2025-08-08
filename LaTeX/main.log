@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 AUG 2025 11:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  8 AUG 2025 09:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1634,7 +1634,7 @@ Package csquotes Info: ... none found.
 LaTeX Font Info:    Trying to load font information for OT1+txr on input line 26.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
-) (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/Perspective_1.aux) (./chapter/Perspective_2.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/appendix.aux))
+) (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/Perspective_1.aux) (./chapter/Perspective_2.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 26.
@@ -1747,23 +1747,23 @@ Package hyperref Info: Link coloring ON on input line 26.
 \@outlinefile=\write8
 \openout8 = `main.out'.
 
-LaTeX Font Info:    Trying to load font information for U+txsya on input line 30.
+LaTeX Font Info:    Trying to load font information for U+txsya on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+txsyb on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 30.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for U+txmia on input line 30.
+LaTeX Font Info:    Trying to load font information for U+txmia on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyc on input line 30.
+LaTeX Font Info:    Trying to load font information for U+txsyc on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
 )
@@ -1774,15 +1774,15 @@ File: utxsyc.fd 2000/12/15 v3.1
 \openout5 = `main.ist'.
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}]
-LaTeX Font Info:    Trying to load font information for OT1+txss on input line 32.
+LaTeX Font Info:    Trying to load font information for OT1+txss on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txss.fd
 File: ot1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OT1/txss/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 32.
+(Font)              scaled to size 13.67995pt on input line 31.
 LaTeX Font Info:    Font shape `OT1/txss/b/n' will be
-(Font)              scaled to size 13.67995pt on input line 32.
-LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 47.
+(Font)              scaled to size 13.67995pt on input line 31.
+LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 58.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 File: ot1txtt.fd 2000/12/15 v3.1
 )
@@ -1795,15 +1795,12 @@ File: ot1txtt.fd 2000/12/15 v3.1
 
 ]
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <24.88> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 55.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 66.
  (./main.toc
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 2.
-
-Underfull \vbox (badness 2318) has occurred while \output is active []
-
 
 
 [4])
@@ -1820,7 +1817,7 @@ Underfull \vbox (badness 2318) has occurred while \output is active []
 
 [6]
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <20.74> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 60.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 71.
 
 
 [7
@@ -1887,7 +1884,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+txr on input line 72.
+LaTeX Font Info:    Trying to load font information for TS1+txr on input line 88.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ts1txr.fd
 File: ts1txr.fd 2000/12/15 v3.1
 )
@@ -2106,11 +2103,6 @@ Overfull \hbox (32.1733pt too wide) in paragraph at lines 268--269
 
 [30])
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\glspl' on input line 87.
-
-
-
 [31
 
 
@@ -2120,9 +2112,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 ]
 
 [32]
-\openout2 = `chapter/stochastic_processes_basics.aux'.
+\openout2 = `chapter/Entropy_and_randomness.aux'.
 
- (./chapter/stochastic_processes_basics.tex
+ (./chapter/entropy_and_randomness.tex
 Chapter 9.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2130,8 +2122,114 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
+Underfull \vbox (badness 5260) has occurred while \output is active []
+
+
 
 [33
+
+
+]
+
+[34]
+
+[35])
+
+[36]
+\openout2 = `chapter/Perspective_1.aux'.
+
+ (./chapter/Perspective_1.tex
+Chapter 10.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[37
+
+
+
+
+]
+\openout2 = `chapter/Perspective_2.aux'.
+
+ (./chapter/Perspective_2.tex
+Chapter 11.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[38
+
+
+
+
+]
+
+[39
+
+
+
+]
+\openout2 = `chapter/experiments.aux'.
+
+ (./chapter/experiments.tex
+Chapter 12.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[40
+
+
+]
+
+[41
+
+
+
+]
+\openout2 = `chapter/conclusions.aux'.
+
+ (./chapter/conclusions.tex
+Chapter 13.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[42
+
+
+]
+
+[43
+
+
+
+]
+\openout2 = `chapter/stochastic_processes_basics.aux'.
+
+ (./chapter/stochastic_processes_basics.tex
+Chapter 14.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+
+[44
 
 
 ]
@@ -2139,7 +2237,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[34]
+[45]
 LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/it' tried instead on input line 135.
 
@@ -2147,12 +2245,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[35]
+[46]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[36]
+[47]
 LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
@@ -2161,23 +2259,23 @@ Underfull \vbox (badness 2165) has occurred while \output is active []
 
 
 
-[37]
+[48]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[38]
+[49]
 Underfull \vbox (badness 4647) has occurred while \output is active []
 
 
 
-[39])
+[50])
 
-[40]
+[51]
 \openout2 = `chapter/stochastic_calculus.aux'.
 
  (./chapter/stochastic_calculus.tex
-Chapter 10.
+Chapter 15.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
@@ -2203,7 +2301,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[41
+[52
 
 
 
@@ -2223,7 +2321,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.87 }
       
 
-[42]
+[53]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2248,7 +2346,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[43]
+[54]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2263,18 +2361,18 @@ Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
 
-[44]
+[55]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.158 }{p129}
              )
 
-[45]
+[56]
 \openout2 = `chapter/ito_calculus_sde.aux'.
 
  (./chapter/ito_calculus_sde.tex
-Chapter 11.
+Chapter 16.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
@@ -2300,7 +2398,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[46
+[57
 
 
 
@@ -2311,10 +2409,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.58 ...f, and next chapter for a heuristic proof}
                                                   
-LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 60.
-
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.81 }
@@ -2323,13 +2418,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[47]
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+[58]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.97 }{\cite{mouvement-brownien-calcul-ito} p163}
                                                  
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.120 }{\cite{mouvement-brownien-calcul-ito} p184}
@@ -2338,143 +2433,37 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[48]
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
+[59]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.140 }
        
 
-[49]
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
+[60]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.180 }{\cite{mouvement-brownien-calcul-ito} p173}
                                                   
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.190 }{}
          
-pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.11}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.211 }{}
          
 
-[50])
+[61])
 
-[51]
-\openout2 = `chapter/Entropy_and_randomness.aux'.
-
- (./chapter/entropy_and_randomness.tex
-Chapter 12.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-
-Underfull \vbox (badness 5217) has occurred while \output is active []
-
-
-
-[52
-
-
-
-
-]
-
-[53]
-
-[54])
-
-[55]
-\openout2 = `chapter/Perspective_1.aux'.
-
- (./chapter/Perspective_1.tex
-Chapter 13.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-)
-
-[56
-
-
-
-
-]
-\openout2 = `chapter/Perspective_2.aux'.
-
- (./chapter/Perspective_2.tex
-Chapter 14.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-)
-
-[57
-
-
-
-
-]
-
-[58
-
-
-
-]
-\openout2 = `chapter/experiments.aux'.
-
- (./chapter/experiments.tex
-Chapter 15.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-)
-
-[59
-
-
-]
-
-[60
-
-
-
-]
-\openout2 = `chapter/conclusions.aux'.
-
- (./chapter/conclusions.tex
-Chapter 16.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-)
-
-[61
-
-
-]
-
-[62
-
-
-
-]
+[62]
 
 [63
+
+
 
 
 ]
@@ -2528,49 +2517,49 @@ No file main.gls.
 
 
 ]
-Overfull \hbox (8.06023pt too wide) in paragraph at lines 127--127
-\OT1/txr/m/n/10.95 books). Cam-bridge: Cam-bridge Uni-ver-sity Press, 2019, \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9781316510087. \OT1/txr/m/sc/10.95 doi\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 10 . 1017 / 9781108186735$[][]
- []
-
-
 
 [70
 
 
 ]
-Overfull \hbox (0.44476pt too wide) in paragraph at lines 127--127
+Overfull \hbox (8.06023pt too wide) in paragraph at lines 155--155
+\OT1/txr/m/n/10.95 books). Cam-bridge: Cam-bridge Uni-ver-sity Press, 2019, \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9781316510087. \OT1/txr/m/sc/10.95 doi\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 10 . 1017 / 9781108186735$[][]
+ []
+
+
+Overfull \hbox (0.44476pt too wide) in paragraph at lines 155--155
 []\OT1/txr/m/n/10.95 K. Mur-phy, \OT1/txr/m/it/10.95 Prob-a-bilis-tic macine learn-ing ad-vanced top-ics\OT1/txr/m/n/10.95 , 2023. [On-line]. Avail-able: [][]$\OT1/txtt/m/n/10.95 https : / / mitpress .
  []
 
 
 
 [71]
-runsystem(latexminted cleantemp  --timestamp 20250805115023 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+runsystem(latexminted cleantemp  --timestamp 20250808094924 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
- (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/Perspective_1.aux) (./chapter/Perspective_2.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/appendix.aux))
+ (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/Perspective_1.aux) (./chapter/Perspective_2.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FC20D5EAE92D345E9C446F9050BFDD0E;5222.
+(rerunfilecheck)             Checksum: BC120811FC2F55AF12F6C1080C5C5EBC;5189.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64321 strings out of 467801
- 1510784 string characters out of 5431917
- 2769545 words of memory out of 5000000
- 91517 multiletter control sequences out of 15000+600000
- 699718 words of font info for 209 fonts, out of 8000000 for 9000
+ 64352 strings out of 467801
+ 1511447 string characters out of 5431917
+ 2769969 words of memory out of 5000000
+ 91550 multiletter control sequences out of 15000+600000
+ 697779 words of font info for 206 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,33n,108p,2554b,1751s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 103i,33n,108p,2554b,1739s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (71 pages, 306827 bytes).
+Output written on main.pdf (71 pages, 309252 bytes).
 PDF statistics:
- 928 PDF objects out of 1000 (max. 8388607)
- 809 compressed objects within 9 object streams
+ 936 PDF objects out of 1000 (max. 8388607)
+ 817 compressed objects within 9 object streams
  298 named destinations out of 1000 (max. 500000)
- 229 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 
