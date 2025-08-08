@@ -86,5 +86,6 @@
 \glossaryentry{IT?\glossentry{it}|setentrycounter[]{page}"\glsnumberformat}{33}
 \glossaryentry{ApEn?\glossentry{apen}|setentrycounter[]{page}"\glsnumberformat}{35}
 \glossaryentry{SampEn?\glossentry{sampen}|setentrycounter[]{page}"\glsnumberformat}{35}
-\glossaryentry{VLB?\glossentry{vlb}|setentrycounter[]{page}"\glsnumberformat}{65}
-\glossaryentry{ELBO?\glossentry{elbo}|setentrycounter[]{page}"\glsnumberformat}{65}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{39}
+\glossaryentry{VLB?\glossentry{vlb}|setentrycounter[]{page}"\glsnumberformat}{68}
+\glossaryentry{ELBO?\glossentry{elbo}|setentrycounter[]{page}"\glsnumberformat}{68}

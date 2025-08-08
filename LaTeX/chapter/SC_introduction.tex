@@ -1,0 +1,125 @@
+\chapter{Stochastic calculus intoduction}\label{sec:SC_intro}
+
+This chapter is a reminder of some key notions of stochastic calculus. More details are presented at the end of the report.
+
+A \textbf{stochastic process} is formally defined as:
+
+\defn{Stochastic process}{
+    A stochastic process $X$ is defined as:
+\begin{align}
+    X &= (\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
+    &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
+\end{align}
+where:
+    \begin{itemize}
+        \item $\Omega$ is a set (universe of possibles).
+        \item $\mathcal{F}$ is a $\sigma$-algebra of parts of $\Omega$
+        \item $\mathbb{P}$ is a probability measure on $(\Omega, \mathcal{F})$
+        \item $T \subset \mathbb{R}_+$ represents time
+        \item $(\mathcal{F}_t)_{t \in T}$ is a \textbf{filtration}, ie an increasing family of sub-$\sigma$-algebras of $\mathcal{F}$ indexed by $t$ : $\forall 0 \leq s \leq t \in T$, $\mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F}$.
+        \item $(X_t)_{t \in T}$ is a family of RV defined on $(\Omega, \mathcal{F})$ with values in a measurable space $(E, \mathcal{E})$ or more simply $(E, \mathcal{B}(E))$ (set $E$ endowed with its Borelian $\sigma$-algebra).
+        \item $(X_t)_{t \in T}$ is assumed \textbf{adapted to the filtration} $(\mathcal{F}_t)_{t \in T}$, meaning $\forall t \in T$, $X_t$ is $\mathcal{F}_t$-measurable
+    \end{itemize}
+}
+
+A filtration $\mathcal{F}_{t\geq 0}$ is often viewed and introduced as the \textit{set of information available at time $t$}. 
+
+The core of stochastic calculus is the stochastic process known as \textbf{Brownian motion}, or \textbf{Wiener process}. 
+We use here the definition of a multivariate Brownian motion:
+
+\defn{Brownian motion}{
+A stochastic process $B = \brownian$ with values in $\mathbb{R}^d$ is called \textbf{Brownian motion} iff:
+\begin{itemize}
+    \item $B_0 = 0$ $\mathbb{P}$-a.s.
+    \item $\forall 0 \leq s \leq t$, the random variable $B_t-B_s$ is independent from $\mathcal{F}_t$.
+    \item $\forall 0 \leq s \leq t$, $B_t - B_s \sim \mathcal{N}(0,Q(t-s))$
+    \item $B$ is continuous \footnote{or more exactly there exists a continuous version of $B$, see \cite{mouvement-brownien-calcul-ito}}
+\end{itemize}
+where the matrix $Q \in \mathbb{S}^{++}_d$ is called the \textbf{diffusion matrix}.
+}
+
+Meaning : the process $B$ starts from 0, its increments are independent from the past, its increments over disjoint time intervals are independent of each other, 
+its increments follow a centered normal law of variance equal to the length of the time interval multiplied by the diffusion matrix.
+NB : some authors choose the define the diffusion matrix (or scalar) outside of the Brownian motion.
+
+A core result is that the quadratic variation of the Brownian motion over an interval $[s,t]$, equiped
+with a subdivison $\pi = \{s=t_0 < t_1 < ...< t_k <... < t_n=t\}$ defined as the limit when $\vert \pi \vert \rightarrow 0$ 
+of $V_{\pi}^{(2)} = \sum_{k=0}^{n-1} \vert f(t_{k+1})-f(t_k)\vert^{2}$ is:
+
+\begin{align}
+    &\underset{\vert \pi \vert \rightarrow 0}{\text{lim}}\,\, V_{\pi}^{(2)} = Q(t-s) \,\, \text{in} \,\, L^{2}
+\end{align}
+
+Or, heuristically, 
+\begin{align}
+    \label{dB_square_is_dt}
+    \mathbb{E}(dB_t dB_t^T) = Q dt
+\end{align}
+
+Ito then proceeds to define \textbf{stochastic integrals}, starting with elementary processes:
+
+\defn{Elementary process}{
+A stochastic process $X = (X_s)_{s \in [a,b]}$ is called \textbf{elementary} if there exists a subdivision $a = t_0 < t_1 < ... < t_n = b$ of $[a,b]$, such that:
+\[
+\forall t \in [a,b], \forall \omega \in \Omega, X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\]
+with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
+
+This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
+
+We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$)) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$
+}
+
+\defn{Stochastic integral of an elementary process}{
+Let $X \in \mathcal{E}$, ie
+\[
+X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\]
+\textbf{The stochastic integral of $X$ is the real random variable} :
+\[
+\int_a^b X_t dB_t := \sum_{i=0}^{n-1} X_i (B_{t_{i+1}} - B_{t_{i}})
+\]
+}
+
+The notion is then extended to other stochastic processes (in spaces of square integrable processes, see the annex).
+
+The definition of a \gls{sde} is derived from the notion of stochastic integral:
+
+\defn{Ito's process}{
+    A process $X = (X_t)_{t \in [0, T]}$ is called a \textbf{Ito's process} if it can be written as:
+    \begin{align}
+        \label{ito sde definition}
+        X_t &= X_0 + \int_{0}^{t}a_s ds + \int_{0}^{t} b_s dB_s \,\,\, \forall t \in [0,T]
+    \end{align}
+    where $a$ and $b$ are two stochastic processes such that the integrals exist (ie $a \in  \Lambda^1$ and 
+    $b \in \Lambda^2$).
+    Equivalently, we write:
+    \begin{align*}
+        dX_t = a_t dt + b_t dB_t
+    \end{align*}
+}
+
+The very famous \textbf{Ito's formula} will allow to make calulations on stochastic processes:
+
+\thmp{Itô's formula}{
+An Itô's process remains an Itô's process when it is transformed by a deterministic function that is "smooth enough".
+
+Let $X$ be a Itô's process on $[0,T]$ : $dX_t = a_tdt + b_t dB_t$.
+
+Let:
+\begin{align*}
+    f : \mathbb{R} \times \mathbb{R} &\rightarrow \mathbb{R} \\
+    (x,t) &\mapsto f(x,t)
+\end{align*}
+be $\mathcal{C}^{2,1}$ : $\mathcal{C}^2$ in $x$, and $\mathcal{C}^1$ in $t$.
+
+Then $(f(X_t,t))_{t \in [0,T]}$ is also an Itô's process and:
+\begin{align}
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \frac{\partial f}{\partial x}(X_t,t) dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(X_t,t)b_t^2 dt
+\end{align}
+The last term is Itô's complementary term.
+In dimension $d$:
+\begin{align}
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \nabla f^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( \nabla \nabla^T f dX_t dX_t^T \right)
+\end{align}
+}{see book \cite{mouvement-brownien-calcul-ito} for a clean proof. A heuristic process can be derived by using a Taylor-Lagrange decomposition at order 2, and using \ref{dB_square_is_dt}}
