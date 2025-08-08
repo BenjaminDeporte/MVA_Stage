@@ -1,6 +1,7 @@
 \chapter{Stochastic calculus intoduction}\label{sec:SC_intro}
 
-This chapter is a reminder of some key notions of stochastic calculus. More details are presented at the end of the report.
+This chapter is a reminder of some key notions of stochastic calculus. 
+More details are presented at the end of the report, and in \cite{mouvement-brownien-calcul-ito}, \cite{sarkka_applied_2019}.
 
 A \textbf{stochastic process} is formally defined as:
 
@@ -42,9 +43,9 @@ Meaning : the process $B$ starts from 0, its increments are independent from the
 its increments follow a centered normal law of variance equal to the length of the time interval multiplied by the diffusion matrix.
 NB : some authors choose the define the diffusion matrix (or scalar) outside of the Brownian motion.
 
-A core result is that the quadratic variation of the Brownian motion over an interval $[s,t]$, equiped
-with a subdivison $\pi = \{s=t_0 < t_1 < ...< t_k <... < t_n=t\}$ defined as the limit when $\vert \pi \vert \rightarrow 0$ 
-of $V_{\pi}^{(2)} = \sum_{k=0}^{n-1} \vert f(t_{k+1})-f(t_k)\vert^{2}$ is:
+A core result is that the quadratic variation of the Brownian motion over an interval $[s,t]$ (equiped
+with a subdivison $\pi = \{s=t_0 < t_1 < ...< t_k <... < t_n=t\}$), and defined as the limit when $\vert \pi \vert \rightarrow 0$ 
+of $V_{\pi}^{(2)} = \sum_{k=0}^{n-1} \vert f(t_{k+1})-f(t_k)\vert^{2}$, is:
 
 \begin{align}
     &\underset{\vert \pi \vert \rightarrow 0}{\text{lim}}\,\, V_{\pi}^{(2)} = Q(t-s) \,\, \text{in} \,\, L^{2}
@@ -92,8 +93,8 @@ The definition of a \gls{sde} is derived from the notion of stochastic integral:
         X_t &= X_0 + \int_{0}^{t}a_s ds + \int_{0}^{t} b_s dB_s \,\,\, \forall t \in [0,T]
     \end{align}
     where $a$ and $b$ are two stochastic processes such that the integrals exist (ie $a \in  \Lambda^1$ and 
-    $b \in \Lambda^2$).
-    Equivalently, we write:
+    $b \in \Lambda^2$).\\
+    Equivalently, we write $X_t$ as the soltuion to the \textbf{Stochastic Differential Equation}:
     \begin{align*}
         dX_t = a_t dt + b_t dB_t
     \end{align*}
@@ -117,9 +118,9 @@ Then $(f(X_t,t))_{t \in [0,T]}$ is also an Itô's process and:
 \begin{align}
     d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \frac{\partial f}{\partial x}(X_t,t) dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(X_t,t)b_t^2 dt
 \end{align}
-The last term is Itô's complementary term.
-In dimension $d$:
+The last term is Itô's complementary term.\\
+In dimension $d > 1$:
 \begin{align}
-    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \nabla f^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( \nabla \nabla^T f dX_t dX_t^T \right)
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + ()\nabla f)^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( (\nabla \nabla^T f) dX_t dX_t^T \right)
 \end{align}
 }{see book \cite{mouvement-brownien-calcul-ito} for a clean proof. A heuristic process can be derived by using a Taylor-Lagrange decomposition at order 2, and using \ref{dB_square_is_dt}}

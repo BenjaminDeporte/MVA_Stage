@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  8 AUG 2025 11:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  8 AUG 2025 17:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1802,6 +1802,9 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 2.
 
+Underfull \vbox (badness 2253) has occurred while \output is active []
+
+
 
 [4])
 \tf@toc=\write9
@@ -2162,7 +2165,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [38]
 LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
-(Font)              Font shape `OT1/txr/bx/it' tried instead on input line 125.
+(Font)              Font shape `OT1/txr/bx/it' tried instead on input line 126.
 
 
 [39])
@@ -2177,7 +2180,18 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-)
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 5.
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.30 }
+      
+
+LaTeX Warning: Reference `ode' on page 41 undefined on input line 32.
+
+
 
 [41
 
@@ -2185,8 +2199,30 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 ]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.91 }
+      
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[42
+
+
+[42]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.110 }
+       
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[43])
+
+[44]
+
+[45
 
 
 
@@ -2202,12 +2238,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[43
+[46
 
 
 ]
 
-[44
+[47
 
 
 
@@ -2223,12 +2259,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[45
+[48
 
 
 ]
 
-[46
+[49
 
 
 
@@ -2249,7 +2285,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.13 }
       
 
-[47
+[50
 
 
 ]
@@ -2272,7 +2308,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[48]
+[51]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2287,12 +2323,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[49]
+[52]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[50]
+[53]
 LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
@@ -2301,19 +2337,19 @@ Underfull \vbox (badness 2165) has occurred while \output is active []
 
 
 
-[51]
+[54]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[52]
+[55]
 Underfull \vbox (badness 4647) has occurred while \output is active []
 
 
 
-[53])
+[56])
 
-[54]
+[57]
 \openout2 = `chapter/stochastic_calculus.aux'.
 
  (./chapter/stochastic_calculus.tex
@@ -2343,7 +2379,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[55
+[58
 
 
 
@@ -2363,7 +2399,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.87 }
       
 
-[56]
+[59]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2388,7 +2424,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[57]
+[60]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2403,14 +2439,14 @@ Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
 
-[58]
+[61]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.158 }{p129}
              )
 
-[59]
+[62]
 \openout2 = `chapter/ito_calculus_sde.aux'.
 
  (./chapter/ito_calculus_sde.tex
@@ -2440,7 +2476,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[60
+[63
 
 
 
@@ -2460,7 +2496,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[61]
+[64]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2475,14 +2511,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[62]
+[65]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.140 }
        
 
-[63]
+[66]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2499,11 +2535,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.211 }{}
          
 
-[64])
+[67])
 
-[65]
+[68]
 
-[66
+[69
 
 
 
@@ -2521,12 +2557,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
 Missing character: There is no ; in font nullfont!
 
 
-[67
+[70
 
 
 ]
 
-[68]
+[71]
 Appendix B.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
@@ -2535,11 +2571,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
 
 
 
-[69
+[72
 
 ]
 
-[70]
+[73]
 Appendix C.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
@@ -2548,19 +2584,19 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
 
 )
 
-[71
+[74
 
 ]
 No file main.gls.
 
 
-[72
+[75
 
 
 
 ]
 
-[73
+[76
 
 
 ]
@@ -2575,33 +2611,37 @@ Overfull \hbox (0.44476pt too wide) in paragraph at lines 153--153
 
 
 
-[74]
-runsystem(latexminted cleantemp  --timestamp 20250808115429 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+[77]
+runsystem(latexminted cleantemp  --timestamp 20250808171548 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
  (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: BEABF236B0A0451D128C70D936904043;4981.
+(rerunfilecheck)             Checksum: E91B3F16F4A84AB7ED4B3D41730BC466;5206.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64372 strings out of 467801
- 1511757 string characters out of 5431917
- 2770044 words of memory out of 5000000
- 91559 multiletter control sequences out of 15000+600000
- 697779 words of font info for 206 fonts, out of 8000000 for 9000
+ 64457 strings out of 467801
+ 1512908 string characters out of 5431917
+ 2770696 words of memory out of 5000000
+ 91606 multiletter control sequences out of 15000+600000
+ 699718 words of font info for 209 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,33n,108p,2554b,1739s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (74 pages, 317732 bytes).
+Output written on main.pdf (77 pages, 328447 bytes).
 PDF statistics:
- 964 PDF objects out of 1000 (max. 8388607)
- 842 compressed objects within 9 object streams
- 309 named destinations out of 1000 (max. 500000)
- 221 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1037 PDF objects out of 1200 (max. 8388607)
+ 911 compressed objects within 10 object streams
+ 345 named destinations out of 1000 (max. 500000)
+ 237 words of extra memory for PDF output out of 10000 (max. 10000000)
 

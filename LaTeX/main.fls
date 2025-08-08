@@ -899,6 +899,10 @@ OUTPUT chapter/SC_SDE_results.aux
 INPUT ./chapter/SC_SDE_results.tex
 INPUT ./chapter/SC_SDE_results.tex
 INPUT chapter/SC_SDE_results.tex
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txb.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txb.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmb.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxb.tfm
 INPUT ./chapter/experiments.tex
 INPUT ./chapter/experiments.tex
 OUTPUT chapter/experiments.aux
