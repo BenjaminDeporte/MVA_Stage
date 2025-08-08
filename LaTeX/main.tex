@@ -50,7 +50,7 @@ I invested a significatant amount of time in its study, especially \cite{mouveme
 This has been quite a challenge given the time frame but proved extremely useful. We present some key results,
 and added a longer reference at the end of this report.
 
-We see that the solution of a \gls{sde} is a Markov process in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equations. Integrating those between two
+We see that the solution of a \gls{sde} is a Markov process in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. Integrating those between two
 time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}. Another well known 
 use-case is diffusion models. In the case of a linear \gls{sde}, the solution is a Gaussian process. Conversely, for some appropriate mean and kernel functions, 
 a Gaussian process can be represented as the solution of a linear \gls{sde}. This allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.

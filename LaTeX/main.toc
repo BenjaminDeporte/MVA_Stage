@@ -26,3 +26,4 @@
 \contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{70}{appendix.1.A}%
 \contentsline {chapter}{\numberline {B}Gaussian Process}{72}{appendix.1.B}%
 \contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{74}{appendix.1.C}%
+\contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{75}{appendix.1.D}%

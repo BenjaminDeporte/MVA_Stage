@@ -128,6 +128,15 @@ The transition density ($p(X_t = x(t) \vert X_s = x(s)$) can be found explicitel
     P(t \vert s) &= \int_{s}^{t} \Psi(t,\tau)L(\tau)Q L(\tau)^{T}\Psi(t, \tau)^{T} d\tau
 \end{align}
 
+Which allows to \textbf{discretize} the \gls{sde} as:
+\begin{align}
+    \label{linear sde discretization}
+    x_{t_{k+1}} &= A_k x_{t_k} + q_k \\
+    q_k &\sim \mathcal{N}(0, \Sigma_k) \\
+    A_k &= \Psi(t_{k+1}, t_k) \\
+    \Sigma_k &= \Sigma(t_{k+1}, t_k) = \int_{t_k}^{t_{k+1}} \Psi(t_{k+1}, \tau) L(\tau)Q L(\tau)^{T} \Psi(t_{k+1}, \tau)^{T} d\tau
+\end{align}
+
 In practice, the \textbf{linearization of an SDE} is one of the techniques used to approximate \gls{sde} and 
 allow computations:
 \begin{align}

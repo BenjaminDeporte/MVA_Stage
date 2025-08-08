@@ -193,3 +193,140 @@ The most important example is the $\mathbb{KL}$-divergence between two multivari
     \frac{1}{2}\left[ \text{tr}(\Sigma_2^{-1}\Sigma_1) + (\mu_2-\mu_1)^T \Sigma_2^{-1}(\mu_2-\mu_1) -D + \log{\frac{\vert \Sigma_2\vert}{\vert \Sigma_1 \vert}}\right]
 \end{align}
 \end{tcolorbox}
+
+
+%
+% ----- ORNSTEIN UHLENBECK ---------------
+%
+
+\chapter{Ornstein Uhlenbeck}\label{Ornstein Uhlenbeck}
+
+We summarize here some computations of chapters \ref{sec:SC_intro} and \ref{sec:SDE_results} for the Ornstein-Uhlenbeck process.
+
+\defn{Ornstein Uhlenbeck process}{
+    The \textbf{Ornstein Uhlenbeck process} is the stochastic processes solution of the linear \gls{sde}:
+    \begin{align}
+        dX_t &= - \lambda X_t dt + \sigma dB_t \\
+        X_{t_0} &= X_0
+    \end{align}
+    where $\lambda > 0$ is the \textbf{drift} and $\sigma > 0$ the \textbf{diffusion coefficient}.
+}
+
+We start by a preliminary result:
+
+\thmp{Stochastic exponential}{
+Let $Z_t$ be the Itô's process (ie $a_t$ and $b_t$ two stochastic processes)
+\begin{align*}
+    dZ_t &= a_t dt + b_t dB_t \\
+    Z_0 &= 0
+\end{align*}
+Then consider the SDE :
+\begin{align*}
+    dX_t &= X_t dZ_t \\
+    &= a_t X_t dt + b_t X_t dB_t \\
+    X_0 &= 1
+\end{align*}
+Then the solution is:
+\begin{align}
+    \label{solution stochastic exponential}
+    X_t &= e^{Y_t} \\
+    Y_t &= Z_t - \frac{1}{2}\int_0^t b_s^2 ds
+\end{align}
+}
+{
+We set
+\begin{align*}
+    X_t &= e^{Y_t} = f(Y_t,t) \\
+    dY_t &= \mu_t dt + \sigma_t dB_t
+\end{align*}
+and apply Itô's formula:
+\begin{align*}
+    dX_t &= d(e^{Y_t}) \\
+    &= X_t dY_t + \frac{1}{2}X_t \sigma_t^2dt \\
+    &= X_t \left( \mu_t dt + \sigma_t dB_t \right) + \frac{1}{2}X_t \sigma_t^2dt \\
+    &= \left( X_t \mu_t + \frac{1}{2}X_t \sigma_t^2\right) dt + X_t \sigma_t dB_t \\
+\end{align*}
+
+By identification:
+\begin{align*}
+    \mu_t &= a_t - \frac{1}{2}\sigma_t^2 \\
+    \sigma_t &= b_t
+\end{align*}
+Then
+\begin{align*}
+    dY_t &= \left( a_t - \frac{1}{2}\sigma_t^2\right) dt + \sigma_t dB_t \\
+    &= dZ_t - \frac{1}{2}\sigma^2_t dt \\
+    Y_t &= Z_t - \frac{1}{2} \int_0^t b_s^2 ds \,\, (Y_0 = 0)
+\end{align*}
+Conversely, $e^{Y_t}$ is solution, as
+\begin{align*}
+    d(e^{Y_t}) &= e^{Y_t} dY_t + \frac{1}{2}e^{Y_t} b_t^2 dt \\
+    &= e^{Y_t} \left( dY_t + \frac{1}{2}b_t^2 dt\right) \\
+    &= e^{Y_t} dZ_t
+\end{align*}
+}
+
+\thmp{Solution of Ornstein Uhlenbeck}{
+    \begin{align}
+    \label{analytical solution of OU}
+    dX_t &= - \lambda X_t dt + \sigma dB_t \\
+    X_{t_0} &= X_0 \\
+    X_t &= e^{- \lambda t} X_0 + \sigma \mathcal{N}(0, \frac{1}{2 \lambda} (1 - e^{-2 \lambda t}))
+\end{align}
+}{
+For Ornstein-Uhlenbeck, $a_t = - \lambda$ and $b_t = \sigma$ in \ref{solution stochastic exponential}.
+We note that we have to compute:
+\begin{align}
+    \int_{0}^{t} e^{\lambda s}dB_s &= \underset{n \rightarrow \infty}{\lim} \sum_{k=0}^{n} e^{\lambda t_k}
+    (B_{t_{k+1}} - B_{t_k})
+\end{align}
+The sum on the rhs is a sum of independent Gaussians $e^{\lambda t_k}(B_{t_{k+1}} - B_{t_k}) \sim e^{\lambda t_k}\mathcal{N}(0, t_{k+1}-t_k)$, 
+so the sum is a centered Gaussian of variance $\sum_{k=0}^{n} e^{\lambda t_k} (t_{k+1}-t_k)$.
+So :
+\begin{align}
+    \int_{0}^{t} e^{\lambda s}dB_s &= \underset{n \rightarrow \infty}{\lim} \
+    \mathcal{N}(0, \underset{n \rightarrow \infty}{\lim} sum_{k=0}^{n} e^{\lambda t_k}
+    (B_{t_{k+1}} - B_{t_k})) \\
+    &= \mathcal{N}(0, \int_{0}^{t} e^{\lambda s}ds) \\
+    &= \mathcal{N}(0, \frac{1}{2 \lambda} (e^{2 \lambda t} - 1))
+\end{align}
+}
+
+\thmp{Fokker Plank Kolmogorov solution for O.U.}{
+    The stationary solution of the Fokker Plank Kolmogorov equation of a 1D Ornstein Uhlenbeck process is:
+    \begin{align}
+        \frac{\partial^{2}p}{\partial x^{2}} + \frac{2 \lambda}{\sigma} x \frac{\partial p}{\partial x} \
+        + \frac{2 \lambda}{\sigma} p &= 0 \\
+        p &\propto \exp{- \frac{\lambda x^{2}}{\sigma}}
+    \end{align}
+}{
+    We have $F(X_t,t) = - \lambda X_t$, $L(X_t,t) = 1$, $Q = \sigma$ in \ref{FPK}, which leads to:
+    \begin{align}
+        \frac{\partial p}{\partial t} &= \frac{\sigma}{2} \frac{\partial^{2}p}{\partial x^{2}} + \lambda x \frac{\partial p}{\partial x} \
+        + \lambda p
+    \end{align}
+    When $p$ is stationary (ie when $t \rightarrow \infty$), then $\frac{\partial p}{\partial t} = 0$ and 
+    we get the result.
+}
+
+\thmp{Moment differential equations for O.U.}{
+    The equations \ref{SDE_linear_moments} simplify in:
+    \begin{align}
+        \frac{dm}{dt} &= -\lambda m \\
+        \frac{dP}{dt} &= - 2 \lambda P + \sigma \\
+        x(0) &= x_0 \\
+        P(0) &= 0 \\
+        X_t &\sim \mathcal{N}(X_t \vert m(t), P(t))
+    \end{align}
+}{substituting $\lambda$ and $\sigma$ in \ref{SDE_linear_moments}}
+
+
+\thmp{Discretization of O.U}{
+    The discretization \ref{linear sde discretization} writes:
+    \begin{align}
+        x_{t_{k+1}} &= a_k x_{t_k} + q_k \\
+        q_k &\sim \mathcal{N}(0, \Sigma_k) \\
+        a_k &= e^{-\lambda \Delta t_k} \\
+        \Sigma_k &= \frac{\sigma}{2 \lambda} \left( 1 - e^{-2 \lambda \Delta t_k} \right)
+    \end{align}
+}{substituting $\lambda$ and $\sigma$ into \ref{linear sde discretization}}
