@@ -2437,6 +2437,7 @@
     <bcf:citekey order="60" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="61" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="62" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
+    <bcf:citekey order="63" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="ynt">

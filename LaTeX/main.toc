@@ -27,3 +27,4 @@
 \contentsline {chapter}{\numberline {B}Gaussian Process}{72}{appendix.1.B}%
 \contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{74}{appendix.1.C}%
 \contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{75}{appendix.1.D}%
+\contentsline {chapter}{\numberline {E}Why Brownian motion is a Gaussian and a Markov process}{79}{appendix.1.E}%

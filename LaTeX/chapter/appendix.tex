@@ -195,9 +195,9 @@ The most important example is the $\mathbb{KL}$-divergence between two multivari
 \end{tcolorbox}
 
 
-%
+% ----------------------------------------
 % ----- ORNSTEIN UHLENBECK ---------------
-%
+% ----------------------------------------
 
 \chapter{Ornstein Uhlenbeck}\label{Ornstein Uhlenbeck}
 
@@ -330,3 +330,73 @@ So :
         \Sigma_k &= \frac{\sigma}{2 \lambda} \left( 1 - e^{-2 \lambda \Delta t_k} \right)
     \end{align}
 }{substituting $\lambda$ and $\sigma$ into \ref{linear sde discretization}}
+
+
+% -----------------------------------------------------------------
+% --- WHY BROWNIAN MOTION IS GAUSSIAN AND MARKOV ------------------
+% -----------------------------------------------------------------
+
+\chapter{Why Brownian motion is a Gaussian and a Markov process}\label{brownian_motion_gaussian_and_markov}
+
+Solutions of linear \gls{sde} are Gaussian processes and Markov processes. I found counter-intuitive at first, that a Gaussian process might be Markovian.
+After all, the kernel function encodes dependencies and correlations between several points, so there is no \textit{a priori} reason to have 
+$p(x_n \vert x_{n-1}, x_{n-2}, ... , x_1) = p(x_n \vert x_{n-1})$.
+
+The Markovian property is actually enabled by the GP kernel. Here is a toy example for the Browian motion.
+
+The Brownian motion is solution of the simplest linear equation: $dX_t = dB_t$.
+
+\thmp{Kernel function of the Brownian motion}{
+    The Brownian motion is the solution of the linear \gls{sde}
+    \begin{align}
+        dX_t &= dB_t
+    \end{align}
+    It is a Gaussian process with mean and kernel functions given by:
+    \begin{align}
+        B_t &\sim \mathcal{GP}(0, \text{min}(t,t'))
+    \end{align}
+}{An elegant proof can be found in \cite{mouvement-brownien-calcul-ito}. Let's consider a discretized version of the Brownian motion, ie a random walk:
+\begin{align}
+    X_{n} &= X_{n-1} + \xi_n \\
+    \xi_n &\underset{\text[i.i.d.]}{\sim} \mathcal{N}(0,1)
+\end{align}
+Then, $\forall \alpha_1, \alpha_2, ..., \alpha_n \in \mathbb{R}$,
+\begin{align}
+    \alpha_1 X_1 + \alpha_2 X_2 + ... + \alpha_n X_n &= \alpha_1 \xi_1 + \alpha_2 (\xi_1 + \xi_2) + ... + \alpha_n (\xi_1 + \xi_2 + ... \xi_n) \\
+    &= (\alpha_1 + \alpha_2 + ... + \alpha_n)\xi_1 + (\alpha_2 + ... + \alpha_n)\xi_2 + ... + \alpha_n \xi_n
+\end{align}
+which is Gaussian as a linear combination of independent Gaussians. Therefore $X_{[1:n]} = (X_1,...,X_n)$ is a Gaussian vector and $(X_n)_{n \geq 1}$ is a Gaussian process.
+
+The law of the vector $X_{[1:n]}$ is computed using the caracteristic function (with $\alpha = (\alpha_1,...,\alpha_n)$)
+\begin{align}
+    \phi(\alpha) &= \mathbb{E}(e^{<\alpha, X_{[1:n]}}) \\
+    &= \mathbb{E}(e^{((\alpha_1 + \alpha_2 + ... + \alpha_n)\xi_1 + (\alpha_2 + ... + \alpha_n)\xi_2 + ... + \alpha_n \xi_n)}) \\
+    &= \mathbb{E}(e^{(\alpha_1 + \alpha_2 + ... + \alpha_n)\xi_1}e^{(\alpha_2 + ... + \alpha_n)\xi_2}...e^{\alpha_n\xi_n}) \\
+    &= \mathbb{E}(e^{(\alpha_1 + \alpha_2 + ... + \alpha_n)\xi_1}) \mathbb{E}(e^{(\alpha_2 + ... + \alpha_n)\xi_2}) ... \mathbb{E}(e^{\alpha_n\xi_n}) \\
+    &= e^{-\frac{1}{2}(\alpha_1 + \alpha_2 + ... + \alpha_n)^{2}} e^{-\frac{1}{2}(\alpha_2 + ... + \alpha_n)^{2}} ... e^{-\frac{1}{2}\alpha_n^{2}} \\
+    &= e^{-\frac{1}{2}\sum_{i=1}^{n}(\sum_{j=i}^{n}\alpha_j)^{2}} \\
+    &= e^{-\frac{1}{2}\vert\vert B \alpha \vert\vert ^{2}} \\
+    &= e^{-\frac{1}{2} < \alpha, B^{T}B \alpha >}
+\end{align}
+with the matrix:
+\begin{align}
+    B &= \begin{pmatrix}
+        1 & 0 & 0 & ... & 0 \\
+        1 & 1 & 0 & ... & 0 \\
+        \vdots \\
+        1 & 1 & 1 & ... & 1
+    \end{pmatrix}
+\end{align}
+and the covariance matrix $\Gamma = B^{T}B$:
+\begin{align}
+    \Gamma &= \begin{pmatrix}
+        1 & 1 & 1 & ... & 1 \\
+        1 & 2 & 2 & ... & 2 \\
+        1 & 2 & 3 & ... & 3 \\
+        \vdots \\
+        1 & 2 & 3 & ... & n
+    \end{pmatrix}
+\end{align}
+ie $\Gamma_{i,j} = \text{min}(i,j)$
+}
+
