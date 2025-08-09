@@ -400,3 +400,82 @@ and the covariance matrix $\Gamma = B^{T}B$:
 ie $\Gamma_{i,j} = \text{min}(i,j)$
 }
 
+Let's look now at three points $x_1, x_2, x_3$, taken at times $t_1 < t_2 < t_3$.
+
+By definition of a Gaussian process, their joint probability is Gaussian:
+
+\begin{align}
+    \begin{pmatrix}
+        x_1 \\ x_2 \\ x_3
+    \end{pmatrix} &\sim 
+    \mathcal{N}
+    \begin{pmatrix}
+        \begin{pmatrix}
+            0 \\ 0 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            \Gamma(t_1,t_1) & \Gamma(t_1,t_2) & \Gamma(t_1, t_3) \\
+            \Gamma(t_2,t_1) & \Gamma(t_2,t_2) & \Gamma(t_3, t_3) \\
+            \Gamma(t_3,t_1) & \Gamma(t_3,t_2) & \Gamma(t_3, t_3) \\
+        \end{pmatrix}
+    \end{pmatrix} \\
+    &= \mathcal{N}
+    \begin{pmatrix}
+        \begin{pmatrix}
+            0 \\ 0 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            t_1 & t_1 & t_1 \\
+            t_1 & t_2 & t_2 \\
+            t_1 & t_2 & t_3 \\
+        \end{pmatrix}
+    \end{pmatrix}
+\end{align}
+
+We compute now $p(x_3 \vert x_2, x_1)$ with Gaussian conditionning:
+
+\begin{align}
+    p(x_3 \vert x_2, x_1) &= \mathcal{N}(m_{3,12}, k_{3,12}) \\
+    m_{3,12} &= \begin{pmatrix}
+        t_1 & t_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        t_1 & t_1 \\
+        t_1 & t_2
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+        x_1 \\ x_2
+    \end{pmatrix} \\
+    k_{3,12} &= t_3 - \begin{pmatrix}
+        t_1 & t_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        t_1 & t_1 \\
+        t_1 & t_2
+    \end{pmatrix}^{-1}
+    \begin{pmatrix}
+        t_1 \\ t_2
+    \end{pmatrix}
+\end{align}
+
+We compute
+\begin{align}
+    \begin{pmatrix}
+        t_1 & t_1 \\
+        t_1 & t_2
+    \end{pmatrix}^{-1} &= \frac{1}{t_1(t_2 - t_1)}
+    \begin{pmatrix}
+        t_2 & -t_1 \\
+        -t_1 & t_1
+    \end{pmatrix}
+\end{align}
+
+and finally get:
+\begin{align}
+    m_{3,12} &= x_2 \\
+    k_{3,12} &= t_3 - t_2
+\end{align}
+
+which proves that $p(x_3 \vert x_2, x_1) = p(x_3 \vert x_2) = \mathcal{N}(x_2, t_3-t_2)$, ie the Browian motion is a Markov process,
+and we also retrieve that $x_3 - x_2 \sim \mathcal{N}(0, t_3-t_2)$.
+

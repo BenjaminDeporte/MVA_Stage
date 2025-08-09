@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  9 AUG 2025 11:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  9 AUG 2025 20:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2649,19 +2649,24 @@ Underfull \vbox (badness 6978) has occurred while \output is active []
 
 [79
 
-])
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[80]
+
+
+[80])
+
+[81]
 No file main.gls.
 
 
-[81
+[82
 
 
 
 ]
 
-[82
+[83
 
 
 ]
@@ -2676,8 +2681,8 @@ Overfull \hbox (0.44476pt too wide) in paragraph at lines 153--153
 
 
 
-[83]
-runsystem(latexminted cleantemp  --timestamp 20250809113755 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+[84]
+runsystem(latexminted cleantemp  --timestamp 20250809202427 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
  (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
  ***********
@@ -2695,18 +2700,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64531 strings out of 467801
- 1514051 string characters out of 5431917
+ 64540 strings out of 467801
+ 1514178 string characters out of 5431917
  2769980 words of memory out of 5000000
  91629 multiletter control sequences out of 15000+600000
  699718 words of font info for 209 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,33n,108p,2554b,1739s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (83 pages, 346252 bytes).
+Output written on main.pdf (84 pages, 348752 bytes).
 PDF statistics:
- 1134 PDF objects out of 1200 (max. 8388607)
- 1001 compressed objects within 11 object streams
- 396 named destinations out of 1000 (max. 500000)
+ 1149 PDF objects out of 1200 (max. 8388607)
+ 1015 compressed objects within 11 object streams
+ 405 named destinations out of 1000 (max. 500000)
  253 words of extra memory for PDF output out of 10000 (max. 10000000)
 
