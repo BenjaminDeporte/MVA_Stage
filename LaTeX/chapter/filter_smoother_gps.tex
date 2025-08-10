@@ -1,0 +1,82 @@
+\chapter{Filtering, Smoothing, and the Kernels Zoo}\label{sec:filter smoother gps}
+
+Equiped with the stochastic calculus basics, we see in this chapter that the filtering and smoothing 
+tasks (ie computing posterior probabilities of the latent variables) provides a complete framework 
+for the corresponding tasks in \glspl{dvae}.
+
+We also see that, when a Gaussian process can be formulated as the solution of a linear \gls{sde} (ie
+ when the kernel function verifies some properties), then the gaussian process regression problem 
+ of computing posterior probabilities can be performed by algorithms in linear time.
+
+In this chapter, we consider \glspl{ct-ssm} and \glspl{cd-ssm}. In both cases, the latent variables are 
+defined by a (continuous) \gls{sde}. The observations can be defined by a second \gls{sde}, or by a set of 
+discrete-time observations.
+
+Formally, the \gls{ct-ssm} is defined by:
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Continuous-Time State Space model]
+    \begin{align}
+        dZ_t &= F(Z_t, t)dt + L(Z_t,t) dB_t \\
+        dX_t &= H(Z_t,t)dt + d\eta_t
+    \end{align}
+    where:
+    \begin{itemize}
+        \item $Z_t \in \mathbb{R}^{D}$ is the \textit{state}, ie a stochastic process defining the latent variable.
+        \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$.
+        \item $F \in \mathbb{R}^{D}$ and $L \in \mathbb{R}^{D \times S}$ are the usual drift and dispersion functions.
+        \item $X_t \in \mathbb{R}^{M}$ is the \textit{integrated} measurement (or observation) process.
+        \item $H \in \mathbb{R}^{M}$ is the observation/measurement model.
+        \item $\eta_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $R$.
+    \end{itemize}
+    NB : the observations are assumed to conditionnally independent of the state, and $B_t, \eta_t$ are 
+     assumed independent.
+    The observation model is equivalent to:
+    \begin{align}
+        y_t &= \frac{dX_t}{dt} = H(Z_t,t) + \epsilon_t \\
+        \epsilon_t &= \frac{d \eta_t}{dt}
+    \end{align}
+\end{tcolorbox}
+
+Formally, the \gls{cd-ssm} is defined by:
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Continuous-Discrete State Space model]
+    \begin{align}
+        dZ_t &= F(Z_t, t)dt + L(Z_t,t) dB_t \\
+        x_k &\sim p(x_k \vert z_{t_k})
+    \end{align}
+    where:
+    \begin{itemize}
+        \item $Z_t \in \mathbb{R}^{D}$ is the \textit{state}, ie a stochastic process defining the latent variable.
+        \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$.
+        \item $F \in \mathbb{R}^{D}$ and $L \in \mathbb{R}^{D \times S}$ are the usual drift and dispersion functions.
+        \item $x_k$ are the observations taken at \textbf{discrete times $(t_k)_{k=1,...,n}$}
+    \end{itemize}
+    NB : the observations are assumed to conditionnally independent of the state.
+\end{tcolorbox}
+
+We see that the \gls{gpvae} is a specific \gls{cd-ssm}, where the underlying latent stochastic process 
+is actually a Gaussian process.
+
+Also, the \gls{ct-ssm} assumes a Gaussian observation model, whereas the \gls{cd-ssm} allows more general 
+observation models.
+
+From a vocabulary stand-point, we will use indifferently \textit{state} or \textit{latent variable}, and 
+\textit{observation} or \textit{measurement}.
+
+\section{Filtering and Smooting}
+
+\textbf{Filtering} is the problem of determining the posterior probability of the latent $Z_t$ given the 
+discrete measurements, ie finding $p(Z_t \vert x_{1:k})$ with $t_k \leq t$. This corresponds to 
+determining the generative transition probability $p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})$ in our 
+\gls{dvae} setting.
+
+\textbf{Smoothing} is the problem of determining the posterior probability of the latent $Z_t$ given 
+all known observations, ie finding $p(Z_t \vert x_{1:T})$ for all $t \in [0,T]$. This corresponds to 
+determining the inference model $q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})$ in the \gls{dvae} setting.
+
+In general, close-form solutions can be derived when the latent variables \gls{sde} is linear. In continuous 
+time, we get the \textbf{Kalman-Bucy} filter equations, which discretize in the well-known \textbf{Kalman filter}.
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Kalman-Bucy filter]
+    
+\end{tcolorbox}

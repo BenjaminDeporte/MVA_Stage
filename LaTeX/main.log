@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  9 AUG 2025 20:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  10 AUG 2025 11:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1634,7 +1634,7 @@ Package csquotes Info: ... none found.
 LaTeX Font Info:    Trying to load font information for OT1+txr on input line 26.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
-) (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
+) (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 26.
@@ -1801,9 +1801,6 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 2.
-
-Underfull \vbox (badness 2253) has occurred while \output is active []
-
 
 
 [4])
@@ -2218,8 +2215,27 @@ l.110 }
 [43])
 
 [44]
+\openout2 = `chapter/filter_smoother_gps.aux'.
+
+ (./chapter/filter_smoother_gps.tex
+Chapter 12.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
 
 [45
+
+
+
+
+])
+
+[46]
+
+[47
 
 
 
@@ -2227,27 +2243,6 @@ l.110 }
 \openout2 = `chapter/experiments.aux'.
 
  (./chapter/experiments.tex
-Chapter 12.
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
-[][][][][][][][][]  
- []
-
-)
-
-[46
-
-
-]
-
-[47
-
-
-
-]
-\openout2 = `chapter/conclusions.aux'.
-
- (./chapter/conclusions.tex
 Chapter 13.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
@@ -2266,10 +2261,31 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 ]
+\openout2 = `chapter/conclusions.aux'.
+
+ (./chapter/conclusions.tex
+Chapter 14.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[50
+
+
+]
+
+[51
+
+
+
+]
 \openout2 = `chapter/stochastic_processes_basics.aux'.
 
  (./chapter/stochastic_processes_basics.tex
-Chapter 14.
+Chapter 15.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
@@ -2282,7 +2298,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.13 }
       
 
-[50
+[52
 
 
 ]
@@ -2305,7 +2321,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[51]
+[53]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2320,12 +2336,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[52]
+[54]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[53]
+[55]
 LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
@@ -2334,23 +2350,23 @@ Underfull \vbox (badness 2165) has occurred while \output is active []
 
 
 
-[54]
+[56]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[55]
+[57]
 Underfull \vbox (badness 4647) has occurred while \output is active []
 
 
 
-[56])
+[58])
 
-[57]
+[59]
 \openout2 = `chapter/stochastic_calculus.aux'.
 
  (./chapter/stochastic_calculus.tex
-Chapter 15.
+Chapter 16.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
@@ -2376,7 +2392,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[58
+[60
 
 
 
@@ -2396,7 +2412,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.87 }
       
 
-[59]
+[61]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2421,7 +2437,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[60]
+[62]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2436,18 +2452,18 @@ Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
 
-[61]
+[63]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.158 }{p129}
              )
 
-[62]
+[64]
 \openout2 = `chapter/ito_calculus_sde.aux'.
 
  (./chapter/ito_calculus_sde.tex
-Chapter 16.
+Chapter 17.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
@@ -2473,7 +2489,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[63
+[65
 
 
 
@@ -2493,7 +2509,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[64]
+[66]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2508,14 +2524,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[65]
+[67]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.140 }
        
 
-[66]
+[68]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2532,11 +2548,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.211 }{}
          
 
-[67])
+[69])
 
-[68]
+[70]
 
-[69
+[71
 
 
 
@@ -2554,12 +2570,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
 Missing character: There is no ; in font nullfont!
 
 
-[70
+[72
 
 
 ]
 
-[71]
+[73]
 Appendix B.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
@@ -2568,11 +2584,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
 
 
 
-[72
+[74
 
 ]
 
-[73]
+[75]
 Appendix C.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
@@ -2581,7 +2597,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
 
 
 
-[74
+[76
 
 ]
 Appendix D.
@@ -2602,7 +2618,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.267 }
        
 
-[75
+[77
 
 ]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
@@ -2611,7 +2627,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.293 }
        
 
-[76]
+[78]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2628,9 +2644,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.332 ...ma$ into \ref{linear sde discretization}}
                                                   
 
-[77]
+[79]
 
-[78]
+[80]
 Appendix E.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 339--339
@@ -2647,44 +2663,44 @@ Underfull \vbox (badness 6978) has occurred while \output is active []
 
 
 
-[79
+[81
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[80])
+[82])
 
-[81]
+[83]
 No file main.gls.
 
 
-[82
+[84
 
 
 
 ]
 
-[83
+[85
 
 
 ]
-Overfull \hbox (8.06023pt too wide) in paragraph at lines 153--153
+Overfull \hbox (8.06023pt too wide) in paragraph at lines 154--154
 \OT1/txr/m/n/10.95 books). Cam-bridge: Cam-bridge Uni-ver-sity Press, 2019, \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9781316510087. \OT1/txr/m/sc/10.95 doi\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 10 . 1017 / 9781108186735$[][]
  []
 
 
-Overfull \hbox (0.44476pt too wide) in paragraph at lines 153--153
+Overfull \hbox (0.44476pt too wide) in paragraph at lines 154--154
 []\OT1/txr/m/n/10.95 K. Mur-phy, \OT1/txr/m/it/10.95 Prob-a-bilis-tic macine learn-ing ad-vanced top-ics\OT1/txr/m/n/10.95 , 2023. [On-line]. Avail-able: [][]$\OT1/txtt/m/n/10.95 https : / / mitpress .
  []
 
 
 
-[84]
-runsystem(latexminted cleantemp  --timestamp 20250809202427 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+[86]
+runsystem(latexminted cleantemp  --timestamp 20250810112712 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
- (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
+ (./main.aux (./chapter/subject_intro.aux) (./chapter/outline.aux) (./chapter/related_work.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
@@ -2694,24 +2710,24 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 114CA96AE59F65A98257B1AE42489E74;5702.
+(rerunfilecheck)             Checksum: 40ADE9D5482F7A133742004B2D8745BC;6146.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64540 strings out of 467801
- 1514178 string characters out of 5431917
- 2769980 words of memory out of 5000000
- 91629 multiletter control sequences out of 15000+600000
+ 64642 strings out of 467801
+ 1516485 string characters out of 5431917
+ 2773934 words of memory out of 5000000
+ 91714 multiletter control sequences out of 15000+600000
  699718 words of font info for 209 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,33n,108p,2554b,1739s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (84 pages, 348752 bytes).
+Output written on main.pdf (86 pages, 354763 bytes).
 PDF statistics:
- 1149 PDF objects out of 1200 (max. 8388607)
- 1015 compressed objects within 11 object streams
- 405 named destinations out of 1000 (max. 500000)
- 253 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1176 PDF objects out of 1200 (max. 8388607)
+ 1040 compressed objects within 11 object streams
+ 415 named destinations out of 1000 (max. 500000)
+ 269 words of extra memory for PDF output out of 10000 (max. 10000000)
 
