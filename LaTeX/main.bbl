@@ -828,6 +828,23 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Computer Science - Computer Vision and Pattern Recognition,Statistics - Machine Learning}
     \endentry
+    \entry{mva_kernel_class}{misc}{}{}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Course materials: (Slides) - Machine learning with kernel methods / Spring 2025}
+      \field{title}{Course materials: ({Slides}) - {Machine} learning with kernel methods / {Spring} 2025}
+      \field{urlday}{11}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mva-kernel-methods.github.io/course-page/
+      \endverb
+      \verb{url}
+      \verb https://mva-kernel-methods.github.io/course-page/
+      \endverb
+    \endentry
     \entry{ProbabilisticGraphicalModels}{misc}{}{}
       \name{author}{1}{}{%
         {{hash=a184f9d88214b4981730114ccf21ad78}{%

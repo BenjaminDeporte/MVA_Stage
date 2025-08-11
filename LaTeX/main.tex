@@ -21,7 +21,7 @@
 Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.deporte@ens-paris-saclay.fr}% student 1
 }
 
-\date{August 2025}
+\date{August 2025 - DRAFT !}
 
 \begin{document}
 
@@ -51,15 +51,20 @@ This has been quite a challenge given the time frame but proved extremely useful
 and added a longer reference at the end of this report.
 
 We see that the solution of a \gls{sde} is a Markov process in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. Integrating those between two
-time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}. Another well known 
-use-case is diffusion models. In the case of a linear \gls{sde}, the solution is a Gaussian process. Conversely, for some appropriate mean and kernel functions, 
+time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}. (Another well known 
+use-case is diffusion models). In the case of a linear \gls{sde}, the solution is a Gaussian process. Conversely, for some appropriate mean and kernel functions, 
 a Gaussian process can be represented as the solution of a linear \gls{sde}. This allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.
+
+Using Gaussian Processes as continuous priors over latent variables carries limitations too. An idea is then 
+to use more general stochastic processes, derived from general (ie non-linear) \gls{sde}, that are still 
+Markov processes and allow filtering. Another stochastic process can then be used as an approximate posterior, that 
+lead to the \gls{latent-sde} models class. (NB : trouver un ou deux papiers de David Duvenaud ?)
 
 The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
 
 \chapter*{Acknowledgements}
 
-
+Merci's
 
 \newpage
 \singlespacing

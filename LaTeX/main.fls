@@ -718,6 +718,12 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txss.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txss.fd
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txss.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txbss.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txbss.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxphvb.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxbss.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
@@ -732,12 +738,6 @@ INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txi.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txmia.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txsyc.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txexa.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txbss.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxphvb.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxbss.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
-INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txr.tfm
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txb.tfm
 INPUT ./main.toc
