@@ -1,9 +1,43 @@
-\chapter{Subject}\label{sec:Subject}
+% \chapter{Subject}\label{sec:Subject}
 
-Variational Autoencoders are a well-known class of generative models, where the latent variables are usually assumed to be idependent and identically distributed. This assumption is inappropriate when the data is time-dependent, such as in time-series, images sequences or videos. It is then natural to structure some sort of temporal dependency in the latent prior : this is the main idea of Dynamical VAEs.
+% * means no number
+% \chapter*{Abstract}
 
-A first question is whether the use of Dynamical VAEs on time-dependent data allow better performance than the "legacy" models. A natural test framework is time series, where the usual models -such as ARIMA- have been performing successfully for quite a while.
+\glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, and have spawn numerous applications. However, the original i.i.d.
+assumption over the latent variables carry strong limitations when considering data sequences over time. 
+A richer class of models aims at solving this limitation : the \glspl{dvae}. In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also),
+ aiming at encoding the temporal dimension of the data. 
 
-A second question takes the thinking a little bit deeper. If we consider a time-dependent data sequence as the realization of a stochastic process -which is quite natural for time series, but can be envisioned as well for videos or other sources-, then we infer that some data sequences are, by design, easier than others to predict and learn generative models on. An idea is then to quantity the "randomness" of a data sequence -and more importantly, the "randomness" of the underlying stochastic process-, so we can measure when the use of Dynamical VAEs is likely to add value. A natural tool is Information Theory, where some results exist regarding stochastic processes.
+The first part of the report is dedicated to the general study of \glspl{dvae}. A great survey is \cite{girin_dynamical_2022} and is the basis for this part. 
+We review the general formulation of \glspl{dvae} and the detailed implementation of three models : deep Kalman filter, \gls{vrnn}, and \gls{gpvae}. 
+Along with this study, we also provide an overview of the information theory framework for data sequences -specifically some results on entropy rates-
+ to empirically  quantify the degree of "randomness" (of, more accurately, uncertainty) of data sequences.
 
-Last but not least, assuming that we have learnt "reasonably well" a generative model, we can wonder how good the model performs at detecting anomalies in the data sequence. The Pandora's box of anomaly detection is vast, and covers connex notions such as detecting outliers in a stationary distribution, detecting shifts of a distribution towards a new one, etc. If using the likelihood of the data according to the learnt distribution is quite straightforward an idea, some recent results show that this may be misleading.
+If a discrete-time setting of the latent variables is straightforward -for example, structuring the latent variables as a first-order Markov chain-, this setting carries limitations too. 
+The first, and possibly most important one, is that the structure of the model requires regularly-sampled data. In practice, data measurements can be made 
+with a changing frequency. A natural idea is then to structure the latent variables as a continuous-time process, which allows irregularly sampled data. 
+A natural continuous-time process, with "nice" properties, is the \gls{gp} \cite{rasmussen_gaussian_2008} : this is the \gls{gpvae} model. 
+This idea is mentionned briefly in \cite{girin_dynamical_2022}, and described in more details in \cite{casale_gaussian_2018}, \cite{fortuin_gp-vae:_2020}, \cite{titsias_bayesian_2010} and \cite{zhu_markovian_2023}. 
+
+This last paper \cite{zhu_markovian_2023} has triggered in me a significant interest. It links \gls{gpvae} with \glspl{sde}, and specifically linear \glspl{sde}. 
+The linear \gls{sde} formulation of the \gls{gp} regression problem allows a computation that scales linearly using off the shelf filtering and smoothing algorithms,
+rather than "naive" cubic \gls{gp} regression algorithms. 
+
+I invested a significatant amount of time in studying the mathematical machinery required to fully understand the underlying hypothesis. 
+The theory of stochastic calculus is fascinating, demanding, and fruitful.
+Among good study books, are \cite{mouvement-brownien-calcul-ito} and \cite{sarkka_applied_2019}. 
+Getting up to speed on stochastic calculus has been quite a challenge given the time frame but proved extremely useful. 
+We present some key results, which the knowledgeable reader on stochastic calculus can skip, and added a longer reference at the end of this report.
+
+Overall, we see that the solution of a general \gls{sde} is a Markov process in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. 
+Integrating those between two time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}.
+(Another well known  use-case is diffusion models). 
+
+In the case of a linear \gls{sde}, the solution is also a Gaussian process. This allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.
+
+However, the \gls{gpvae} model carries limitations too. First, some Gaussian processes -more specifically some kernel functions- can not be formulated as the solution to a linear \gls{sde}.
+Second, if there is an intersection between Markov processes and Gaussian processes (for example the well-studied Ornstein Uhlenbeck process), some Markov processes (ie general \gls{sde}) are not Gaussian.
+An idea is then to use more general stochastic processes, derived from general (ie non-linear) \gls{sde}, that are still 
+Markov processes and allow filtering. Using general \gls{sde} is a recent research field, drawing upon the theory of \gls{ode}.
+
+The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
