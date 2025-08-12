@@ -22,21 +22,21 @@
     outer=2cm,
     inner=2cm    
 }
-% to have paysage
- \usepackage{pdflscape}
-% paragraph management
-% https://mirror.ox.ac.uk/sites/ctan.org/macros/latex/contrib/parskip/parskip.pdf
-% spacing management
-% https://www.overleaf.com/learn/latex/Articles/How_to_change_paragraph_spacing_in_LaTeX
+% % to have paysage
+\usepackage{pdflscape}
+% % paragraph management
+% % https://mirror.ox.ac.uk/sites/ctan.org/macros/latex/contrib/parskip/parskip.pdf
+% % spacing management
+% % https://www.overleaf.com/learn/latex/Articles/How_to_change_paragraph_spacing_in_LaTeX
 \usepackage{parskip}  
-% code highlighting
-% https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
+% % code highlighting
+% % https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted
 \usepackage{minted}
-% draw arrows on side of aligned equations
-% https://mirrors.ibiblio.org/CTAN/macros/generic/witharrows/witharrows.pdf
+% % draw arrows on side of aligned equations
+% % https://mirrors.ibiblio.org/CTAN/macros/generic/witharrows/witharrows.pdf
 \usepackage{witharrows}
-% graphiques
-% https://www.overleaf.com/learn/latex/TikZ_package
+% % graphiques
+% % https://www.overleaf.com/learn/latex/TikZ_package
 \usepackage{tikz, pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{positioning, arrows.meta}
@@ -45,74 +45,73 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{shapes, shapes.geometric, shapes.misc}
-% graphicx
-% https://fr.overleaf.com/learn/latex/Inserting_Images
+% % graphicx
+% % https://fr.overleaf.com/learn/latex/Inserting_Images
 \usepackage{graphicx}
 \graphicspath{ {./images/figure} }
-% verbatim
-% https://texdoc.org/serve/fancyvrb/0
+% % verbatim
+% % https://texdoc.org/serve/fancyvrb/0
 \usepackage{fancyvrb}
-% headers, footers
-% https://www.overleaf.com/learn/latex/Headers_and_footers
+% % headers, footers
+% % https://www.overleaf.com/learn/latex/Headers_and_footers
 \usepackage{fancyhdr}
-% chapter headings
-% https://texblog.org/2012/07/03/fancy-latex-chapter-styles/
-%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+% % chapter headings
+% % https://texblog.org/2012/07/03/fancy-latex-chapter-styles/
+% %Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
 \usepackage[Bjornstrup]{fncychap}
-% colors !
-% https://fr.overleaf.com/learn/latex/Using_colors_in_LaTeX
+% % colors !
+% % https://fr.overleaf.com/learn/latex/Using_colors_in_LaTeX
 \usepackage{color}
 \usepackage{xcolor}
-% color boxes
-% https://www.tug.org/docs/latex/tcolorbox/tcolorbox.pdf
+% % color boxes
+% % https://www.tug.org/docs/latex/tcolorbox/tcolorbox.pdf
 \usepackage{tcolorbox}
 \usepackage{xparse}
 \tcbuselibrary{theorems, skins, breakable}
-%\newtheorem{theorem}{Theorem}[section]
-%\newtheorem{definition}{Definition}[section]
-% multicolmuns
+% %\newtheorem{theorem}{Theorem}[section]
+% %\newtheorem{definition}{Definition}[section]
+% % multicolmuns
 \usepackage{multicol}
 \setlength{\columnsep}{0.5cm}
-% package to have text in boxes
+% % package to have text in boxes
 \usepackage[]{mdframed}
-% glossaries
-% https://www.overleaf.com/learn/latex/Glossaries
+% % glossaries
+% % https://www.overleaf.com/learn/latex/Glossaries
 \usepackage{glossaries}
 \makeglossaries
-% multicolomuns
+% % multicolomuns
 \usepackage{multicol}
-% algos
+% % algos
 \usepackage{algorithm}
 \usepackage{algorithmic}
-% https://ctan.tetaneutral.net/macros/latex/contrib/titlesec/titlesec.pdf
+% % https://ctan.tetaneutral.net/macros/latex/contrib/titlesec/titlesec.pdf
 \usepackage{titlesec}
-% appendix and reference
+% % appendix and reference
 \usepackage[backend=biber,style=ieee,sorting=ynt]{biblatex}
 \usepackage[toc,page]{appendix}
-% to display tables
+% % to display tables
 \usepackage{booktabs}
-% https://fr.wikibooks.org/wiki/LaTeX/Tableaux
-% https://ctan.mines-albi.fr/macros/latex/contrib/arydshln/arydshln-man.pdf
+% % https://fr.wikibooks.org/wiki/LaTeX/Tableaux
+% % https://ctan.mines-albi.fr/macros/latex/contrib/arydshln/arydshln-man.pdf
 \usepackage{tabularx}
 \usepackage{arydshln}
-% epigraph
+% % epigraph
 \usepackage{epigraph}
-% quotes
+% % quotes
 \usepackage{csquotes}
-% to test
+% % to test
 \usepackage{lipsum}
-% for conditional independence symbol \Perp
+% % for conditional independence symbol \Perp
 \usepackage{txfonts}
-% nicer toc
+% % nicer toc
 \usepackage{tocloft}
 \setlength{\cftchapindent}{2em}
-% arrows in equations
+% % arrows in equations
 \usepackage{witharrows}
 \usepackage{setspace}
-% links
-% https://fr.overleaf.com/learn/latex/Hyperlinks
+% % links
+% % https://fr.overleaf.com/learn/latex/Hyperlinks
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
-
-% don't know if useful
+% % don't know if useful
 % \usepackage{caption}
 % \usepackage{subcaption}

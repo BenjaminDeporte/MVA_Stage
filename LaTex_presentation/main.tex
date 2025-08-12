@@ -1,74 +1,31 @@
 % Based on the template https://github.com/Noktec/Abertay_Beamer_Template
-\documentclass[aspectratio=169, 169]{beamer}
+\documentclass[12pt, aspectratio=169, 169]{beamer}
 % Use \documentclass{beamer} for narrow template
-\usetheme{STR}
-\usepackage{caption}
 
+\usetheme{Copenhagen}
+\usecolortheme{default}
 
+\input{inputs/preamble.tex}
+% \input{LaTex_presentation/inputs/glossary.tex}
+% \input{LaTex_presentation/inputs/newcommands.tex}
+% \input{LaTex_presentation/inputs/theorems.tex}
 
-\title{Unofficial Beamer Template for Paris-Saclay University, France}
-\subtitle{Subtitle}
-\author{Name Surname}
+% \usepackage{utf8}[inputenc]
 
-% Uncomment to use your own affiliation, otherwise, default is used
-\renewcommand{\addresstext}{
-PhD Student \\ 
-Division of Cyber Security \\
-P-S University}
+\title{Dynamical Variational Autoencoders\\ discrete-time and continuous-time models.\\ Links to stochastic calculus and stochastic differential equations\\
+\vspace{2cm}
+{\Large{ENS Paris-Saclay, MVA}}}
+
+\author{
+Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.deporte@ens-paris-saclay.fr}% student 1
+}
+
+\date{August 2025 - DRAFT !}
 
 \begin{document}
 
 \begin{frame}
-    \titlepage
-\end{frame}
-
-\begin{frame}{TOC}
-	\tableofcontents
-\end{frame}
-
-\section{Section 1}
-\subsection{Section 1.1}
-\begin{frame}{Slide 1}
-Contents of Slide 
-\end{frame}
-
-\begin{frame}{Slide 2}
-\begin{itemize}
-    \item Item 1 
-        \begin{itemize}
-            \item Item 1.1
-            \item Item 1.2
-        \end{itemize}
-    \item Item 2
-    \item Item 3 
-\end{itemize}
-\end{frame}
-
-
-\section{Section 2}
-\begin{frame}{}
-    \centering
-    \Huge{\textbf{Separator Slide}}
-\end{frame}
-
-
-\begin{frame}{Two Columns}
-    \begin{columns}
-        \begin{column}{0.48\linewidth}
-            Content
-        \end{column}
-        \begin{column}{0.48\linewidth}
-           Content
-        \end{column}
-    \end{columns}
-\end{frame}
-
-
-
-\section{Questions}
-\begin{frame}
-\centering \Huge
-\emph{Thank You\\for Listening.}
+    toto
 \end{frame}
 
 \end{document}
