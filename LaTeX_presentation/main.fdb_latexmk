@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1755078710.01187 "/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main.tex" "main.pdf" "main" 1755078721.02131 0
+["pdflatex"] 1755080364.02149 "/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main.tex" "main.pdf" "main" 1755080373.85067 0
   "/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main.tex" 1755076984.13246 1499 3821ccbb9d59c14f36c4f74b9dba06ac ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -317,16 +317,16 @@
   "annexes.tex" 1755067245.50632 80 c1fc0501eac998f953cf47eb1993f983 ""
   "beyond_linear.tex" 1755067245.50632 146 0ed3d1a2aca5078844a47691806f8be3 ""
   "dvae.tex" 1755075268.60847 36531 4e899fd5cc1143ece16c45de2585032f ""
-  "dvae_and_sde.tex" 1755078709.53118 6511 06d1a2553d945f95b87029d9a450c98b ""
+  "dvae_and_sde.tex" 1755080363.72088 11084 0cbba2ef936615c0695cafd915d5a6b4 ""
   "glossary.tex" 1755067245.50632 1047 5754ae74408ae03159ea029490ee1263 ""
   "intro.tex" 1755067245.50632 1686 d2c63397fbd2a0bb651f26cda577e58b ""
-  "main.aux" 1755078720.75129 11160 552597c5ed94dbfd302147edb920c631 "pdflatex"
+  "main.aux" 1755080373.55301 12523 cf980c35943997327fae398e1e2fd532 "pdflatex"
   "main.gls" 0 -1 0 ""
-  "main.nav" 1755078720.75129 4349 a60dc94af213e532266fc4f348b3f593 "pdflatex"
-  "main.out" 1755078720.75129 976 f0d05bd7db3ef8801c5b0e6a905c4d23 "pdflatex"
+  "main.nav" 1755080373.55701 4811 6a38ed8efa57ea6d8cae02d1911d0dc1 "pdflatex"
+  "main.out" 1755080373.55701 976 f0d05bd7db3ef8801c5b0e6a905c4d23 "pdflatex"
   "main.tex" 1755076984.13246 1499 3821ccbb9d59c14f36c4f74b9dba06ac ""
-  "main.toc" 1755078720.75129 358 402b39548ac45fec0fd4cb6f94f097b7 "pdflatex"
-  "main.vrb" 1755078719.45928 4354 73e3bcc0881dfc46b0416d4b1908be75 "pdflatex"
+  "main.toc" 1755080373.55701 358 93efb748184b211b3045fd542d4eeeb0 "pdflatex"
+  "main.vrb" 1755080371.82099 4354 73e3bcc0881dfc46b0416d4b1908be75 "pdflatex"
   "newcommands.tex" 1755067245.50632 911 9c152ab4d62aed3d340a96263429e876 ""
   "outro.tex" 1755067245.50632 78 e8d5a1f60e1c0532f1c2ef3e5c9d8c39 ""
   (generated)

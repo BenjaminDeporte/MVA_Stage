@@ -36,6 +36,14 @@
 \beamer@slide {DVAEs and SDEs}{39}
 \beamer@slide {ito sde definition}{43}
 \beamer@slide {ito sde definition}{43}
-\beamer@slide {beyond}{45}
-\beamer@slide {outro}{46}
-\beamer@slide {annexes}{47}
+\beamer@slide {generic_sde}{45}
+\beamer@slide {generic_sde}{45}
+\beamer@slide {FPK}{47}
+\beamer@slide {FPK}{47}
+\beamer@slide {linear_sde}{48}
+\beamer@slide {linear_sde}{48}
+\beamer@slide {solution_linear_sde}{49}
+\beamer@slide {solution_linear_sde}{49}
+\beamer@slide {beyond}{50}
+\beamer@slide {outro}{51}
+\beamer@slide {annexes}{52}

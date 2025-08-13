@@ -7,8 +7,8 @@
 \begin{definition}
     A \textbf{stochastic process} is defined as:
 \begin{align}
-    X &= (\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
-    &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
+    X &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
+    %(\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
 \end{align}
 where:
     \begin{itemize}
@@ -111,6 +111,9 @@ The notion is then extended to other stochastic processes (in spaces of square i
     \end{definition}
 \end{frame}
 
+%
+% ----- ITO FORMULA ------------------
+%
 
 \begin{frame}{Stochastic calculus survival kit - Ito's formula}
     
@@ -132,4 +135,104 @@ In dimension $d > 1$:
     d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + (\nabla f)^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( (\nabla \nabla^T f) dX_t dX_t^T \right)
 \end{align}
 \end{theorem}
+\end{frame}
+
+%
+% --- SDE defintion
+%
+
+\begin{frame}{Defintion of a Stochastic Differential Equation}
+    \begin{definition}
+            Let:
+    \begin{itemize}
+        \item $B$ be a Brownian motion $B_t \in \mathbb{R}^S$, of diffusion matrix $Q$
+        \item $F$ be a deterministic function "drift" $F : \mathbb{R}^D \times \mathbb{R}\rightarrow \mathbb{R}^{D \times D}$
+        \item $L$ be a deterministic function "dispersion" $L : \mathbb{R}^D \times \mathbb{R}\rightarrow \mathbb{R}^{D \times S}$ 
+    \end{itemize}
+
+    The \gls{sde} is:
+    \begin{align}
+        \label{generic_sde}
+        dX_t &= F(X_t,t) dt + L(X_t,t) dB_t \\
+        X_{t_0} &= X_0
+    \end{align}
+    where $X_0$ can be a scalar constant or a random variable.
+    A stochastic process $X$ is said to be solution of \ref{generic_sde} if it verifies:
+    \begin{align*}
+        \forall t, \,\, X_t = X_0 + \int_{0}^{t} F(X_u, u)du + \int_{0}^{t} L(X_u,u) dB_u
+    \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{A solution to an SDE is a Markov Process}
+\begin{itemize}
+    \item As for \gls{ode}, a solution to \ref{generic_sde} might not exist. Also, results similar to Cauchy-Lipschitz 
+exist for existence and unicity, based on assumptions on $F$ and $L$. 
+    \item Intuitively, we can see that an "infinitesimal increment" of $X_t$ to $X_{t+\Delta_t}$ verifies :
+$\Delta {X_t} \approx F(X_t, t) \Delta t + L(X_t,t) dB_t$. But $dB_t$ is a Brownian increment independent of $X_t$,
+This suggests that $X_{t+ \Delta_t}$ depends on the past only by $X_t$. 
+    \item In other words, $X_t \vert \mathcal{F}_s = X_t \vert X_s$ 
+for any $0 < s < t$. ie : \textbf{the solution of a \gls{sde} is a Markov process}. (The formal proof is given in \cite{mouvement-brownien-calcul-ito}.)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Transition Kernels}
+    \begin{itemize}
+        \item Formally, a Markov process is caracterized by its \textbf{transition kernels}. 
+        \item That is, for any $s < t$, and any $A \in \mathcal{B}_{\mathbb{R}^{D}}$, a Markov process verifies 
+$\mathbb{P}(X_t \in A \vert \mathcal{F}_s) = \mathbb{P}(X_t \in A \vert X_s)$.
+        \item the transition kernels of $X$ are the applications $P_{s,t} : \mathbb{R}^{D} \times \mathcal{B}_{\mathbb{R}^{D}} \rightarrow [0,1]$, 
+            such that for any $f : \mathbb{R}^{D} \rightarrow \mathbb{R}$ measurable and bounded, we have:
+            \begin{align}
+                P_{s,t}f(x) = \int_{{\mathbb{R}^{D}}} P_{s,t}(x,dy) f(y)
+            \end{align}
+        So $P_{s,t}$ actually is the probability measure of starting from $x$ at time $s$, and reach $y \in dy$ at time $t$.
+    \end{itemize}
+    
+When the transition kernels have densities $p(x,t \vert y,s)$ (ie starting from $y$ at time $s$, and
+reaching $x$ at time $t$), then a fundamental result is the \textbf{Fokker Plank Kolmogorov} equation 
+(also known as forward Kolomogorov) :
+\begin{align}
+    \label{FPK}
+    \frac{\partial p}{\partial y} &= \mathcal{A}^{*}p \\
+    \mathcal{A}^{*}(\bullet) &= - \sum_{i=1}^{D} \frac{\partial}{\partial x_i} (F_i(x,t)(\bullet)) + \
+        \frac{1}{2} \sum_{i,j=1}^{D} \frac{\partial^{2}}{\partial x_i \partial x_j} (L(x,t)QL(x,t)^{T}\vert_{i,j} (\bullet))
+\end{align}
+\end{frame}
+
+\begin{frame}{Linear SDE}
+    A particularly useful flavor of \gls{sde} is the linear \gls{sde}, that allows some close-form (or at least nicer) solutions:
+
+    \begin{definition}
+        With the same notaions as \ref{generic_sde}:
+
+        The linear \gls{sde} is:
+        \begin{align}
+            \label{linear_sde}
+            dX_t &= F(t) X_t dt + L(t) dB_t \\
+            X_{t_0} &= X_0 \sim \mathcal{N}(m_0, P_0)
+        \end{align}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Transition kernels for linear SDEs}
+In this case, the transition kernels family can be characterized as:
+\begin{align}
+    \Psi &: \mathbb{R}^{2 } \rightarrow \mathbb{R}^{D} \\
+    \frac{\partial \Psi (\tau, t)}{\partial \tau} &= F(\tau) \Psi(\tau, t) \\
+    \frac{\partial \Psi (\tau, t)}{\partial t} &= - \Psi(\tau, t) F(t)  \\
+    \Psi(\tau, t) &= \Psi(\tau, s) \Psi(s, t) \,\,\, (\text{Chapman-Kolmogorov}) \\
+    \Psi(\tau, t) &= \Psi(t, \tau)^{-1} \\ 
+    \Psi(t,t) &= I_d
+\end{align}
+
+% \begin{proposition}
+\textbf{The solution to a linear SDE \ref{linear_sde} is a Gaussian Process}:
+\begin{align}
+    \label{solution_linear_sde}
+    X_t &= \Psi(t,t_0) X_0 + \int_{t_0}^{t} \Psi(t, \tau) L(\tau) dB_{\tau} \\
+    X_{t_0} &= X_0 \sim \mathcal{N}(m_0, P_0)
+\end{align}
+% \end{proposition}
+
 \end{frame}
