@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  13 AUG 2025 12:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  13 AUG 2025 17:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1042,22 +1042,11 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 42--42
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 42
- []
-
-
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 44--44
  [][][][] []  
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 44
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1073,14 +1062,7 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 48--48
  [][][][] []  
  []
 
-
-Overfull \vbox (1.36124pt too high) detected at line 48
- []
-
 (./main.toc)
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1092,10 +1074,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ] (./intro.tex
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 13--13
  [][][][] []  
- []
-
-
-Overfull \vbox (1.36124pt too high) detected at line 13
  []
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
@@ -1112,9 +1090,6 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 )
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1122,9 +1097,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [3
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1136,9 +1108,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1146,9 +1115,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [5
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1160,9 +1126,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1172,9 +1135,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1182,9 +1142,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [8
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1199,13 +1156,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 22--22
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 22
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1217,9 +1167,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1227,9 +1174,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [11
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1241,9 +1185,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1251,9 +1192,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [13
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1268,13 +1206,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 35--35
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 35
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1289,13 +1220,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 51--51
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 51
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1307,9 +1231,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1319,9 +1240,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1329,9 +1247,6 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [18
 
 ]
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1346,17 +1261,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 69--69
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 69
- []
-
-
-Overfull \vbox (3.06989pt too high) detected at line 69
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1371,13 +1275,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{q_phi_dev}) ha
                                                   \__shipout_drop_firstpage_...
 l.69 \end{frame}
                 ]
-Overfull \vbox (3.06989pt too high) detected at line 69
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1392,16 +1289,9 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 85--85
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 85
- []
-
-
 LaTeX Warning: Citation `kingma_introduction_2019' on page 22 undefined on input line 85.
 
 
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1416,13 +1306,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 109--109
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 109
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1452,13 +1335,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 145--145
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 145
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1473,13 +1349,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 155--155
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 155
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1499,13 +1368,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 171--171
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 171
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1520,13 +1382,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 182--182
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 182
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1541,17 +1396,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 205--205
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 205
- []
-
-
-Overfull \vbox (1.52808pt too high) detected at line 205
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1581,19 +1425,12 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 218--218
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 218
- []
-
-
 LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 29 undefined on input line 218.
 
 
 LaTeX Warning: Citation `girin_dynamical_2022' on page 29 undefined on input line 218.
 
 
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1607,19 +1444,11 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 221--221
  [][][][] []  
  []
 
-
-Overfull \vbox (1.36124pt too high) detected at line 221
- []
-
 \openout4 = `main.vrb'.
 
 
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 351--351
  [][][][] []  
- []
-
-
-Overfull \vbox (1.36124pt too high) detected at line 351
  []
 
 (./main.vrb
@@ -1631,9 +1460,6 @@ Overfull \hbox (4.83917pt too wide) in paragraph at lines 105--129
  []
 
 )
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1648,17 +1474,10 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 401--401
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 401
+Overfull \vbox (8.24692pt too high) detected at line 401
  []
 
 
-Overfull \vbox (19.0802pt too high) detected at line 401
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1673,17 +1492,10 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 425--425
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 425
+Overfull \vbox (8.0324pt too high) detected at line 425
  []
 
 
-Overfull \vbox (18.86568pt too high) detected at line 425
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1712,19 +1524,11 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 427--427
  [][][][] []  
  []
 
-
-Overfull \vbox (1.36124pt too high) detected at line 427
- []
-
 \openout4 = `main.vrb'.
 
 
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 587--587
  [][][][] []  
- []
-
-
-Overfull \vbox (1.36124pt too high) detected at line 587
  []
 
 (./main.vrb
@@ -1745,9 +1549,6 @@ Overfull \hbox (6.24762pt too wide) in paragraph at lines 159--160
 )
 
 
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
-
-
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
@@ -1760,17 +1561,10 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 635--635
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 635
+Overfull \vbox (23.29799pt too high) detected at line 635
  []
 
 
-Overfull \vbox (34.13127pt too high) detected at line 635
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1790,20 +1584,9 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 657--657
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 657
- []
-
-
 LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 35 undefined on input line 657.
 
 
-Overfull \vbox (5.76271pt too high) detected at line 657
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1818,10 +1601,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 670--670
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 670
- []
-
-
 LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 36 undefined on input line 670.
 
 
@@ -1831,9 +1610,6 @@ LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 36 undefined on input lin
 LaTeX Warning: Citation `zhu_markovian_2023' on page 36 undefined on input line 670.
 
 
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1848,17 +1624,10 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 696--696
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 696
+Overfull \vbox (2.4409pt too high) detected at line 696
  []
 
 
-Overfull \vbox (13.27419pt too high) detected at line 696
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1887,19 +1656,11 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 698--698
  [][][][] []  
  []
 
-
-Overfull \vbox (1.36124pt too high) detected at line 698
- []
-
 \openout4 = `main.vrb'.
 
 
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 851--851
  [][][][] []  
- []
-
-
-Overfull \vbox (1.36124pt too high) detected at line 851
  []
 
 (./main.vrb
@@ -1908,9 +1669,6 @@ Overfull \hbox (21.54742pt too wide) in paragraph at lines 125--126
  []
 
 )
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1925,17 +1683,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 27--27
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 27
- []
-
-
-Overfull \vbox (5.9027pt too high) detected at line 27
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1950,16 +1697,9 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 62--62
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 62
- []
-
-
 LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 40 undefined on input line 62.
 
 
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1974,13 +1714,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 80--80
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 80
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -1995,13 +1728,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 95--95
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 95
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2016,13 +1742,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 112--112
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 112
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2042,13 +1761,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 138--138
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 138
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2063,13 +1775,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 165--165
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 165
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2089,16 +1794,9 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 177--177
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 177
- []
-
-
 LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 46 undefined on input line 177.
 
 
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2113,13 +1811,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 201--201
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 201
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2139,13 +1830,6 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 216--216
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 216
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2160,18 +1844,11 @@ pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) h
                                                   \__shipout_drop_firstpage_...
 l.216 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 238--238
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 237--237
  [][][][] []  
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 238
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2184,20 +1861,13 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{solution_linear_sde}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.238 \end{frame}
-                 ]) (./beyond_linear.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 5--5
+l.237 \end{frame}
+                 ]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 259--259
  [][][][] []  
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 5
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2206,19 +1876,12 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [50
 
-]) (./outro.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 5--5
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 270--270
  [][][][] []  
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 5
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2227,19 +1890,12 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [51
 
-]) (./annexes.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 5--5
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 292--292
  [][][][] []  
  []
 
 
-Overfull \vbox (1.36124pt too high) detected at line 5
- []
-
-
-
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2248,12 +1904,12 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [52
 
-])
-No file main.gls.
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 305--305
+ [][][][] []  
+ []
 
 
-
-Overfull \vbox (1.36124pt too high) has occurred while \output is active []
 
 
 Overfull \hbox (114.62364pt too wide) has occurred while \output is active
@@ -2263,6 +1919,98 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [53
 
 ]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 327--327
+ [][][][] []  
+ []
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[54
+
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 350--350
+ [][][][] []  
+ []
+
+
+LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 55 undefined on input line 350.
+
+
+LaTeX Warning: Citation `rasmussen_gaussian_2008' on page 55 undefined on input line 350.
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[55
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040gaussian\040observation}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.350 \end{frame}
+                 
+pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040linear\040sde\040form}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.350 \end{frame}
+                 ]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 388--388
+ [][][][] []  
+ []
+
+
+LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 56 undefined on input line 388.
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[56
+
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 412--412
+ [][][][] []  
+ []
+
+
+LaTeX Warning: Citation `mva_kernel_class' on page 57 undefined on input line 412.
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[57
+
+]) (./outro.tex
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 21--21
+ [][][][] []  
+ []
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[58
+
+])
 \tf@nav=\write8
 \openout8 = `main.nav'.
 
@@ -2272,7 +2020,13 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 \tf@snm=\write10
 \openout10 = `main.snm'.
 
- (./main.aux)
+
+
+Package glossaries Warning: No \printglossary or \printglossaries found. 
+(Remove \makeglossaries if you don't want any glossaries.) 
+This document will not have a glossary.
+
+(./main.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
@@ -2282,16 +2036,25 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: F0D05BD7DB3EF8801C5B0E6A905C4D23;976.
+(rerunfilecheck)             Checksum: 4EC7BA4AD35DAC2FADB05FB3736339A0;635.
  ) 
 Here is how much of TeX's memory you used:
- 49035 strings out of 467801
- 1181705 string characters out of 5431917
- 1815886 words of memory out of 5000000
- 76667 multiletter control sequences out of 15000+600000
- 637033 words of font info for 77 fonts, out of 8000000 for 9000
+ 49046 strings out of 467801
+ 1181907 string characters out of 5431917
+ 1815844 words of memory out of 5000000
+ 76672 multiletter control sequences out of 15000+600000
+ 639032 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,31n,123p,2554b,1330s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{sec:brownian_motion_gaussian_and_markov} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:gpvae} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:cd-ssm} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{glo:ode} has been referenced but does not exist, replaced by a fixed one
 
@@ -2331,11 +2094,11 @@ pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, rep
 
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (53 pages, 337634 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on main.pdf (58 pages, 363232 bytes).
 PDF statistics:
- 2374 PDF objects out of 2487 (max. 8388607)
- 1919 compressed objects within 20 object streams
- 155 named destinations out of 1000 (max. 500000)
- 133 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2402 PDF objects out of 2487 (max. 8388607)
+ 1988 compressed objects within 20 object streams
+ 166 named destinations out of 1000 (max. 500000)
+ 117 words of extra memory for PDF output out of 10000 (max. 10000000)
 

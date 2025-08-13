@@ -234,5 +234,179 @@ In this case, the transition kernels family can be characterized as:
     X_{t_0} &= X_0 \sim \mathcal{N}(m_0, P_0)
 \end{align}
 % \end{proposition}
+\end{frame}
 
+\begin{frame}{Beyond linear SDEs}
+    \begin{itemize}
+        \item In practice, we posit a stochastic process prior defined by a general \gls{sde}, and we have discrete-time measurements.
+        \item Formally, the \gls{cd-ssm} is defined by:
+            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Continuous-Discrete State Space model]
+                \begin{align}
+                    dZ_t &= F(Z_t, t)dt + L(Z_t,t) dB_t \\
+                    x_k &\sim p(x_k \vert z_{t_k})
+                \end{align}
+                where:
+                \begin{itemize}
+                    \item $Z_t \in \mathbb{R}^{D}$ is the \textit{state}, ie a stochastic process defining the latent variable.
+                    \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$.
+                    \item $F \in \mathbb{R}^{D}$ and $L \in \mathbb{R}^{D \times S}$ are the usual drift and dispersion functions.
+                    \item $x_k$ are the observations taken at \textbf{discrete times $(t_k)_{k=1,...,n}$}
+                \end{itemize}
+                NB : the observations are assumed to conditionnally independent of the state.
+            \end{tcolorbox}
+        % \item The \gls{gpvae} is a particular case of \gls{cd-ssm} with a linear \gls{sde}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Filtering}
+    \begin{itemize}
+        \item \textbf{Filtering} is the problem of determining the posterior probability of the latent $Z_t$ given the 
+discrete measurements, ie finding $p(Z_t \vert x_{1:k})$ with $t_k \leq t$. This corresponds to 
+determining the generative transition probability $p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})$ in our 
+\gls{dvae} setting.
+        \item In general, close-form solutions can be derived when the latent variables \gls{sde} is linear. In continuous 
+time, we get the \textbf{Kalman-Bucy} filter equations, which discretize in the well-known \textbf{Kalman filter}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Filtering}
+        \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Kalman-Bucy filter]
+            \begin{align}
+                dZ_t &= F(t)Z_t dt + L(t) dB_t \\
+                dX_t &= H(t)X_t dt + d\eta_t
+            \end{align}
+            % \begin{itemize}
+            %     \item $Z_t \in \mathbb{R}^{D}$ is the state/latent, $X_t \in \mathbb{R}^{M}$ is the observation/measurement.
+            %     \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$, $\eta_t \in \mathbb{R}^{S}$ is a BM with diffusion matrix $R$.
+            %     \item $F \in \mathbb{R}^{D}$ drift, $L \in \mathbb{R}^{D \times S}$ dispersion, $H \in \mathbb{R}^{D \times M}$ observation model.
+            % \end{itemize}
+            NB : the observations are assumed to conditionnally independent of the state.
+            Then the Bayesian filter (Kalman-Bucy) is:
+            \begin{align}
+                p(z_t \vert x_{<t}) &= \mathcal{N}(Z_t \vert m_t, P_t) \\
+                K &= P H(t)^{T} R^{-1} \\
+                dm &= F(t)m dt + K (dX_t - H(t) m dt) \\
+                \frac{dP}{dt} &= F(t)P + P F(t)^{T} + L(t)QL(t)^{T} - KRK^{T}
+            \end{align}
+        \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Smoothing}
+    \begin{itemize}
+        \item \textbf{Smoothing} is the problem of determining the posterior probability of the latent $Z_t$ given 
+all known observations, ie finding $p(Z_t \vert x_{1:T})$ for all $t \in [0,T]$. 
+        \item This corresponds to determining the inference model $q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})$ in the \gls{dvae} setting.
+        \item Discretizing the transition density in \gls{cd-ssm}, we have
+            \begin{align}
+                Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
+                X_k &\sim p(X_k \vert Z_{t_k})
+            \end{align}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Bayesian smoother]
+                \begin{align}
+                    Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
+                    X_k &\sim p(X_k \vert Z_{t_k})
+                \end{align}
+                The \textit{Bayesian smoother} is, for any $k < T$:
+                \begin{align}
+                    p(Z_{t_{k+1}} \vert X_{1:k}) &= \int p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_k} \vert X_{1:k}) dZ_{t_k} \\
+                    p(Z_{t_k} \vert X_{1:T}) &= p(Z_{t_{k}} \vert X_{1:k})\int \left(
+                        \frac{
+                            p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_{k+1}} \vert X_{1:T})
+                        }{
+                            p(Z_{t_{k+1}} \vert X_{1:k}
+                        }dZ_{t_{k+1}}
+                    \right)
+                \end{align}
+                The backward recursion is started from the final step, where the filtering and smoothing densities 
+                are the same : $p(Z_{t_T} \vert X_{1:T})$.
+            \end{tcolorbox}
+\end{frame}
+
+
+\begin{frame}{GP-VAE with accomodating kernels : filtering/smoothing in $O(n)$}
+    \begin{itemize}
+        \item We wrap up here linking the filtering/smoothing theory of linear \gls{sde} with the \gls{gpvae} 
+model of \cite{fortuin_gp-vae:_2020}.
+        \item Using the formalization above, a \gls{gpvae} with Gaussian observation is basically:
+            \begin{align}
+                \label{gpvae gaussian observation}
+                Z_t &\sim \mathcal{GP}(m(\bullet), k(\bullet, \bullet)) \\
+                X_{t_k} &\sim \mathcal{N}(X_{t_k} \vert Z_{t_k}, \sigma^{2})
+            \end{align}
+        \item Computing the posterior distribution $p(Z_t \vert X_{t_1:t_T})$ is performing a Gaussian Process 
+regression (see \cite{rasmussen_gaussian_2008}), which naively scales in $O(n^{3})$.
+        \item However, if the Gaussian process can be written as a linear \gls{sde}:
+            \begin{align}
+                \label{gpvae linear sde form}
+                dZ_t &= F(t)Z_t dt + L(t)dB_t \\
+                X_{t_k} &\sim \mathcal{N}(X_{t_k} \vert Z_{t_k}, \sigma^{2})
+            \end{align}
+            then the Kalman filter and smoother apply, that scale in $O(n)$. 
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Gaussian Processes as solutions of linear SDE}
+    \begin{itemize}
+        \item \textbf{Brownian motion} : solution to $dZ_t = dB_t$, \gls{gp} with kernel $k(t,t') = \text{min}(t,t')$ (see \ref{sec:brownian_motion_gaussian_and_markov})
+        \item \textbf{Ornstein Uhlenbeck} : the O.U. process
+            \begin{align}
+                dZ_t &= - \frac{1}{l} Z_t dt + dB_t
+            \end{align}
+            where $dB_t$ has diffusion coefficient $\frac{2 \sigma^{2}}{l}$, is a \gls{gp} with kernel:
+            \begin{align}
+                k_{\text{exp}} &= \sigma^{2} \exp{(- \frac{\vert t-t' \vert}{l})}
+            \end{align}
+        \item \textbf{Matern} : the \gls{sde} representation with
+            \begin{align}
+                F = \begin{pmatrix}
+                    0 & 1 \\
+                    -\lambda^{2} & -2 \lambda 
+                \end{pmatrix}, 
+                L = \begin{pmatrix}
+                    0 \\ 1
+                \end{pmatrix}, 
+                H &= \begin{pmatrix}
+                    1 \\ 0
+                \end{pmatrix}
+            \end{align}
+            is a \gls{gp} with the Matern kernel with $\nu = \frac{3}{2}$:
+            \begin{align}
+                k_{\text{Matern}} &= \sigma^{2} \left(
+                    1 + \frac{\sqrt{3} \vert t-t' \vert}{l}
+                \right) \exp{
+                    \left(
+                        -\frac{\sqrt{3} \vert t-t' \vert}{l}
+                    \right)
+                }
+        \end{align}
+        and $\lambda = \frac{\sqrt{3}}{l}$, diffusion is $q = 4\lambda^{3}\sigma^{2}$.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Some Gaussian Processes are NOT solutions to linear \gls{sde}}
+    Conversely, the following kernels can not be used to derive an associated linear \gls{sde}:
+
+\begin{itemize}
+    \item \textbf{squared exponential} : the widely used
+    \begin{align}
+        k_{\text{se}}(t,t') &= \sigma^{2} \exp{\left(
+            - \frac{\vert t-t' \vert^{2}}{2l^{2}}
+        \right)}
+    \end{align}
+    \item \textbf{rational quadratic}:
+    \begin{align}
+        k_{\text{rq}}(t,t') &= \sigma^{2} \left(
+            1 + \frac{\vert t-t' \vert^{2}}{2 \alpha l^{2}}
+        \right)^{-\alpha}
+    \end{align}
+    with $\alpha > 0$.
+\end{itemize}
+
+In that latter case, one can use spectral decomposition (ie Mercer's theorem, see MVA kernel class \cite{mva_kernel_class}) 
+to approximate the kernel function and determine an associated linear \gls{sde}.
 \end{frame}

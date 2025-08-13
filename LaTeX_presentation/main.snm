@@ -44,6 +44,8 @@
 \beamer@slide {linear_sde}{48}
 \beamer@slide {solution_linear_sde}{49}
 \beamer@slide {solution_linear_sde}{49}
-\beamer@slide {beyond}{50}
-\beamer@slide {outro}{51}
-\beamer@slide {annexes}{52}
+\beamer@slide {gpvae gaussian observation}{55}
+\beamer@slide {gpvae gaussian observation}{55}
+\beamer@slide {gpvae linear sde form}{55}
+\beamer@slide {gpvae linear sde form}{55}
+\beamer@slide {outro}{58}

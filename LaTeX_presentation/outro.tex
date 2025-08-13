@@ -1,5 +1,21 @@
 \section{Outro}\label{outro}
 
 \begin{frame}{Outro}
-    Conclusions
+    It's been quite a personal journey...
+
+Wrapping up:
+
+    \begin{itemize}
+        \item \glspl{dvae} are a powerful evolution of \glspl{vae} where the structure of the set of latent variables 
+        aims at expressing the temporal dependencies.
+        \item Discrete-time \glspl{dvae} give structure to latent variables to encode temporal dynamics. They work best with regularly spaced data.
+        \item Continuous-time \glspl{dvae} posit a stochastic process as prior for the latent variables. This allows 
+        additional flexibility and irregularly-sampled data.
+        \item The specific model \gls{gpvae}, where the latent prior is a Gaussian Process can be expressed as a 
+        solution to a linear \gls{sde}, can use well-known linear-time filtering and smoothing algorithms to speed up 
+        computations.
+        \item Stochastic calculus provides a framework for continous-time priors.
+        \item More general stochastic process priors can be used, expressed as solutions to general \gls{sde} :
+        those are latent SDE models.
+    \end{itemize}
 \end{frame}

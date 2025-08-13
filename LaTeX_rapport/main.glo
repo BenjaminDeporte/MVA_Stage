@@ -140,6 +140,13 @@
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{45}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{45}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{46}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{50}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{50}
 \glossaryentry{VLB?\glossentry{vlb}|setentrycounter[]{page}"\glsnumberformat}{73}
 \glossaryentry{ELBO?\glossentry{elbo}|setentrycounter[]{page}"\glsnumberformat}{73}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{77}
