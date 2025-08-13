@@ -17,7 +17,14 @@
 \beamer@slide {inf_model_dkf}{28}
 \beamer@slide {vlb_dkf}{28}
 \beamer@slide {vlb_dkf}{28}
-\beamer@slide {DVAEs and SDEs}{31}
-\beamer@slide {beyond}{32}
-\beamer@slide {outro}{33}
-\beamer@slide {annexes}{34}
+\beamer@slide {fig:graphical_model_vrnn}{31}
+\beamer@slide {gen_model_vrnn}{32}
+\beamer@slide {gen_model_vrnn}{32}
+\beamer@slide {inf_model_vrnn}{32}
+\beamer@slide {inf_model_vrnn}{32}
+\beamer@slide {vlb_vrnn}{32}
+\beamer@slide {vlb_vrnn}{32}
+\beamer@slide {DVAEs and SDEs}{34}
+\beamer@slide {beyond}{35}
+\beamer@slide {outro}{36}
+\beamer@slide {annexes}{37}

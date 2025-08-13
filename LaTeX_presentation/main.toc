@@ -1,6 +1,6 @@
 \beamer@sectionintoc {1}{Abstract}{3}{0}{1}
 \beamer@sectionintoc {2}{Dynamical Variational AutoEncoders}{10}{0}{2}
-\beamer@sectionintoc {3}{DVAE and Stochastic Differential Equations}{31}{0}{3}
-\beamer@sectionintoc {4}{Beyond linear SDEs and Gaussian Processes}{32}{0}{4}
-\beamer@sectionintoc {5}{Outro}{33}{0}{5}
-\beamer@sectionintoc {6}{Annexes}{34}{0}{6}
+\beamer@sectionintoc {3}{DVAE and Stochastic Differential Equations}{34}{0}{3}
+\beamer@sectionintoc {4}{Beyond linear SDEs and Gaussian Processes}{35}{0}{4}
+\beamer@sectionintoc {5}{Outro}{36}{0}{5}
+\beamer@sectionintoc {6}{Annexes}{37}{0}{6}

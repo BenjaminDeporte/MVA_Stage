@@ -581,6 +581,10 @@ INPUT ./main.vrb
 INPUT ./main.vrb
 INPUT main.vrb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
+OUTPUT main.vrb
+INPUT ./main.vrb
+INPUT ./main.vrb
+INPUT main.vrb
 INPUT ./dvae_and_sde.tex
 INPUT ./dvae_and_sde.tex
 INPUT ./dvae_and_sde.tex
