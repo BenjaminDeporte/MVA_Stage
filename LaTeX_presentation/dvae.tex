@@ -1,0 +1,341 @@
+\section{Dynamical Variational AutoEncoders}\label{DVAEs}
+
+\begin{frame}{Dynamical Variational Auto Encoders : what is it ?}
+    \begin{itemize}
+        \item <1-> \textbf{Dynamical Variational Auto Encoders} are a class of VAEs in which some structure is given to the latent variables to encode the time dependency.
+        \item <2-> DVAEs can be discrete-time or continuous models, can require regularly-sampled data, or can manage irregularly sampled data.
+        \item <3-> For example, a Kalman filter is the simplest DVAE : 
+        \begin{itemize}
+            \item first order Markov chain for latent variables
+            \item linear Gaussian observation model.
+        \end{itemize}
+        \item <4-> As in vanilla VAEs, inference is performed by evidence lower bound maximization.
+        \item <5-> Notations
+            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black]
+                \begin{itemize}
+                    \item the data is a sequence of $T$ points noted \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\} \in \mathbb{R}^F$.
+                    \item the sequence of the associated $T$ latent variables is \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$
+                    \item optionally, there may be a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$
+                \end{itemize}
+            \end{tcolorbox}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{General formulation of DVAE}
+    \begin{block}{Generative model}
+        \begin{align*}
+            p(x_{1:T}, z_{1:T} \vert u_{1:T}) &= \prod_{t=1}^T p(x_t, z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
+            &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:T}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
+            &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
+        \end{align*}
+    \end{block}
+    The only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$.
+
+    In the rest of the presentation, we will consider systems with no input, and drop the conditioning on $u_{1:t}$ to simplify notations. However, the reasoning remains the same with inputs.
+\end{frame}
+
+\begin{frame}{Posteriors}
+    \begin{itemize}
+        \item <1-> The true posterior  $p(z_{1:T} \vert x_{1:T})$ is usually untractable, but can be developed:
+            \begin{align*}
+                p(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T p(z_t \vert z_{1:t-1}, x_{1:T})
+            \end{align*}
+        % It can be noted that the true posterior exhibits a dependence of $z_t$ on \textit{past} $z_{1:t-1}$, but a dependence on the \textit{whole} data sequence $x_{1:T}$ (think Kalman smoother).
+        \item <2-> As in vanilla \glspl{vae}, the inference model is the approximation of the true posterior by an parametric encoder $q_{\phi}(z_{1:T} \vert x_{1:T})$, where $\phi$ is the set of parameters:
+            \begin{align*}
+                q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T})
+            \end{align*}
+        \item <3-> Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ will simplify. 
+        \item <4-> It is also considered a good practice to copy the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Likelihood}
+    \begin{itemize}
+        \item <1-> Observation model and encoder:
+        \begin{align}
+            p_{\theta}(x_{1:T}, z_{1:T}) &= \prod_{t=1}^T p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1}) \\
+            \label{q_phi_dev}
+            q_\phi(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi (z_t \vert z_{1:t-1}, x_{1:T})
+        \end{align}
+        \item <2-> Log likelihood
+        \begin{align}
+            \log{p(x_{1:T})} &= \log{\frac{p(x_{1:T}, z_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+            &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})} \frac{q_{\phi}(z_{1:T}\vert x_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+            &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})} + \KL{q_{\phi}(z_{1:T}\vert x_{1:T})}{p(z_{1:T} \vert x_{1:T})}} \\
+            &\geq \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\frac{p(x_{1:T}, z_{1:T})}{q_{\phi}(z_{1:T}\vert x_{1:T})}} = \VLB
+        \end{align}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Variational Lower Bound}
+    \begin{itemize}
+        \item Lower bound:
+        \begin{align}
+            \VLB &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \log{\left( \frac{\prod_{t=1}^T p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}{\prod_{t=1}^T q_\phi (z_t \vert z_{1:t-1}, x_{1:T})} \right)} \\
+            &= \E{q_{\phi}(z_{1:T}\vert x_{1:T})} \left(  \sum_{t=1}^T \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} - \sum_{t=1}^T \log{\frac{q_\phi (z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}}
+            \right) \\
+            &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} -\\
+            &\sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
+        \end{align}
+        \item The first term is the usual \textbf{reconstruction error}.
+        \item The second term is a regularization term, summing over the time steps the average divergence between the approximate posterior distribution of the latent variable at time $t$, and its real distribution.
+        \item As in vanilla \gls{vae}, the sampling over $q_\phi$ requires the use of the "re parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary DVAE}
+    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=General Dynamical VAEs : generative and inference models; variational lower bound]
+        % \begin{itemize}
+            % \item \textbf{generative and inference model}s
+            \begin{align}
+                \label{gen_model_dvae}
+                p(x_{1:T}, z_{1:T}) &= \prod_{t=1}^T p_{\theta_x} (x_t \vert x_{1:t-1}, z_{1:t}) p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1}) \\
+            % \end{align}
+            % \item \textbf{inference model}
+            % \begin{align}
+                \label{inf_model_dvae}
+                q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T}) \\
+            % \end{align}
+            % % \item \textbf{\gls{vlb} for training}
+            % \begin{align}
+                \label{vlb_dvae}
+                \begin{split}
+                 \VLB &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} \\ &- \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
+                 \end{split}
+            \end{align}
+        % \end{itemize}
+    \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Deep Kalman Filter}
+Deep Kalman Filter \gls{dag}:
+
+\begin{figure}[h]
+        \centering
+        % \includegraphics[width=0.5\linewidth]{}
+        \label{fig:graphical_model_dkf}
+    \begin{tikzpicture}[
+        HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
+        UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
+        OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
+    ]
+    % nodes
+    \node[HIDDEN] (a) {$...$};
+    \node[UNOBS] (z_t_1) [right= of a] {$z_{t-1}$} edge[<-, thin] (a);
+    \node[UNOBS] (z_t)  [right= of z_t_1] {$z_{t}$} edge[<-, thin] (z_t_1);
+    \node[UNOBS] (z_t_p1) [right= of z_t] {$z_{t+1}$} edge[<-, thin] (z_t);
+    \node[HIDDEN] (e) [right= of z_t_p1] {$...$} edge[<-, thin] (z_t_p1);
+    \node[OBS] (x_t_1) [below= of z_t_1] {$x_{t-1}$} edge[<-, thin] (z_t_1);
+    \node[OBS] (x_t) [below= of z_t] {$x_{t}$} edge[<-, thin] (z_t);
+    \node[OBS] (x_t_p1) [below= of z_t_p1] {$x_{t+1}$} edge[<-, thin] (z_t_p1);
+    \end{tikzpicture}
+    \caption{Probabilistic model of a Deep Kalman Filter}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Deep Kalman Filter - generative model}
+Using \textbf{D-separation} on the \gls{dag} to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. Conditioning on $z_t$ and $z_{t-1}$ drives:
+\begin{align}
+    p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= p_{\theta_x}(x_t \vert z_t) \\
+    p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t}) &= p_{\theta_z}(z_t \vert z_{t-1}) \\
+    \label{dkf_posterior}
+    q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T}) &= q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) 
+\end{align}
+\end{frame}
+
+\begin{frame}{Deep Kalman Filter - generative model - 2}
+We then choose Gaussian distributions for $p_{\theta_x}, p_{\theta_z}$ and $q_\phi$, with mean and diagonal covariance, learnt by neural networks.
+\begin{align}
+    p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
+    p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}\\
+    q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
+\end{align}
+Some other formulations of the approximate posterior (encoder) are possible. For example:
+\begin{align*}
+    q_{\phi}(z_t \vert z_{t-1}, x_t) \\
+    q_{\phi}(z_t \vert z_{1:t}, x_{1:t}) \\
+    q_{\phi}(z_t \vert z_{1:T}, x_{1:T})
+\end{align*}
+We have chosen \ref{dkf_posterior} for the implementation, as it has the same formulation as the true posterior and respects the corresponding dependencies.
+\end{frame}
+
+\begin{frame}{Deep Kalman Filter - ELBO}
+% \begin{align*}
+%     q_{\phi}(z_{1:t} \vert x_{1:T}) = q_{\phi}(z_{1:t-1} \vert z_t, x_{1:T}) q_{\phi}(z_t \vert x_{1:T})
+% \end{align*}
+Using D-Separation, the \gls{elbo} \ref{vlb_dvae} simplifies into:
+\begin{align}
+    \VLB &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})} \\
+    &= \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}
+\end{align}
+\end{frame}
+
+\begin{frame}{Deep Kalman Filter - summary}
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Deep Kalman Filter]
+\begin{itemize}
+    \item \textbf{generative model}
+    \begin{align}
+        \label{gen_model_dkf}
+        p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
+        p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}
+    \end{align}
+    \item \textbf{inference model}
+    \begin{align}
+        \label{inf_model_dkf}
+        q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
+    \end{align}
+    \item \textbf{\gls{vlb} for training}
+    \begin{align}
+        \label{vlb_dkf}
+        \VLB &= \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}
+    \end{align}
+\end{itemize}
+\end{tcolorbox}
+\end{frame}
+
+\begin{frame}{DKF - Torch}
+    \begin{itemize}
+        \item The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians (see \ref{sec:KL-two-exponential-family-distributions})
+
+        \item Following \cite{girin_dynamical_2022}, we use forward \gls{lstm} to encode sequences such as $x_{1:t}$, and backward \gls{lstm} to encode sequences such as $x_{t:T}$, as inputs into the \gls{mlp} parametrizing the distributions. 
+        \item For example:
+            \begin{align*}
+                \overleftarrow{g_t} &= \text{Backward LSTM}(\overleftarrow{g_{t+1}}, x_t) \,\, (\text{encodes} \,\, x_{t:T}) \\
+                q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, \overleftarrow{g_t})}{\sigma_{\phi}^2(z_{t-1}, \overleftarrow{g_t})}
+            \end{align*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{DKF - Torch - Schematic blocks}
+The PyTorch implementation is described below:
+%
+%
+%------- DEEP KALMAN FILTER ------------------------------
+%
+%
+% % \begin{landscape}
+\begin{figure}[h]
+    \centering
+% % \begin{centering}
+\begin{tikzpicture}[
+    scale=0.70,
+    every node/.style={scale=0.50},
+    torch/.style={
+        rectangle, 
+        minimum size=6mm, 
+        thick, 
+        draw=green!100, 
+        fill=green!20, 
+        font=\ttfamily
+        },
+    math/.style={
+        rectangle, 
+        % minimum height=1cm,
+        % minimum width=2cm,
+        rounded corners, 
+        thick, 
+        draw=blue!100,
+        fill=blue!20,
+        align=center,
+        anchor=center,
+        inner sep=5pt
+        },
+    point/.style={
+        circle,
+        inner sep=0pt,
+        minimum size=0pt,
+        }
+    ]
+% \matrix[row sep = 1mm, column sep=5mm]{}
+\matrix[row sep = 2mm, column sep=2mm]{
+% first row
+\node[math] (xt) {
+    $\begin{array}{c}
+            x_{1:T} \\
+            (B,T,D_x)
+    \end{array}$
+}; &
+\node[torch] (lstm) {LSTM}; & 
+\node[math] (gt) {$\overleftarrow{g_t}(x_{t:T})$}; &
+\node[torch] (enco) {Encoder MLP}; &
+\node[math] (phi) {
+    $\begin{array}{c}
+            \mu_{\phi}(\tilde{z_t}, \overleftarrow{g_t}) \\
+            \sigma_{\phi}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$
+}; &
+\node[torch] (sample) {Sample}; &
+\node[math] (z_tilde) {$\tilde{z_t}= \mu_{\phi} + \sigma_{\phi} \odot \mathcal{N}(0, I_d)$}; & 
+\node[math] (q_phi) {$q_{\phi}(z_t \vert z_{t-1}, x_{t:T})$}; &
+\node[torch] (deco) {Decoder MLP}; &
+\node[math] (theta_x) {
+    $\begin{array}{c}
+        \mu_{\theta_x}(\tilde{z_t}, \overleftarrow{g_t}) \\
+        \sigma_{\theta_x}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$
+}; &
+\node[math] (p_theta_x) {$p_{\theta_x}(x_t \vert z_t)$}; &
+\node[math] (x_hat) {
+    $\begin{array}{c}
+            \hat{x}_{1:T} \\
+            (B,T,D_x)
+    \end{array}$
+}; \\
+%second row
+& & & \node[math] (z_t_1) (z_t_1) {$\tilde{z}_{t-1}$}; & & & \node[point] (coin) {}; & & &; \\
+%third row
+& & & \node[torch] (prior) {Prior MLP}; &
+\node[math] (theta_z) {
+    $\begin{array}{c}
+            \mu_{\theta_z}(\tilde{z_t}, \overleftarrow{g_t}) \\
+            \sigma_{\theta_z}^2(\tilde{z_t}, \overleftarrow{g_t})
+    \end{array}$}; & & &
+\node[math] (p_theta_z) {$p_{\theta_z}(z_t \vert z_{t-1})$}; &
+& &; \\
+};
+\path   (xt) edge [->, thin] (lstm)
+        (lstm) edge [->, thin] (gt)
+        (gt) edge [->, thin] (enco)
+        (enco) edge [->, thin] (phi)
+        (phi) edge [->, thin] (sample)
+        (sample) edge [->, thin] (z_tilde)
+        (z_tilde) edge [->, thin] (q_phi)
+        (q_phi) edge[->, thin] (deco)
+        (deco) edge [->, thin] (theta_x)
+        (theta_x) edge [->, thin] (p_theta_x)
+        (p_theta_x) edge [->, thin] (x_hat)
+        (z_t_1) edge [->, thin] (enco)
+        (prior) edge [<-, thin] (z_t_1)
+        (theta_z) edge [<-, thin] (prior)
+        (theta_z) edge[->, thin] (p_theta_z)
+        (z_tilde) edge [-, thin] (coin)
+        (coin) edge [->, thin] (z_t_1);
+\end{tikzpicture}
+% --- Loss DKF
+\begin{tikzpicture}[
+    scale=0.90,
+    every node/.style={scale=0.90},
+    math/.style={
+        rectangle, 
+        % minimum height=1cm,
+        % minimum width=2cm,
+        rounded corners, 
+        thick, 
+        draw=black!100,
+        fill=gray!20,
+        align=center,
+        anchor=center,
+        inner sep=5pt
+        },
+    ]
+    \node[math] {
+            $\VLB = \sum_{t=1}^T \E{q_\phi(z_{t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert z_t)} - \sum_{t=1}^T \E{q_\phi(z_{t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{t-1}, x_{t:T})}{p_{\theta_z}(z_t \vert z_{t-1})}$
+    };
+\end{tikzpicture}
+% % \end{centering}
+% % \caption{Deep Kalman Filter Model Architecture}
+\end{figure}
+% % \end{landscape}
+\end{frame}

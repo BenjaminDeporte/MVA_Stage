@@ -1,0 +1,68 @@
+\documentclass[8pt, aspectratio=169]{beamer}
+
+\usetheme{Copenhagen}
+
+\setbeamercovered{transparent}
+
+\usepackage{graphicx} % Required for inserting images
+\usepackage[utf8]{inputenc}
+\usepackage{tikz, pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning, arrows.meta}
+\usetikzlibrary{bayesnet}
+\usetikzlibrary[quotes]
+\usetikzlibrary{arrows}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes, shapes.geometric, shapes.misc}
+\usepackage{tcolorbox}
+\usepackage{glossaries}
+
+\makeglossaries
+
+\title{Dynamical Variational Autoencoders :\\ discrete-time and continuous-time models.\\ Links to stochastic calculus and stochastic differential equations}
+
+\author{
+Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.deporte@ens-paris-saclay.fr}% student 1
+}
+
+% \text{ENS Paris-Saclay, MVA}
+
+\date{August 2025 - DRAFT}
+
+\input{glossary}
+\input{newcommands}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Summary}
+    \tableofcontents
+\end{frame}
+
+\input{intro}
+\input{dvae}
+\input{dvae_and_sde}
+\input{beyond_linear}
+\input{outro}
+
+% annexes
+
+\input{annexes}
+
+% \begin{frame}{Essai}
+%     \begin{itemize}
+%         \item ligne 1
+%         \item ligne 2
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Essai, 2}
+%     \begin{example}
+%         O.U.
+%     \end{example}
+% \end{frame}
+
+\printglossary
+
+\end{document}
