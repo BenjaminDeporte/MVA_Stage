@@ -17,35 +17,35 @@
 \beamer@slide {inf_model_dkf}{28}
 \beamer@slide {vlb_dkf}{28}
 \beamer@slide {vlb_dkf}{28}
-\beamer@slide {fig:graphical_model_vrnn}{31}
-\beamer@slide {gen_model_vrnn}{32}
-\beamer@slide {gen_model_vrnn}{32}
-\beamer@slide {inf_model_vrnn}{32}
-\beamer@slide {inf_model_vrnn}{32}
-\beamer@slide {vlb_vrnn}{32}
-\beamer@slide {vlb_vrnn}{32}
-\beamer@slide {fig:graphical_model_gpvae}{36}
-\beamer@slide {joint_gpvae}{36}
-\beamer@slide {joint_gpvae}{36}
-\beamer@slide {gen_model_gpvae}{39}
-\beamer@slide {gen_model_gpvae}{39}
-\beamer@slide {inf_model_gpvae}{39}
-\beamer@slide {inf_model_gpvae}{39}
-\beamer@slide {vlb_gpvae}{39}
-\beamer@slide {vlb_gpvae}{39}
-\beamer@slide {DVAEs and SDEs}{41}
-\beamer@slide {ito sde definition}{45}
-\beamer@slide {ito sde definition}{45}
-\beamer@slide {generic_sde}{47}
-\beamer@slide {generic_sde}{47}
-\beamer@slide {FPK}{49}
-\beamer@slide {FPK}{49}
-\beamer@slide {linear_sde}{50}
-\beamer@slide {linear_sde}{50}
-\beamer@slide {solution_linear_sde}{51}
-\beamer@slide {solution_linear_sde}{51}
-\beamer@slide {gpvae gaussian observation}{57}
-\beamer@slide {gpvae gaussian observation}{57}
-\beamer@slide {gpvae linear sde form}{57}
-\beamer@slide {gpvae linear sde form}{57}
-\beamer@slide {outro}{60}
+\beamer@slide {fig:graphical_model_vrnn}{33}
+\beamer@slide {gen_model_vrnn}{34}
+\beamer@slide {gen_model_vrnn}{34}
+\beamer@slide {inf_model_vrnn}{34}
+\beamer@slide {inf_model_vrnn}{34}
+\beamer@slide {vlb_vrnn}{34}
+\beamer@slide {vlb_vrnn}{34}
+\beamer@slide {fig:graphical_model_gpvae}{38}
+\beamer@slide {joint_gpvae}{38}
+\beamer@slide {joint_gpvae}{38}
+\beamer@slide {gen_model_gpvae}{41}
+\beamer@slide {gen_model_gpvae}{41}
+\beamer@slide {inf_model_gpvae}{41}
+\beamer@slide {inf_model_gpvae}{41}
+\beamer@slide {vlb_gpvae}{41}
+\beamer@slide {vlb_gpvae}{41}
+\beamer@slide {DVAEs and SDEs}{45}
+\beamer@slide {ito sde definition}{49}
+\beamer@slide {ito sde definition}{49}
+\beamer@slide {generic_sde}{51}
+\beamer@slide {generic_sde}{51}
+\beamer@slide {FPK}{53}
+\beamer@slide {FPK}{53}
+\beamer@slide {linear_sde}{54}
+\beamer@slide {linear_sde}{54}
+\beamer@slide {solution_linear_sde}{55}
+\beamer@slide {solution_linear_sde}{55}
+\beamer@slide {gpvae gaussian observation}{61}
+\beamer@slide {gpvae gaussian observation}{61}
+\beamer@slide {gpvae linear sde form}{61}
+\beamer@slide {gpvae linear sde form}{61}
+\beamer@slide {outro}{64}
