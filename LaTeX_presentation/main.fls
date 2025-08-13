@@ -605,6 +605,16 @@ OUTPUT main.vrb
 INPUT ./main.vrb
 INPUT ./main.vrb
 INPUT main.vrb
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png
+INPUT /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png
 OUTPUT main.vrb
 INPUT ./main.vrb
 INPUT ./main.vrb

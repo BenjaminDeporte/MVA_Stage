@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  13 AUG 2025 17:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  13 AUG 2025 18:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1469,12 +1469,12 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [30
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 401--401
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 415--415
  [][][][] []  
  []
 
 
-Overfull \vbox (8.24692pt too high) detected at line 401
+Overfull \vbox (8.24692pt too high) detected at line 415
  []
 
 
@@ -1487,12 +1487,12 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [31
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 425--425
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 439--439
  [][][][] []  
  []
 
 
-Overfull \vbox (8.0324pt too high) detected at line 425
+Overfull \vbox (8.0324pt too high) detected at line 439
  []
 
 
@@ -1508,26 +1508,26 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_vrnn}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.425 \end{frame}
+l.439 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{inf_model_vrnn}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.425 \end{frame}
+l.439 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{vlb_vrnn}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.425 \end{frame}
+l.439 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 427--427
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 441--441
  [][][][] []  
  []
 
 \openout4 = `main.vrb'.
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 587--587
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 601--601
  [][][][] []  
  []
 
@@ -1556,14 +1556,15 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 [33
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 635--635
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 608--608
  [][][][] []  
  []
 
-
-Overfull \vbox (23.29799pt too high) detected at line 635
- []
-
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=1295, 1431.6687pt x 209.583pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png  used on input line 608.
+(pdftex.def)             Requested size: 318.67209pt x 46.64885pt.
 
 
 
@@ -1573,19 +1574,16 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [34
 
-
-pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.635 \end{frame}
-                 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 657--657
+ </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 615--615
  [][][][] []  
  []
 
-
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 35 undefined on input line 657.
-
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=1335, 1149.093pt x 642.4803pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png  used on input line 615.
+(pdftex.def)             Requested size: 199.1693pt x 111.35735pt.
 
 
 
@@ -1595,19 +1593,14 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [35
 
-]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 670--670
+ </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 661--661
  [][][][] []  
  []
 
 
-LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 36 undefined on input line 670.
-
-
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 36 undefined on input line 670.
-
-
-LaTeX Warning: Citation `zhu_markovian_2023' on page 36 undefined on input line 670.
+Overfull \vbox (23.29799pt too high) detected at line 661
+ []
 
 
 
@@ -1618,14 +1611,18 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [36
 
-]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 696--696
+
+pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.661 \end{frame}
+                 ]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 683--683
  [][][][] []  
  []
 
 
-Overfull \vbox (2.4409pt too high) detected at line 696
- []
+LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 37 undefined on input line 683.
 
 
 
@@ -1636,30 +1633,71 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 
 [37
 
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 696--696
+ [][][][] []  
+ []
+
+
+LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 38 undefined on input line 696.
+
+
+LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 38 undefined on input line 696.
+
+
+LaTeX Warning: Citation `zhu_markovian_2023' on page 38 undefined on input line 696.
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[38
+
+]
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 722--722
+ [][][][] []  
+ []
+
+
+Overfull \vbox (2.4409pt too high) detected at line 722
+ []
+
+
+
+
+Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[39
+
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.696 \end{frame}
+l.722 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{inf_model_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.696 \end{frame}
+l.722 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{vlb_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.696 \end{frame}
+l.722 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 698--698
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 724--724
  [][][][] []  
  []
 
 \openout4 = `main.vrb'.
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 851--851
+Overfull \hbox (114.62364pt too wide) in paragraph at lines 877--877
  [][][][] []  
  []
 
@@ -1675,7 +1713,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[38
+[40
 
 ]) (./dvae_and_sde.tex
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 27--27
@@ -1689,7 +1727,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[39
+[41
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 62--62
@@ -1697,7 +1735,7 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 62--62
  []
 
 
-LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 40 undefined on input line 62.
+LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 42 undefined on input line 62.
 
 
 
@@ -1706,7 +1744,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[40
+[42
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 80--80
@@ -1720,7 +1758,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[41
+[43
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 95--95
@@ -1734,7 +1772,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[42
+[44
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 112--112
@@ -1748,7 +1786,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[43
+[45
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040definition}) has been already used, duplicate ignored
@@ -1767,7 +1805,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[44
+[46
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 165--165
@@ -1781,7 +1819,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[45
+[47
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) has been already used, duplicate ignored
@@ -1794,7 +1832,7 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 177--177
  []
 
 
-LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 46 undefined on input line 177.
+LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 48 undefined on input line 177.
 
 
 
@@ -1803,7 +1841,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[46
+[48
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 201--201
@@ -1817,7 +1855,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[47
+[49
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been already used, duplicate ignored
@@ -1836,7 +1874,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[48
+[50
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) has been already used, duplicate ignored
@@ -1855,7 +1893,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[49
+[51
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{solution_linear_sde}) has been already used, duplicate ignored
@@ -1874,7 +1912,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[50
+[52
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 270--270
@@ -1888,7 +1926,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[51
+[53
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 292--292
@@ -1902,7 +1940,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[52
+[54
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 305--305
@@ -1916,7 +1954,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[53
+[55
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 327--327
@@ -1930,7 +1968,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[54
+[56
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 350--350
@@ -1938,10 +1976,10 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 350--350
  []
 
 
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 55 undefined on input line 350.
+LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 57 undefined on input line 350.
 
 
-LaTeX Warning: Citation `rasmussen_gaussian_2008' on page 55 undefined on input line 350.
+LaTeX Warning: Citation `rasmussen_gaussian_2008' on page 57 undefined on input line 350.
 
 
 
@@ -1950,7 +1988,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[55
+[57
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040gaussian\040observation}) has been already used, duplicate ignored
@@ -1968,7 +2006,7 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 388--388
  []
 
 
-LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 56 undefined on input line 388.
+LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 58 undefined on input line 388.
 
 
 
@@ -1977,7 +2015,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[56
+[58
 
 ]
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 412--412
@@ -1985,7 +2023,7 @@ Overfull \hbox (114.62364pt too wide) in paragraph at lines 412--412
  []
 
 
-LaTeX Warning: Citation `mva_kernel_class' on page 57 undefined on input line 412.
+LaTeX Warning: Citation `mva_kernel_class' on page 59 undefined on input line 412.
 
 
 
@@ -1994,7 +2032,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[57
+[59
 
 ]) (./outro.tex
 Overfull \hbox (114.62364pt too wide) in paragraph at lines 21--21
@@ -2008,7 +2046,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
-[58
+[60
 
 ])
 \tf@nav=\write8
@@ -2039,10 +2077,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 4EC7BA4AD35DAC2FADB05FB3736339A0;635.
  ) 
 Here is how much of TeX's memory you used:
- 49046 strings out of 467801
- 1181907 string characters out of 5431917
- 1815844 words of memory out of 5000000
- 76672 multiletter control sequences out of 15000+600000
+ 49068 strings out of 467801
+ 1182980 string characters out of 5431917
+ 1813605 words of memory out of 5000000
+ 76690 multiletter control sequences out of 15000+600000
  639032 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,31n,123p,2554b,1330s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2095,10 +2133,10 @@ pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, rep
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (58 pages, 363232 bytes).
+Output written on main.pdf (60 pages, 581770 bytes).
 PDF statistics:
- 2402 PDF objects out of 2487 (max. 8388607)
- 1988 compressed objects within 20 object streams
- 166 named destinations out of 1000 (max. 500000)
- 117 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2483 PDF objects out of 2487 (max. 8388607)
+ 2050 compressed objects within 21 object streams
+ 170 named destinations out of 1000 (max. 500000)
+ 127 words of extra memory for PDF output out of 10000 (max. 10000000)
 
