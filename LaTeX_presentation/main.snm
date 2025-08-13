@@ -24,7 +24,18 @@
 \beamer@slide {inf_model_vrnn}{32}
 \beamer@slide {vlb_vrnn}{32}
 \beamer@slide {vlb_vrnn}{32}
-\beamer@slide {DVAEs and SDEs}{34}
-\beamer@slide {beyond}{35}
-\beamer@slide {outro}{36}
-\beamer@slide {annexes}{37}
+\beamer@slide {fig:graphical_model_gpvae}{34}
+\beamer@slide {joint_gpvae}{34}
+\beamer@slide {joint_gpvae}{34}
+\beamer@slide {gen_model_gpvae}{37}
+\beamer@slide {gen_model_gpvae}{37}
+\beamer@slide {inf_model_gpvae}{37}
+\beamer@slide {inf_model_gpvae}{37}
+\beamer@slide {vlb_gpvae}{37}
+\beamer@slide {vlb_gpvae}{37}
+\beamer@slide {DVAEs and SDEs}{39}
+\beamer@slide {ito sde definition}{43}
+\beamer@slide {ito sde definition}{43}
+\beamer@slide {beyond}{45}
+\beamer@slide {outro}{46}
+\beamer@slide {annexes}{47}

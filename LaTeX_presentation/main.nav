@@ -42,28 +42,48 @@
 \headcommand {\beamer@framepages {32}{32}}
 \headcommand {\slideentry {2}{0}{16}{33/33}{}{0}}
 \headcommand {\beamer@framepages {33}{33}}
-\headcommand {\beamer@sectionpages {10}{33}}
-\headcommand {\beamer@subsectionpages {10}{33}}
-\headcommand {\sectionentry {3}{DVAE and Stochastic Differential Equations}{34}{DVAE and Stochastic Differential Equations}{0}}
-\headcommand {\slideentry {3}{0}{1}{34/34}{}{0}}
+\headcommand {\slideentry {2}{0}{17}{34/34}{}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\beamer@sectionpages {34}{34}}
-\headcommand {\beamer@subsectionpages {34}{34}}
-\headcommand {\sectionentry {4}{Beyond linear SDEs and Gaussian Processes}{35}{Beyond linear SDEs and Gaussian Processes}{0}}
-\headcommand {\slideentry {4}{0}{1}{35/35}{}{0}}
+\headcommand {\slideentry {2}{0}{18}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\beamer@sectionpages {35}{35}}
-\headcommand {\beamer@subsectionpages {35}{35}}
-\headcommand {\sectionentry {5}{Outro}{36}{Outro}{0}}
-\headcommand {\slideentry {5}{0}{1}{36/36}{}{0}}
+\headcommand {\slideentry {2}{0}{19}{36/36}{}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\beamer@sectionpages {36}{36}}
-\headcommand {\beamer@subsectionpages {36}{36}}
-\headcommand {\sectionentry {6}{Annexes}{37}{Annexes}{0}}
-\headcommand {\slideentry {6}{0}{1}{37/37}{}{0}}
+\headcommand {\slideentry {2}{0}{20}{37/37}{}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\beamer@partpages {1}{38}}
-\headcommand {\beamer@subsectionpages {37}{38}}
-\headcommand {\beamer@sectionpages {37}{38}}
-\headcommand {\beamer@documentpages {38}}
-\headcommand {\gdef \inserttotalframenumber {23}}
+\headcommand {\slideentry {2}{0}{21}{38/38}{}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\beamer@sectionpages {10}{38}}
+\headcommand {\beamer@subsectionpages {10}{38}}
+\headcommand {\sectionentry {3}{DVAE and Stochastic Differential Equations}{39}{DVAE and Stochastic Differential Equations}{0}}
+\headcommand {\slideentry {3}{0}{1}{39/39}{}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\slideentry {3}{0}{2}{40/40}{}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\slideentry {3}{0}{3}{41/41}{}{0}}
+\headcommand {\beamer@framepages {41}{41}}
+\headcommand {\slideentry {3}{0}{4}{42/42}{}{0}}
+\headcommand {\beamer@framepages {42}{42}}
+\headcommand {\slideentry {3}{0}{5}{43/43}{}{0}}
+\headcommand {\beamer@framepages {43}{43}}
+\headcommand {\slideentry {3}{0}{6}{44/44}{}{0}}
+\headcommand {\beamer@framepages {44}{44}}
+\headcommand {\beamer@sectionpages {39}{44}}
+\headcommand {\beamer@subsectionpages {39}{44}}
+\headcommand {\sectionentry {4}{Beyond linear SDEs and Gaussian Processes}{45}{Beyond linear SDEs and Gaussian Processes}{0}}
+\headcommand {\slideentry {4}{0}{1}{45/45}{}{0}}
+\headcommand {\beamer@framepages {45}{45}}
+\headcommand {\beamer@sectionpages {45}{45}}
+\headcommand {\beamer@subsectionpages {45}{45}}
+\headcommand {\sectionentry {5}{Outro}{46}{Outro}{0}}
+\headcommand {\slideentry {5}{0}{1}{46/46}{}{0}}
+\headcommand {\beamer@framepages {46}{46}}
+\headcommand {\beamer@sectionpages {46}{46}}
+\headcommand {\beamer@subsectionpages {46}{46}}
+\headcommand {\sectionentry {6}{Annexes}{47}{Annexes}{0}}
+\headcommand {\slideentry {6}{0}{1}{47/47}{}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\beamer@partpages {1}{48}}
+\headcommand {\beamer@subsectionpages {47}{48}}
+\headcommand {\beamer@sectionpages {47}{48}}
+\headcommand {\beamer@documentpages {48}}
+\headcommand {\gdef \inserttotalframenumber {33}}
