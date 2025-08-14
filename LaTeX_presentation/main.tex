@@ -24,9 +24,27 @@
 \usepackage{thmtools}
 % \usepackage{bbm}
 
+\usepackage[style=numeric,backend=biber]{biblatex}
+\addbibresource{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations_2.bib}
+\addbibresource{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations.bib}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}%
+      \insertframenumber{} / \inserttotalframenumber\hspace*{3em}\insertshortauthor
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+      \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
 \makeglossaries
 
-\title{Dynamical Variational Autoencoders (discrete and continuous)\\ Links to stochastic calculus and stochastic differential equations}
+\title{Dynamical Variational Autoencoders\\ Links to stochastic differential equations}
 
 \author{
 Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.deporte@ens-paris-saclay.fr}% student 1
@@ -51,6 +69,11 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 \input{dvae}
 \input{dvae_and_sde}
 \input{outro}
+
+\begin{frame}[allowframebreaks,noframenumbering]{References}
+    \footnotesize
+    \printbibliography[heading=none]
+\end{frame}
 
 % annexes
 

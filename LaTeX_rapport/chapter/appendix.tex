@@ -281,13 +281,13 @@ We note that we have to compute:
     (B_{t_{k+1}} - B_{t_k})
 \end{align}
 The sum on the rhs is a sum of independent Gaussians $e^{\lambda t_k}(B_{t_{k+1}} - B_{t_k}) \sim e^{\lambda t_k}\mathcal{N}(0, t_{k+1}-t_k)$, 
-so the sum is a centered Gaussian of variance $\sum_{k=0}^{n} e^{\lambda t_k} (t_{k+1}-t_k)$.
+so the sum is a centered Gaussian of variance $\sum_{k=0}^{n} e^{2 \lambda t_k} (t_{k+1}-t_k)$.
 So :
 \begin{align}
-    \int_{0}^{t} e^{\lambda s}dB_s &= \underset{n \rightarrow \infty}{\lim} \
-    \mathcal{N}(0, \underset{n \rightarrow \infty}{\lim} sum_{k=0}^{n} e^{\lambda t_k}
-    (B_{t_{k+1}} - B_{t_k})) \\
-    &= \mathcal{N}(0, \int_{0}^{t} e^{\lambda s}ds) \\
+    \int_{0}^{t} e^{\lambda s}dB_s &= \
+    \mathcal{N}(0, \underset{n \rightarrow \infty}{\lim} \sum_{k=0}^{n} e^{2 \lambda t_k}
+    (t_{k+1} - t_k)) \\
+    &= \mathcal{N}(0, \int_{0}^{t} e^{2 \lambda s}ds) \\
     &= \mathcal{N}(0, \frac{1}{2 \lambda} (e^{2 \lambda t} - 1))
 \end{align}
 }
@@ -478,4 +478,3 @@ and finally get:
 
 which proves that $p(x_3 \vert x_2, x_1) = p(x_3 \vert x_2) = \mathcal{N}(x_2, t_3-t_2)$, ie the Browian motion is a Markov process,
 and we also retrieve that $x_3 - x_2 \sim \mathcal{N}(0, t_3-t_2)$.
-

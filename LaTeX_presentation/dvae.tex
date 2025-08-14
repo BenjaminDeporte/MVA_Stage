@@ -145,7 +145,7 @@ Deep Kalman Filter \gls{dag}:
 \end{frame}
 
 \begin{frame}{Deep Kalman Filter - generative model}
-Using \textbf{D-separation} on the \gls{dag} to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. Conditioning on $z_t$ and $z_{t-1}$ drives:
+Using \textbf{D-separation} \cite{bishop_pattern_2016}, \cite{ProbabilisticGraphicalModels}, \cite{ProbabilisticMachineLearning} on the \gls{dag} to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. Conditioning on $z_t$ and $z_{t-1}$ drives:
 \begin{align}
     p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= p_{\theta_x}(x_t \vert z_t) \\
     p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t}) &= p_{\theta_z}(z_t \vert z_{t-1}) \\
@@ -206,7 +206,7 @@ Using D-Separation, the \gls{elbo} \ref{vlb_dvae} simplifies into:
 
 \begin{frame}{DKF - Torch}
     \begin{itemize}
-        \item The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians (see \ref{sec:KL-two-exponential-family-distributions})
+        \item The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians. % (see \ref{sec:KL-two-exponential-family-distributions})
 
         \item Following \cite{girin_dynamical_2022}, we use forward \gls{lstm} to encode sequences such as $x_{1:t}$, and backward \gls{lstm} to encode sequences such as $x_{t:T}$, as inputs into the \gls{mlp} parametrizing the distributions. 
         \item For example:
@@ -631,6 +631,8 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
         % \includegraphics[width=0.5\linewidth]{}
         \label{fig:graphical_model_gpvae}
     \begin{tikzpicture}[
+        % scale=0.90,
+        % every node/.style={scale=0.90},
         HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
         UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
         OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
@@ -649,12 +651,12 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
     \end{figure}
 
     \begin{itemize}
-        \item The thick black lines indicate all latent variables follow a Gaussian Process.
+        \item The thick black lines indicate all latent variables follow a Gaussian Process. 
         \item The joint distribution writes somehow differently from the one for \glspl{dvae}, as:
             \begin{align}
             \label{joint_gpvae}
-                p(x_{t_1:t_T}, z_{t_1:t_T}) &= p(z_{t_1:t_T}) p(x_{t_1:t_T} \vert z_{t_1:t_T}) \\
-                &= p(z_{t_1:t_T}) \prod_{i=1}^T p(x_{t_i} \vert x_{t_1:t_{i-1}}, z_{t_1:t_T}) \\
+                p(x_{t_1:t_T}, z_{t_1:t_T}) %&= p(z_{t_1:t_T}) p(x_{t_1:t_T} \vert z_{t_1:t_T}) \\
+                %= p(z_{t_1:t_T}) \prod_{i=1}^T p(x_{t_i} \vert x_{t_1:t_{i-1}}, z_{t_1:t_T}) \\
                 &= p(z_{t_1:t_T}) \prod_{i=1}^T p(x_{t_i} \vert z_{t_{i}})
             \end{align}
     \end{itemize}
@@ -690,7 +692,7 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
 \end{align}
 We note that:
 \begin{itemize}
-    \item the $\mathbb{KL}$-divergence is actually the sum of the $L$ $\mathbb{KL}$-divergences $\KL{q_{\phi}^l}{p_{\theta_z}^l}$, which have a close form solution as both distributions are Gaussian. (see the well-known result \ref{sec:KL-two-exponential-family-distributions})
+    \item the $\mathbb{KL}$-divergence is actually the sum of the $L$ $\mathbb{KL}$-divergences $\KL{q_{\phi}^l}{p_{\theta_z}^l}$, which have a close form solution as both distributions are Gaussian. %(see the well-known result \ref{sec:KL-two-exponential-family-distributions})
     \item the reconstruction loss term requires sampling from $q_{\phi}(z_{t_i} \vert x_{t_1:t_T})$ using the reparameterization trick as usual.
     \item the \gls{gp} priors $p_{\theta_z}(z_{t_1:t_T})$ depend only on the time stamps $t_1,...t_T$. If the kernel parameters are fixed -such as in \cite{fortuin_gp-vae:_2020}- then the priors can be computed before the training loop. If the kernel parameters are learnt with the weights of the neural nets (such as in \cite{zhu_markovian_2023}), then the computation must occur at each training iteration.
 \end{itemize}

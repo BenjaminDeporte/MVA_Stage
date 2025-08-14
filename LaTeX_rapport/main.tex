@@ -4,6 +4,7 @@
 
 \input{preamble}
 \input{glossary}
+% \makeglossaries
 \input{newcommands}
 \input{theorems.tex}
 
@@ -29,9 +30,7 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 \everymath{\displaystyle}
 \maketitle
 
-\chapter*{Acknowledgements}
-
-Merci's
+\include{chapter/remerciements}
 
 \newpage
 \singlespacing
@@ -115,14 +114,10 @@ of the matter, the interested reader will likely enjoy \cite{mouvement-brownien-
    \include{chapter/appendix} 
 \end{appendices}
 
-\clearpage
-
 \printglossary
-\clearpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \printbibliography
-\clearpage
 
 \end{document}

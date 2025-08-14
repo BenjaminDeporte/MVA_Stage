@@ -3,11 +3,11 @@
 \begin{frame}{Abstract}
     \begin{itemize}
         \item <1-> \textbf{Data sequences} : we consider data sequences $(X_t)_{t \in \mathbb{T}} \in \mathbb{R}^D$, where $\mathbb{T}$ is a set of times, either discrete or continuous. ie : time-series, videos, motion captures, patient data...
-        \item <2-> \textbf{Dynamical Variational Auto Encoders} are a class of VAE models in which some structure is given to the latent variables to express the time dependency of the $X_t$.
+        \item <2-> \textbf{Dynamical Variational Auto Encoders} \cite{girin_dynamical_2022} are a class of VAE models in which some structure is given to the latent variables to express the time dependency of the $X_t$.
         \item <3-> \textbf{Discrete-time DVAEs} are a large set of models, from the well-known Kalman filter up to the Variational RNN. We review the Deep Kalman filter and the VRNN models.
         \item <4-> \textbf{Continuous-time DVAEs} use a continuous prior over the latent variables, which allows to deal with irregularly sampled data, or data with missing components. We review the Gaussian Process VAE.
-        \item <5-> \textbf{Stochastic calculus and stochastic differential equations} provides an elegant mathematical framework for DVAEs. We give a survival kit on stochastic calculus and SDEs.
-        \item <6-> \textbf{The solution of a linear SDE is a Gaussian process} : we can use known filtering and smoothing Kalman algorithms to \textbf{compute the GP regression (ie posterior distribution) in GP-VAE with a linear cost.}
+        \item <5-> \textbf{Stochastic calculus and stochastic differential equations} provides an elegant mathematical framework for DVAEs \cite{noauthor_gaussian_nodate} \cite{sarkka_applied_2019}. We give a survival kit on stochastic calculus and SDEs.
+        \item <6-> \textbf{The solution of a linear SDE is a Gaussian process} \cite{rasmussen_gaussian_2008}: we can use known filtering and smoothing Kalman algorithms to \textbf{compute the GP regression (ie posterior distribution) in GP-VAE with a linear cost.}
         \item <7-> \textbf{Beyond GP : Latent SDE model} - Not all Gaussian Processes are the solution to a linear SDE. Also, if the solution of a general SDE is a Markov process, it is not necessarily a Gaussian process. This leads to considering Latent SDE model, where the latent prior is a general SDE.
     \end{itemize}
 \end{frame}

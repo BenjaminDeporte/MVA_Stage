@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  14 AUG 2025 06:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  14 AUG 2025 16:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,36 +883,263 @@ Package: thm-amsthm 2023/05/04 v0.76
 \thmt@style@headstyle=\toks72
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/thmtools/thm-beamer.sty
 Package: thm-beamer 2023/05/04 v0.76
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2025/07/10 v3.21 programmable bibliographies (PK/MW)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count413
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-\glswrite=\write5
-\glo@main@file=\write6
-\openout6 = `main.glo'.
-
-Package glossaries Info: Writing glossary file main.glo on input line 27.
- (./glossary.tex) (./newcommands.tex) (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+\c@tabx@nest=\count414
+\c@listtotal=\count415
+\c@listcount=\count416
+\c@liststart=\count417
+\c@liststop=\count418
+\c@citecount=\count419
+\c@citetotal=\count420
+\c@multicitecount=\count421
+\c@multicitetotal=\count422
+\c@instcount=\count423
+\c@maxnames=\count424
+\c@minnames=\count425
+\c@maxitems=\count426
+\c@minitems=\count427
+\c@citecounter=\count428
+\c@maxcitecounter=\count429
+\c@savedcitecounter=\count430
+\c@uniquelist=\count431
+\c@uniquename=\count432
+\c@refsection=\count433
+\c@refsegment=\count434
+\c@maxextratitle=\count435
+\c@maxextratitleyear=\count436
+\c@maxextraname=\count437
+\c@maxextradate=\count438
+\c@maxextraalpha=\count439
+\c@abbrvpenalty=\count440
+\c@highnamepenalty=\count441
+\c@lownamepenalty=\count442
+\c@maxparens=\count443
+\c@parenlevel=\count444
+\blx@tempcnta=\count445
+\blx@tempcntb=\count446
+\blx@tempcntc=\count447
+\c@blx@maxsection=\count448
+\blx@maxsegment@0=\count449
+\blx@notetype=\count450
+\blx@parenlevel@text=\count451
+\blx@parenlevel@foot=\count452
+\blx@sectionciteorder@0=\count453
+\blx@sectionciteorderinternal@0=\count454
+\blx@entrysetcounter=\count455
+\blx@biblioinstance=\count456
+\labelnumberwidth=\skip79
+\labelalphawidth=\skip80
+\biblabelsep=\skip81
+\bibitemsep=\skip82
+\bibnamesep=\skip83
+\bibinitsep=\skip84
+\bibparsep=\skip85
+\bibhang=\skip86
+\blx@bcfin=\read4
+\blx@bcfout=\write5
+\blx@langwohyphens=\language90
+\c@mincomprange=\count457
+\c@maxcomprange=\count458
+\c@mincompwidth=\count459
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2025/07/10 v3.21 biblatex datamodel (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'numeric.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count460
+\c@savedafterword=\count461
+\c@annotator=\count462
+\c@savedannotator=\count463
+\c@author=\count464
+\c@savedauthor=\count465
+\c@bookauthor=\count466
+\c@savedbookauthor=\count467
+\c@commentator=\count468
+\c@savedcommentator=\count469
+\c@editor=\count470
+\c@savededitor=\count471
+\c@editora=\count472
+\c@savededitora=\count473
+\c@editorb=\count474
+\c@savededitorb=\count475
+\c@editorc=\count476
+\c@savededitorc=\count477
+\c@foreword=\count478
+\c@savedforeword=\count479
+\c@holder=\count480
+\c@savedholder=\count481
+\c@introduction=\count482
+\c@savedintroduction=\count483
+\c@namea=\count484
+\c@savednamea=\count485
+\c@nameb=\count486
+\c@savednameb=\count487
+\c@namec=\count488
+\c@savednamec=\count489
+\c@translator=\count490
+\c@savedtranslator=\count491
+\c@shortauthor=\count492
+\c@savedshortauthor=\count493
+\c@shorteditor=\count494
+\c@savedshorteditor=\count495
+\c@labelname=\count496
+\c@savedlabelname=\count497
+\c@institution=\count498
+\c@savedinstitution=\count499
+\c@lista=\count500
+\c@savedlista=\count501
+\c@listb=\count502
+\c@savedlistb=\count503
+\c@listc=\count504
+\c@savedlistc=\count505
+\c@listd=\count506
+\c@savedlistd=\count507
+\c@liste=\count508
+\c@savedliste=\count509
+\c@listf=\count510
+\c@savedlistf=\count511
+\c@location=\count512
+\c@savedlocation=\count513
+\c@organization=\count514
+\c@savedorganization=\count515
+\c@origlocation=\count516
+\c@savedoriglocation=\count517
+\c@origpublisher=\count518
+\c@savedorigpublisher=\count519
+\c@publisher=\count520
+\c@savedpublisher=\count521
+\c@language=\count522
+\c@savedlanguage=\count523
+\c@origlanguage=\count524
+\c@savedoriglanguage=\count525
+\c@pageref=\count526
+\c@savedpageref=\count527
+\shorthandwidth=\skip87
+\shortjournalwidth=\skip88
+\shortserieswidth=\skip89
+\shorttitlewidth=\skip90
+\shortauthorwidth=\skip91
+\shorteditorwidth=\skip92
+\locallabelnumberwidth=\skip93
+\locallabelalphawidth=\skip94
+\localshorthandwidth=\skip95
+\localshortjournalwidth=\skip96
+\localshortserieswidth=\skip97
+\localshorttitlewidth=\skip98
+\localshortauthorwidth=\skip99
+\localshorteditorwidth=\skip100
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2025/07/10 v3.21 biblatex compatibility (PK/MW)
+\c@textcitecount=\count528
+\c@textcitetotal=\count529
+\c@textcitemaxnames=\count530
+\c@biburlbigbreakpenalty=\count531
+\c@biburlbreakpenalty=\count532
+\c@biburlnumpenalty=\count533
+\c@biburlucpenalty=\count534
+\c@biburllcpenalty=\count535
+\biburlbigskip=\muskip19
+\biburlnumskip=\muskip20
+\biburlucskip=\muskip21
+\biburllcskip=\muskip22
+\c@smartand=\count536
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2025/07/10 v3.21 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count537
+\c@bbx:relatedtotal=\count538
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2025/07/10 v3.21 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Document encoding is UTF8 ....
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-07-20 L3 programming layer (loader) 
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count413
-) (./main.aux)
+\l__color_backend_stack_int=\count539
+))
+Package biblatex Info: ... and expl3
+(biblatex)             2025-07-20 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty (/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2024-08-16 L3 Experimental document command parser
+)
+Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
+))
+\glswrite=\write6
+\glo@main@file=\write7
+\openout7 = `main.glo'.
+
+Package glossaries Info: Writing glossary file main.glo on input line 45.
+ (./glossary.tex) (./newcommands.tex)
+\@quotelevel=\count540
+\@quotereset=\count541
+ (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
+LaTeX Font Info:    ... okay on input line 60.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -950,16 +1177,16 @@ LaTeX Font Info:    ... okay on input line 42.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count414
+\scratchcounter=\count542
 \scratchdimen=\dimen359
 \scratchbox=\box122
-\nofMPsegments=\count415
-\nofMParguments=\count416
+\nofMPsegments=\count543
+\nofMParguments=\count544
 \everyMPshowfont=\toks73
-\MPscratchCnt=\count417
+\MPscratchCnt=\count545
 \MPscratchDim=\dimen360
-\MPnumerator=\count418
-\makeMPintoPDFobject=\count419
+\MPnumerator=\count546
+\makeMPintoPDFobject=\count547
 \everyMPtoPDFconversion=\toks74
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -967,60 +1194,60 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 42.
+Package hyperref Info: Link coloring OFF on input line 60.
  (./main.out) (./main.out)
-\@outlinefile=\write7
-\openout7 = `main.out'.
+\@outlinefile=\write8
+\openout8 = `main.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 42.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 60.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 42.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 42.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 60.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 42.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 42.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 42.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 42.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 42.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 42.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 60.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 42.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 42.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 42.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 60.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 42.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 42.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 42.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 42.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 42.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 42.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 42.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 42.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 42.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 42.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 60.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 60.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 42.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 60.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 42.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 60.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 42.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 60.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -1036,48 +1263,42 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
-(./main.nav)
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 42--42
- [][][][] []  
- []
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout5 = `main.bcf'.
 
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'main.bbl' found.
+ (./main.bbl
 
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 44--44
- [][][][] []  
- []
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                mva_kernel_class
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
 
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
+)
+Package biblatex Info: Reference section=0 on input line 60.
+Package biblatex Info: Reference segment=0 on input line 60.
+ (./main.nav)
 
 [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-\openout5 = `main.ist'.
+\openout6 = `main.ist'.
 
-]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 48--48
- [][][][] []  
- []
-
-(./main.toc)
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
+] (./main.toc)
 
 [2
 
 ] (./intro.tex
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 13--13
- [][][][] []  
- []
-
 LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
@@ -1089,183 +1310,73 @@ LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inpu
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [3
 
 ]
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [4
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [5
 
 ]
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [6
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [7
 
 ]
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [8
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [9
 
 ]) (./dvae.tex
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 22--22
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [10
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [11
 
 ]
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [12
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [13
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [14
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 35--35
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [15
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 51--51
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [16
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [17
 
 ]
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [18
 
 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [19
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 69--69
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [20
 
@@ -1276,41 +1387,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{q_phi_dev}) ha
 l.69 \end{frame}
                 ]
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [21
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 85--85
- [][][][] []  
- []
-
-
-LaTeX Warning: Citation `kingma_introduction_2019' on page 22 undefined on input line 85.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [22
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 109--109
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [23
 
@@ -1330,30 +1413,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dvae}) has
                                                   \__shipout_drop_firstpage_...
 l.109 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 145--145
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [24
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 155--155
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [25
 
@@ -1363,44 +1426,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{dkf_posterior}
                                                   \__shipout_drop_firstpage_...
 l.155 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 171--171
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [26
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 182--182
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [27
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 205--205
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [28
 
@@ -1420,38 +1453,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dkf}) has 
                                                   \__shipout_drop_firstpage_...
 l.205 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 218--218
- [][][][] []  
- []
-
-
-LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 29 undefined on input line 218.
-
-
-LaTeX Warning: Citation `girin_dynamical_2022' on page 29 undefined on input line 218.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [29
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 221--221
- [][][][] []  
- []
-
 \openout4 = `main.vrb'.
 
-
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 351--351
- [][][][] []  
- []
-
-(./main.vrb
+ (./main.vrb
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 
@@ -1461,84 +1469,41 @@ Overfull \hbox (4.83917pt too wide) in paragraph at lines 105--129
 
 )
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [30
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 359--359
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=1161, 1437.4503pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=593, 1437.4503pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png  used on input line 359.
 (pdftex.def)             Requested size: 398.3386pt x 58.07841pt.
 
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [31
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 366--366
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=1202, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=614, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png  used on input line 366.
 (pdftex.def)             Requested size: 318.67209pt x 178.17764pt.
 
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [32
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 416--416
- [][][][] []  
+Overfull \vbox (7.41359pt too high) detected at line 416
  []
 
 
-Overfull \vbox (8.24692pt too high) detected at line 416
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [33
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 440--440
- [][][][] []  
+Overfull \vbox (7.19907pt too high) detected at line 440
  []
 
 
-Overfull \vbox (8.0324pt too high) detected at line 440
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [34
 
@@ -1558,21 +1523,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_vrnn}) has
                                                   \__shipout_drop_firstpage_...
 l.440 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 442--442
- [][][][] []  
- []
-
 \openout4 = `main.vrb'.
 
-
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 602--602
- [][][][] []  
- []
-
-(./main.vrb
-
-LaTeX Warning: Citation `girin_dynamical_2022' on page 35 undefined on input line 2.
-
+ (./main.vrb
 Missing character: There is no ; in font nullfont!
 
 Overfull \hbox (8.77179pt too wide) in paragraph at lines 134--135
@@ -1586,66 +1539,29 @@ Overfull \hbox (6.24762pt too wide) in paragraph at lines 159--160
 
 )
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [35
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 609--609
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=1376, 1431.6687pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=708, 1431.6687pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png  used on input line 609.
 (pdftex.def)             Requested size: 398.3386pt x 58.31186pt.
 
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [36
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 616--616
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=1415, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=727, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png  used on input line 616.
 (pdftex.def)             Requested size: 318.67209pt x 178.17764pt.
 
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [37
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 662--662
- [][][][] []  
- []
-
-
-Overfull \vbox (23.29799pt too high) detected at line 662
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [38
 
@@ -1653,62 +1569,20 @@ Overfull \hbox (72.57802pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.662 \end{frame}
+l.664 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 684--684
- [][][][] []  
- []
-
-
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 39 undefined on input line 684.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [39
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 697--697
- [][][][] []  
- []
-
-
-LaTeX Warning: Reference `sec:KL-two-exponential-family-distributions' on page 40 undefined on input line 697.
-
-
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 40 undefined on input line 697.
-
-
-LaTeX Warning: Citation `zhu_markovian_2023' on page 40 undefined on input line 697.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [40
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 723--723
- [][][][] []  
+Overfull \vbox (1.60757pt too high) detected at line 725
  []
 
 
-Overfull \vbox (2.4409pt too high) detected at line 723
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [41
 
@@ -1716,155 +1590,70 @@ Overfull \hbox (72.57802pt too wide) has occurred while \output is active
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.723 \end{frame}
+l.725 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{inf_model_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.723 \end{frame}
+l.725 \end{frame}
                  
 pdfTeX warning (ext4): destination with the same identifier (name{vlb_gpvae}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.723 \end{frame}
+l.725 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 725--725
- [][][][] []  
- []
-
 \openout4 = `main.vrb'.
 
-
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 878--878
- [][][][] []  
- []
-
-(./main.vrb
+ (./main.vrb
 Overfull \hbox (21.54742pt too wide) in paragraph at lines 125--126
 [][]  
  []
 
 )
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [42
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 886--886
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=1660, 1292.9103pt x 281.853pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=855, 1292.9103pt x 281.853pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png  used on input line 886.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png  used on input line 888.
 (pdftex.def)             Requested size: 398.3386pt x 86.83592pt.
 
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [43
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 893--893
- [][][][] []  
- []
-
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=1699, 715.473pt x 859.2903pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=875, 715.473pt x 859.2903pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png  used on input line 893.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png  used on input line 895.
 (pdftex.def)             Requested size: 159.333pt x 191.3521pt.
 
-Overfull \vbox (5.11847pt too high) detected at line 893
+Overfull \vbox (4.28514pt too high) detected at line 895
  []
 
 
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [44
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>]) (./dvae_and_sde.tex
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 27--27
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [45
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 62--62
- [][][][] []  
- []
-
-
-LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 46 undefined on input line 62.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [46
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 80--80
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [47
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 95--95
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [48
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 112--112
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [49
 
@@ -1874,30 +1663,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040
                                                   \__shipout_drop_firstpage_...
 l.112 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 138--138
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [50
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 165--165
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [51
 
@@ -1907,33 +1676,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) 
                                                   \__shipout_drop_firstpage_...
 l.165 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 177--177
- [][][][] []  
- []
-
-
-LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 52 undefined on input line 177.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [52
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 201--201
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [53
 
@@ -1943,16 +1689,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been
                                                   \__shipout_drop_firstpage_...
 l.201 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 216--216
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [54
 
@@ -1962,16 +1698,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) h
                                                   \__shipout_drop_firstpage_...
 l.216 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 237--237
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [55
 
@@ -1981,92 +1707,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{solution_linea
                                                   \__shipout_drop_firstpage_...
 l.237 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 259--259
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [56
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 270--270
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [57
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 292--292
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [58
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 305--305
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [59
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 327--327
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [60
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 350--350
- [][][][] []  
- []
-
-
-LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 61 undefined on input line 350.
-
-
-LaTeX Warning: Citation `rasmussen_gaussian_2008' on page 61 undefined on input line 350.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [61
 
@@ -2081,76 +1741,52 @@ pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040linea
                                                   \__shipout_drop_firstpage_...
 l.350 \end{frame}
                  ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 388--388
- [][][][] []  
- []
-
 
 LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 62 undefined on input line 388.
 
 
 
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
-
 [62
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 412--412
- [][][][] []  
- []
+
+LaTeX Warning: Citation 'mva_kernel_class' on page 63 undefined on input line 412.
 
 
-LaTeX Warning: Citation `mva_kernel_class' on page 63 undefined on input line 412.
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [63
 
 ]) (./outro.tex
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 21--21
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [64
 
 ]
-Overfull \hbox (72.57802pt too wide) in paragraph at lines 30--30
- [][][][] []  
- []
-
-
-
-
-Overfull \hbox (72.57802pt too wide) has occurred while \output is active
- [][][][] []  
- []
 
 [65
 
 ])
-\tf@nav=\write8
-\openout8 = `main.nav'.
 
-\tf@toc=\write9
-\openout9 = `main.toc'.
+LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <8> not available
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 76.
 
-\tf@snm=\write10
-\openout10 = `main.snm'.
+
+
+[66
+
+]
+
+[67
+
+
+]
+\tf@nav=\write9
+\openout9 = `main.nav'.
+
+\tf@toc=\write10
+\openout10 = `main.toc'.
+
+\tf@snm=\write11
+\openout11 = `main.snm'.
 
 
 
@@ -2169,15 +1805,18 @@ LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 4EC7BA4AD35DAC2FADB05FB3736339A0;635.
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
  ) 
 Here is how much of TeX's memory you used:
- 49116 strings out of 467801
- 1185163 string characters out of 5431917
- 1806043 words of memory out of 5000000
- 76728 multiletter control sequences out of 15000+600000
- 639032 words of font info for 84 fonts, out of 8000000 for 9000
+ 56482 strings out of 467801
+ 1337025 string characters out of 5431917
+ 2368874 words of memory out of 5000000
+ 84027 multiletter control sequences out of 15000+600000
+ 639333 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,31n,123p,2554b,1330s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,31n,123p,2554b,1997s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{sec:brownian_motion_gaussian_and_markov} has been referenced but does not exist, replaced by a fixed one
 
@@ -2209,9 +1848,6 @@ pdfTeX warning (dest): name{glo:mlp} has been referenced but does not exist, rep
 pdfTeX warning (dest): name{glo:lstm} has been referenced but does not exist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{sec:KL-two-exponential-family-distributions} has been referenced but does not exist, replaced by a fixed one
-
-
 pdfTeX warning (dest): name{glo:vlb} has been referenced but does not exist, replaced by a fixed one
 
 
@@ -2226,11 +1862,11 @@ pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, rep
 
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (65 pages, 1267419 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on main.pdf (67 pages, 1223057 bytes).
 PDF statistics:
- 2681 PDF objects out of 2984 (max. 8388607)
- 2203 compressed objects within 23 object streams
- 180 named destinations out of 1000 (max. 500000)
+ 1472 PDF objects out of 1728 (max. 8388607)
+ 997 compressed objects within 10 object streams
+ 194 named destinations out of 1000 (max. 500000)
  147 words of extra memory for PDF output out of 10000 (max. 10000000)
 

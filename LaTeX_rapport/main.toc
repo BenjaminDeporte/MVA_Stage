@@ -1,28 +1,29 @@
+\contentsline {chapter}{\numberline {1}Remerciements}{2}{chapter.1}%
 \contentsline {part}{I\hspace {1em}Introduction}{6}{part.1}%
 \contentsline {part}{II\hspace {1em}Dynamical Variational Autoencoders}{8}{part.2}%
-\contentsline {chapter}{\numberline {1}D-separation}{10}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Dynamical Variational Auto Encoders}{13}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Deep Kalman Filter}{16}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Variational Recurrent Neural Network}{19}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Gaussian Process Variational Auto Encoder}{22}{chapter.5}%
+\contentsline {chapter}{\numberline {2}D-separation}{10}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Dynamical Variational Auto Encoders}{13}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Deep Kalman Filter}{16}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Variational Recurrent Neural Network}{19}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Gaussian Process Variational Auto Encoder}{22}{chapter.6}%
 \contentsline {part}{III\hspace {1em}Notions on stochastic differential equations and their relationships to DVAEs}{27}{part.3}%
-\contentsline {chapter}{\numberline {6}Preliminary : quantifying randomness of data sequences}{29}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Stochastic calculus intoduction}{33}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Stochastic Differential Equations}{37}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Generic SDE}{37}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Linear SDE}{38}{section.8.2}%
-\contentsline {chapter}{\numberline {9}Filtering, Smoothing, and the GP-VAE}{41}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Filtering and Smooting}{42}{section.9.1}%
-\contentsline {section}{\numberline {9.2}GP-VAE}{44}{section.9.2}%
+\contentsline {chapter}{\numberline {7}Preliminary : quantifying randomness of data sequences}{29}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Stochastic calculus intoduction}{33}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Stochastic Differential Equations}{37}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Generic SDE}{37}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Linear SDE}{38}{section.9.2}%
+\contentsline {chapter}{\numberline {10}Filtering, Smoothing, and the GP-VAE}{41}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Filtering and Smooting}{42}{section.10.1}%
+\contentsline {section}{\numberline {10.2}GP-VAE}{44}{section.10.2}%
 \contentsline {part}{IV\hspace {1em}Experiments}{47}{part.4}%
-\contentsline {chapter}{\numberline {10}Experiments}{48}{chapter.10}%
+\contentsline {chapter}{\numberline {11}Experiments}{48}{chapter.11}%
 \contentsline {part}{V\hspace {1em}Conclusion and Discussion}{49}{part.5}%
-\contentsline {chapter}{\numberline {11}Conclusions}{50}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Conclusions}{50}{chapter.12}%
 \contentsline {part}{VI\hspace {1em}More on stochastic calculus}{51}{part.6}%
-\contentsline {chapter}{\numberline {12}Stochastic processes main theory}{52}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Stochastic Calculus}{60}{chapter.13}%
-\contentsline {chapter}{\numberline {14}Ito's calculus and SDE}{65}{chapter.14}%
-\contentsline {chapter}{Appendices}{71}{section*.2}%
+\contentsline {chapter}{\numberline {13}Stochastic processes main theory}{52}{chapter.13}%
+\contentsline {chapter}{\numberline {14}Stochastic Calculus}{60}{chapter.14}%
+\contentsline {chapter}{\numberline {15}Ito's calculus and SDE}{65}{chapter.15}%
+\contentsline {chapter}{Appendices}{71}{section*.1}%
 \contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{72}{appendix.1.A}%
 \contentsline {chapter}{\numberline {B}Gaussian Process}{74}{appendix.1.B}%
 \contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{76}{appendix.1.C}%
