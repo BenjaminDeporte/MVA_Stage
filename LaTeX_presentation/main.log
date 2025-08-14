@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  13 AUG 2025 21:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  14 AUG 2025 06:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1037,19 +1037,19 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package pgfplots notification 'compat/show suggested version=true': document has been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 (./main.nav)
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 42--42
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 42--42
  [][][][] []  
  []
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 44--44
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 44--44
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1058,21 +1058,21 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 \openout5 = `main.ist'.
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 48--48
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 48--48
  [][][][] []  
  []
 
 (./main.toc)
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [2
 
 ] (./intro.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 13--13
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 13--13
  [][][][] []  
  []
 
@@ -1090,7 +1090,7 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 )
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1099,7 +1099,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1108,7 +1108,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1117,7 +1117,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1126,7 +1126,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1135,7 +1135,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1144,21 +1144,21 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [9
 
 ]) (./dvae.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 22--22
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 22--22
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1167,7 +1167,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1176,7 +1176,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1185,7 +1185,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1194,35 +1194,35 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [14
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 35--35
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 35--35
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [15
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 51--51
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 51--51
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1231,7 +1231,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1240,7 +1240,7 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1249,21 +1249,21 @@ Overfull \hbox (114.62364pt too wide) has occurred while \output is active
 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [19
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 69--69
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 69--69
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1277,14 +1277,14 @@ l.69 \end{frame}
                 ]
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [21
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 85--85
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 85--85
  [][][][] []  
  []
 
@@ -1294,21 +1294,21 @@ LaTeX Warning: Citation `kingma_introduction_2019' on page 22 undefined on input
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [22
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 109--109
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 109--109
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1330,28 +1330,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dvae}) has
                                                   \__shipout_drop_firstpage_...
 l.109 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 145--145
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 145--145
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [24
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 155--155
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 155--155
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1363,42 +1363,42 @@ pdfTeX warning (ext4): destination with the same identifier (name{dkf_posterior}
                                                   \__shipout_drop_firstpage_...
 l.155 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 171--171
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 171--171
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [26
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 182--182
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 182--182
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [27
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 205--205
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 205--205
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1420,7 +1420,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dkf}) has 
                                                   \__shipout_drop_firstpage_...
 l.205 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 218--218
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 218--218
  [][][][] []  
  []
 
@@ -1433,21 +1433,21 @@ LaTeX Warning: Citation `girin_dynamical_2022' on page 29 undefined on input lin
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [29
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 221--221
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 221--221
  [][][][] []  
  []
 
 \openout4 = `main.vrb'.
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 351--351
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 351--351
  [][][][] []  
  []
 
@@ -1462,18 +1462,18 @@ Overfull \hbox (4.83917pt too wide) in paragraph at lines 105--129
 )
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [30
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 359--359
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 359--359
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=1160, 1437.4503pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=1161, 1437.4503pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png  used on input line 359.
@@ -1481,18 +1481,18 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [31
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 366--366
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 366--366
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=1201, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=1202, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png  used on input line 366.
@@ -1500,14 +1500,14 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [32
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 416--416
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 416--416
  [][][][] []  
  []
 
@@ -1518,14 +1518,14 @@ Overfull \vbox (8.24692pt too high) detected at line 416
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [33
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 440--440
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 440--440
  [][][][] []  
  []
 
@@ -1536,7 +1536,7 @@ Overfull \vbox (8.0324pt too high) detected at line 440
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1558,14 +1558,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_vrnn}) has
                                                   \__shipout_drop_firstpage_...
 l.440 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 442--442
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 442--442
  [][][][] []  
  []
 
 \openout4 = `main.vrb'.
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 602--602
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 602--602
  [][][][] []  
  []
 
@@ -1587,18 +1587,18 @@ Overfull \hbox (6.24762pt too wide) in paragraph at lines 159--160
 )
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [35
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 609--609
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 609--609
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=1375, 1431.6687pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=1376, 1431.6687pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png  used on input line 609.
@@ -1606,18 +1606,18 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [36
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 616--616
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 616--616
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=1414, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=1415, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png  used on input line 616.
@@ -1625,14 +1625,14 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [37
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 662--662
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 662--662
  [][][][] []  
  []
 
@@ -1643,7 +1643,7 @@ Overfull \vbox (23.29799pt too high) detected at line 662
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1655,7 +1655,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) 
                                                   \__shipout_drop_firstpage_...
 l.662 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 684--684
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 684--684
  [][][][] []  
  []
 
@@ -1665,14 +1665,14 @@ LaTeX Warning: Citation `fortuin_gp-vae:_2020' on page 39 undefined on input lin
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [39
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 697--697
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 697--697
  [][][][] []  
  []
 
@@ -1688,14 +1688,14 @@ LaTeX Warning: Citation `zhu_markovian_2023' on page 40 undefined on input line 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [40
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 723--723
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 723--723
  [][][][] []  
  []
 
@@ -1706,7 +1706,7 @@ Overfull \vbox (2.4409pt too high) detected at line 723
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1728,14 +1728,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_gpvae}) ha
                                                   \__shipout_drop_firstpage_...
 l.723 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 725--725
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 725--725
  [][][][] []  
  []
 
 \openout4 = `main.vrb'.
 
 
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 878--878
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 878--878
  [][][][] []  
  []
 
@@ -1747,18 +1747,18 @@ Overfull \hbox (21.54742pt too wide) in paragraph at lines 125--126
 )
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [42
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 886--886
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 886--886
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=1659, 1292.9103pt x 281.853pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=1660, 1292.9103pt x 281.853pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png  used on input line 886.
@@ -1766,18 +1766,18 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpva
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [43
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 893--893
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 893--893
  [][][][] []  
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=1698, 715.473pt x 859.2903pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=1699, 715.473pt x 859.2903pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png  used on input line 893.
@@ -1789,28 +1789,28 @@ Overfull \vbox (5.11847pt too high) detected at line 893
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [44
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>]) (./dvae_and_sde.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 27--27
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 27--27
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [45
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 62--62
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 62--62
  [][][][] []  
  []
 
@@ -1820,49 +1820,49 @@ LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 46 undefined on 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [46
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 80--80
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 80--80
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [47
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 95--95
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 95--95
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [48
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 112--112
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 112--112
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1874,28 +1874,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040
                                                   \__shipout_drop_firstpage_...
 l.112 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 138--138
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 138--138
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [50
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 165--165
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 165--165
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1907,7 +1907,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) 
                                                   \__shipout_drop_firstpage_...
 l.165 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 177--177
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 177--177
  [][][][] []  
  []
 
@@ -1917,21 +1917,21 @@ LaTeX Warning: Citation `mouvement-brownien-calcul-ito' on page 52 undefined on 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [52
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 201--201
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 201--201
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1943,14 +1943,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been
                                                   \__shipout_drop_firstpage_...
 l.201 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 216--216
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 216--216
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1962,14 +1962,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) h
                                                   \__shipout_drop_firstpage_...
 l.216 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 237--237
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 237--237
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -1981,77 +1981,77 @@ pdfTeX warning (ext4): destination with the same identifier (name{solution_linea
                                                   \__shipout_drop_firstpage_...
 l.237 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 259--259
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 259--259
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [56
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 270--270
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 270--270
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [57
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 292--292
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 292--292
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [58
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 305--305
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 305--305
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [59
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 327--327
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 327--327
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [60
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 350--350
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 350--350
  [][][][] []  
  []
 
@@ -2064,7 +2064,7 @@ LaTeX Warning: Citation `rasmussen_gaussian_2008' on page 61 undefined on input 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
@@ -2081,7 +2081,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040linea
                                                   \__shipout_drop_firstpage_...
 l.350 \end{frame}
                  ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 388--388
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 388--388
  [][][][] []  
  []
 
@@ -2091,14 +2091,14 @@ LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 62 un
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [62
 
 ]
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 412--412
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 412--412
  [][][][] []  
  []
 
@@ -2108,25 +2108,39 @@ LaTeX Warning: Citation `mva_kernel_class' on page 63 undefined on input line 41
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [63
 
 ]) (./outro.tex
-Overfull \hbox (114.62364pt too wide) in paragraph at lines 21--21
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 21--21
  [][][][] []  
  []
 
 
 
 
-Overfull \hbox (114.62364pt too wide) has occurred while \output is active
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
  [][][][] []  
  []
 
 [64
+
+]
+Overfull \hbox (72.57802pt too wide) in paragraph at lines 30--30
+ [][][][] []  
+ []
+
+
+
+
+Overfull \hbox (72.57802pt too wide) has occurred while \output is active
+ [][][][] []  
+ []
+
+[65
 
 ])
 \tf@nav=\write8
@@ -2157,10 +2171,10 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 4EC7BA4AD35DAC2FADB05FB3736339A0;635.
  ) 
 Here is how much of TeX's memory you used:
- 49112 strings out of 467801
- 1185126 string characters out of 5431917
- 1806201 words of memory out of 5000000
- 76726 multiletter control sequences out of 15000+600000
+ 49116 strings out of 467801
+ 1185163 string characters out of 5431917
+ 1806043 words of memory out of 5000000
+ 76728 multiletter control sequences out of 15000+600000
  639032 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,31n,123p,2554b,1330s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2213,10 +2227,10 @@ pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, rep
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (64 pages, 1264909 bytes).
+Output written on main.pdf (65 pages, 1267419 bytes).
 PDF statistics:
- 2642 PDF objects out of 2984 (max. 8388607)
- 2172 compressed objects within 22 object streams
- 178 named destinations out of 1000 (max. 500000)
+ 2681 PDF objects out of 2984 (max. 8388607)
+ 2203 compressed objects within 23 object streams
+ 180 named destinations out of 1000 (max. 500000)
  147 words of extra memory for PDF output out of 10000 (max. 10000000)
 

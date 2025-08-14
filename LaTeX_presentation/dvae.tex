@@ -29,7 +29,7 @@
             &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
         \end{align*}
     \end{block}
-    The only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$.
+    \textbf{The only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$.}
 
     In the rest of the presentation, we will consider systems with no input, and drop the conditioning on $u_{1:t}$ to simplify notations. However, the reasoning remains the same with inputs.
 \end{frame}
@@ -664,7 +664,7 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
 
 \begin{frame}{GP-VAE generative model}
     \begin{itemize}
-        \item \textbf{Gaussian Process prior} : the prior over the latent variables $z_{t_i} \in \R^L$ is a set of scalar Gaussian Process over each of the dimension $l \in \{1,...,L\}$ of the latent variables. Formally:
+        \item \textbf{Gaussian Process prior} : \textbf{the prior over the latent variables $z_{t_i} \in \R^L$ is a set of scalar Gaussian Process over each of the dimension $l \in \{1,...,L\}$ of the latent variables.} Formally:
             \begin{align}
                 p_{\theta_z}(z_{t_1:t_T}^l) &= \mathcal{GP}(m_{\theta_z, l}(t_1:t_T), k_{\theta_z, l}(t_1:t_T, t_1:t_T)) \hspace{1cm} l=1,..,L
             \end{align}
@@ -673,7 +673,7 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
                 \item by design, each of the component of the $z_{t_i}$ is a scalar \gls{gp}, with correlation over time stamps. However, the different components of a $z_{t_i}$ are not correlated between them. The correlation across dimensions is encoded into the observation model $p_{\theta_x}(x_{t_i} \vert z_{t_i})$.
                 \item the kernels $k_{\theta_z, l}$ can be chosen differently to account for different prior knowledge of the data sequence. In \cite{fortuin_gp-vae:_2020} for example, Fortuin and al. uses a set of Gaussian Kernels with different lenghtscales.
             \end{itemize}
-        \item \textbf{Approximate posterior -encoder- $q_\phi$} is a set of $L$ Gaussian distributions of dimension $T$, each one accounting for a component of $z_{t_i}$. Formally :
+        \item \textbf{Approximate posterior -encoder : $q_\phi$ is a set of $L$ Gaussian distributions of dimension $T$, each one accounting for a component of $z_{t_i}$.} Formally :
             \begin{align}
                 q_\phi(z_{t_1:t_T}^l \vert x_{t_1:t_T}^l) &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), \Sigma_{\phi}^l(x_{t_1:t_T})) \hspace{1cm} l=1,..,L \\
                 &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), \Lambda_{\phi}^l(x_{t_1:t_T})^{-1}) \\
@@ -878,7 +878,7 @@ We note that:
 \end{frame}
 
 \begin{frame}{GPVAE - Toy training - Loss}
-    $D_x = 4$, $D_y=8$ RBF kernels.
+    $D_x = 4$, $D_y=8$ RBF kernels with decreasing lenghtscales.
     \begin{center}
     \includegraphics[width=1.0\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png}
     \end{center}

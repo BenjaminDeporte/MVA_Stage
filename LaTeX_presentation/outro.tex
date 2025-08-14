@@ -11,11 +11,20 @@ Wrapping up:
         \item Discrete-time \glspl{dvae} give structure to latent variables to encode temporal dynamics. They work best with regularly spaced data.
         \item Continuous-time \glspl{dvae} posit a stochastic process as prior for the latent variables. This allows 
         additional flexibility and irregularly-sampled data.
-        \item The specific model \gls{gpvae}, where the latent prior is a Gaussian Process can be expressed as a 
+        \item \textbf{The specific model \gls{gpvae}, where the latent prior is a Gaussian Process can be expressed as a 
         solution to a linear \gls{sde}, can use well-known linear-time filtering and smoothing algorithms to speed up 
-        computations.
+        computations.}
         \item Stochastic calculus provides a framework for continous-time priors.
         \item More general stochastic process priors can be used, expressed as solutions to general \gls{sde} :
         those are latent SDE models.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Next steps - next 3 weeks !}
+    \begin{itemize}
+        \item Research/learning on models with other stochastic priors (neural \glspl{sde} ?)
+        \item XPs : finding the right kernels for GP-VAE ?
+        \item XPs : comparison between VRNN and GP-VAE on a common real life dataset ?
+        \item Other ?
     \end{itemize}
 \end{frame}

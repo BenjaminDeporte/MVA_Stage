@@ -110,8 +110,10 @@
 \headcommand {\sectionentry {4}{Outro}{64}{Outro}{0}}
 \headcommand {\slideentry {4}{0}{1}{64/64}{}{0}}
 \headcommand {\beamer@framepages {64}{64}}
-\headcommand {\beamer@partpages {1}{64}}
-\headcommand {\beamer@subsectionpages {64}{64}}
-\headcommand {\beamer@sectionpages {64}{64}}
-\headcommand {\beamer@documentpages {64}}
-\headcommand {\gdef \inserttotalframenumber {50}}
+\headcommand {\slideentry {4}{0}{2}{65/65}{}{0}}
+\headcommand {\beamer@framepages {65}{65}}
+\headcommand {\beamer@partpages {1}{65}}
+\headcommand {\beamer@subsectionpages {64}{65}}
+\headcommand {\beamer@sectionpages {64}{65}}
+\headcommand {\beamer@documentpages {65}}
+\headcommand {\gdef \inserttotalframenumber {51}}
