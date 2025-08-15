@@ -107,17 +107,22 @@
 \headcommand {\beamer@framepages {63}{63}}
 \headcommand {\beamer@sectionpages {45}{63}}
 \headcommand {\beamer@subsectionpages {45}{63}}
-\headcommand {\sectionentry {4}{Outro}{64}{Outro}{0}}
+\headcommand {\sectionentry {4}{Experiments}{64}{Experiments}{0}}
 \headcommand {\slideentry {4}{0}{1}{64/64}{}{0}}
 \headcommand {\beamer@framepages {64}{64}}
-\headcommand {\slideentry {4}{0}{2}{65/65}{}{0}}
+\headcommand {\beamer@sectionpages {64}{64}}
+\headcommand {\beamer@subsectionpages {64}{64}}
+\headcommand {\sectionentry {5}{Outro}{65}{Outro}{0}}
+\headcommand {\slideentry {5}{0}{1}{65/65}{}{0}}
 \headcommand {\beamer@framepages {65}{65}}
-\headcommand {\slideentry {4}{0}{3}{66/66}{}{0}}
+\headcommand {\slideentry {5}{0}{2}{66/66}{}{0}}
 \headcommand {\beamer@framepages {66}{66}}
-\headcommand {\slideentry {4}{0}{3}{66/67}{}{0}}
-\headcommand {\beamer@framepages {66}{67}}
-\headcommand {\beamer@partpages {1}{67}}
-\headcommand {\beamer@subsectionpages {64}{67}}
-\headcommand {\beamer@sectionpages {64}{67}}
-\headcommand {\beamer@documentpages {67}}
-\headcommand {\gdef \inserttotalframenumber {51}}
+\headcommand {\slideentry {5}{0}{3}{67/67}{}{0}}
+\headcommand {\beamer@framepages {67}{67}}
+\headcommand {\slideentry {5}{0}{3}{67/68}{}{0}}
+\headcommand {\beamer@framepages {67}{68}}
+\headcommand {\beamer@partpages {1}{68}}
+\headcommand {\beamer@subsectionpages {65}{68}}
+\headcommand {\beamer@sectionpages {65}{68}}
+\headcommand {\beamer@documentpages {68}}
+\headcommand {\gdef \inserttotalframenumber {52}}

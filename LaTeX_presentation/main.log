@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  14 AUG 2025 16:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  15 AUG 2025 18:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main.tex
+**/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main
 (/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_presentation/main.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
@@ -1287,18 +1287,39 @@ Package biblatex Warning: The following entry could not be found
 Package biblatex Info: Reference section=0 on input line 60.
 Package biblatex Info: Reference segment=0 on input line 60.
  (./main.nav)
+Overfull \vbox (0.77788pt too high) detected at line 60
+ []
 
-[1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+Overfull \vbox (0.77788pt too high) detected at line 62
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 \openout6 = `main.ist'.
 
-] (./main.toc)
+]
+Overfull \vbox (0.77788pt too high) detected at line 66
+ []
 
-[2
+(./main.toc)
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [2
 
 ] (./intro.tex
+Overfull \vbox (0.77788pt too high) detected at line 13
+ []
+
 LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
@@ -1310,75 +1331,145 @@ LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inpu
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
 
-[3
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [3
 
 ]
 
-[4
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [4
 
 ]
 
-[5
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [5
 
 ]
 
-[6
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [6
 
 ]
 
-[7
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [7
 
 ]
 
-[8
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [8
 
 ]
 
-[9
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [9
 
 ]) (./dvae.tex
+Overfull \vbox (0.77788pt too high) detected at line 22
+ []
 
-[10
 
-]
 
-[11
 
-]
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
-[12
-
-]
-
-[13
+ [10
 
 ]
 
-[14
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [11
 
 ]
 
-[15
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [12
 
 ]
 
-[16
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [13
 
 ]
 
-[17
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [14
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 35
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [15
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 51
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [16
 
 ]
 
-[18
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [17
 
 ]
 
-[19
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [18
 
 ]
 
-[20
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [19
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 69
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [20
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{q_phi_dev}) has been already used, duplicate ignored
@@ -1387,15 +1478,32 @@ pdfTeX warning (ext4): destination with the same identifier (name{q_phi_dev}) ha
 l.69 \end{frame}
                 ]
 
-[21
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [21
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 85
+ []
 
-[22
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [22
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 109
+ []
 
-[23
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [23
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_dvae}) has been already used, duplicate ignored
@@ -1413,12 +1521,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dvae}) has
                                                   \__shipout_drop_firstpage_...
 l.109 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 145
+ []
 
-[24
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [24
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 155
+ []
 
-[25
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [25
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{dkf_posterior}) has been already used, duplicate ignored
@@ -1426,16 +1548,37 @@ pdfTeX warning (ext4): destination with the same identifier (name{dkf_posterior}
                                                   \__shipout_drop_firstpage_...
 l.155 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 171
+ []
 
-[26
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [26
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 182
+ []
 
-[27
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [27
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 205
+ []
 
-[28
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [28
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_dkf}) has been already used, duplicate ignored
@@ -1453,13 +1596,27 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_dkf}) has 
                                                   \__shipout_drop_firstpage_...
 l.205 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 218
+ []
 
-[29
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [29
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 221
+ []
+
 \openout4 = `main.vrb'.
 
- (./main.vrb
+
+Overfull \vbox (0.77788pt too high) detected at line 351
+ []
+
+(./main.vrb
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 
@@ -1469,43 +1626,72 @@ Overfull \hbox (4.83917pt too wide) in paragraph at lines 105--129
 
 )
 
-[30
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [30
 
 ]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=593, 1437.4503pt x 209.583pt>
+Overfull \vbox (0.77788pt too high) detected at line 359
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=649, 1437.4503pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png  used on input line 359.
 (pdftex.def)             Requested size: 398.3386pt x 58.07841pt.
 
 
-[31
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [31
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=614, 1149.093pt x 642.4803pt>
+Overfull \vbox (0.77788pt too high) detected at line 366
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=672, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png  used on input line 366.
 (pdftex.def)             Requested size: 318.67209pt x 178.17764pt.
 
 
-[32
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [32
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>]
-Overfull \vbox (7.41359pt too high) detected at line 416
+Overfull \vbox (0.77788pt too high) detected at line 416
+ []
+
+
+Overfull \vbox (12.83023pt too high) detected at line 416
  []
 
 
 
-[33
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [33
 
 ]
-Overfull \vbox (7.19907pt too high) detected at line 440
+Overfull \vbox (0.77788pt too high) detected at line 440
+ []
+
+
+Overfull \vbox (12.6157pt too high) detected at line 440
  []
 
 
 
-[34
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [34
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_vrnn}) has been already used, duplicate ignored
@@ -1523,9 +1709,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_vrnn}) has
                                                   \__shipout_drop_firstpage_...
 l.440 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 442
+ []
+
 \openout4 = `main.vrb'.
 
- (./main.vrb
+
+Overfull \vbox (0.77788pt too high) detected at line 602
+ []
+
+(./main.vrb
 Missing character: There is no ; in font nullfont!
 
 Overfull \hbox (8.77179pt too wide) in paragraph at lines 134--135
@@ -1539,31 +1732,53 @@ Overfull \hbox (6.24762pt too wide) in paragraph at lines 159--160
 
 )
 
-[35
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [35
 
 ]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=708, 1431.6687pt x 209.583pt>
+Overfull \vbox (0.77788pt too high) detected at line 609
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=774, 1431.6687pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png  used on input line 609.
 (pdftex.def)             Requested size: 398.3386pt x 58.31186pt.
 
 
-[36
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [36
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=727, 1149.093pt x 642.4803pt>
+Overfull \vbox (0.77788pt too high) detected at line 616
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=795, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png  used on input line 616.
 (pdftex.def)             Requested size: 318.67209pt x 178.17764pt.
 
 
-[37
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [37
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>]
+Overfull \vbox (0.77788pt too high) detected at line 664
+ []
 
-[38
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [38
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) has been already used, duplicate ignored
@@ -1571,20 +1786,41 @@ pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) 
                                                   \__shipout_drop_firstpage_...
 l.664 \end{frame}
                  ]
-
-[39
-
-]
-
-[40
-
-]
-Overfull \vbox (1.60757pt too high) detected at line 725
+Overfull \vbox (0.77788pt too high) detected at line 686
  []
 
 
 
-[41
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [39
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 699
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [40
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 725
+ []
+
+
+Overfull \vbox (7.02422pt too high) detected at line 725
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [41
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_gpvae}) has been already used, duplicate ignored
@@ -1602,60 +1838,117 @@ pdfTeX warning (ext4): destination with the same identifier (name{vlb_gpvae}) ha
                                                   \__shipout_drop_firstpage_...
 l.725 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 727
+ []
+
 \openout4 = `main.vrb'.
 
- (./main.vrb
+
+Overfull \vbox (0.77788pt too high) detected at line 880
+ []
+
+(./main.vrb
 Overfull \hbox (21.54742pt too wide) in paragraph at lines 125--126
 [][]  
  []
 
 )
 
-[42
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [42
 
 ]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=855, 1292.9103pt x 281.853pt>
+Overfull \vbox (0.77788pt too high) detected at line 888
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=936, 1292.9103pt x 281.853pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png  used on input line 888.
 (pdftex.def)             Requested size: 398.3386pt x 86.83592pt.
 
 
-[43
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [43
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=875, 715.473pt x 859.2903pt>
+Overfull \vbox (0.77788pt too high) detected at line 895
+ []
+
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=958, 715.473pt x 859.2903pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png  used on input line 895.
 (pdftex.def)             Requested size: 159.333pt x 191.3521pt.
 
-Overfull \vbox (4.28514pt too high) detected at line 895
+Overfull \vbox (9.70178pt too high) detected at line 895
  []
 
 
 
-[44
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [44
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>]) (./dvae_and_sde.tex
+Overfull \vbox (0.77788pt too high) detected at line 27
+ []
 
-[45
 
-]
 
-[46
 
-]
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
-[47
-
-]
-
-[48
+ [45
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 62
+ []
 
-[49
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [46
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 80
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [47
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 95
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [48
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 112
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [49
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040definition}) has been already used, duplicate ignored
@@ -1663,12 +1956,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040
                                                   \__shipout_drop_firstpage_...
 l.112 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 138
+ []
 
-[50
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [50
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 165
+ []
 
-[51
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [51
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) has been already used, duplicate ignored
@@ -1676,12 +1983,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) 
                                                   \__shipout_drop_firstpage_...
 l.165 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 177
+ []
 
-[52
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [52
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 201
+ []
 
-[53
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [53
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been already used, duplicate ignored
@@ -1689,8 +2010,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been
                                                   \__shipout_drop_firstpage_...
 l.201 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 216
+ []
 
-[54
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [54
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) has been already used, duplicate ignored
@@ -1698,8 +2026,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) h
                                                   \__shipout_drop_firstpage_...
 l.216 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 237
+ []
 
-[55
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [55
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{solution_linear_sde}) has been already used, duplicate ignored
@@ -1707,28 +2042,70 @@ pdfTeX warning (ext4): destination with the same identifier (name{solution_linea
                                                   \__shipout_drop_firstpage_...
 l.237 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 259
+ []
 
-[56
 
-]
 
-[57
 
-]
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
-[58
-
-]
-
-[59
+ [56
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 270
+ []
 
-[60
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [57
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 292
+ []
 
-[61
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [58
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 305
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [59
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 327
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [60
+
+]
+Overfull \vbox (0.77788pt too high) detected at line 350
+ []
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [61
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040gaussian\040observation}) has been already used, duplicate ignored
@@ -1741,41 +2118,90 @@ pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040linea
                                                   \__shipout_drop_firstpage_...
 l.350 \end{frame}
                  ]
+Overfull \vbox (0.77788pt too high) detected at line 388
+ []
+
 
 LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 62 undefined on input line 388.
 
 
 
-[62
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [62
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 412
+ []
+
 
 LaTeX Warning: Citation 'mva_kernel_class' on page 63 undefined on input line 412.
 
 
 
-[63
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [63
+
+]) (./experiments.tex
+Overfull \vbox (0.77788pt too high) detected at line 5
+ []
+
+
+LaTeX Warning: Citation 'li_disentangled_2018' on page 64 undefined on input line 5.
+
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [64
 
 ]) (./outro.tex
+Overfull \vbox (0.77788pt too high) detected at line 21
+ []
 
-[64
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [65
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 30
+ []
 
-[65
+
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [66
 
 ])
+Overfull \vbox (0.77788pt too high) detected at line 77
+ []
+
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <8> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 76.
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 77.
 
 
 
-[66
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [67
 
 ]
 
-[67
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [68
 
 
 ]
@@ -1804,19 +2230,24 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4EC7BA4AD35DAC2FADB05FB3736339A0;635.
+(rerunfilecheck)             Checksum: FCE583D18A81160DE0286A6615E1EE72;733.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 56482 strings out of 467801
- 1337025 string characters out of 5431917
- 2368874 words of memory out of 5000000
- 84027 multiletter control sequences out of 15000+600000
+ 56501 strings out of 467801
+ 1337279 string characters out of 5431917
+ 2368945 words of memory out of 5000000
+ 84039 multiletter control sequences out of 15000+600000
  639333 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,31n,123p,2554b,1997s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,31n,123p,2550b,1997s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{sec:brownian_motion_gaussian_and_markov} has been referenced but does not exist, replaced by a fixed one
 
@@ -1863,10 +2294,10 @@ pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, rep
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (67 pages, 1223057 bytes).
+Output written on main.pdf (68 pages, 1227830 bytes).
 PDF statistics:
- 1472 PDF objects out of 1728 (max. 8388607)
- 997 compressed objects within 10 object streams
- 194 named destinations out of 1000 (max. 500000)
- 147 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1621 PDF objects out of 1728 (max. 8388607)
+ 1081 compressed objects within 11 object streams
+ 198 named destinations out of 1000 (max. 500000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

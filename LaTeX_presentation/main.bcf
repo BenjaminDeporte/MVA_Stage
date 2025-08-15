@@ -2416,6 +2416,7 @@
     <bcf:citekey order="40" intorder="1">fortuin_gp-vae:_2020</bcf:citekey>
     <bcf:citekey order="41" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
     <bcf:citekey order="42" intorder="1">mva_kernel_class</bcf:citekey>
+    <bcf:citekey order="43" intorder="1">li_disentangled_2018</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

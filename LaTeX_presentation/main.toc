@@ -1,4 +1,5 @@
 \beamer@sectionintoc {1}{Abstract}{3}{0}{1}
 \beamer@sectionintoc {2}{Dynamical Variational AutoEncoders}{10}{0}{2}
 \beamer@sectionintoc {3}{DVAE and Stochastic Differential Equations}{45}{0}{3}
-\beamer@sectionintoc {4}{Outro}{64}{0}{4}
+\beamer@sectionintoc {4}{Experiments}{64}{0}{4}
+\beamer@sectionintoc {5}{Outro}{65}{0}{5}
