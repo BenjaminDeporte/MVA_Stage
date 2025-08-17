@@ -203,15 +203,6 @@ The most important example is the $\mathbb{KL}$-divergence between two multivari
 
 We summarize here some computations of chapters \ref{sec:SC_intro} and \ref{sec:SDE_results} for the Ornstein-Uhlenbeck process.
 
-\defn{Ornstein Uhlenbeck process}{
-    The \textbf{Ornstein Uhlenbeck process} is the stochastic processes solution of the linear \gls{sde}:
-    \begin{align}
-        dX_t &= - \lambda X_t dt + \sigma dB_t \\
-        X_{t_0} &= X_0
-    \end{align}
-    where $\lambda > 0$ is the \textbf{drift} and $\sigma > 0$ the \textbf{diffusion coefficient}.
-}
-
 We start by a preliminary result:
 
 \thmp{Stochastic exponential}{
@@ -266,16 +257,32 @@ Conversely, $e^{Y_t}$ is solution, as
 \end{align*}
 }
 
+\defn{Ornstein Uhlenbeck process}{
+    The \textbf{Ornstein Uhlenbeck process} is the stochastic processes solution of the linear \gls{sde}:
+    \begin{align}
+        dX_t &= - \lambda X_t dt + \sigma dB_t \\
+        X_{t_0} &= X_0
+    \end{align}
+    where $\lambda > 0$ is the \textbf{drift} and $\sigma > 0$ the \textbf{diffusion coefficient}.
+}
+
 \thmp{Solution of Ornstein Uhlenbeck}{
     \begin{align}
     \label{analytical solution of OU}
     dX_t &= - \lambda X_t dt + \sigma dB_t \\
     X_{t_0} &= X_0 \\
-    X_t &= e^{- \lambda t} X_0 + \sigma \mathcal{N}(0, \frac{1}{2 \lambda} (1 - e^{-2 \lambda t}))
+    X_t &= e^{- \lambda t} X_0 + \sigma \sqrt{\frac{1 - e^{-2 \lambda t}}{2 \lambda}}\mathcal{N}(0, 1)
 \end{align}
 }{
-For Ornstein-Uhlenbeck, $a_t = - \lambda$ and $b_t = \sigma$ in \ref{solution stochastic exponential}.
-We note that we have to compute:
+For Ornstein-Uhlenbeck, we write $Y_t = e^{\lambda t}X_t$. Ito's formula gives :
+\begin{align}
+    dY_t &= e^{\lambda t}X_t dX_t + \lambda e^{\lambda t}X_t \\
+    \label{dY}
+    &= \sigma e^{\lambda t} dB_t \\
+    Y_t &= Y_0 + \sigma \int_{0}^{t} e^{\lambda s} dB_s \\
+    X_t &= e^{-\lambda t} X_0 + \sigma e^{-\lambda t} \int_{0}^{t} e^{\lambda s} dB_s 
+\end{align}
+We have to compute:
 \begin{align}
     \int_{0}^{t} e^{\lambda s}dB_s &= \underset{n \rightarrow \infty}{\lim} \sum_{k=0}^{n} e^{\lambda t_k}
     (B_{t_{k+1}} - B_{t_k})
@@ -329,7 +336,46 @@ So :
         a_k &= e^{-\lambda \Delta t_k} \\
         \Sigma_k &= \frac{\sigma}{2 \lambda} \left( 1 - e^{-2 \lambda \Delta t_k} \right)
     \end{align}
-}{substituting $\lambda$ and $\sigma$ into \ref{linear sde discretization}}
+}{One can substitute $\lambda$ and $\sigma$ into \ref{linear sde discretization}.
+
+For $\lambda > 0$ and $\sigma > 0$, we can write from \ref{dY} (with $t_{k+1} = t_k + \Delta t$):
+\begin{align}
+    Y_{t_{k+1}}- Y_{t_k} &= \sigma \int_{t_k}^{t_{k+1}} e^{\lambda s}dB_s \\
+    &= \sigma e^{\lambda t_k} \mathcal{N}(0, \frac{e^{2 \lambda \Delta t} - 1}{2 \lambda}) \\
+    X_{t_{k+1}} &= e^{- \lambda t_{k+1}} Y_{t_{k+1}} \\
+    &= e^{- \lambda \Delta t} X_{t_k} + \sigma \sqrt{\frac{1 - e^{-2 \lambda \Delta t}}{2 \lambda}} \mathcal{N}(0,1)
+\end{align}
+
+In other words:
+\begin{align}
+    \label{transition_ou}
+    p(X_{t_{k+1}} \vert X_{t_k}) &= \mathcal{N}\left(X_{t_{k+1}} \vert e^{- \lambda \Delta t} X_{t_k}, \sigma^{2} \frac{1 - e^{-2 \lambda \Delta t}}{2 \lambda}\right)
+\end{align}
+}
+
+\thmp{Maximum Likelihood parameters estimation}{
+    Let $x_0, x_1, ... x_k, ... x_{n}$ be an observation of a Ornstein Uhlenbeck process with unknown $\lambda > 0$ and $\sigma > 0$.
+    The previous results lead to the following maximum likelihood point estimates:
+    \begin{align}
+        \lambda_{ML} &= - \frac{1}{\Delta t} \log{\frac{\sum_{k=0}^{n-1} x_k x_{k+1}}{\sum_{k=0}^{n-1} x_k^{2} }} \\
+        \sigma_{ML}^{2} &= \frac{1}{n} \frac{2 \lambda_{ML}}{1 - e^{-2 \lambda_{ML} \Delta t}} \sum_{k=0}^{n-1} \left( x_{k+1} - e^{- \lambda_{ML} \Delta t} x_k\right)^{2}
+    \end{align}
+}{We have :
+\begin{align}
+    p(x_{k+1} \vert x_{k}) &= \mathcal{N}\left(x_{k+1} \vert e^{- \lambda \Delta t} x_{k}, \sigma^{2} \frac{1 - e^{-2 \lambda \Delta t}}{2 \lambda}\right)
+\end{align}
+With:
+\begin{align}
+    a &= e^{- \lambda \Delta t} \\
+    \eta^{2} &= \sigma^{2} \frac{1 - e^{-2 \lambda \Delta t}}{2 \lambda}
+\end{align}
+The likelihood writes:
+\begin{align}
+    p(x_{1:n} \vert \lambda, \sigma) &= \prod_{k=0}^{n-1} p(x_{k+1} \vert x_k) \\
+    - \log{p(x_{1:n} \vert \lambda, \sigma)} &= \frac{n}{2} \log{2 \pi \eta^{2}} + \frac{1}{2 \eta^{2}}  \sum_{k=0}^{n-1} \left( x_{k+1} - a x_k\right)^{2}
+\end{align}
+Forming the gradient and putting it to zero gives the result.
+}
 
 
 % -----------------------------------------------------------------

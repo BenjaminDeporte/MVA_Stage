@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  15 AUG 2025 18:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  17 AUG 2025 19:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1738,12 +1738,13 @@ Package biblatex Info: Automatic encoding selection.
 \openout7 = `main.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'main.bbl' found.
- (./main.bbl)
+Package biblatex Info: ... file 'main.bbl' not found.
+
+No file main.bbl.
 Package biblatex Info: Reference section=0 on input line 28.
 Package biblatex Info: Reference segment=0 on input line 28.
 Package hyperref Info: Link coloring ON on input line 28.
- (./main.out) (./main.out)
+(./main.out) (./main.out)
 \@outlinefile=\write8
 \openout8 = `main.out'.
 
@@ -1838,8 +1839,51 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <20.74> not available
 \openout2 = `chapter/subject_intro.aux'.
 
  (./chapter/subject_intro.tex
+
+LaTeX Warning: Citation 'kingma_introduction_2019' on page 7 undefined on input line 6.
+
+
+Overfull \hbox (26.08958pt too wide) in paragraph at lines 6--10
+[][]\OT1/txr/m/n/10.95 Variational Auto En-coders (VAEs) are a well-known class of gen-er-a-tive mod-els, de-scribed in [],
+ []
+
+
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 7 undefined on input line 11.
+
+
+LaTeX Warning: Citation 'rasmussen_gaussian_2008' on page 7 undefined on input line 19.
+
+
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 7 undefined on input line 20.
+
+
+LaTeX Warning: Citation 'casale_gaussian_2018' on page 7 undefined on input line 20.
+
+
+LaTeX Warning: Citation 'fortuin_gp-vae:_2020' on page 7 undefined on input line 20.
+
+
+LaTeX Warning: Citation 'titsias_bayesian_2010' on page 7 undefined on input line 20.
+
+
+LaTeX Warning: Citation 'zhu_markovian_2023' on page 7 undefined on input line 20.
+
+
+Overfull \hbox (58.45758pt too wide) in paragraph at lines 16--21
+\OT1/txr/m/n/10.95 and de-scribed in more de-tails in [], [], [] and []. 
+ []
+
+
+LaTeX Warning: Citation 'zhu_markovian_2023' on page 7 undefined on input line 22.
+
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 7 undefined on input line 28.
+
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 7 undefined on input line 28.
+
 LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 43.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
+(/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 File: ot1txtt.fd 2000/12/15 v3.1
 ))
 
@@ -1857,6 +1901,10 @@ LaTeX Font Info:    Trying to load font information for TS1+txr on input line 59
 File: ts1txr.fd 2000/12/15 v3.1
 )
 
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 9 undefined on input line 61.
+
+
+
 [9]
 \openout2 = `chapter/D-separation.aux'.
 
@@ -1866,6 +1914,15 @@ Chapter 2.
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
+
+
+LaTeX Warning: Citation 'PRML' on page 10 undefined on input line 63.
+
+
+LaTeX Warning: Citation 'ProbabilisticGraphicalModels' on page 10 undefined on input line 63.
+
+
+LaTeX Warning: Citation 'ProbabilisticMachineLearning' on page 10 undefined on input line 63.
 
 
 
@@ -1944,6 +2001,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
+LaTeX Warning: Citation 'kingma_introduction_2019' on page 13 undefined on input line 3.
+
+
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 13 undefined on input line 7.
+
+
 
 [13
 
@@ -1957,7 +2020,16 @@ Overfull \hbox (21.2622pt too wide) in paragraph at lines 43--44
 
 
 
-[14])
+[14]
+
+LaTeX Warning: Citation 'kingma_introduction_2019' on page 15 undefined on input line 93.
+
+
+Overfull \hbox (31.3837pt too wide) in paragraph at lines 93--94
+[]\OT1/txr/m/n/10.95 As in vanilla []VAE, the sam-pling over $\OML/txmi/m/it/10.95 q[]$ \OT1/txr/m/n/10.95 re-quires the use of the "re parametriza-tion trick" (see []),
+ []
+
+)
 
 [15]
 \openout2 = `chapter/Deep_Kalman_Filter.aux'.
@@ -1980,6 +2052,10 @@ Underfull \vbox (badness 1478) has occurred while \output is active []
 
 
 ]
+
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 17 undefined on input line 87.
+
+
 
 [17]
 Missing character: There is no ; in font nullfont!
@@ -2011,6 +2087,10 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 ]
 
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 20 undefined on input line 90.
+
+
+
 [20]
 Missing character: There is no ; in font nullfont!
 
@@ -2031,7 +2111,39 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+LaTeX Warning: Citation 'rasmussen_gaussian_2008' on page 22 undefined on input line 8.
+
+
+LaTeX Warning: Citation 'roberts_gaussian_2013' on page 22 undefined on input line 8.
+
+
+LaTeX Warning: Citation 'casale_gaussian_2018' on page 22 undefined on input line 8.
+
+
+LaTeX Warning: Citation 'fortuin_gp-vae:_2020' on page 22 undefined on input line 8.
+
+
+LaTeX Warning: Citation 'girin_dynamical_2022' on page 22 undefined on input line 8.
+
+
+LaTeX Warning: Citation 'zhu_markovian_2023' on page 22 undefined on input line 8.
+
+
+Overfull \hbox (57.05606pt too wide) in paragraph at lines 8--9
+[]\OT1/txr/m/n/10.95 If the use of []GPs for time-series mod-el-ing is not re-cent (see for ex-am-ple [] and []),
+ []
+
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 22 undefined on input line 12.
+
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 22 undefined on input line 12.
+
+
+LaTeX Warning: Citation 'cours-jf-legall' on page 22 undefined on input line 12.
+
+
+Underfull \vbox (badness 4416) has occurred while \output is active []
 
 
 
@@ -2043,11 +2155,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
+
+LaTeX Warning: Citation 'fortuin_gp-vae:_2020' on page 23 undefined on input line 62.
+
+
 Underfull \vbox (badness 2065) has occurred while \output is active []
 
 
 
 [23]
+
+LaTeX Warning: Citation 'fortuin_gp-vae:_2020' on page 24 undefined on input line 103.
+
+
+LaTeX Warning: Citation 'zhu_markovian_2023' on page 24 undefined on input line 103.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2071,6 +2194,21 @@ Overfull \hbox (32.1733pt too wide) in paragraph at lines 268--269
 
 ]
 
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 28 undefined on input line 85.
+
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 28 undefined on input line 85.
+
+
+LaTeX Warning: Citation 'cours-jf-legall' on page 28 undefined on input line 85.
+
+
+Overfull \hbox (18.731pt too wide) in paragraph at lines 84--86
+\OT1/txr/m/n/10.95 end of this re-port. For a full study of the mat-ter, the in-ter-ested reader will likely en-joy [],
+ []
+
+
+
 [28]
 \openout2 = `chapter/Entropy_and_randomness.aux'.
 
@@ -2079,6 +2217,31 @@ Chapter 7.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
+ []
+
+
+LaTeX Warning: Citation 'bishop_pattern_2016' on page 29 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'ProbabilisticGraphicalModels' on page 29 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'ProbabilisticMachineLearning' on page 29 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'cover_elements_2006' on page 29 undefined on input line 9.
+
+
+LaTeX Warning: Citation 'shannon_mathematical_1948' on page 29 undefined on input line 9.
+
+
+Overfull \hbox (51.21901pt too wide) in paragraph at lines 9--10
+[]\OT1/txr/m/n/10.95 The ba-sic of []IT are in-tro-duced in [], [], and [].
+ []
+
+
+Overfull \hbox (4.86848pt too wide) in paragraph at lines 9--10
+\OT1/txr/m/n/10.95 port. Of course, the in-ter-ested reader will also re-fer to the sem-i-nal pa-per by Shan-non : []. 
  []
 
 
@@ -2091,9 +2254,27 @@ Underfull \vbox (badness 4859) has occurred while \output is active []
 
 ]
 
+LaTeX Warning: Citation 'cover_elements_2006' on page 30 undefined on input line 73.
+
+
+
 [30]
 
-[31])
+LaTeX Warning: Citation 'cover_elements_2006' on page 31 undefined on input line 82.
+
+
+LaTeX Warning: Citation 'delgado-bonal_approximate_2019' on page 31 undefined on input line 91.
+
+
+LaTeX Warning: Citation 'pincus_approximate_1991' on page 31 undefined on input line 91.
+
+
+
+[31]
+
+LaTeX Warning: Citation 'pincus_approximate_1991' on page 32 undefined on input line 121.
+
+)
 
 [32]
 \openout2 = `chapter/SC_introduction.aux'.
@@ -2105,6 +2286,17 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 33 undefined on input line 4.
+
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 33 undefined on input line 4.
+
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 33 undefined on input line 40.
+
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <9> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 40.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -2125,6 +2317,10 @@ LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/it' tried instead on input line 126.
 
 
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 35 undefined on input line 126.
+
+
+
 [35])
 
 [36]
@@ -2137,6 +2333,9 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 37 undefined on input line 3.
+
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 5.
 
@@ -2146,12 +2345,20 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.30 }
       
 
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 37 undefined on input line 38.
+
+
+
 [37
 
 
 
 
 ]
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 38 undefined on input line 63.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2198,13 +2405,53 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [43]
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 44 undefined on input line 137.
+
+
+Overfull \hbox (33.87425pt too wide) in paragraph at lines 136--138
+[]\OT1/txr/m/n/10.95 The []RTS smoother is the close-form so-lu-tion of the Bayesian fil-ter for a lin-ear Gaus-sian prob-lem - see []
+ []
+
+
+LaTeX Warning: Citation 'fortuin_gp-vae:_2020' on page 44 undefined on input line 142.
+
+
+Overfull \hbox (16.92307pt too wide) in paragraph at lines 141--143
+\OT1/txr/m/n/10.95 We wrap up here link-ing the fil-ter-ing/smoothing the-ory of lin-ear []SDE with the []GP-VAE model of []. 
+ []
+
+
+LaTeX Warning: Citation 'rasmussen_gaussian_2008' on page 44 undefined on input line 160.
+
+
+Overfull \hbox (45.78305pt too wide) in paragraph at lines 159--161
+[]\OT1/txr/m/n/10.95 Computing the pos-te-rior dis-tri-bu-tion $\OML/txmi/m/it/10.95 p\OT1/txr/m/n/10.95 (\OML/txmi/m/it/10.95 Z[]\OMS/txsy/m/n/10.95 j\OML/txmi/m/it/10.95 X[]\OT1/txr/m/n/10.95 )$ is per-form-ing a Gaus-sian Pro-cess re-gres-sion (see []),
+ []
+
+
+LaTeX Warning: Citation 'zhu_markovian_2023' on page 44 undefined on input line 169.
+
+
+LaTeX Warning: Citation 'sarkka_applied_2019' on page 44 undefined on input line 175.
+
+
 Underfull \vbox (badness 1661) has occurred while \output is active []
 
 
 
 [44]
 
-[45])
+[45]
+
+LaTeX Warning: Citation 'mva_kernel_class' on page 46 undefined on input line 240.
+
+)
+Overfull \hbox (4.85693pt too wide) in paragraph at lines 240--91
+[]\OT1/txr/m/n/10.95 In that lat-ter case, one can use spec-tral de-com-po-si-tion (ie Mer-cer's the-o-rem, see MVA ker-nel class [])
+ []
+
+
 
 [46]
 
@@ -2288,6 +2535,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.87 }
       
+
+LaTeX Warning: Citation 'rasmussen_gaussian_2008' on page 53 undefined on input line 89.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2308,21 +2559,40 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.135 }{p19}
             
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 54 undefined on input line 137.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [54]
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 55 undefined on input line 167.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [55]
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 56 undefined on input line 195.
+
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 56 undefined on input line 197.
+
+
+Overfull \hbox (29.0789pt too wide) in paragraph at lines 197--198
+[]\OT1/txr/m/n/10.95 The reader will re-fer to [] for proofs of ex-is-tence, con-ti-nu-ity, and nowhere-differentiability
+ []
+
 LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+(/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 )
-Underfull \vbox (badness 2165) has occurred while \output is active []
+Underfull \vbox (badness 2368) has occurred while \output is active []
 
 
 
@@ -2332,11 +2602,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [57]
-Underfull \vbox (badness 4647) has occurred while \output is active []
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 58 undefined on input line 286.
+
+
+Underfull \vbox (badness 4634) has occurred while \output is active []
 
 
 
-[58])
+[58]
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 59 undefined on input line 331.
+
+)
 
 [59]
 \openout2 = `chapter/stochastic_calculus.aux'.
@@ -2379,9 +2657,6 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.76 }
       
-LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <9> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 76.
-
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2491,6 +2766,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.97 }{\cite{mouvement-brownien-calcul-ito} p163}
                                                  
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 67 undefined on input line 97.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2501,6 +2780,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [67]
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 68 undefined on input line 120.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2513,6 +2796,10 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
                    \relax 
 l.180 }{\cite{mouvement-brownien-calcul-ito} p173}
                                                   
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 69 undefined on input line 180.
+
+
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2559,6 +2846,9 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
  []
 
 
+LaTeX Warning: Citation 'rasmussen_gaussian_2008' on page 74 undefined on input line 99.
+
+
 
 [74
 
@@ -2586,46 +2876,62 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 202--202
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.213 }
+l.258 }
        
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[77
+
+]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.267 }
        
-
-[77
-
-]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.293 }
+l.300 }
        
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [78]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.310 }
+l.317 }
        
+Underfull \vbox (badness 3579) has occurred while \output is active []
+
+
+
+[79]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.321 ...and $\sigma$ in \ref{SDE_linear_moments}}
+l.328 ...and $\sigma$ in \ref{SDE_linear_moments}}
                                                   
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.332 ...ma$ into \ref{linear sde discretization}}
-                                                  
-
-[79]
+l.354 }
+       
 
 [80]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.378 }
+       
+
+[81]
 Appendix E.
 
-Overfull \hbox (10.0pt too wide) in paragraph at lines 339--339
+Overfull \hbox (10.0pt too wide) in paragraph at lines 385--385
 [][][][][][][][][]  
  []
 
@@ -2633,48 +2939,40 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 339--339
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.401 }
+l.447 }
        
-Underfull \vbox (badness 6978) has occurred while \output is active []
+
+LaTeX Warning: Citation 'mouvement-brownien-calcul-ito' on page 82 undefined on input line 447.
+
+
+Underfull \vbox (badness 6961) has occurred while \output is active []
 
 
 
-[81
+[82
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[82])
+[83])
 
-[83] (./main.gls
+[84] (./main.gls
 
-[84
+[85
 
 
 
 
 ])
 
-[85]
-
-[86
-
-]
-Overfull \hbox (8.06023pt too wide) in paragraph at lines 122--122
-\OT1/txr/m/n/10.95 books). Cam-bridge: Cam-bridge Uni-ver-sity Press, 2019, \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9781316510087. \OT1/txr/m/sc/10.95 doi\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 10 . 1017 / 9781108186735$[][]
- []
-
-
-Overfull \hbox (0.44476pt too wide) in paragraph at lines 122--122
-[]\OT1/txr/m/n/10.95 K. Mur-phy, \OT1/txr/m/it/10.95 Prob-a-bilis-tic macine learn-ing ad-vanced top-ics\OT1/txr/m/n/10.95 , 2023. [On-line]. Avail-able: [][]$\OT1/txtt/m/n/10.95 https : / / mitpress .
- []
+LaTeX Warning: Empty bibliography on input line 121.
 
 
 
-[87]
-runsystem(latexminted cleantemp  --timestamp 20250815182429 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+[86]
+runsystem(latexminted cleantemp  --timestamp 20250817190805 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
  (./main.aux (./chapter/remerciements.aux) (./chapter/subject_intro.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/experiments.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/appendix.aux))
  ***********
@@ -2697,18 +2995,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64688 strings out of 467801
- 1517170 string characters out of 5431917
- 2772318 words of memory out of 5000000
- 91735 multiletter control sequences out of 15000+600000
- 699718 words of font info for 209 fonts, out of 8000000 for 9000
+ 64571 strings out of 467801
+ 1512249 string characters out of 5431917
+ 2771699 words of memory out of 5000000
+ 91628 multiletter control sequences out of 15000+600000
+ 698664 words of font info for 207 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,33n,108p,2558b,1739s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (87 pages, 360512 bytes).
+ 103i,33n,108p,2558b,1363s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on main.pdf (86 pages, 344045 bytes).
 PDF statistics:
- 1219 PDF objects out of 1440 (max. 8388607)
- 1082 compressed objects within 11 object streams
- 444 named destinations out of 1000 (max. 500000)
+ 1088 PDF objects out of 1200 (max. 8388607)
+ 957 compressed objects within 10 object streams
+ 438 named destinations out of 1000 (max. 500000)
  261 words of extra memory for PDF output out of 10000 (max. 10000000)
 
