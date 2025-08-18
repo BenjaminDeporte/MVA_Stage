@@ -618,17 +618,33 @@ class PreEncoderCNN(nn.Module):
     Takes images of shape (B, T, W=64, H=64, C=3)
     and encodes them into a latent space of dimension Dx.
     """
-    def __init__(self):
+    def __init__(self, Dx=16):
         super(PreEncoderCNN, self).__init__()
-        pass
+        self.Dx = Dx  # Dimension of the output
+        self.conv1 = nn.Conv2d(
+            in_channels=3,  # input channels (C=3 for RGB images)
+            out_channels=16,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=1,  # stride of the convolution
+            padding=0,
+        )
     
     def forward(self, x):
         """
         Input: (T, B, W=64, H=64, C=3)
         Output: (T, B, Dx)
         """
-        pass
+        # check input shape
+        assert x.dim() == 5, f"Input shape must be (T, B, W, H, C), got {x.shape}"
+        assert x.shape[2] == 64 and x.shape[3] == 64 and x.shape[4] == 3, \
+            f"Input shape must be (T, B, 64, 64, 3), got {x.shape}"
+        # manage shape
+        x = x.permute(0,1,4,3,2)  # (T,B,W,H,C) -> (T,B,C,H,W)  # NON IL FAUT UN 4D EN ENTREE
+        # apply convolutional layers, pooling, etc
+        x = self.conv1(x)  # example of a convolutional layer
+        return x
     
+        
 # --- brick 8 : CNN 3D Post-Decoder ----------------------------------------------
 #
 # --- Takes (B, T) outputs of shape (Dx)
