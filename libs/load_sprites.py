@@ -47,8 +47,8 @@ def sprites_act(path, seed=0, return_labels = False):
         D_test = np.concatenate(D_test, axis=0)
         A_test = A_test[ind]
         D_test = D_test[ind]
-        print (A_test.shape, D_test.shape, X_test.shape, 'shapes')
-    print (X_train.shape, X_test.min(), X_test.max())
+        print (f"A_test.shape: {A_test.shape}, D_test.shape: {D_test.shape}, X_test.shape: {X_test.shape}")
+    print (f"X_train.shape: {X_train.shape}, X_test.min(): {X_test.min()}, X_test.max(): {X_test.max()}")
     end = time.time()
     print (f'data loaded in {end - start:.2f} seconds...')
 
