@@ -890,13 +890,3 @@ class VRNN(nn.Module):
                 logvar_full_x[seq_len + s,:,:] = logvar_x_pred
         
         return mu_x_predictions, logvar_x_predictions, mu_full_x, logvar_full_x
-
-
-
-
-
-
-
-   
-    
-    
