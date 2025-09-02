@@ -764,6 +764,169 @@ class PostDecoderCNN(nn.Module):
         
 
 
+
+#----------------------------------------------------------------
+# NORMALIZED CNN PRE ENCODER AND POST DECODER FOR GPVAE
+#----------------------------------------------------------------
+
+# --- brick 7bis : NORMALIZED CNN 3D Pre-Encoder ----------------------------------------------
+#
+# --- Takes (T, B) images of shape (W=64, H=64, C=3)
+# --- pre-encodes them into (T, B, Dx) with a Tanh activation at the end
+# --- so they can be plugged as is in the VRNN model
+#
+
+class NormalizedPreEncoderCNN(nn.Module):
+    """
+    Pre-Encoder CNN module.
+    Takes images of shape (B, T, W=64, H=64, C=3)
+    and encodes them into a latent space of dimension Dx.
+    """
+    def __init__(self, Dx=16):
+        super(NormalizedPreEncoderCNN, self).__init__()
+        self.Dx = Dx  # Dimension of the output
+        self.conv1 = nn.Conv2d(
+            in_channels=3,  # input channels (C=3 for RGB images)
+            out_channels=32,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+        )
+        self.conv2 = nn.Conv2d(
+            in_channels=32,  # input channels from the previous layer
+            out_channels=64,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+        )
+        self.conv3 = nn.Conv2d(
+            in_channels=64,  # input channels from the previous layer
+            out_channels=128,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+        )
+        self.fc1 = nn.Linear(128 * 8 * 8, 128)
+        self.fc2 = nn.Linear(128, self.Dx)
+    
+    def forward(self, x):
+        """
+        Input: (T, B, W=64, H=64, C=3)
+        Output: (T, B, Dx)
+        """
+        # check input shape
+        assert x.dim() == 5, f"Input shape must be (T, B, W, H, C), got {x.shape}"
+        assert x.shape[2] == 64 and x.shape[3] == 64 and x.shape[4] == 3, \
+            f"Input shape must be (T, B, 64, 64, 3), got {x.shape}"
+        # manage shape
+        T = x.shape[0]  # Time dimension
+        B = x.shape[1]  # Batch dimension
+        W = x.shape[2]  # Width
+        H = x.shape[3]  # Height
+        C = x.shape[4]  # Channels
+        # Reshape to (T*B, C, H, W) for CNN input
+        x = x.reshape(T * B, W, H, C)  
+        x = x.permute(0,3,2,1)  # (T*B,W,H,C) -> (T*B,C,H,W)
+        # apply convolutional layers, pooling, etc
+        x = self.conv1(x)  # (T*B, 32, 32, 32)
+        x = F.relu(x)
+        x = self.conv2(x)  # (T*B, 64, 16, 16)
+        x = F.relu(x)
+        x = self.conv3(x)  # (T*B, 128, 8, 8)
+        x = F.tanh(x)
+        # # Flatten the output
+        x = x.view(T * B, -1)  # (T*B, 128 * 8 * 8)
+        # # Fully connected layers
+        x = self.fc1(x)  # (T*B, 128)
+        x = F.relu(x)
+        x = self.fc2(x)  # (T*B, Dx)
+        # Reshape back to (T, B, Dx)
+        x = x.view(T, B, self.Dx)  # (T, B, Dx)
+
+        return x
+    
+        
+# --- brick 8 : CNN 3D Normalized Post-Decoder ----------------------------------------------
+#
+# --- Takes (B, T) outputs of shape (Dx)
+# --- post-decodes them into (B, T, W=64, H=64, C=3)
+# --- so they can be plugged as is in the VRNN model
+#
+
+class NormalizedPostDecoderCNN(nn.Module):
+    """
+    post-Decoder CNN module.
+    Takes outputs of shape (T, B, Dx)
+    and decodes them into images of shape (T, B, W=64, H=64, C=3).
+    NB: this is the reverse of the PreEncoderCNN.
+    """
+    def __init__(self, Dx=16):
+        super(NormalizedPostDecoderCNN, self).__init__()
+        self.Dx = Dx  # Dimension of the input
+        self.fc1 = nn.Linear(self.Dx, 128)
+        self.fc2 = nn.Linear(128, 64 * 14 * 14)
+        self.deconv1 = nn.ConvTranspose2d(
+            in_channels=128,  # input channels (C=64)
+            out_channels=64,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+            output_padding=1,  # to ensure output size is correct
+        )
+        self.deconv2 = nn.ConvTranspose2d(
+            in_channels=64,  # input channels from the previous layer
+            out_channels=32,
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+            output_padding=1,  # to ensure output size is correct
+        )
+        self.deconv3 = nn.ConvTranspose2d(
+            in_channels=32,  # input channels from the previous layer
+            out_channels=3,  # output channels (C=3 for RGB images)
+            kernel_size=3,  # size of the convolutional kernel
+            stride=2,  # stride of the convolution
+            padding=1,
+            output_padding=1,  # to ensure output size is correct
+        )
+        self.fc1 = nn.Linear(self.Dx, 128)
+        self.fc2 = nn.Linear(128, 128 * 8 * 8)
+    
+    def forward(self, x):
+        """
+        Input: (T, B, Dx)
+        Output: (T, B, W=64, H=64, C=3)
+        """
+        # check input shape
+        assert x.dim() == 3, f"Input shape must be (T, B, Dx), got {x.shape}"
+        assert x.shape[2] == self.Dx, f"Input shape must be (T, B, {self.Dx}), got {x.shape}"
+        # fwd pass
+        T = x.shape[0]  # Time dimension
+        B = x.shape[1]  # Batch dimension
+        # Reshape to (T*B, Dx) for fully connected layers
+        x = x.reshape(T * B, self.Dx)  # (T*B, Dx)
+        # Fully connected layers
+        x = self.fc1(x)  # (T*B, 128)
+        x = F.relu(x)
+        x = self.fc2(x)  # (T*B, 128 * 8 * 8)
+        x = F.relu(x)
+        # Reshape to (T*B, 128, 8, 8)
+        x = x.view(T * B, 128, 8 , 8)
+        # Apply transposed convolutional layers, upsampling, etc
+        x = self.deconv1(x)  # (T*B, 64, 16, 16)
+        x = F.relu(x)
+        x = self.deconv2(x)  # (T*B, 32, 32, 32)
+        x = F.relu(x)
+        x = self.deconv3(x)  # (T*B, 3, 64, 64)
+        # # Reshape back to (T, B, W=64, H=64, C=3)
+        x = x.view(T, B, 3, 64, 64)
+        x = x.permute(0, 1, 3, 4, 2)  # (T, B, W=64, H=64, C=3)
+        # output in [0,1] range
+        x = torch.sigmoid(x)  # Ensure output is in [0, 1] range
+        
+        return x
+
+
 #-----------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------
 #
