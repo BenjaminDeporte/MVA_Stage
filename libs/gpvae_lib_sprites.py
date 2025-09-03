@@ -464,10 +464,12 @@ class GaussianKernel(nn.Module):
         super(GaussianKernel, self).__init__()
         
         # learnable parameters for the Gaussian kernel
-        self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter       
+        self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter    
+        # self.lengthscale = torch.tensor(lengthscale)  # fixed lengthscale parameter
         self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance parameter
+        # self.sigma = torch.tensor(sigma)  # fixed variance parameter
         
-        self.epsilon = torch.tensor(epsilon)  # tolerance to ensure positive definiteness of the kernel matrix
+        self.epsilon = torch.tensor(epsilon, requires_grad=False)  # tolerance to ensure positive definiteness of the kernel matrix
     
     def forward(self, t1, t2):
         """Compute the Gaussian kernel between two sets of time points.
@@ -482,17 +484,21 @@ class GaussianKernel(nn.Module):
         
         assert t1.dim() == t2.dim(), "GaussianKernel object : Input tensors must have the same number of dimensions"
         
+        # THE FOLLOWING TWO LINES OF CODE ARE CRITICAL TO AVOID INPLACE OPERATIONS ON THE PARAMETERS !!!!!        
+        lengthscale = self.lengthscale.clone()
+        sigma = self.sigma.clone()
+        
         # Compute the Gaussian kernel matrix
         if t1.dim() == 1:
             t1_b = t1.unsqueeze(-1)  # (N, 1)
             t2_b = t2.unsqueeze(0)   # (1, M)
-            kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (N, M)
+            kernel = torch.exp(-0.5 * torch.pow((t1_b - t2_b) / lengthscale, 2))  # (N, M)
         else:
             t1_b = t1.unsqueeze(-1) # (...,N, 1)
             t2_b = t2.unsqueeze(-2) # (...,1, M)
-            kernel = torch.exp(-0.5 * ((t1_b - t2_b) / self.lengthscale)**2)  # (..., N, M)
+            kernel = torch.exp(-0.5 * torch.pow(torch.div(t1_b - t2_b, lengthscale),2))  # (..., N, M)
         
-        gaussian_kernel_matrix = self.sigma**2 * kernel  # (..., N, M)
+        gaussian_kernel_matrix = sigma**2 * kernel  # (..., N, M)
 
         if torch.equal(t1, t2):
             # If t1 and t2 are the same, the kernel matrix should be symmetric and positive definite
@@ -633,6 +639,10 @@ class MaternKernel(nn.Module):
         """
         
         assert t1.dim() == t2.dim(), "Matern Kernel object : Input tensors must have the same number of dimensions"
+                
+        # THE FOLLOWING TWO LINES OF CODE ARE CRITICAL TO AVOID INPLACE OPERATIONS ON THE PARAMETERS !!!!!        
+        lengthscale = self.lengthscale.clone()
+        sigma = self.sigma.clone()
         
         if t1.dim() == 1:
             t1_b = t1.unsqueeze(-1)  # (N, 1)
@@ -645,13 +655,13 @@ class MaternKernel(nn.Module):
         
         if self.nu == 0.5:
             # Matern kernel with nu = 0.5
-            matern_kernel = self.sigma**2 * torch.exp(-d / self.lengthscale)
+            matern_kernel = sigma**2 * torch.exp(-d / lengthscale)
         elif self.nu == 1.5:
             # Matern kernel with nu = 1.5
-            matern_kernel = self.sigma**2 * (1 + (d * torch.sqrt(torch.tensor(3))) / self.lengthscale) * torch.exp(-d * torch.sqrt(torch.tensor(3)) / self.lengthscale)
+            matern_kernel = sigma**2 * (1 + (d * torch.sqrt(torch.tensor(3))) / lengthscale) * torch.exp(-d * torch.sqrt(torch.tensor(3)) / lengthscale)
         elif self.nu == 2.5:
             # Matern kernel with nu = 2.5
-            matern_kernel = self.sigma**2 * (1 + ((d * torch.sqrt(torch.tensor(5))) / self.lengthscale) + (5 * d**2 / (3 * self.lengthscale**2))) * torch.exp(-d * torch.sqrt(torch.tensor(5)) / self.lengthscale)
+            matern_kernel = sigma**2 * (1 + ((d * torch.sqrt(torch.tensor(5))) / lengthscale) + (5 * d**2 / (3 * lengthscale**2))) * torch.exp(-d * torch.sqrt(torch.tensor(5)) / lengthscale)
         else:
             raise ValueError("MaternKernel: nu must be one of [0.5, 1.5, 2.5]")
 
@@ -823,7 +833,7 @@ class GPConstantMean(nn.Module):
 #
 #---------------------------------------------------------------------------------------
 
-def compute_gp_priors(t, Dz, kernels_list, mean_functions_list, verbose=False):
+def compute_gp_priors(t, Dz, kernels_list, mean_functions_list, verbose=False, tolerance=1e-3):
     """Compute the GP prior distributions for each latent dimension
     Inputs:
     - t: (B, N,) tensor of time points
@@ -869,6 +879,9 @@ def compute_gp_priors(t, Dz, kernels_list, mean_functions_list, verbose=False):
         
     kernel_matrix = torch.stack(kernel_matrices, dim=0)  # (Dz,B,N,N)
     kernel_matrix = kernel_matrix.transpose(0, 1) # (B,Dz,N,N)
+    # kernel_matrix = kernel_matrix + tolerance * torch.eye(N, device=t.device).unsqueeze(0).unsqueeze(0)  # Add small value to diagonal for numerical stability (broadcasting)
+    # print(f"Kernel matrix after stack and transpose (B,Dz,N,N): {kernel_matrix.shape}")  # (B,Dz,N,N)
+    # print(f"Kernel matrix sample : {kernel_matrix[0,0,:,:]}")
     L_matrix = torch.stack(L_matrices, dim=0) if L_matrices[0] is not None else None  # (Dz,B,N,N) or None
     L_matrix = L_matrix.transpose(0, 1) if L_matrix is not None else None  # (B,Dz,N,N)
     mean = torch.stack(means, dim=0)  # (Dz,B,N)
@@ -995,25 +1008,25 @@ def train_step(
 
         # sample z from q_phi (z|x) using the reparameterization trick
         z_sample = q_phi.rsample((K,)) # K,B,Dz,N
-        z_sample = z_sample.permute(0,1,3,2)  # K,B,N,Dz
+        z_sample = torch.permute(z_sample,(0,1,3,2))  # K,B,N,Dz
         # compute p_theta (x|z)
         x_rec = decoder(z_sample)  # K,B,N,Dx
         
         # compute the loss
         kl = torch.distributions.kl_divergence(q_phi, prior)  # B,Dz
         kl_loss = kl.mean()  # sum over Dz
-        reconstruction_loss = (x - x_rec)**2  # K,B,N,Dx
+        reconstruction_loss = torch.pow(x - x_rec, 2)  # K,B,N,Dx
         rec_loss = reconstruction_loss.mean()  # mean over B and K
-        loss = kl_loss + rec_loss  # total loss
+        loss = rec_loss + kl_loss # total loss
         
         # backpropagation
         optimizer.zero_grad()
-        loss.backward()
+        loss.backward(retain_graph=True)
         optimizer.step()
         # sum losses
-        epoch_loss += loss.item()
-        epoch_kl += kl_loss.item()
-        epoch_rec_loss += rec_loss.item()
+        epoch_loss = epoch_loss + loss.item()
+        epoch_kl = epoch_kl + kl_loss.item()
+        epoch_rec_loss = epoch_loss + rec_loss.item()
         # report out
         print(f"Train Batch {i+1} / {len(train_loader)}: loss = {loss.item():.4e}, kl = {kl_loss.item():.4e}, rec_loss = {rec_loss.item():.4e}", end="\r")
         
@@ -1156,6 +1169,46 @@ def train(
 
 
 
+
+def report_out_losses(train_losses, test_losses, train_kls, test_kls, train_rec_losses, test_rec_losses, K):
+    """ Report the losses and KL divergence.
+    """
+    
+    # print(f"Total Loss final: {losses[-1]:.4e}")
+    # print(f"KL Divergence final: {kls[-1]:.4e}")
+    # print(f"Reconstruction Loss (avg over {K} sample(s)) final: {reconstruction_losses[-1]:.4e}")
+
+    fig, ax = plt.subplots(1,3, figsize=(18, 4))
+
+    ax[0].plot(train_losses, label='Train Loss', color='blue')
+    ax[0].plot(test_losses, label='Test Loss', color='green')
+    ax[0].set_title('Loss over epochs')
+    ax[0].set_xlabel('Epochs')
+    ax[0].set_ylabel('Loss')
+    ax[0].set_yscale('log')
+    ax[0].grid(True)
+    ax[0].legend()
+
+    ax[1].plot(train_kls, label='Train KL', color='blue')
+    ax[1].plot(test_kls, label='Test KL', color='green')
+    ax[1].set_title('KL Divergence over epochs')
+    ax[1].set_xlabel('Epochs')
+    ax[1].set_ylabel('KL Divergence')
+    ax[1].set_yscale('log')
+    ax[1].grid(True)
+    ax[1].legend()
+
+    ax[2].plot(train_rec_losses, label='Train Rec Loss', color='blue')
+    ax[2].plot(test_rec_losses, label='Test Rec Loss', color='green')
+    ax[2].set_title(f'Reconstruction Loss over epochs (avg with {K} sample(s))')
+    ax[2].set_xlabel('Epochs')      
+    ax[2].set_ylabel('Reconstruction Loss')
+    ax[2].set_yscale('log')
+    ax[2].grid(True)
+    ax[2].legend()
+
+    plt.tight_layout()
+    plt.show()
 
 
 
