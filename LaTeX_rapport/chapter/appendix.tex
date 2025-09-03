@@ -49,7 +49,7 @@ In this setting, the D-separation is obvious and the joint distribution factoriz
 The \gls{vlb} (or \gls{elbo}) $\mathcal{L}(\theta, \phi, X)$ simplifies into:
 \begin{align*}
     \mathcal{L}(\theta, \phi, X) &= \mathbb{E}_{q_{\phi}(z \vert x)} \log{\frac{\prod_{i=1}^n p_{\theta_x}(x_i \vert z_i) p_{\theta_z}(z_i)}{\prod_{i=1}^n q_{\phi}(z_i \vert x_i)}} \\
-    &= \sum_{i=1}^n \mathbb{E}_{q_{\phi}(z_i \vert x_i)} p_{\theta_x}(x_i \vert z_i) - \sum_{i=1}^n \mathbb{KL}(q_{\phi}(z_i \vert x_i) \vert\vert p_{\theta_z}(z_i) )
+    &= \sum_{i=1}^n \mathbb{E}_{q_{\phi}(z_i \vert x_i)} \log{p_{\theta_x}(x_i \vert z_i)} - \sum_{i=1}^n \mathbb{KL}(q_{\phi}(z_i \vert x_i) \vert\vert p_{\theta_z}(z_i) )
 \end{align*}
 The first term is the reconstruction loss, and is estimated via Monte Carlo sampling over $z_i \sim q_{\phi}(z_i \vert x_i)$. The second term is a KL-divergence, which can be computed analytically when $q_\phi$ and $p_{\theta_z}$ are chosen to be Gaussians.
 
