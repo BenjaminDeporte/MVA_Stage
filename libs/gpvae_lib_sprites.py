@@ -465,7 +465,6 @@ class GaussianKernel(nn.Module):
         
         # learnable parameters for the Gaussian kernel
         self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter    
-        # self.lengthscale = torch.tensor(lengthscale)  # fixed lengthscale parameter
         self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance parameter
         # self.sigma = torch.tensor(sigma)  # fixed variance parameter
         
@@ -547,8 +546,8 @@ class GaussianKernelFixed(nn.Module):
         super(GaussianKernelFixed, self).__init__()
         
         # learnable parameters for the Gaussian kernel
-        self.lengthscale = torch.tensor(lengthscale)  # learnable lengthscale parameter       
-        self.sigma = torch.tensor(sigma)  # learnable variance parameter
+        self.lengthscale = torch.tensor(lengthscale)  # not learnable lengthscale parameter       
+        self.sigma = torch.tensor(sigma)  # not learnable variance parameter
         
         self.epsilon = torch.tensor(epsilon)  # tolerance to ensure positive definiteness of the kernel matrix
     
@@ -670,7 +669,7 @@ class MaternKernel(nn.Module):
             # so we compute and return the Cholesky decomposition of the kernel matrix
             # to be used in forming the MultivariateNormal distribution, adding
             # a small value to the diagonal for numerical stability
-            matern_kernel += self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
+            matern_kernel = matern_kernel + self.epsilon * torch.eye(t1.size(-1), device=t1.device, dtype=t1.dtype)
             try:
                 L = torch.linalg.cholesky(matern_kernel)  # Cholesky decomposition to ensure positive definiteness
                 return matern_kernel, L  # Return the kernel matrix and its Cholesky factor L
@@ -986,7 +985,9 @@ def train_step(
     optimizer,  
     prior,
     device,
-    K,  
+    K, 
+    beta=1.0,  # weight of the KL term in the loss 
+    tolerance=1e-2  # small value to ensure positive definiteness of the kernel matrix
 ):
     # perform one epoch on the entire training set
     epoch_loss = 0.0
@@ -1001,6 +1002,7 @@ def train_step(
         # compute q_phi (z|x)
         mu_phi = mu_x.permute(0,2,1)  # (B, Dz, N)
         covar_phi = torch.diag_embed(torch.exp(logcovar_x).permute(0,2,1))  # (B, Dz, N, N) diagonal matrices
+        # covar_phi = covar_phi + tolerance * torch.eye(covar_phi.size(-1), device=covar_phi.device).unsqueeze(0).unsqueeze(0)  
         q_phi = torch.distributions.MultivariateNormal(
             loc=mu_phi, 
             covariance_matrix=covar_phi
@@ -1015,18 +1017,20 @@ def train_step(
         # compute the loss
         kl = torch.distributions.kl_divergence(q_phi, prior)  # B,Dz
         kl_loss = kl.mean()  # sum over Dz
-        reconstruction_loss = torch.pow(x - x_rec, 2)  # K,B,N,Dx
+        reconstruction_loss = (x.unsqueeze(0) - x_rec)**2  # K,B,N,Dx
+        # print(f"train rec shape: {reconstruction_loss.shape}, x shape: {x.shape}, x_rec shape: {x_rec.shape}")
+        # reconstruction_loss = torch.nn.functional.binary_cross_entropy(x_rec, x.unsqueeze(0).expand_as(x_rec), reduction='none')  # K,B,N,Dx
         rec_loss = reconstruction_loss.mean()  # mean over B and K
-        loss = rec_loss + kl_loss # total loss
+        loss = rec_loss + beta * kl_loss # total loss
         
         # backpropagation
         optimizer.zero_grad()
-        loss.backward(retain_graph=True)
+        loss.backward()
         optimizer.step()
         # sum losses
-        epoch_loss = epoch_loss + loss.item()
-        epoch_kl = epoch_kl + kl_loss.item()
-        epoch_rec_loss = epoch_loss + rec_loss.item()
+        epoch_loss += loss.item()
+        epoch_kl += kl_loss.item()
+        epoch_rec_loss += rec_loss.item()
         # report out
         print(f"Train Batch {i+1} / {len(train_loader)}: loss = {loss.item():.4e}, kl = {kl_loss.item():.4e}, rec_loss = {rec_loss.item():.4e}", end="\r")
         
@@ -1080,7 +1084,8 @@ def test_step(
             # compute the loss
             kl = torch.distributions.kl_divergence(q_phi, prior)  # B,Dz
             kl_loss = kl.mean()  # sum over Dz
-            reconstruction_loss = (x - x_rec)**2  # K,B,N,Dx
+            reconstruction_loss = (x.unsqueeze(0) - x_rec)**2  # K,B,N,Dx
+            # print(f"test rec shape: {reconstruction_loss.shape}, x shape: {x.shape}, x_rec shape: {x_rec.shape}")
             rec_loss = reconstruction_loss.mean()  # mean over B and K
             loss = kl_loss + rec_loss  # total loss
             
