@@ -50,7 +50,7 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 %---------------------- DYNAMICAL VAE ---------------------------------------------
 %
 %
-\part{Dynamical Variational Autoencoders}
+\part{Dynamical Variational Autoencoders - Theory}
 
 This part presents the general framework of \glspl{dvae}. We start with a reminder of the key notion of \textbf{D-separation}, which is central in \glspl{gpm}.
 
@@ -71,6 +71,10 @@ This allows for sampling data at irregular intervals. Another benefit is the use
     % \include{chapter/Torch_implementation_take_aways}
     % \include{chapter/Torch_implementation_take_aways_2}
 
+\part{Dynamical Variational Autoencoders - Implementation and Experiments}
+
+    \include{chapter/experiments}
+
 % 
 %
 % ------- STOCHASTIC CALCULUS BASICS, SDE AND DVAE ---------------------------
@@ -84,30 +88,29 @@ This part intends to present a self-contained "survival kit" material on stochas
 NB : stochastic calculus is a full mathematical field in itself, and a more detailed presentation is located at the very end of this report. For a full study
 of the matter, the interested reader will likely enjoy \cite{mouvement-brownien-calcul-ito}, \cite{sarkka_applied_2019}, and refer to \cite{cours-jf-legall}.
 
-    \include{chapter/Entropy_and_randomness}
     \include{chapter/SC_introduction}
     \include{chapter/SC_SDE_results}
     % add chapter for links between SDEs and DVAEs
     \include{chapter/filter_smoother_gps}
 
-\part{Experiments}
-
-    \include{chapter/experiments}
-
 \part{Conclusion and Discussion}
 
     \include{chapter/conclusions}
+
+\part{Complements}
 
 %
 %
 % ----- STOCHASTIC CALCULUS IN DETAILS ---------------------
 %
 %
-\part{More on stochastic calculus}
-
     \include{chapter/stochastic_processes_basics}
     \include{chapter/stochastic_calculus}
     \include{chapter/ito_calculus_sde}
+
+    \include{chapter/Entropy_and_randomness}
+
+    \include{chapter/neural_ode}
 
 % \part{Appendices}
 \begin{appendices}

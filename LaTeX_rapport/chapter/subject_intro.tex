@@ -3,41 +3,48 @@
 % * means no number
 % \chapter*{Abstract}
 
-\glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, and have spawn numerous applications. However, the original i.i.d.
+\glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, and have spawn numerous applications. However, the original i.i.d. 
 assumption over the latent variables carry strong limitations when considering data sequences over time. 
 A richer class of models aims at solving this limitation : the \glspl{dvae}. In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also),
  aiming at encoding the temporal dimension of the data. 
 
 The first part of the report is dedicated to the general study of \glspl{dvae}. A great survey is \cite{girin_dynamical_2022} and is the basis for this part. 
-We review the general formulation of \glspl{dvae} and the detailed implementation of three models : deep Kalman filter, \gls{vrnn}, and \gls{gpvae}. 
-Along with this study, we also provide an overview of the information theory framework for data sequences -specifically some results on entropy rates-
- to empirically  quantify the degree of "randomness" (of, more accurately, uncertainty) of data sequences.
-
+We review the general formulation of \glspl{dvae} and then review the detailed implementation of two discrete time models : the Deep Kalman filter, and the \gls{vrnn}. 
 If a discrete-time setting of the latent variables is straightforward -for example, structuring the latent variables as a first-order Markov chain-, this setting carries limitations too. 
 The first, and possibly most important one, is that the structure of the model requires regularly-sampled data. In practice, data measurements can be made 
 with a changing frequency. A natural idea is then to structure the latent variables as a continuous-time process, which allows irregularly sampled data. 
-A natural continuous-time process, with "nice" properties, is the \gls{gp} \cite{rasmussen_gaussian_2008} : this is the \gls{gpvae} model. 
-This idea is mentionned briefly in \cite{girin_dynamical_2022}, and described in more details in \cite{casale_gaussian_2018}, \cite{fortuin_gp-vae:_2020}, \cite{titsias_bayesian_2010} and \cite{zhu_markovian_2023}. 
+A natural continuous-time process, with "nice" properties, is the \gls{gp} \cite{rasmussen_gaussian_2008} : this is the \gls{gpvae} model, that we review.
+This idea is mentionned briefly in \cite{girin_dynamical_2022}, and described in more details in \cite{casale_gaussian_2018}, 
+\cite{fortuin_gp-vae:_2020}, \cite{titsias_bayesian_2010} and \cite{zhu_markovian_2023}. 
 
-This last paper \cite{zhu_markovian_2023} has triggered in me a significant interest. It links \gls{gpvae} with \glspl{sde}, and specifically linear \glspl{sde}. 
+The second part review the implementations of those three models, the experiments run on toy datasets, and some take-aways.
+The code is available at \href{https://github.com/BenjaminDeporte/MVA_Stage}{GitHub repo}.
+
+The paper \cite{zhu_markovian_2023} has triggered in me a significant interest. It links \gls{gpvae} with \glspl{sde}, and specifically linear \glspl{sde}. 
 The linear \gls{sde} formulation of the \gls{gp} regression problem allows a computation that scales linearly using off the shelf filtering and smoothing algorithms,
 rather than "naive" cubic \gls{gp} regression algorithms. 
 
-I invested a significatant amount of time in studying the mathematical machinery required to fully understand the underlying hypothesis. 
+I invested a significant amount of time in studying the mathematical machinery required to fully understand the underlying hypothesis. 
 The theory of stochastic calculus is fascinating, demanding, and fruitful.
 Among good study books, are \cite{mouvement-brownien-calcul-ito} and \cite{sarkka_applied_2019}. 
 Getting up to speed on stochastic calculus has been quite a challenge given the time frame but proved extremely useful. 
-We present some key results, which the knowledgeable reader on stochastic calculus can skip, and added a longer reference at the end of this report.
+In the following part, we present some key results, which the knowledgeable reader on stochastic calculus can skip, 
+and added a longer reference at the end of this report. 
 
-Overall, we see that the solution of a general \gls{sde} is a Markov process in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. 
-Integrating those between two time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}.
+We then describe the link between the \gls{dvae} and the \gls{sde}. The solution of a general \gls{sde} is a Markov process 
+in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. 
+Integrating that equation between two time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}.
 (Another well known  use-case is diffusion models). 
 
-In the case of a linear \gls{sde}, the solution is also a Gaussian process. This allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.
-
+In the case of a linear \gls{sde}, the solution is also a Gaussian process, which links to \gls{gpvae}. 
+This also allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.
 However, the \gls{gpvae} model carries limitations too. First, some Gaussian processes -more specifically some kernel functions- can not be formulated as the solution to a linear \gls{sde}.
-Second, if there is an intersection between Markov processes and Gaussian processes (for example the well-studied Ornstein Uhlenbeck process), some Markov processes (ie general \gls{sde}) are not Gaussian.
+Second, if there is an intersection between Markov processes and Gaussian processes (for example the well-studied Ornstein Uhlenbeck process), some Markov processes 
+(ie solutions to general \gls{sde}) are not Gaussian processes.
+
 An idea is then to use more general stochastic processes, derived from general (ie non-linear) \gls{sde}, that are still 
 Markov processes and allow filtering. Using general \gls{sde} is a recent research field, drawing upon the theory of \gls{ode}.
+We present in the complements an overview of \gls{neural-ode} and \gls{neural-sde}.
 
-The code is available at : \url{https://github.com/BenjaminDeporte/MVA_Stage}
+Last, along with this study, we also provide an overview of the information theory framework for data sequences -specifically some results on entropy rates-
+ to empirically  quantify the degree of "randomness" (of, more accurately, uncertainty) of data sequences.
