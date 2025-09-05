@@ -89,7 +89,8 @@ As a summary
 
 We have chosen a different implementation from \cite{girin_dynamical_2022} and used three different \gls{lstm} networks to encode $z_{1:t}$, $x_{1:t-1}$ and $x_{t:T}$ respectively.
 
-The PyTorch implementation is described below:
+The PyTorch implementation is schematized below (with $B$ batch size, $T$ the length of the data sequence, $D_x$ the dimension 
+of the observation space, $D_z$ the dimension of the latent space):
 
 
 %

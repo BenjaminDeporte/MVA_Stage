@@ -79,8 +79,7 @@
       <file>main.bcf</file>
     </requires>
     <requires type="editable">
-      <file>./citations.bib</file>
-      <file>./citations_2.bib</file>
+      <file>chapter/citations.bib</file>
     </requires>
   </external>
 </requests>

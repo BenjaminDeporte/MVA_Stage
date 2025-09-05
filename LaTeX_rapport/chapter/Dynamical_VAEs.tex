@@ -24,7 +24,7 @@ The generative model is given by the general expression of the joint distributio
     &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
 \end{align*}
 
-where the only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$
+where the only assumption that is made is a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$
 
 In the rest of the report, we will consider systems with no input, and drop the conditioning on $u_{1:t}$ to simplify notations. However, the reasoning remains the same with inputs.
 
@@ -42,7 +42,7 @@ As in vanilla \glspl{vae}, the inference model is the approximation of the true 
 
 Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ will simplify. 
 
-It is also considered a good practice to copy the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
+It is also considered a good practice to copy/paste the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
 
 Equipped with the generative model and the inference model, we compute the log likelihood of the data $x_{1:T}$ and derive an \gls{vlb} for training (using the same manipulation as for vanilla \gls{vae} : multiplying both sides of the equation by $q_\phi$ and integrating over $dz_{1:T}$)
 \begin{align}

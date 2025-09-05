@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 SEP 2025 12:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 SEP 2025 17:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1827,23 +1827,25 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <20.74> not available
 ]
 \openout2 = `chapter/subject_intro.aux'.
 
- (./chapter/subject_intro.tex)
+ (./chapter/subject_intro.tex
 
 [7
 
+])
+
+[8]
+
+[9
+
+
+
 ]
-
-[8
-
-
-
-]
-LaTeX Font Info:    Trying to load font information for TS1+txr on input line 59.
+LaTeX Font Info:    Trying to load font information for TS1+txr on input line 63.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ts1txr.fd
 File: ts1txr.fd 2000/12/15 v3.1
 )
 
-[9]
+[10]
 \openout2 = `chapter/D-separation.aux'.
 
  (./chapter/D-separation.tex
@@ -1855,16 +1857,16 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[10
+[11
 
 
 ]
-Overfull \hbox (47.15248pt too wide) in paragraph at lines 86--101
+Overfull \hbox (47.15248pt too wide) in paragraph at lines 89--104
 [][] []
  []
 
 
-Overfull \hbox (51.36697pt too wide) detected at line 107
+Overfull \hbox (51.36697pt too wide) detected at line 110
 []
  []
 
@@ -1877,12 +1879,12 @@ Overfull \hbox (51.36697pt too wide) detected at line 107
 
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--136
+Underfull \hbox (badness 10000) in paragraph at lines 126--139
 [][]
  []
 
 
-Overfull \hbox (115.86887pt too wide) detected at line 140
+Overfull \hbox (115.86887pt too wide) detected at line 143
 []
  []
 
@@ -1895,12 +1897,12 @@ Overfull \hbox (115.86887pt too wide) detected at line 140
 
 
 
-Overfull \hbox (47.15248pt too wide) in paragraph at lines 159--174
+Overfull \hbox (47.15248pt too wide) in paragraph at lines 162--177
 [][] []
  []
 
 
-Overfull \hbox (54.96582pt too wide) detected at line 178
+Overfull \hbox (54.96582pt too wide) detected at line 181
 []
  []
 
@@ -1917,9 +1919,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[11]
-
 [12]
+
+[13]
 \openout2 = `chapter/Dynamical_VAEs.aux'.
 
  (./chapter/Dynamical_VAEs.tex
@@ -1931,7 +1933,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[13
+[14
 
 
 
@@ -1943,9 +1945,9 @@ Overfull \hbox (21.2622pt too wide) in paragraph at lines 43--44
 
 
 
-[14])
+[15])
 
-[15]
+[16]
 \openout2 = `chapter/Deep_Kalman_Filter.aux'.
 
  (./chapter/Deep_Kalman_Filter.tex
@@ -1960,27 +1962,29 @@ Underfull \vbox (badness 1478) has occurred while \output is active []
 
 
 
-[16
+[17
 
 
 
 
 ]
 
-[17]
-LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 146.
+[18]
+
+[19]
+LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 150.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
 File: ot1txtt.fd 2000/12/15 v3.1
 )
 Missing character: There is no ; in font nullfont!
 
-Overfull \hbox (17.48555pt too wide) in paragraph at lines 201--202
+Overfull \hbox (17.48555pt too wide) in paragraph at lines 205--206
  [][] 
  []
 
 
 
-[18])
+[20])
 \openout2 = `chapter/VRNN.aux'.
 
  (./chapter/VRNN.tex
@@ -1992,7 +1996,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[19
+[21
 
 
 
@@ -2001,16 +2005,16 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 ]
 
-[20]
+[22]
 Missing character: There is no ; in font nullfont!
 
-Overfull \hbox (42.86797pt too wide) in paragraph at lines 235--236
+Overfull \hbox (42.86797pt too wide) in paragraph at lines 236--237
  [][] 
  []
 
 
 
-[21])
+[23])
 \openout2 = `chapter/GPVAE.aux'.
 
  (./chapter/GPVAE.tex
@@ -2025,7 +2029,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[22
+[24
 
 
 
@@ -2033,27 +2037,24 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Underfull \vbox (badness 2065) has occurred while \output is active []
 
-
-
-[23]
+[25]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[24]
+[26]
 
-[25]
-Overfull \hbox (32.1733pt too wide) in paragraph at lines 268--269
+[27]
+Overfull \hbox (32.1733pt too wide) in paragraph at lines 271--272
  [][] 
  []
 
 
 
-[26])
+[28])
 
-[27
+[29
 
 
 
@@ -2069,23 +2070,20 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-
-LaTeX Warning: Citation 'li_disentangled_2018' on page 28 undefined on input line 5.
-
 )
 
-[28
+[30
 
 
 ]
 
-[29
+[31
 
 
 
 ]
 
-[30]
+[32]
 \openout2 = `chapter/SC_introduction.aux'.
 
  (./chapter/SC_introduction.tex
@@ -2100,7 +2098,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[31
+[33
 
 
 ]
@@ -2108,14 +2106,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[32]
+[34]
 LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/it' tried instead on input line 126.
 
 
-[33])
+[35])
 
-[34]
+[36]
 \openout2 = `chapter/SC_SDE_results.aux'.
 
  (./chapter/SC_SDE_results.tex
@@ -2134,7 +2132,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.30 }
       
 
-[35
+[37
 
 
 
@@ -2149,16 +2147,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[36]
+[38]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.110 }
        
 
-[37])
+[39])
 
-[38]
+[40]
 \openout2 = `chapter/filter_smoother_gps.aux'.
 
  (./chapter/filter_smoother_gps.tex
@@ -2170,7 +2168,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[39
+[41
 
 
 
@@ -2180,32 +2178,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[40]
+[42]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[41]
-Underfull \vbox (badness 1661) has occurred while \output is active []
-
-
-
-[42]
-
 [43]
-
-LaTeX Warning: Citation 'mva_kernel_class' on page 44 undefined on input line 240.
-
-)
-Overfull \hbox (12.14963pt too wide) in paragraph at lines 240--94
-[]\OT1/txr/m/n/10.95 In that lat-ter case, one can use spec-tral de-com-po-si-tion (ie Mer-cer's the-o-rem, see MVA ker-nel class [[]])
- []
+Underfull \vbox (badness 1661) has occurred while \output is active []
 
 
 
 [44]
 
-[45
+[45])
+
+[46]
+
+[47
 
 
 
@@ -2221,12 +2210,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[46
+[48
 
 
 ]
 
-[47
+[49
 
 
 
@@ -2247,7 +2236,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.13 }
       
 
-[48
+[50
 
 
 ]
@@ -2270,7 +2259,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[49]
+[51]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2285,33 +2274,33 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[50]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[51]
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-)
-Underfull \vbox (badness 2189) has occurred while \output is active []
-
-
-
 [52]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
 [53]
-Underfull \vbox (badness 4686) has occurred while \output is active []
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+Underfull \vbox (badness 2165) has occurred while \output is active []
 
 
 
-[54])
+[54]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 [55]
+Underfull \vbox (badness 4647) has occurred while \output is active []
+
+
+
+[56])
+
+[57]
 \openout2 = `chapter/stochastic_calculus.aux'.
 
  (./chapter/stochastic_calculus.tex
@@ -2341,7 +2330,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[56
+[58
 
 
 
@@ -2361,7 +2350,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.87 }
       
 
-[57]
+[59]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2386,7 +2375,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[58]
+[60]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2401,14 +2390,14 @@ Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
 
-[59]
+[61]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.158 }{p129}
              )
 
-[60]
+[62]
 \openout2 = `chapter/ito_calculus_sde.aux'.
 
  (./chapter/ito_calculus_sde.tex
@@ -2438,7 +2427,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[61
+[63
 
 
 
@@ -2458,7 +2447,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[62]
+[64]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2473,14 +2462,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[63]
+[65]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.140 }
        
 
-[64]
+[66]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2497,9 +2486,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.211 }{}
          
 
-[65])
+[67])
 
-[66]
+[68]
 \openout2 = `chapter/Entropy_and_randomness.aux'.
 
  (./chapter/entropy_and_randomness.tex
@@ -2510,22 +2499,25 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
+LaTeX Warning: Citation 'bishop_pattern_2016' on page 69 undefined on input line 9.
+
+
 Underfull \vbox (badness 4120) has occurred while \output is active []
 
 
 
-[67
+[69
 
 
 
 
 ]
 
-[68]
-
-[69])
-
 [70]
+
+[71])
+
+[72]
 \openout2 = `chapter/neural_ode.aux'.
 
  (./chapter/neural_ode.tex
@@ -2537,14 +2529,14 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[71
+[73
 
 
 
 
 ]
 
-[72
+[74
 
 
 
@@ -2562,12 +2554,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
 Missing character: There is no ; in font nullfont!
 
 
-[73
+[75
 
 
 ]
 
-[74]
+[76]
 Appendix B.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
@@ -2576,11 +2568,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
 
 
 
-[75
+[77
 
 ]
 
-[76]
+[78]
 Appendix C.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
@@ -2589,7 +2581,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
 
 
 
-[77
+[79
 
 ]
 Appendix D.
@@ -2608,7 +2600,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[78
+[80
 
 ]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
@@ -2625,7 +2617,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[79]
+[81]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2635,7 +2627,7 @@ Underfull \vbox (badness 3579) has occurred while \output is active []
 
 
 
-[80]
+[82]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2647,14 +2639,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.354 }
        
 
-[81]
+[83]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.378 }
        
 
-[82]
+[84]
 Appendix E.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 385--385
@@ -2671,47 +2663,52 @@ Underfull \vbox (badness 6978) has occurred while \output is active []
 
 
 
-[83
+[85
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[84])
+[86])
 
-[85] (./main.gls
+[87] (./main.gls
 
-[86
+[88
 
 
 
 
 ])
 
-[87]
-Overfull \hbox (25.54588pt too wide) in paragraph at lines 126--126
+[89]
+Overfull \hbox (25.54588pt too wide) in paragraph at lines 130--130
 []\OT1/txr/m/n/10.95 Friedman Koller. \OT1/txr/m/it/10.95 Prob-a-bilis-tic Graph-i-cal Mod-els\OT1/txr/m/n/10.95 . en-US. \OT1/txr/m/sc/10.95 url\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 https : / / mitpress . mit . edu / 9780262013192 /
  []
 
 
 
-[88
+[90
 
 ]
-Overfull \hbox (8.15384pt too wide) in paragraph at lines 126--126
+Overfull \hbox (15.10353pt too wide) in paragraph at lines 130--130
+[]\OT1/txr/m/n/10.95 Stefano Peluchetti and Ste-fano Favaro. \OT1/txr/m/it/10.95 In-finitely deep neu-ral net-works as dif-fu-sion pro-cesses\OT1/txr/m/n/10.95 . arXiv:1905.11065.
+ []
+
+
+Overfull \hbox (8.15384pt too wide) in paragraph at lines 130--130
 \OT1/txr/m/n/10.95 print. Adap-tive com-pu-ta-tion and ma-chine learn-ing. Cam-bridge, Mass.: MIT Press, 2008. \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9780262182539. 
  []
 
 
-Overfull \hbox (27.02692pt too wide) in paragraph at lines 126--126
+Overfull \hbox (27.02692pt too wide) in paragraph at lines 130--130
 \OT1/txtt/m/n/10.95 9781108186735$[][]\OT1/txr/m/n/10.95 . \OT1/txr/m/sc/10.95 url\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 https : / / www . cambridge . org / core / books / applied -[] stochastic -[] differential -[]
  []
 
 
 
-[89]
-runsystem(latexminted cleantemp  --timestamp 20250905123819 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+[91]
+runsystem(latexminted cleantemp  --timestamp 20250905172839 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
  (./main.aux (./chapter/remerciements.aux) (./chapter/subject_intro.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/experiments.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/neural_ode.aux) (./chapter/appendix.aux))
  ***********
@@ -2734,18 +2731,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64756 strings out of 467801
- 1518735 string characters out of 5431917
- 2775646 words of memory out of 5000000
- 91784 multiletter control sequences out of 15000+600000
+ 64834 strings out of 467801
+ 1520826 string characters out of 5431917
+ 2775913 words of memory out of 5000000
+ 91856 multiletter control sequences out of 15000+600000
  699718 words of font info for 209 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,33n,108p,2558b,1818s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (89 pages, 366427 bytes).
+Output written on main.pdf (91 pages, 370424 bytes).
 PDF statistics:
- 1259 PDF objects out of 1440 (max. 8388607)
- 1119 compressed objects within 12 object streams
- 466 named destinations out of 1000 (max. 500000)
+ 1294 PDF objects out of 1440 (max. 8388607)
+ 1152 compressed objects within 12 object streams
+ 472 named destinations out of 1000 (max. 500000)
  269 words of extra memory for PDF output out of 10000 (max. 10000000)
 

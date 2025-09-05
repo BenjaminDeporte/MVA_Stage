@@ -3,48 +3,58 @@
 % * means no number
 % \chapter*{Abstract}
 
-\glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, and have spawn numerous applications. However, the original i.i.d. 
-assumption over the latent variables carry strong limitations when considering data sequences over time. 
-A richer class of models aims at solving this limitation : the \glspl{dvae}. In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also),
- aiming at encoding the temporal dimension of the data. 
+\glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, which have spawn numerous applications. 
+However, \glspl{vae} posit an i.i.d. assumption over the latent variables, that carries strong limitations if considering data sequences over time, 
+where correlations are natural between data samples. A richer class of models aims at solving this limitation : the \glspl{dvae}.
+In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also), 
+aiming at encoding the temporal dimension of the data. The relationship between the latent variables and the observed data (ie, the observation model,
+or decoder) remains as in regular \glspl{vae}.
 
-The first part of the report is dedicated to the general study of \glspl{dvae}. A great survey is \cite{girin_dynamical_2022} and is the basis for this part. 
-We review the general formulation of \glspl{dvae} and then review the detailed implementation of two discrete time models : the Deep Kalman filter, and the \gls{vrnn}. 
-If a discrete-time setting of the latent variables is straightforward -for example, structuring the latent variables as a first-order Markov chain-, this setting carries limitations too. 
-The first, and possibly most important one, is that the structure of the model requires regularly-sampled data. In practice, data measurements can be made 
-with a changing frequency. A natural idea is then to structure the latent variables as a continuous-time process, which allows irregularly sampled data. 
-A natural continuous-time process, with "nice" properties, is the \gls{gp} \cite{rasmussen_gaussian_2008} : this is the \gls{gpvae} model, that we review.
-This idea is mentionned briefly in \cite{girin_dynamical_2022}, and described in more details in \cite{casale_gaussian_2018}, 
-\cite{fortuin_gp-vae:_2020}, \cite{titsias_bayesian_2010} and \cite{zhu_markovian_2023}. 
+The first part of the report is dedicated to the general study of \glspl{dvae}. We rely on the exhaustive survey \cite{girin_dynamical_2022},
+which is the basis for this part. We review the general formulation of \glspl{dvae}, and review the detailed implementation of two discrete time models:
+ the \gls{dkf}, and the \gls{vrnn}. A discrete-time setting of the latent variables is straightforward : for example, 
+ structuring the latent variables as a first-order Markov chain leads to the general framework of \glspl{state-space-model}.
+ However, this setting carries limitations too. The first limitation, and possibly most important one, 
+ is that the structure of the model requires regularly-sampled data. In practice, data can be observed with a changing frequency. 
+ A natural idea is then to structure the latent variables as a continuous-time process, which will be sampled if and when 
+ required to match an irregularly sampled data. A candidate for such a continuous-time process, endowed with convenient properties, 
+ is the \gls{gp} \cite{rasmussen_gaussian_2008}. We review the corresponding \gls{dvae} : the \gls{gpvae} model.
+ This model is only briefly mentionned in \cite{girin_dynamical_2022} (where the focus is on discrete time models), 
+ but described in more details in \cite{casale_gaussian_2018}, \cite{fortuin_gp-vae:_2020}, \cite{titsias_bayesian_2010} 
+ and \cite{zhu_markovian_2023}. 
 
-The second part review the implementations of those three models, the experiments run on toy datasets, and some take-aways.
-The code is available at \href{https://github.com/BenjaminDeporte/MVA_Stage}{GitHub repo}.
+The second part describes the implementations of those three models, the experiments run on toy datasets, the PyTorch tricks 
+that sometimes cost quite a bit to learn, and the take-aways. A repository with the set of code and notebooks can be found 
+at \href{https://github.com/BenjaminDeporte/MVA_Stage}{Benjamin's GitHub repo}.
 
-The paper \cite{zhu_markovian_2023} has triggered in me a significant interest. It links \gls{gpvae} with \glspl{sde}, and specifically linear \glspl{sde}. 
-The linear \gls{sde} formulation of the \gls{gp} regression problem allows a computation that scales linearly using off the shelf filtering and smoothing algorithms,
-rather than "naive" cubic \gls{gp} regression algorithms. 
+One of the \gls{gpvae} papers, specifically \cite{zhu_markovian_2023}, has triggered in me a significant interest, as it showed a 
+deep relationship between \glspl{dvae} and stochastic calculus.
 
-I invested a significant amount of time in studying the mathematical machinery required to fully understand the underlying hypothesis. 
-The theory of stochastic calculus is fascinating, demanding, and fruitful.
-Among good study books, are \cite{mouvement-brownien-calcul-ito} and \cite{sarkka_applied_2019}. 
-Getting up to speed on stochastic calculus has been quite a challenge given the time frame but proved extremely useful. 
-In the following part, we present some key results, which the knowledgeable reader on stochastic calculus can skip, 
-and added a longer reference at the end of this report. 
+I then invested a significant amount of time in studying the mathematical machinery required to fully understand this relationship. 
+This steered me a little bit off course the subject per say, but the theory of stochastic calculus proved fascinating and commendable.
+ Among good study books, are \cite{mouvement-brownien-calcul-ito} and \cite{sarkka_applied_2019}. Getting up to speed on stochastic calculus 
+ has been quite a challenge given the time frame but proved extremely useful. We present some key results, which the knowledgeable reader 
+ on stochastic calculus can skip, and added a longer reference at the end of this report. The aficionado of generative models will recognize 
+the mathematical framework of diffusion models.
 
-We then describe the link between the \gls{dvae} and the \gls{sde}. The solution of a general \gls{sde} is a Markov process 
-in which the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation. 
-Integrating that equation between two time stamps, produces a natural framework our first two discrete models : deep Kalman filter and \gls{vrnn}.
-(Another well known  use-case is diffusion models). 
+A first relationship between \glspl{dvae} and stochastic calculus is as follows: the solution of a general \gls{sde} is a Markov process (where 
+the evolution over time of the transition probability density is described by the Fokker-Plank-Kolmogorov equation). This Markov process, 
+when discretized, leads to the natural framework of our first two discrete models : the \gls{dkf} and \gls{vrnn}. Moreover, 
+in the case of a linear \gls{sde}, the solution of the \gls{sde} is also a Gaussian process, which points to \gls{gpvae}. For solutions of linear \gls{sde}, 
+one can use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly instead of cubically as is usually the case 
+for \glspl{gp}.
 
-In the case of a linear \gls{sde}, the solution is also a Gaussian process, which links to \gls{gpvae}. 
-This also allows to use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly.
-However, the \gls{gpvae} model carries limitations too. First, some Gaussian processes -more specifically some kernel functions- can not be formulated as the solution to a linear \gls{sde}.
-Second, if there is an intersection between Markov processes and Gaussian processes (for example the well-studied Ornstein Uhlenbeck process), some Markov processes 
-(ie solutions to general \gls{sde}) are not Gaussian processes.
+However, the \gls{gpvae} model carries limitations too. First, some Gaussian processes -more specifically some kernel functions- 
+can not be formulated as the solution to a linear \gls{sde}. We review quickly some such kernels. Second, if there is an intersection between Markov processes and 
+Gaussian processes (the Brownian motion itself, but also the well-studied Ornstein Uhlenbeck process), some Markov processes 
+(ie solutions to general \gls{sde}) are not Gaussian processes. 
 
-An idea is then to use more general stochastic processes, derived from general (ie non-linear) \gls{sde}, that are still 
-Markov processes and allow filtering. Using general \gls{sde} is a recent research field, drawing upon the theory of \gls{ode}.
-We present in the complements an overview of \gls{neural-ode} and \gls{neural-sde}.
+An idea is then to use a more general stochastic process, defined as the solution to a general (ie non-linear) \gls{sde}, as the model for 
+latent variables. The drift and the diffusion can also be learnt as neural networks. This is the field of \glspl{neural-sde} (\cite{peluchetti_infinitely_2020}), 
+which is a recent research field, and builds upon the \glspl{neural-ode} (\cite{chen_neural_2019}, \cite{rubanova_latent_2019}) framework. 
+We present some of the ideas of \glspl{neural-ode}: viewing \gls{neural-ode} models as continuous time ResNet models; using the adjoint method and 
+a backward \gls{ode} to compute gradients (\cite{li_scalable_2020}). 
 
-Last, along with this study, we also provide an overview of the information theory framework for data sequences -specifically some results on entropy rates-
- to empirically  quantify the degree of "randomness" (of, more accurately, uncertainty) of data sequences.
+We have lacked time to go much further... for now. 
+
+It's been quite a journey...

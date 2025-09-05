@@ -35,7 +35,6 @@
       \strng{authornamehash}{56460e698238243273dc1a28b5445acb}
       \strng{authorfullhash}{56460e698238243273dc1a28b5445acb}
       \strng{authorfullhashraw}{56460e698238243273dc1a28b5445acb}
-      \field{extraname}{1}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
@@ -49,43 +48,6 @@
       \verb{url}
       \verb https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf
       \endverb
-    \endentry
-    \entry{bishop_pattern_2016}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
-           family={Bishop},
-           familyi={B\bibinitperiod},
-           given={Christopher\bibnamedelima M.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {eng}%
-      }
-      \list{location}{1}{%
-        {New York, NY}%
-      }
-      \list{publisher}{1}{%
-        {Springer New York}%
-      }
-      \strng{namehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{bibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorbibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authornamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \field{extraname}{2}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{The field of pattern recognition has undergone substantial development over the years. This book reflects these developments while providing a grounding in the basic concepts of pattern recognition and machine learning. It is aimed at advanced undergraduates or first year PhD students, as well as researchers and practitioners}
-      \field{edition}{Softcover reprint of the original 1st edition 2006 (corrected at 8th printing 2009)}
-      \field{isbn}{9781493938438}
-      \field{series}{Information science and statistics}
-      \field{title}{Pattern {Recognition} and {Machine} {Learning}}
-      \field{year}{2016}
     \endentry
     \entry{casale_gaussian_2018}{misc}{}{}
       \name{author}{5}{}{%
@@ -145,6 +107,64 @@
       \verb{url}
       \verb https://arxiv.org/abs/1810.11738v2
       \endverb
+    \endentry
+    \entry{chen_neural_2019}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=9db211fe28b9db15bc04d29bedf2e03f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ricky\bibnamedelimb T.\bibnamedelimi Q.},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim Q\bibinitperiod}}}%
+        {{hash=d7891653274cb8d85e3a83b41a0c2067}{%
+           family={Rubanova},
+           familyi={R\bibinitperiod},
+           given={Yulia},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e650d1ee2429750c5268681b050d69f8}{%
+           family={Bettencourt},
+           familyi={B\bibinitperiod},
+           given={Jesse},
+           giveni={J\bibinitperiod}}}%
+        {{hash=834f50f5d5a332c21effd10f07daf79e}{%
+           family={Duvenaud},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{20ad419b4fe3ed70cfc4fb491e988f54}
+      \strng{fullhash}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
+      \strng{fullhashraw}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
+      \strng{bibnamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
+      \strng{authorbibnamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
+      \strng{authornamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
+      \strng{authorfullhash}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
+      \strng{authorfullhashraw}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We introduce a new family of deep neural network models. Instead of specifying a discrete sequence of hidden layers, we parameterize the derivative of the hidden state using a neural network. The output of the network is computed using a black-box differential equation solver. These continuous-depth models have constant memory cost, adapt their evaluation strategy to each input, and can explicitly trade numerical precision for speed. We demonstrate these properties in continuous-depth residual networks and continuous-time latent variable models. We also construct continuous normalizing flows, a generative model that can train by maximum likelihood, without partitioning or ordering the data dimensions. For training, we show how to scalably backpropagate through any ODE solver, without access to its internal operations. This allows end-to-end training of ODEs within larger models.}
+      \field{month}{12}
+      \field{note}{arXiv:1806.07366}
+      \field{title}{Neural {Ordinary} {Differential} {Equations}}
+      \field{urlday}{5}
+      \field{urlmonth}{9}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1806.07366
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1806.07366
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1806.07366
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Artificial Intelligence,Statistics - Machine Learning}
     \endentry
     \entry{chung_recurrent_2016}{misc}{}{}
       \name{author}{6}{}{%
@@ -214,6 +234,23 @@
       \verb http://arxiv.org/abs/1506.02216
       \endverb
       \keyw{Computer Science - Machine Learning}
+    \endentry
+    \entry{mva_kernel_class}{misc}{}{}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Course materials: (Slides) - Machine learning with kernel methods / Spring 2025}
+      \field{title}{Course materials: ({Slides}) - {Machine} learning with kernel methods / {Spring} 2025}
+      \field{urlday}{11}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mva-kernel-methods.github.io/course-page/
+      \endverb
+      \verb{url}
+      \verb https://mva-kernel-methods.github.io/course-page/
+      \endverb
     \endentry
     \entry{cover_elements_2006}{book}{}{}
       \name{author}{2}{}{%
@@ -474,6 +511,7 @@
       \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorfullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \field{extraname}{1}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
@@ -495,6 +533,56 @@
       \verb https://arxiv.org/abs/1906.02691
       \endverb
       \keyw{Machine Learning (cs.LG),Machine Learning (stat.ML),FOS: Computer and information sciences,FOS: Computer and information sciences}
+    \endentry
+    \entry{kingma_auto-encoding_2022}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=53d2880ad8047b61cdae2c6b2803e763}{%
+           family={Welling},
+           familyi={W\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{fullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{fullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{bibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorbibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorfullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \field{extraname}{2}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{How can we perform efficient inference and learning in directed probabilistic models, in the presence of continuous latent variables with intractable posterior distributions, and large datasets? We introduce a stochastic variational inference and learning algorithm that scales to large datasets and, under some mild differentiability conditions, even works in the intractable case. Our contributions are two-fold. First, we show that a reparameterization of the variational lower bound yields a lower bound estimator that can be straightforwardly optimized using standard stochastic gradient methods. Second, we show that for i.i.d. datasets with continuous latent variables per datapoint, posterior inference can be made especially efficient by fitting an approximate inference model (also called a recognition model) to the intractable posterior using the proposed lower bound estimator. Theoretical advantages are reflected in experimental results.}
+      \field{month}{12}
+      \field{note}{arXiv:1312.6114}
+      \field{title}{Auto-{Encoding} {Variational} {Bayes}}
+      \field{urlday}{8}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.1312.6114
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1312.6114
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1312.6114
+      \endverb
+      \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
     \endentry
     \entry{ProbabilisticGraphicalModels}{misc}{}{}
       \name{author}{1}{}{%
@@ -533,38 +621,65 @@
       \verb https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/
       \endverb
     \endentry
-    \entry{li2018disentangle}{inproceedings}{}{}
-      \name{author}{2}{}{%
-        {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
+    \entry{li_scalable_2020}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=b15f49c62474eb455b840b4fd198e965}{%
            family={Li},
            familyi={L\bibinitperiod},
-           given={Yingzhen},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=01767107e2c06a4879e3fff5cb6116b1}{%
-           family={Mandt},
-           familyi={M\bibinitperiod},
-           given={Stephan},
-           giveni={S\bibinitperiod}}}%
+           given={Xuechen},
+           giveni={X\bibinitperiod}}}%
+        {{hash=04ee66dd37fac5cd42adc2cd6097ed90}{%
+           family={Wong},
+           familyi={W\bibinitperiod},
+           given={Ting-Kam\bibnamedelima Leonard},
+           giveni={T\bibinithyphendelim K\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=9db211fe28b9db15bc04d29bedf2e03f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ricky\bibnamedelimb T.\bibnamedelimi Q.},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim Q\bibinitperiod}}}%
+        {{hash=834f50f5d5a332c21effd10f07daf79e}{%
+           family={Duvenaud},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
       }
-      \strng{namehash}{f862f699c56fd95d648914a90218a901}
-      \strng{fullhash}{f862f699c56fd95d648914a90218a901}
-      \strng{fullhashraw}{f862f699c56fd95d648914a90218a901}
-      \strng{bibnamehash}{f862f699c56fd95d648914a90218a901}
-      \strng{authorbibnamehash}{f862f699c56fd95d648914a90218a901}
-      \strng{authornamehash}{f862f699c56fd95d648914a90218a901}
-      \strng{authorfullhash}{f862f699c56fd95d648914a90218a901}
-      \strng{authorfullhashraw}{f862f699c56fd95d648914a90218a901}
-      \field{extraname}{1}
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
+      \strng{fullhash}{8d78b87e58d97548ba724545fa47d749}
+      \strng{fullhashraw}{8d78b87e58d97548ba724545fa47d749}
+      \strng{bibnamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
+      \strng{authorbibnamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
+      \strng{authornamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
+      \strng{authorfullhash}{8d78b87e58d97548ba724545fa47d749}
+      \strng{authorfullhashraw}{8d78b87e58d97548ba724545fa47d749}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{booktitle}{International Conference on Machine Learning}
-      \field{title}{Disentangled Sequential Autoencoder}
-      \field{year}{2018}
-      \true{nocite}
+      \field{abstract}{The adjoint sensitivity method scalably computes gradients of solutions to ordinary differential equations. We generalize this method to stochastic differential equations, allowing time-efficient and constant-memory computation of gradients with high-order adaptive solvers. Specifically, we derive a stochastic differential equation whose solution is the gradient, a memory-efficient algorithm for caching noise, and conditions under which numerical solutions converge. In addition, we combine our method with gradient-based stochastic variational inference for latent stochastic differential equations. We use our method to fit stochastic dynamics defined by neural networks, achieving competitive performance on a 50-dimensional motion capture dataset.}
+      \field{month}{10}
+      \field{note}{arXiv:2001.01328}
+      \field{title}{Scalable {Gradients} for {Stochastic} {Differential} {Equations}}
+      \field{urlday}{5}
+      \field{urlmonth}{9}
+      \field{urlyear}{2025}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2001.01328
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2001.01328
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2001.01328
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Numerical Analysis,Mathematics - Numerical Analysis,Statistics - Machine Learning}
     \endentry
-    \entry{li_disentangled_2018-1}{misc}{}{}
+    \entry{li_disentangled_2018}{misc}{}{}
       \name{author}{2}{}{%
         {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
            family={Li},
@@ -588,7 +703,6 @@
       \strng{authornamehash}{f862f699c56fd95d648914a90218a901}
       \strng{authorfullhash}{f862f699c56fd95d648914a90218a901}
       \strng{authorfullhashraw}{f862f699c56fd95d648914a90218a901}
-      \field{extraname}{2}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
@@ -597,12 +711,11 @@
       \field{month}{6}
       \field{note}{arXiv:1803.02991}
       \field{title}{Disentangled {Sequential} {Autoencoder}}
-      \field{urlday}{15}
-      \field{urlmonth}{8}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
       \field{urlyear}{2025}
       \field{year}{2018}
       \field{urldateera}{ce}
-      \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.1803.02991
       \endverb
@@ -679,6 +792,54 @@
       \verb{url}
       \verb https://www.imo.universite-paris-saclay.fr/~jean-francois.le-gall/
       \endverb
+    \endentry
+    \entry{peluchetti_infinitely_2020}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=9ef3d7988bf5d5b30a7619a25d038725}{%
+           family={Peluchetti},
+           familyi={P\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+        {{hash=7f48d2775b64550b1790951324171888}{%
+           family={Favaro},
+           familyi={F\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{fullhash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{fullhashraw}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{bibnamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{authorbibnamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{authornamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{authorfullhash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \strng{authorfullhashraw}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{When the parameters are independently and identically distributed (initialized) neural networks exhibit undesirable properties that emerge as the number of layers increases, e.g. a vanishing dependency on the input and a concentration on restrictive families of functions including constant functions. We consider parameter distributions that shrink as the number of layers increases in order to recover well-behaved stochastic processes in the limit of infinite depth. This leads to set forth a link between infinitely deep residual networks and solutions to stochastic differential equations, i.e. diffusion processes. We show that these limiting processes do not suffer from the aforementioned issues and investigate their properties.}
+      \field{month}{3}
+      \field{note}{arXiv:1905.11065}
+      \field{title}{Infinitely deep neural networks as diffusion processes}
+      \field{urlday}{5}
+      \field{urlmonth}{9}
+      \field{urlyear}{2025}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1905.11065
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1905.11065
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1905.11065
+      \endverb
+      \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
     \endentry
     \entry{pincus_approximate_1991}{article}{}{}
       \name{author}{1}{}{%
@@ -838,6 +999,59 @@
       \verb{url}
       \verb https://royalsocietypublishing.org/doi/10.1098/rsta.2011.0550
       \endverb
+    \endentry
+    \entry{rubanova_latent_2019}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=d7891653274cb8d85e3a83b41a0c2067}{%
+           family={Rubanova},
+           familyi={R\bibinitperiod},
+           given={Yulia},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=9db211fe28b9db15bc04d29bedf2e03f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Ricky\bibnamedelimb T.\bibnamedelimi Q.},
+           giveni={R\bibinitperiod\bibinitdelim T\bibinitperiod\bibinitdelim Q\bibinitperiod}}}%
+        {{hash=834f50f5d5a332c21effd10f07daf79e}{%
+           family={Duvenaud},
+           familyi={D\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{fullhash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{fullhashraw}{109b5aee95e7aa395f537ca8002896da}
+      \strng{bibnamehash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{authorbibnamehash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{authornamehash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{authorfullhash}{109b5aee95e7aa395f537ca8002896da}
+      \strng{authorfullhashraw}{109b5aee95e7aa395f537ca8002896da}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Time series with non-uniform intervals occur in many applications, and are difficult to model using standard recurrent neural networks (RNNs). We generalize RNNs to have continuous-time hidden dynamics defined by ordinary differential equations (ODEs), a model we call ODE-RNNs. Furthermore, we use ODE-RNNs to replace the recognition network of the recently-proposed Latent ODE model. Both ODE-RNNs and Latent ODEs can naturally handle arbitrary time gaps between observations, and can explicitly model the probability of observation times using Poisson processes. We show experimentally that these ODE-based models outperform their RNN-based counterparts on irregularly-sampled data.}
+      \field{month}{7}
+      \field{note}{arXiv:1907.03907}
+      \field{title}{Latent {ODEs} for {Irregularly}-{Sampled} {Time} {Series}}
+      \field{urlday}{5}
+      \field{urlmonth}{9}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1907.03907
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1907.03907
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1907.03907
+      \endverb
+      \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
     \endentry
     \entry{sarkka_applied_2019}{book}{}{}
       \name{author}{2}{}{%

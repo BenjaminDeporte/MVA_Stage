@@ -2,16 +2,14 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Probabilistic model of a Deep Kalman Filter}}{16}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Deep Kalman Filter Model Architecture}}{18}{figure.4.2}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Probabilistic model of a Deep Kalman Filter}}{17}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Deep Kalman Filter Model Architecture}}{20}{figure.4.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Probabilistic model of a Variational RNN}}{19}{figure.5.1}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Variational RNN Model Architecture}}{21}{figure.5.2}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Probabilistic model of a Variational RNN}}{21}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Variational RNN Model Architecture}}{23}{figure.5.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Probabilistic model of a GP-VAE}}{23}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Gaussian Process VAE Model Architecture}}{26}{figure.6.2}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Probabilistic model of a GP-VAE}}{25}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Gaussian Process VAE Model Architecture}}{28}{figure.6.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
@@ -21,7 +19,9 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{73}{figure.1.A.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{75}{figure.1.A.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

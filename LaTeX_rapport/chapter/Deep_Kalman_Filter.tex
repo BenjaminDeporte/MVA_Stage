@@ -1,6 +1,9 @@
 \chapter{Deep Kalman Filter}\label{sec:DKF}
 
-The Kalman Filter is a well known model, widely used to denoise time series observations and make predictions. The latent variables form a Markov Chain, and all the probability distributions (ie encoder, decoder and transition model) are linear Gaussians. This allows to derive close form expressions for the solutions (Kalman filter and Kalman smoother).
+The Kalman Filter is a well known model, widely used to denoise time series observations and 
+make predictions. The latent variables form a Markov Chain, and all the probability distributions 
+(ie encoder, decoder and transition model) are linear Gaussians. This allows to derive close form expressions for the solutions 
+(the well-known Kalman filter and Kalman smoother).
 
 In a \textbf{Deep Kalman Filter}, the temporal structure of the latent variables is still a Markov Chain. The probaility models are still Gaussians, but with parameters mean and covariance learnt by neural networks.
 
@@ -94,7 +97,8 @@ For example:
 
 
 
-The PyTorch implementation is described below:
+The PyTorch implementation is schematized below (with $B$ batch size, $T$ the length of the data sequence, $D_x$ the dimension 
+of the observation space, $D_z$ the dimension of the latent space):
 
 \newpage
 %

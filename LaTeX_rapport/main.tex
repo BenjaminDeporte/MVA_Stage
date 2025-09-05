@@ -11,8 +11,8 @@
 
 % files for bibliography
 % \addbibresource{chapter/references.bib}
-\addbibresource{./citations.bib}
-\addbibresource{./citations_2.bib}
+\addbibresource{chapter/citations.bib}
+% \addbibresource{chapters/citations_2.bib}
 
 
 \title{Dynamical Variational Autoencoders :\\ discrete-time and continuous-time models.\\ Links to stochastic calculus and stochastic differential equations\\
@@ -52,9 +52,13 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 %
 \part{Dynamical Variational Autoencoders - Theory}
 
-This part presents the general framework of \glspl{dvae}. We start with a reminder of the key notion of \textbf{D-separation}, which is central in \glspl{gpm}.
+This part presents the general framework of \glspl{dvae}, based on \cite{girin_dynamical_2022}. 
+
+We start with a reminder of the key notion of \textbf{D-separation}, which is central in deriving conditional probabilities of \glspl{dvae} from their 
+associated \glspl{gpm}.
 
 Then, we describe three models in details:
+
 \begin{itemize}
     \item \textbf{Deep Kalman Filter} : this model arises as the first evolution of the well-known Kalman Filter, with richer, \glspl{mlp} networks for the encoder and decoder.
     \item \textbf{Variational Recurrent Neural Network} : at the other end of the spectrum, \glspl{vrnn} provide the most expressive discrete-time formulation of the encoder and decoder.
