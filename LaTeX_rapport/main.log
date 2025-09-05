@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 SEP 2025 17:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 SEP 2025 20:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1534,7 +1534,7 @@ Package tocloft Warning: \@starttoc has already been redefined; tocloft bailing 
 
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
-)) (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
  (/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
@@ -1611,7 +1611,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip285
-) (./glossary.tex) (./newcommands.tex) (./theorems.tex
+)) (./glossary.tex) (./newcommands.tex) (./theorems.tex
 \c@tcb@cnt@mydefinition=\count595
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
@@ -1798,7 +1798,7 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
 (Font)              Font shape `OT1/txr/bx/n' tried instead on input line 2.
 
-Underfull \vbox (badness 2111) has occurred while \output is active []
+Underfull \vbox (badness 1776) has occurred while \output is active []
 
 
 
@@ -2070,20 +2070,129 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 3.
+\pydata@fh@0=\write11
+\openout11 = `_FAD58DE7366495DB4650CFEFAC2FCD61.data.minted'.
+
+runsystem(latexminted config  --timestamp 20250905201911 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+
+(./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
+runsystem(latexminted cleanconfig  --timestamp 20250905201911 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+
+ (./_minted/default.style.minted) (./_minted/FAFBC0F0E211AD8C8F448920E5F56BB2.highlight.minted) (./_minted/8904235B716266B601BB9F27CAAB504E.highlight.minted
+LaTeX Font Info:    Font shape `OT1/txtt/m/it' in size <9> not available
+(Font)              Font shape `OT1/txtt/m/sl' tried instead on input line 2.
 )
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png, id=493, 1438.173pt x 209.583pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png  used on input line 40.
+(pdftex.def)             Requested size: 450.43253pt x 65.63843pt.
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png, id=495, 1149.093pt x 642.4803pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png  used on input line 49.
+(pdftex.def)             Requested size: 450.43253pt x 251.85056pt.
+
 
 [30
 
 
+ </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png>] (./_minted/0E8BC13360DE6A0815137604CA846348.highlight.minted)
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png, id=502, 1149.093pt x 642.4803pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png  used on input line 64.
+(pdftex.def)             Requested size: 450.43253pt x 251.85056pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[31 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>]
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png, id=510, 281.1303pt x 281.1303pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png  used on input line 84.
+(pdftex.def)             Requested size: 200.19054pt x 200.19159pt.
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png, id=511, 910.602pt x 570.2103pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png  used on input line 92.
+(pdftex.def)             Requested size: 450.43253pt x 282.0505pt.
+
+
+[32 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png> </home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png>] (./_minted/8498D157E114D084E12957774660B084.highlight.minted)
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png, id=519, 1134.639pt x 1675.9413pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png  used on input line 112.
+(pdftex.def)             Requested size: 450.43253pt x 665.32681pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[33 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png>]
+Overfull \vbox (10.14944pt too high) has occurred while \output is active []
+
+
+
+[34 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png>]
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png, id=530, 2883.573pt x 1013.2254pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png  used on input line 124.
+(pdftex.def)             Requested size: 650.6307pt x 228.61522pt.
+
+
+[35
+
+ </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png>] (./_minted/7CEDC3866FA421BBCE69BC95B983EFA2.highlight.minted) (./_minted/8352BB18919D7F970D436D2FB711B27B.highlight.minted) (./_minted/9DAEBB378F302AC73B3AE6CB377BADEB.highlight.minted) (./_minted/D3166128AC95C6FD09BCBDBEAF345810.highlight.minted) (./_minted/527AE5956D322EA139DBCDD8FD59F842.highlight.minted) (./_minted/8A703EE9719B19B7BB0545FDE4578DBC.highlight.minted) (./_minted/483AB2E58FAB2445F0ED97EB90D550BF.highlight.minted) (./_minted/61D191D010F72AAA702E3B3A9A2B960A.highlight.minted) (./_minted/FD99037AB1B0A4A76A35A05BF6E5B58A.highlight.minted
+
+[36
+
+])
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png, id=541, 910.602pt x 573.1011pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png  used on input line 195.
+(pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png, id=542, 910.602pt x 573.1011pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png  used on input line 202.
+(pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[37 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png>]
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png, id=549, 910.602pt x 573.1011pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png  used on input line 209.
+(pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png, id=550, 689.4558pt x 643.203pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png  used on input line 218.
+(pdftex.def)             Requested size: 450.43253pt x 420.21655pt.
+)
+
+[38 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png> </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png>]
+
+[39 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png>]
+
+[40
+
+
+
 ]
 
-[31
-
-
-
-]
-
-[32]
+[41]
 \openout2 = `chapter/SC_introduction.aux'.
 
  (./chapter/SC_introduction.tex
@@ -2098,7 +2207,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[33
+[42
 
 
 ]
@@ -2106,14 +2215,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[34]
+[43]
 LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
 (Font)              Font shape `OT1/txr/bx/it' tried instead on input line 126.
 
 
-[35])
+[44])
 
-[36]
+[45]
 \openout2 = `chapter/SC_SDE_results.aux'.
 
  (./chapter/SC_SDE_results.tex
@@ -2123,8 +2232,6 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 [][][][][][][][][]  
  []
 
-LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 5.
 
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
 <to be read again> 
@@ -2132,7 +2239,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.30 }
       
 
-[37
+[46
 
 
 
@@ -2147,16 +2254,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[38]
+[47]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.110 }
        
 
-[39])
+[48])
 
-[40]
+[49]
 \openout2 = `chapter/filter_smoother_gps.aux'.
 
  (./chapter/filter_smoother_gps.tex
@@ -2168,7 +2275,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 
 
-[41
+[50
 
 
 
@@ -2178,23 +2285,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[42]
+[51]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[43]
+[52]
 Underfull \vbox (badness 1661) has occurred while \output is active []
 
 
 
-[44]
+[53]
 
-[45])
+[54])
 
-[46]
+[55]
 
-[47
+[56
 
 
 
@@ -2210,12 +2317,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[48
+[57
 
 
 ]
 
-[49
+[58
 
 
 
@@ -2236,7 +2343,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.13 }
       
 
-[50
+[59
 
 
 ]
@@ -2259,7 +2366,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[51]
+[60]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2274,12 +2381,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[52]
+[61]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[53]
+[62]
 LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
 File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
@@ -2288,19 +2395,19 @@ Underfull \vbox (badness 2165) has occurred while \output is active []
 
 
 
-[54]
+[63]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[55]
+[64]
 Underfull \vbox (badness 4647) has occurred while \output is active []
 
 
 
-[56])
+[65])
 
-[57]
+[66]
 \openout2 = `chapter/stochastic_calculus.aux'.
 
  (./chapter/stochastic_calculus.tex
@@ -2330,7 +2437,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[58
+[67
 
 
 
@@ -2350,7 +2457,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.87 }
       
 
-[59]
+[68]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2375,7 +2482,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[60]
+[69]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2390,14 +2497,14 @@ Underfull \vbox (badness 5316) has occurred while \output is active []
 
 
 
-[61]
+[70]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.158 }{p129}
              )
 
-[62]
+[71]
 \openout2 = `chapter/ito_calculus_sde.aux'.
 
  (./chapter/ito_calculus_sde.tex
@@ -2427,7 +2534,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[63
+[72
 
 
 
@@ -2447,7 +2554,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[64]
+[73]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2462,14 +2569,14 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[65]
+[74]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.140 }
        
 
-[66]
+[75]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2486,9 +2593,9 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.211 }{}
          
 
-[67])
+[76])
 
-[68]
+[77]
 \openout2 = `chapter/Entropy_and_randomness.aux'.
 
  (./chapter/entropy_and_randomness.tex
@@ -2499,25 +2606,25 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
  []
 
 
-LaTeX Warning: Citation 'bishop_pattern_2016' on page 69 undefined on input line 9.
+LaTeX Warning: Citation 'bishop_pattern_2016' on page 78 undefined on input line 9.
 
 
 Underfull \vbox (badness 4120) has occurred while \output is active []
 
 
 
-[69
+[78
 
 
 
 
 ]
 
-[70]
+[79]
 
-[71])
+[80])
 
-[72]
+[81]
 \openout2 = `chapter/neural_ode.aux'.
 
  (./chapter/neural_ode.tex
@@ -2529,14 +2636,14 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
 
 )
 
-[73
+[82
 
 
 
 
 ]
 
-[74
+[83
 
 
 
@@ -2554,12 +2661,12 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
 Missing character: There is no ; in font nullfont!
 
 
-[75
+[84
 
 
 ]
 
-[76]
+[85]
 Appendix B.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
@@ -2568,11 +2675,11 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
 
 
 
-[77
+[86
 
 ]
 
-[78]
+[87]
 Appendix C.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
@@ -2581,7 +2688,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
 
 
 
-[79
+[88
 
 ]
 Appendix D.
@@ -2600,7 +2707,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[80
+[89
 
 ]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
@@ -2617,7 +2724,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[81]
+[90]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2627,7 +2734,7 @@ Underfull \vbox (badness 3579) has occurred while \output is active []
 
 
 
-[82]
+[91]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
@@ -2639,14 +2746,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefi
 l.354 }
        
 
-[83]
+[92]
 pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.378 }
        
 
-[84]
+[93]
 Appendix E.
 
 Overfull \hbox (10.0pt too wide) in paragraph at lines 385--385
@@ -2663,32 +2770,32 @@ Underfull \vbox (badness 6978) has occurred while \output is active []
 
 
 
-[85
+[94
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[86])
+[95])
 
-[87] (./main.gls
+[96] (./main.gls
 
-[88
+[97
 
 
 
 
 ])
 
-[89]
+[98]
 Overfull \hbox (25.54588pt too wide) in paragraph at lines 130--130
 []\OT1/txr/m/n/10.95 Friedman Koller. \OT1/txr/m/it/10.95 Prob-a-bilis-tic Graph-i-cal Mod-els\OT1/txr/m/n/10.95 . en-US. \OT1/txr/m/sc/10.95 url\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 https : / / mitpress . mit . edu / 9780262013192 /
  []
 
 
 
-[90
+[99
 
 ]
 Overfull \hbox (15.10353pt too wide) in paragraph at lines 130--130
@@ -2707,10 +2814,7 @@ Overfull \hbox (27.02692pt too wide) in paragraph at lines 130--130
 
 
 
-[91]
-runsystem(latexminted cleantemp  --timestamp 20250905172905 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
-
- (./main.aux (./chapter/remerciements.aux) (./chapter/subject_intro.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/experiments.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/neural_ode.aux) (./chapter/appendix.aux))
+[100] (./main.aux (./chapter/remerciements.aux) (./chapter/subject_intro.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/experiments.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/neural_ode.aux) (./chapter/appendix.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-07-20>
@@ -2720,7 +2824,7 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E9E05D71BB4D5404E197FA644BAF2988;6275.
+(rerunfilecheck)             Checksum: 54DBB1D43BCE2F1064E697252F4B3F9C;7403.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -2731,18 +2835,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 64834 strings out of 467801
- 1520826 string characters out of 5431917
- 2775913 words of memory out of 5000000
- 91856 multiletter control sequences out of 15000+600000
- 699718 words of font info for 209 fonts, out of 8000000 for 9000
+ 65347 strings out of 467801
+ 1538752 string characters out of 5431917
+ 2776508 words of memory out of 5000000
+ 92294 multiletter control sequences out of 15000+600000
+ 700898 words of font info for 213 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,33n,108p,2558b,1818s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (91 pages, 370424 bytes).
+ 103i,33n,108p,2558b,1817s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txbtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on main.pdf (100 pages, 6125087 bytes).
 PDF statistics:
- 1294 PDF objects out of 1440 (max. 8388607)
- 1152 compressed objects within 12 object streams
- 472 named destinations out of 1000 (max. 500000)
- 269 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1416 PDF objects out of 1440 (max. 8388607)
+ 1238 compressed objects within 13 object streams
+ 497 named destinations out of 1000 (max. 500000)
+ 364 words of extra memory for PDF output out of 10000 (max. 10000000)
 

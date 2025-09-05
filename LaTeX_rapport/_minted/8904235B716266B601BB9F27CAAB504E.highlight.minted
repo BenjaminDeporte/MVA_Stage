@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+    \PYG{n}{f1}\PYG{p}{,}\PYG{n}{f2}\PYG{p}{,}\PYG{n}{o1}\PYG{p}{,}\PYG{n}{o2} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{rand}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{batch\PYGZus{}size}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} return 4 values for each time series}
+    \PYG{n}{time} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{n\PYGZus{}steps}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} time vector}
+
+    \PYG{n}{series} \PYG{o}{=} \PYG{l+m+mf}{0.4} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{((}\PYG{n}{time} \PYG{o}{\PYGZhy{}} \PYG{n}{o1}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{f1} \PYG{o}{*} \PYG{l+m+mi}{5} \PYG{o}{+} \PYG{l+m+mi}{10}\PYG{p}{))} \PYG{c+c1}{\PYGZsh{} first sine wave}
+    \PYG{n}{series} \PYG{o}{+=} \PYG{l+m+mf}{0.2} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{sin}\PYG{p}{((}\PYG{n}{time} \PYG{o}{\PYGZhy{}} \PYG{n}{o2}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{f2} \PYG{o}{*} \PYG{l+m+mi}{20} \PYG{o}{+} \PYG{l+m+mi}{20}\PYG{p}{))} \PYG{c+c1}{\PYGZsh{} second sine wave}
+    \PYG{n}{series} \PYG{o}{+=} \PYG{n}{noise} \PYG{o}{*} \PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randn}\PYG{p}{(}\PYG{n}{batch\PYGZus{}size}\PYG{p}{,} \PYG{n}{n\PYGZus{}steps}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{0.5}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} add noise}
+\end{MintedVerbatim}

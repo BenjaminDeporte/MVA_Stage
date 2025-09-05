@@ -1,0 +1,17 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+\PYG{n}{Dz} \PYG{o}{=} \PYG{l+m+mi}{32}
+\PYG{n}{delta\PYGZus{}t} \PYG{o}{=} \PYG{l+m+mf}{1.0}  \PYG{c+c1}{\PYGZsh{} time step between two frames if T=8 frames in [0,1]}
+
+\PYG{n}{kernels\PYGZus{}list} \PYG{o}{=} \PYG{p}{[} \PYG{n}{GaussianKernelFixed}\PYG{p}{(}\PYG{n}{lengthscale}\PYG{o}{=}\PYG{p}{(}\PYG{n}{delta\PYGZus{}t} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{**}\PYG{n}{i}\PYG{p}{)),} \PYG{n}{sigma}\PYG{o}{=}\PYG{l+m+mf}{1.0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{Dz}\PYG{o}{/}\PYG{l+m+mi}{4}\PYG{p}{))} \PYG{p}{]} \PYG{o}{+} \PYGZbs{}
+\PYG{p}{[} \PYG{n}{MaternKernelFixed}\PYG{p}{(}\PYG{n}{nu}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{lengthscale}\PYG{o}{=}\PYG{p}{(}\PYG{n}{delta\PYGZus{}t} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{**}\PYG{n}{i}\PYG{p}{)),} \PYG{n}{sigma}\PYG{o}{=}\PYG{l+m+mf}{1.0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{Dz}\PYG{o}{/}\PYG{l+m+mi}{4}\PYG{p}{))} \PYG{p}{]} \PYG{o}{+}  \PYGZbs{}
+\PYG{p}{[} \PYG{n}{MaternKernelFixed}\PYG{p}{(}\PYG{n}{nu}\PYG{o}{=}\PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{n}{lengthscale}\PYG{o}{=}\PYG{p}{(}\PYG{n}{delta\PYGZus{}t} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{**}\PYG{n}{i}\PYG{p}{)),} \PYG{n}{sigma}\PYG{o}{=}\PYG{l+m+mf}{1.0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{Dz}\PYG{o}{/}\PYG{l+m+mi}{4}\PYG{p}{))} \PYG{p}{]} \PYG{o}{+} \PYGZbs{}
+\PYG{p}{[} \PYG{n}{MaternKernelFixed}\PYG{p}{(}\PYG{n}{nu}\PYG{o}{=}\PYG{l+m+mf}{2.5}\PYG{p}{,} \PYG{n}{lengthscale}\PYG{o}{=}\PYG{p}{(}\PYG{n}{delta\PYGZus{}t} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{**}\PYG{n}{i}\PYG{p}{)),} \PYG{n}{sigma}\PYG{o}{=}\PYG{l+m+mf}{1.0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{Dz}\PYG{o}{/}\PYG{l+m+mi}{4}\PYG{p}{))} \PYG{p}{]}
+
+\PYG{n}{mean\PYGZus{}functions\PYGZus{}list} \PYG{o}{=} \PYG{p}{[} \PYG{n}{GPNullMean}\PYG{p}{()}\PYG{o}{.}\PYG{n}{to}\PYG{p}{(}\PYG{n}{device}\PYG{p}{)} \PYG{k}{for} \PYG{n}{\PYGZus{}} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{Dz}\PYG{p}{)} \PYG{p}{]} \PYG{c+c1}{\PYGZsh{} list of Dz identical mean functions}
+\PYG{n}{mean}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}matrix}\PYG{p}{,} \PYG{n}{L\PYGZus{}matrix}\PYG{p}{,} \PYG{n}{p\PYGZus{}theta\PYGZus{}z} \PYG{o}{=} \PYG{n}{compute\PYGZus{}gp\PYGZus{}priors}\PYG{p}{(}\PYG{n}{t}\PYG{p}{,} \PYG{n}{Dz}\PYG{p}{,} \PYG{n}{kernels\PYGZus{}list}\PYG{p}{,} \PYG{n}{mean\PYGZus{}functions\PYGZus{}list}\PYG{p}{,}
+\PYG{n}{verbose}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\end{MintedVerbatim}
