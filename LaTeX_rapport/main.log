@@ -1895,4 +1895,857 @@ Overfull \hbox (115.86887pt too wide) detected at line 140
 
 
 
-Overfull \h
+Overfull \hbox (47.15248pt too wide) in paragraph at lines 159--174
+[][] []
+ []
+
+
+Overfull \hbox (54.96582pt too wide) detected at line 178
+[]
+ []
+
+
+
+
+
+
+
+
+
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[11]
+
+[12]
+\openout2 = `chapter/Dynamical_VAEs.aux'.
+
+ (./chapter/Dynamical_VAEs.tex
+Chapter 3.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+
+[13
+
+
+
+
+]
+Overfull \hbox (21.2622pt too wide) in paragraph at lines 43--44
+\OML/txmi/m/it/10.95 p[]\OT1/txr/m/n/10.95 (\OML/txmi/m/it/10.95 x[]\OMS/txsy/m/n/10.95 j\OML/txmi/m/it/10.95 x[]; z[]; u[]\OT1/txr/m/n/10.95 )$ (with $\OML/txmi/m/it/10.95 ^^R[]$ \OT1/txr/m/n/10.95 the set of pa-ram-e-ters of the ob-ser-va-tion model) and ap-prox-i-mate pos-te-rior $\OML/txmi/m/it/10.95 q[]\OT1/txr/m/n/10.95 (\OML/txmi/m/it/10.95 z[]\OMS/txsy/m/n/10.95 j\OML/txmi/m/it/10.95 z[]; x[]\OT1/txr/m/n/10.95 )$
+ []
+
+
+
+[14])
+
+[15]
+\openout2 = `chapter/Deep_Kalman_Filter.aux'.
+
+ (./chapter/Deep_Kalman_Filter.tex
+Chapter 4.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 1478) has occurred while \output is active []
+
+
+
+[16
+
+
+
+
+]
+
+[17]
+LaTeX Font Info:    Trying to load font information for OT1+txtt on input line 146.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/txfonts/ot1txtt.fd
+File: ot1txtt.fd 2000/12/15 v3.1
+)
+Missing character: There is no ; in font nullfont!
+
+Overfull \hbox (17.48555pt too wide) in paragraph at lines 201--202
+ [][] 
+ []
+
+
+
+[18])
+\openout2 = `chapter/VRNN.aux'.
+
+ (./chapter/VRNN.tex
+Chapter 5.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+
+[19
+
+
+
+
+
+
+]
+
+[20]
+Missing character: There is no ; in font nullfont!
+
+Overfull \hbox (42.86797pt too wide) in paragraph at lines 235--236
+ [][] 
+ []
+
+
+
+[21])
+\openout2 = `chapter/GPVAE.aux'.
+
+ (./chapter/GPVAE.tex
+Chapter 6.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[22
+
+
+
+
+
+
+]
+Underfull \vbox (badness 2065) has occurred while \output is active []
+
+
+
+[23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[24]
+
+[25]
+Overfull \hbox (32.1733pt too wide) in paragraph at lines 268--269
+ [][] 
+ []
+
+
+
+[26])
+
+[27
+
+
+
+
+
+]
+\openout2 = `chapter/experiments.aux'.
+
+ (./chapter/experiments.tex
+Chapter 7.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+LaTeX Warning: Citation 'li_disentangled_2018' on page 28 undefined on input line 5.
+
+)
+
+[28
+
+
+]
+
+[29
+
+
+
+]
+
+[30]
+\openout2 = `chapter/SC_introduction.aux'.
+
+ (./chapter/SC_introduction.tex
+Chapter 8.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[31
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[32]
+LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <10.95> not available
+(Font)              Font shape `OT1/txr/bx/it' tried instead on input line 126.
+
+
+[33])
+
+[34]
+\openout2 = `chapter/SC_SDE_results.aux'.
+
+ (./chapter/SC_SDE_results.tex
+Chapter 9.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 5.
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.30 }
+      
+
+[35
+
+
+
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.91 }
+      
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[36]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.110 }
+       
+
+[37])
+
+[38]
+\openout2 = `chapter/filter_smoother_gps.aux'.
+
+ (./chapter/filter_smoother_gps.tex
+Chapter 10.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+
+[39
+
+
+
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[40]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[41]
+Underfull \vbox (badness 1661) has occurred while \output is active []
+
+
+
+[42]
+
+[43]
+
+LaTeX Warning: Citation 'mva_kernel_class' on page 44 undefined on input line 240.
+
+)
+Overfull \hbox (12.14963pt too wide) in paragraph at lines 240--94
+[]\OT1/txr/m/n/10.95 In that lat-ter case, one can use spec-tral de-com-po-si-tion (ie Mer-cer's the-o-rem, see MVA ker-nel class [[]])
+ []
+
+
+
+[44]
+
+[45
+
+
+
+]
+\openout2 = `chapter/conclusions.aux'.
+
+ (./chapter/conclusions.tex
+Chapter 11.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[46
+
+
+]
+
+[47
+
+
+
+]
+\openout2 = `chapter/stochastic_processes_basics.aux'.
+
+ (./chapter/stochastic_processes_basics.tex
+Chapter 12.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.13 }
+      
+
+[48
+
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.68 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.87 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.110 }
+       
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[49]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.122 }
+       
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.135 }{p19}
+            
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[50]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[51]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 228.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+Underfull \vbox (badness 2189) has occurred while \output is active []
+
+
+
+[52]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[53]
+Underfull \vbox (badness 4686) has occurred while \output is active []
+
+
+
+[54])
+
+[55]
+\openout2 = `chapter/stochastic_calculus.aux'.
+
+ (./chapter/stochastic_calculus.tex
+Chapter 13.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.16 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.27 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.49 }
+      
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[56
+
+
+
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.76 }
+      
+LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <9> not available
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 76.
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.87 }
+      
+
+[57]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.91 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.100 }{p122}
+             
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.108 }{p123}
+             
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.127 }
+       
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[58]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.137 }
+       
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.11}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.145 }{p126}
+             
+Underfull \vbox (badness 5316) has occurred while \output is active []
+
+
+
+[59]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.12}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.158 }{p129}
+             )
+
+[60]
+\openout2 = `chapter/ito_calculus_sde.aux'.
+
+ (./chapter/ito_calculus_sde.tex
+Chapter 14.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.13 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.24 }
+      
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.39 ...proof, next chapter for a heuristic proof}
+                                                  
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[61
+
+
+
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.58 ...f, and next chapter for a heuristic proof}
+                                                  
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.81 }
+      
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[62]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.97 }{\cite{mouvement-brownien-calcul-ito} p163}
+                                                 
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.120 }{\cite{mouvement-brownien-calcul-ito} p184}
+                                                  
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[63]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.8}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.140 }
+       
+
+[64]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.9}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.180 }{\cite{mouvement-brownien-calcul-ito} p173}
+                                                  
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.10}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.190 }{}
+         
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.11}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.211 }{}
+         
+
+[65])
+
+[66]
+\openout2 = `chapter/Entropy_and_randomness.aux'.
+
+ (./chapter/entropy_and_randomness.tex
+Chapter 15.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+
+Underfull \vbox (badness 4120) has occurred while \output is active []
+
+
+
+[67
+
+
+
+
+]
+
+[68]
+
+[69])
+
+[70]
+\openout2 = `chapter/neural_ode.aux'.
+
+ (./chapter/neural_ode.tex
+Chapter 16.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 1--1
+[][][][][][][][][]  
+ []
+
+)
+
+[71
+
+
+
+
+]
+
+[72
+
+
+
+
+]
+\openout2 = `chapter/appendix.aux'.
+
+ (./chapter/appendix.tex
+Appendix A.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 5--5
+[][][][][][][][][]  
+ []
+
+Missing character: There is no ; in font nullfont!
+
+
+[73
+
+
+]
+
+[74]
+Appendix B.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 97--97
+[][][][][][][][][]  
+ []
+
+
+
+[75
+
+]
+
+[76]
+Appendix C.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 163--163
+[][][][][][][][][]  
+ []
+
+
+
+[77
+
+]
+Appendix D.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 202--202
+[][][][][][][][][]  
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.258 }
+       
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[78
+
+]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.2}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.267 }
+       
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.3}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.300 }
+       
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[79]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.4}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.317 }
+       
+Underfull \vbox (badness 3579) has occurred while \output is active []
+
+
+
+[80]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.5}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.328 ...and $\sigma$ in \ref{SDE_linear_moments}}
+                                                  
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.6}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.354 }
+       
+
+[81]
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.7}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.378 }
+       
+
+[82]
+Appendix E.
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 385--385
+[][][][][][][][][]  
+ []
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{tcb@cnt@mydefinition.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.447 }
+       
+Underfull \vbox (badness 6978) has occurred while \output is active []
+
+
+
+[83
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[84])
+
+[85] (./main.gls
+
+[86
+
+
+
+
+])
+
+[87]
+Overfull \hbox (25.54588pt too wide) in paragraph at lines 126--126
+[]\OT1/txr/m/n/10.95 Friedman Koller. \OT1/txr/m/it/10.95 Prob-a-bilis-tic Graph-i-cal Mod-els\OT1/txr/m/n/10.95 . en-US. \OT1/txr/m/sc/10.95 url\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 https : / / mitpress . mit . edu / 9780262013192 /
+ []
+
+
+
+[88
+
+]
+Overfull \hbox (8.15384pt too wide) in paragraph at lines 126--126
+\OT1/txr/m/n/10.95 print. Adap-tive com-pu-ta-tion and ma-chine learn-ing. Cam-bridge, Mass.: MIT Press, 2008. \OT1/txr/m/sc/10.95 isbn\OT1/txr/m/n/10.95 : 9780262182539. 
+ []
+
+
+Overfull \hbox (27.02692pt too wide) in paragraph at lines 126--126
+\OT1/txtt/m/n/10.95 9781108186735$[][]\OT1/txr/m/n/10.95 . \OT1/txr/m/sc/10.95 url\OT1/txr/m/n/10.95 : [][]$\OT1/txtt/m/n/10.95 https : / / www . cambridge . org / core / books / applied -[] stochastic -[] differential -[]
+ []
+
+
+
+[89]
+runsystem(latexminted cleantemp  --timestamp 20250905123819 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+
+ (./main.aux (./chapter/remerciements.aux) (./chapter/subject_intro.aux) (./chapter/D-separation.aux) (./chapter/Dynamical_VAEs.aux) (./chapter/Deep_Kalman_Filter.aux) (./chapter/VRNN.aux) (./chapter/GPVAE.aux) (./chapter/experiments.aux) (./chapter/SC_introduction.aux) (./chapter/SC_SDE_results.aux) (./chapter/filter_smoother_gps.aux) (./chapter/conclusions.aux) (./chapter/stochastic_processes_basics.aux) (./chapter/stochastic_calculus.aux) (./chapter/ito_calculus_sde.aux) (./chapter/Entropy_and_randomness.aux) (./chapter/neural_ode.aux) (./chapter/appendix.aux))
+ ***********
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-07-20>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: E9E05D71BB4D5404E197FA644BAF2988;6275.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                main
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'main.run.xml'.
+\openout1 = `main.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 64756 strings out of 467801
+ 1518735 string characters out of 5431917
+ 2775646 words of memory out of 5000000
+ 91784 multiletter control sequences out of 15000+600000
+ 699718 words of font info for 209 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 103i,33n,108p,2558b,1818s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
+Output written on main.pdf (89 pages, 366427 bytes).
+PDF statistics:
+ 1259 PDF objects out of 1440 (max. 8388607)
+ 1119 compressed objects within 12 object streams
+ 466 named destinations out of 1000 (max. 500000)
+ 269 words of extra memory for PDF output out of 10000 (max. 10000000)
+
