@@ -1,0 +1,1055 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global/global}
+    \entry{PRML}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=56460e698238243273dc1a28b5445acb}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={C},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{56460e698238243273dc1a28b5445acb}
+      \strng{fullhash}{56460e698238243273dc1a28b5445acb}
+      \strng{fullhashraw}{56460e698238243273dc1a28b5445acb}
+      \strng{bibnamehash}{56460e698238243273dc1a28b5445acb}
+      \strng{authorbibnamehash}{56460e698238243273dc1a28b5445acb}
+      \strng{authornamehash}{56460e698238243273dc1a28b5445acb}
+      \strng{authorfullhash}{56460e698238243273dc1a28b5445acb}
+      \strng{authorfullhashraw}{56460e698238243273dc1a28b5445acb}
+      \field{extraname}{1}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed on Month Day, Year}
+      \field{title}{Pattern Recognition and Machine Learning}
+      \field{year}{2006}
+      \verb{urlraw}
+      \verb https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf
+      \endverb
+    \endentry
+    \entry{bishop_pattern_2016}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima M.},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{fullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{fullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{bibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authorbibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authornamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authorfullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authorfullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The field of pattern recognition has undergone substantial development over the years. This book reflects these developments while providing a grounding in the basic concepts of pattern recognition and machine learning. It is aimed at advanced undergraduates or first year PhD students, as well as researchers and practitioners}
+      \field{edition}{Softcover reprint of the original 1st edition 2006 (corrected at 8th printing 2009)}
+      \field{isbn}{9781493938438}
+      \field{series}{Information science and statistics}
+      \field{title}{Pattern {Recognition} and {Machine} {Learning}}
+      \field{year}{2016}
+    \endentry
+    \entry{casale_gaussian_2018}{misc}{}{}
+      \name{author}{5}{}{%
+        {{hash=d260ec84f2479b1250fe9fc1634e1835}{%
+           family={Casale},
+           familyi={C\bibinitperiod},
+           given={Francesco\bibnamedelima Paolo},
+           giveni={F\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=12c00fda76155269bb61e99d3fa595a1}{%
+           family={Dalca},
+           familyi={D\bibinitperiod},
+           given={Adrian\bibnamedelima V.},
+           giveni={A\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=137ecd3db68f0323c35fe11040f90bfa}{%
+           family={Saglietti},
+           familyi={S\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+        {{hash=53d2e2e80e032a5bfd67c1866a3e5796}{%
+           family={Listgarten},
+           familyi={L\bibinitperiod},
+           given={Jennifer},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3230dc18a06a348b70fbacf94994fa79}{%
+           family={Fusi},
+           familyi={F\bibinitperiod},
+           given={Nicolo},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{a0bc10e0743615248f4147cd16ae4d03}
+      \strng{fullhash}{f01137848855844cb47833afab2b8179}
+      \strng{fullhashraw}{f01137848855844cb47833afab2b8179}
+      \strng{bibnamehash}{a0bc10e0743615248f4147cd16ae4d03}
+      \strng{authorbibnamehash}{a0bc10e0743615248f4147cd16ae4d03}
+      \strng{authornamehash}{a0bc10e0743615248f4147cd16ae4d03}
+      \strng{authorfullhash}{f01137848855844cb47833afab2b8179}
+      \strng{authorfullhashraw}{f01137848855844cb47833afab2b8179}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Variational autoencoders (VAE) are a powerful and widely-used class of models to learn complex data distributions in an unsupervised fashion. One important limitation of VAEs is the prior assumption that latent sample representations are independent and identically distributed. However, for many important datasets, such as time-series of images, this assumption is too strong: accounting for covariances between samples, such as those in time, can yield to a more appropriate model specification and improve performance in downstream tasks. In this work, we introduce a new model, the Gaussian Process (GP) Prior Variational Autoencoder (GPPVAE), to specifically address this issue. The GPPVAE aims to combine the power of VAEs with the ability to model correlations afforded by GP priors. To achieve efficient inference in this new class of models, we leverage structure in the covariance matrix, and introduce a new stochastic backpropagation strategy that allows for computing stochastic gradients in a distributed and low-memory fashion. We show that our method outperforms conditional VAEs (CVAEs) and an adaptation of standard VAEs in two image data applications.}
+      \field{journaltitle}{arXiv.org}
+      \field{month}{10}
+      \field{title}{Gaussian {Process} {Prior} {Variational} {Autoencoders}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1810.11738v2
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1810.11738v2
+      \endverb
+    \endentry
+    \entry{chung_recurrent_2016}{misc}{}{}
+      \name{author}{6}{}{%
+        {{hash=7a79e6bb4ca772c9b3b38f4e9f45b83c}{%
+           family={Chung},
+           familyi={C\bibinitperiod},
+           given={Junyoung},
+           giveni={J\bibinitperiod}}}%
+        {{hash=9d98c19bf48903b35c3ec32d0d0d995d}{%
+           family={Kastner},
+           familyi={K\bibinitperiod},
+           given={Kyle},
+           giveni={K\bibinitperiod}}}%
+        {{hash=0976c27ff012c9556f4206afd4b48c1f}{%
+           family={Dinh},
+           familyi={D\bibinitperiod},
+           given={Laurent},
+           giveni={L\bibinitperiod}}}%
+        {{hash=aab0845797afaaf01fc9aae1a05b586f}{%
+           family={Goel},
+           familyi={G\bibinitperiod},
+           given={Kratarth},
+           giveni={K\bibinitperiod}}}%
+        {{hash=ccec1ccd2e1aa86960eb2e872c6b7020}{%
+           family={Courville},
+           familyi={C\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
+        {{hash=40a8e4774982146adc2688546f54efb2}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={Yoshua},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{fullhash}{628f9925ef14c6c71696bf26bdac99e3}
+      \strng{fullhashraw}{628f9925ef14c6c71696bf26bdac99e3}
+      \strng{bibnamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authorbibnamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authornamehash}{2000d0778084bb56905b1654d519f50f}
+      \strng{authorfullhash}{628f9925ef14c6c71696bf26bdac99e3}
+      \strng{authorfullhashraw}{628f9925ef14c6c71696bf26bdac99e3}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, we explore the inclusion of latent random variables into the dynamic hidden state of a recurrent neural network (RNN) by combining elements of the variational autoencoder. We argue that through the use of high-level latent random variables, the variational RNN (VRNN)1 can model the kind of variability observed in highly structured sequential data such as natural speech. We empirically evaluate the proposed model against related sequential models on four speech datasets and one handwriting dataset. Our results show the important roles that latent random variables can play in the RNN dynamic hidden state.}
+      \field{month}{4}
+      \field{note}{arXiv:1506.02216}
+      \field{title}{A {Recurrent} {Latent} {Variable} {Model} for {Sequential} {Data}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{year}{2016}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.1506.02216
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1506.02216
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1506.02216
+      \endverb
+      \keyw{Computer Science - Machine Learning}
+    \endentry
+    \entry{cover_elements_2006}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=fe5b7bbda12c7502f55ddb9eeded8622}{%
+           family={Cover},
+           familyi={C\bibinitperiod},
+           given={Thomas\bibnamedelima M.},
+           giveni={T\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=e6518a9e085a3ee5221c27f5d8f826dc}{%
+           family={Thomas},
+           familyi={T\bibinitperiod},
+           given={Joy\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {English}%
+      }
+      \list{location}{1}{%
+        {Hoboken, N.J}%
+      }
+      \list{publisher}{1}{%
+        {Wiley-Interscience}%
+      }
+      \strng{namehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{fullhash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{fullhashraw}{e427ba6c0eda5292558c30c786236c01}
+      \strng{bibnamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
+      \strng{authorfullhashraw}{e427ba6c0eda5292558c30c786236c01}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The latest edition of this classic is updated with new problem sets and material The Second Edition of this fundamental textbook maintains the book's tradition of clear, thought-provoking instruction. Readers are provided once again with an instructive mix of mathematics, physics, statistics, and information theory. All the essential topics in information theory are covered in detail, including entropy, data compression, channel capacity, rate distortion, network information theory, and hypothesis testing. The authors provide readers with a solid understanding of the underlying theory and applications. Problem sets and a telegraphic summary at the end of each chapter further assist readers. The historical notes that follow each chapter recap the main points. The Second Edition features: * Chapters reorganized to improve teaching * 200 new problems * New material on source coding, portfolio theory, and feedback capacity * Updated references Now current and enhanced, the Second Edition of Elements of Information Theory remains the ideal textbook for upper-level undergraduate and graduate courses in electrical engineering, statistics, and telecommunications.}
+      \field{isbn}{9780471241959}
+      \field{title}{Elements of {Information} {Theory} 2nd {Edition}}
+      \field{year}{2006}
+    \endentry
+    \entry{delgado-bonal_approximate_2019}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=e8b914698909fbe0709572b24f5fce59}{%
+           family={Delgado-Bonal},
+           familyi={D\bibinithyphendelim B\bibinitperiod},
+           given={Alfonso},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c0ab3b761fb28044c42790efa4d4c4d1}{%
+           family={Marshak},
+           familyi={M\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{fullhash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{fullhashraw}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{bibnamehash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{authorbibnamehash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{authornamehash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{authorfullhash}{244a91ecf863007d1a127d8f0005b18f}
+      \strng{authorfullhashraw}{244a91ecf863007d1a127d8f0005b18f}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Approximate Entropy and Sample Entropy are two algorithms for determining the regularity of series of data based on the existence of patterns. Despite their similarities, the theoretical ideas behind those techniques are different but usually ignored. This paper aims to be a complete guideline of the theory and application of the algorithms, intended to explain their characteristics in detail to researchers from different fields. While initially developed for physiological applications, both algorithms have been used in other fields such as medicine, telecommunications, economics or Earth sciences. In this paper, we explain the theoretical aspects involving Information Theory and Chaos Theory, provide simple source codes for their computation, and illustrate the techniques with a step by step example of how to use the algorithms properly. This paper is not intended to be an exhaustive review of all previous applications of the algorithms but rather a comprehensive tutorial where no previous knowledge is required to understand the methodology.}
+      \field{issn}{1099-4300}
+      \field{journaltitle}{Entropy}
+      \field{month}{6}
+      \field{number}{6}
+      \field{shorttitle}{Approximate {Entropy} and {Sample} {Entropy}}
+      \field{title}{Approximate {Entropy} and {Sample} {Entropy}: {A} {Comprehensive} {Tutorial}}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2025}
+      \field{volume}{21}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \field{pages}{541}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/e21060541
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1099-4300/21/6/541
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1099-4300/21/6/541
+      \endverb
+      \keyw{approximate entropy,sample entropy,information theory,chaos theory}
+    \endentry
+    \entry{fortuin_gp-vae:_2020}{misc}{}{}
+      \name{author}{4}{}{%
+        {{hash=47bbd0e06f9a2791df9839ddb78957f6}{%
+           family={Fortuin},
+           familyi={F\bibinitperiod},
+           given={Vincent},
+           giveni={V\bibinitperiod}}}%
+        {{hash=28980623184fdb1179afe1edbaee455a}{%
+           family={Baranchuk},
+           familyi={B\bibinitperiod},
+           given={Dmitry},
+           giveni={D\bibinitperiod}}}%
+        {{hash=ca596a0a9d87ca9f7999db4d71c7e577}{%
+           family={Rätsch},
+           familyi={R\bibinitperiod},
+           given={Gunnar},
+           giveni={G\bibinitperiod}}}%
+        {{hash=01767107e2c06a4879e3fff5cb6116b1}{%
+           family={Mandt},
+           familyi={M\bibinitperiod},
+           given={Stephan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{96639821095b5475dcdceff31d77658c}
+      \strng{fullhash}{dea7428c602ae28893a4703528ef8ff9}
+      \strng{fullhashraw}{dea7428c602ae28893a4703528ef8ff9}
+      \strng{bibnamehash}{96639821095b5475dcdceff31d77658c}
+      \strng{authorbibnamehash}{96639821095b5475dcdceff31d77658c}
+      \strng{authornamehash}{96639821095b5475dcdceff31d77658c}
+      \strng{authorfullhash}{dea7428c602ae28893a4703528ef8ff9}
+      \strng{authorfullhashraw}{dea7428c602ae28893a4703528ef8ff9}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Multivariate time series with missing values are common in areas such as healthcare and finance, and have grown in number and complexity over the years. This raises the question whether deep learning methodologies can outperform classical data imputation methods in this domain. However, naive applications of deep learning fall short in giving reliable confidence estimates and lack interpretability. We propose a new deep sequential latent variable model for dimensionality reduction and data imputation. Our modeling assumption is simple and interpretable: the high dimensional time series has a lower-dimensional representation which evolves smoothly in time according to a Gaussian process. The non-linear dimensionality reduction in the presence of missing data is achieved using a VAE approach with a novel structured variational approximation. We demonstrate that our approach outperforms several classical and deep learning-based data imputation methods on high-dimensional data from the domains of computer vision and healthcare, while additionally improving the smoothness of the imputations and providing interpretable uncertainty estimates.}
+      \field{month}{2}
+      \field{note}{arXiv:1907.04155}
+      \field{shorttitle}{{GP}-{VAE}}
+      \field{title}{{GP}-{VAE}: {Deep} {Probabilistic} {Time} {Series} {Imputation}}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1907.04155
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1907.04155
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1907.04155
+      \endverb
+      \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
+    \endentry
+    \entry{noauthor_gaussian_nodate}{misc}{}{}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labeltitlesource}{title}
+      \field{title}{Gaussian {Processes} for {Machine} {Learning}: {Book} webpage}
+      \field{urlday}{7}
+      \field{urlmonth}{6}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://gaussianprocess.org/gpml/
+      \endverb
+      \verb{url}
+      \verb https://gaussianprocess.org/gpml/
+      \endverb
+    \endentry
+    \entry{girin_dynamical_2022}{misc}{}{}
+      \name{author}{6}{}{%
+        {{hash=90d860edd4de0d85574a26aecb7d08ea}{%
+           family={Girin},
+           familyi={G\bibinitperiod},
+           given={Laurent},
+           giveni={L\bibinitperiod}}}%
+        {{hash=63a4c46417bc2baaceb1d8e6a677316f}{%
+           family={Leglaive},
+           familyi={L\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=46e30335817ff3dd17f8c53b12a687e9}{%
+           family={Bie},
+           familyi={B\bibinitperiod},
+           given={Xiaoyu},
+           giveni={X\bibinitperiod}}}%
+        {{hash=91694a4ce074b15cb4cc32df6d2eb46b}{%
+           family={Diard},
+           familyi={D\bibinitperiod},
+           given={Julien},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0829ff44458126cbdbcba2077124b43d}{%
+           family={Hueber},
+           familyi={H\bibinitperiod},
+           given={Thomas},
+           giveni={T\bibinitperiod}}}%
+        {{hash=dc307510b5416849a7b4bf16806b21ed}{%
+           family={Alameda-Pineda},
+           familyi={A\bibinithyphendelim P\bibinitperiod},
+           given={Xavier},
+           giveni={X\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{87248adcd7ba6de2d1a076fd3110b98e}
+      \strng{fullhash}{44acacb6fe5a3e8a4df930c47853405d}
+      \strng{fullhashraw}{44acacb6fe5a3e8a4df930c47853405d}
+      \strng{bibnamehash}{87248adcd7ba6de2d1a076fd3110b98e}
+      \strng{authorbibnamehash}{87248adcd7ba6de2d1a076fd3110b98e}
+      \strng{authornamehash}{87248adcd7ba6de2d1a076fd3110b98e}
+      \strng{authorfullhash}{44acacb6fe5a3e8a4df930c47853405d}
+      \strng{authorfullhashraw}{44acacb6fe5a3e8a4df930c47853405d}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Variational autoencoders (VAEs) are powerful deep generative models widely used to represent high-dimensional complex data through a low-dimensional latent space learned in an unsupervised manner. In the original VAE model, the input data vectors are processed independently. Recently, a series of papers have presented different extensions of the VAE to process sequential data, which model not only the latent space but also the temporal dependencies within a sequence of data vectors and corresponding latent vectors, relying on recurrent neural networks or state-space models. In this paper, we perform a literature review of these models. We introduce and discuss a general class of models, called dynamical variational autoencoders (DVAEs), which encompasses a large subset of these temporal VAE extensions. Then, we present in detail seven recently proposed DVAE models, with an aim to homogenize the notations and presentation lines, as well as to relate these models with existing classical temporal models. We have reimplemented those seven DVAE models and present the results of an experimental benchmark conducted on the speech analysis-resynthesis task (the PyTorch code is made publicly available). The paper concludes with a discussion on important issues concerning the DVAE class of models and future research guidelines.}
+      \field{month}{7}
+      \field{note}{arXiv:2008.12595}
+      \field{shorttitle}{Dynamical {Variational} {Autoencoders}}
+      \field{title}{Dynamical {Variational} {Autoencoders}: {A} {Comprehensive} {Review}}
+      \field{urlday}{19}
+      \field{urlmonth}{1}
+      \field{urlyear}{2025}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2008.12595
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2008.12595
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2008.12595
+      \endverb
+      \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
+    \endentry
+    \entry{kingma_introduction_2019}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=b6fbd171848aad4edf3925543f1f1522}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederik\bibnamedelima P.},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=53d2880ad8047b61cdae2c6b2803e763}{%
+           family={Welling},
+           familyi={W\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{fullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{fullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{bibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorbibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \strng{authorfullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Variational autoencoders provide a principled framework for learning deep latent-variable models and corresponding inference models. In this work, we provide an introduction to variational autoencoders and some important extensions.}
+      \field{title}{An {Introduction} to {Variational} {Autoencoders}}
+      \field{urlday}{21}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/ARXIV.1906.02691
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1906.02691
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1906.02691
+      \endverb
+      \keyw{Machine Learning (cs.LG),Machine Learning (stat.ML),FOS: Computer and information sciences,FOS: Computer and information sciences}
+    \endentry
+    \entry{ProbabilisticGraphicalModels}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=a184f9d88214b4981730114ccf21ad78}{%
+           family={Koller},
+           familyi={K\bibinitperiod},
+           given={Friedman},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en-US}%
+      }
+      \strng{namehash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{fullhash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{fullhashraw}{a184f9d88214b4981730114ccf21ad78}
+      \strng{bibnamehash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{authorbibnamehash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{authornamehash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{authorfullhash}{a184f9d88214b4981730114ccf21ad78}
+      \strng{authorfullhashraw}{a184f9d88214b4981730114ccf21ad78}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Most tasks require a person or an automated system to reason—to reach conclusions based on available information. The framework of probabilistic graphical ...}
+      \field{journaltitle}{MIT Press}
+      \field{title}{Probabilistic {Graphical} {Models}}
+      \field{urlday}{21}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/
+      \endverb
+      \verb{url}
+      \verb https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/
+      \endverb
+    \endentry
+    \entry{li2018disentangle}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yingzhen},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=01767107e2c06a4879e3fff5cb6116b1}{%
+           family={Mandt},
+           familyi={M\bibinitperiod},
+           given={Stephan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{f862f699c56fd95d648914a90218a901}
+      \strng{fullhash}{f862f699c56fd95d648914a90218a901}
+      \strng{fullhashraw}{f862f699c56fd95d648914a90218a901}
+      \strng{bibnamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorbibnamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authornamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorfullhash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorfullhashraw}{f862f699c56fd95d648914a90218a901}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International Conference on Machine Learning}
+      \field{title}{Disentangled Sequential Autoencoder}
+      \field{year}{2018}
+      \true{nocite}
+    \endentry
+    \entry{li_disentangled_2018-1}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yingzhen},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=01767107e2c06a4879e3fff5cb6116b1}{%
+           family={Mandt},
+           familyi={M\bibinitperiod},
+           given={Stephan},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{f862f699c56fd95d648914a90218a901}
+      \strng{fullhash}{f862f699c56fd95d648914a90218a901}
+      \strng{fullhashraw}{f862f699c56fd95d648914a90218a901}
+      \strng{bibnamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorbibnamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authornamehash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorfullhash}{f862f699c56fd95d648914a90218a901}
+      \strng{authorfullhashraw}{f862f699c56fd95d648914a90218a901}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We present a VAE architecture for encoding and generating high dimensional sequential data, such as video or audio. Our deep generative model learns a latent representation of the data which is split into a static and dynamic part, allowing us to approximately disentangle latent time-dependent features (dynamics) from features which are preserved over time (content). This architecture gives us partial control over generating content and dynamics by conditioning on either one of these sets of features. In our experiments on artificially generated cartoon video clips and voice recordings, we show that we can convert the content of a given sequence into another one by such content swapping. For audio, this allows us to convert a male speaker into a female speaker and vice versa, while for video we can separately manipulate shapes and dynamics. Furthermore, we give empirical evidence for the hypothesis that stochastic RNNs as latent state models are more efficient at compressing and generating long sequences than deterministic ones, which may be relevant for applications in video compression.}
+      \field{month}{6}
+      \field{note}{arXiv:1803.02991}
+      \field{title}{Disentangled {Sequential} {Autoencoder}}
+      \field{urlday}{15}
+      \field{urlmonth}{8}
+      \field{urlyear}{2025}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{doi}
+      \verb 10.48550/arXiv.1803.02991
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1803.02991
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1803.02991
+      \endverb
+      \keyw{Computer Science - Machine Learning}
+    \endentry
+    \entry{mouvement-brownien-calcul-ito}{misc}{}{}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Le mouvement désordonné de particules de pollen en suspension dans un liquide en équilibre fut observé et rigoureusement rapporté par le botaniste écossais Robert Brown en 1827. Ce phénomène aléatoire lié à l'agitation moléculaire reçut par la suite le nom de mouvement brownien. Sa description mathématique comme un processus stochastique a captivé l'attention des physiciens et mathématiciens depuis plus d'un siècle. Il intervient dans de très nombreux modèles en physique, chimie, biologie, sciences économiques et mathématiques financières. Le mouvement brownien est l'objet central du calcul des probabilités moderne : il est tout à la fois une martingale, un processus gaussien, un processus à accroissements indépendants et un processus de Markov. Ces diverses propriétés qui en font le processus stochastique par excellence, sont présentées dans cet ouvrage avec les deux outils qu'il permet de développer : l'intégrale d'Itô et la notion d'équation différentielle stochastique. Ce livre s'adresse à tous ceux et celles qui recherchent une introduction rapide et rigoureuse aux méthodes du calcul stochastique, en particulier aux étudiants des master de mathématiques, aux élèves des grandes écoles scientifiques ainsi qu'aux candidats à l'agrégation. Nous y avons inclus des exercices de difficulté variée, corrigés en fin de volume, pour en faciliter la lecture et l'utilisation comme outil pédagogique.}
+      \field{journaltitle}{Hermann}
+      \field{month}{9}
+      \field{title}{Mouvement brownien et calcul d'{Itô}-{Léonard} {Gallardo}-{Editions} {Hermann}}
+      \field{urlday}{16}
+      \field{urlmonth}{4}
+      \field{urlyear}{2025}
+      \field{year}{2008}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.editions-hermann.fr/livre/mouvement-brownien-et-calcul-d-ito-leonard-gallardo
+      \endverb
+      \verb{url}
+      \verb https://www.editions-hermann.fr/livre/mouvement-brownien-et-calcul-d-ito-leonard-gallardo
+      \endverb
+    \endentry
+    \entry{ProbabilisticMachineLearning}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b1769bbaa2660cbedf14832523ae4d85}{%
+           family={Murphy},
+           familyi={M\bibinitperiod},
+           given={K},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{fullhash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{fullhashraw}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{bibnamehash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{authorbibnamehash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{authornamehash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{authorfullhash}{b1769bbaa2660cbedf14832523ae4d85}
+      \strng{authorfullhashraw}{b1769bbaa2660cbedf14832523ae4d85}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Probabilistic Macine Learning Advanced Topics}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://mitpress.mit.edu/9780262048439/probabilistic-machine-learning/
+      \endverb
+      \verb{url}
+      \verb https://mitpress.mit.edu/9780262048439/probabilistic-machine-learning/
+      \endverb
+    \endentry
+    \entry{cours-jf-legall}{misc}{}{}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Page Web}
+      \field{title}{Page {Web} de {Jean}-{François} {Le} {Gall}}
+      \field{urlday}{16}
+      \field{urlmonth}{4}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.imo.universite-paris-saclay.fr/~jean-francois.le-gall/
+      \endverb
+      \verb{url}
+      \verb https://www.imo.universite-paris-saclay.fr/~jean-francois.le-gall/
+      \endverb
+    \endentry
+    \entry{pincus_approximate_1991}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=a82b62004b7bcf863e9deab45dfc8350}{%
+           family={Pincus},
+           familyi={P\bibinitperiod},
+           given={S\bibnamedelima M},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{fullhash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{fullhashraw}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{bibnamehash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{authorbibnamehash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{authornamehash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{authorfullhash}{a82b62004b7bcf863e9deab45dfc8350}
+      \strng{authorfullhashraw}{a82b62004b7bcf863e9deab45dfc8350}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Techniques to determine changing system complexity from data are evaluated. Convergence of a frequently used correlation dimension algorithm to a finite value does not necessarily imply an underlying deterministic model or chaos. Analysis of a recently developed family of formulas and statistics, approximate entropy (ApEn), suggests that ApEn can classify complex systems, given at least 1000 data values in diverse settings that include both deterministic chaotic and stochastic processes. The capability to discern changing complexity from such a relatively small amount of data holds promise for applications of ApEn in a variety of contexts.}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{month}{3}
+      \field{number}{6}
+      \field{title}{Approximate entropy as a measure of system complexity.}
+      \field{urlday}{20}
+      \field{urlmonth}{1}
+      \field{urlyear}{2025}
+      \field{volume}{88}
+      \field{year}{1991}
+      \field{urldateera}{ce}
+      \field{pages}{2297\bibrangedash 2301}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1073/pnas.88.6.2297
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.88.6.2297
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.88.6.2297
+      \endverb
+    \endentry
+    \entry{rasmussen_gaussian_2008}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=58d90ed7b7348c7a5a9b4a2a8f46df7b}{%
+           family={Rasmussen},
+           familyi={R\bibinitperiod},
+           given={Carl\bibnamedelima Edward},
+           giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=d34fdfcbfcb5412397b946351370db22}{%
+           family={Williams},
+           familyi={W\bibinitperiod},
+           given={Christopher\bibnamedelimb K.\bibnamedelimi I.},
+           giveni={C\bibinitperiod\bibinitdelim K\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{location}{1}{%
+        {Cambridge, Mass.}%
+      }
+      \list{publisher}{1}{%
+        {MIT Press}%
+      }
+      \strng{namehash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{fullhash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{fullhashraw}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{bibnamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{authorbibnamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{authornamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{authorfullhash}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \strng{authorfullhashraw}{f0ccf4a09a3a6a91719405724e3ae5da}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3. print}
+      \field{isbn}{9780262182539}
+      \field{series}{Adaptive computation and machine learning}
+      \field{title}{Gaussian processes for machine learning}
+      \field{year}{2008}
+    \endentry
+    \entry{roberts_gaussian_2013}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=67e21120146db1b8190e7e1e2a299d8a}{%
+           family={Roberts},
+           familyi={R\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9c7b7e4e838fe9abad13310a8c03553a}{%
+           family={Osborne},
+           familyi={O\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8e98dda19783f19ba5b7d6a860ac53d3}{%
+           family={Ebden},
+           familyi={E\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=379a93dccc35f1a189ce406d45f7a178}{%
+           family={Reece},
+           familyi={R\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9219bad1277ffb860066a0099853fdd4}{%
+           family={Gibson},
+           familyi={G\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=8072f29b60450933298c99bd369184f6}{%
+           family={Aigrain},
+           familyi={A\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
+      \strng{fullhash}{d40892e1b0ebe3777b8c260dc7e3c4a6}
+      \strng{fullhashraw}{d40892e1b0ebe3777b8c260dc7e3c4a6}
+      \strng{bibnamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
+      \strng{authorbibnamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
+      \strng{authornamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
+      \strng{authorfullhash}{d40892e1b0ebe3777b8c260dc7e3c4a6}
+      \strng{authorfullhashraw}{d40892e1b0ebe3777b8c260dc7e3c4a6}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{In this paper, we offer a gentle introduction to Gaussian processes for time-series data analysis. The conceptual framework of Bayesian modelling for time-series data is discussed and the foundations of Bayesian non-parametric modelling presented for Gaussian processes . We discuss how domain knowledge influences design of the Gaussian process models and provide case examples to highlight the approaches.}
+      \field{issn}{1364-503X, 1471-2962}
+      \field{journaltitle}{Philosophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences}
+      \field{month}{2}
+      \field{number}{1984}
+      \field{title}{Gaussian processes for time-series modelling}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{volume}{371}
+      \field{year}{2013}
+      \field{urldateera}{ce}
+      \field{pages}{20110550}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1098/rsta.2011.0550
+      \endverb
+      \verb{urlraw}
+      \verb https://royalsocietypublishing.org/doi/10.1098/rsta.2011.0550
+      \endverb
+      \verb{url}
+      \verb https://royalsocietypublishing.org/doi/10.1098/rsta.2011.0550
+      \endverb
+    \endentry
+    \entry{sarkka_applied_2019}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=89f4b98fe43f3c9f7ffdc081904d4781}{%
+           family={Särkkä},
+           familyi={S\bibinitperiod},
+           given={Simo},
+           giveni={S\bibinitperiod}}}%
+        {{hash=4592dc3c98e842594b9416db6b6470ae}{%
+           family={Solin},
+           familyi={S\bibinitperiod},
+           given={Arno},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Cambridge}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{fullhash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{fullhashraw}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{bibnamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{authorbibnamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{authornamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{authorfullhash}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \strng{authorfullhashraw}{3ac4cf0937ba13a39c2fb845cfc9d191}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Stochastic differential equations are differential equations whose solutions are stochastic processes. They exhibit appealing mathematical properties that are useful in modeling uncertainties and noisy phenomena in many disciplines. This book is motivated by applications of stochastic differential equations in target tracking and medical technology and, in particular, their use in methodologies such as filtering, smoothing, parameter estimation, and machine learning. It builds an intuitive hands-on understanding of what stochastic differential equations are all about, but also covers the essentials of Itô calculus, the central theorems in the field, and such approximation schemes as stochastic Runge–Kutta. Greater emphasis is given to solution methods than to analysis of theoretical properties of the equations. The book's practical approach assumes only prior understanding of ordinary differential equations. The numerous worked examples and end-of-chapter exercises include application-driven derivations and computational assignments. MATLAB/Octave source code is available for download, promoting hands-on work with the methods.}
+      \field{isbn}{9781316510087}
+      \field{series}{Institute of {Mathematical} {Statistics} {Textbooks}}
+      \field{title}{Applied {Stochastic} {Differential} {Equations}}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1017/9781108186735
+      \endverb
+      \verb{urlraw}
+      \verb https://www.cambridge.org/core/books/applied-stochastic-differential-equations/6BB1B8B0819F8C12616E4A0C78C29EAA
+      \endverb
+      \verb{url}
+      \verb https://www.cambridge.org/core/books/applied-stochastic-differential-equations/6BB1B8B0819F8C12616E4A0C78C29EAA
+      \endverb
+    \endentry
+    \entry{shannon_mathematical_1948}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=22e2130b8d96f93daba648ff62af869b}{%
+           family={Shannon},
+           familyi={S\bibinitperiod},
+           given={C.\bibnamedelimi E.},
+           giveni={C\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{fullhash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{fullhashraw}{22e2130b8d96f93daba648ff62af869b}
+      \strng{bibnamehash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{authorbibnamehash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{authornamehash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{authorfullhash}{22e2130b8d96f93daba648ff62af869b}
+      \strng{authorfullhashraw}{22e2130b8d96f93daba648ff62af869b}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The recent development of various methods of modulation such as PCM and PPM which exchange bandwidth for signal-to-noise ratio has intensified the interest in a general theory of communication. A basis for such a theory is contained in the important papers of Nyquist1 and Hartley2 on this subject. In the present paper we will extend the theory to include a number of new factors, in particular the effect of noise in the channel, and the savings possible due to the statistical structure of the original message and due to the nature of the final destination of the information.}
+      \field{issn}{0005-8580}
+      \field{journaltitle}{The Bell System Technical Journal}
+      \field{month}{7}
+      \field{number}{3}
+      \field{title}{A mathematical theory of communication}
+      \field{urlday}{28}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{volume}{27}
+      \field{year}{1948}
+      \field{urldateera}{ce}
+      \field{pages}{379\bibrangedash 423}
+      \range{pages}{45}
+      \verb{doi}
+      \verb 10.1002/j.1538-7305.1948.tb01338.x
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/6773024
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/6773024
+      \endverb
+    \endentry
+    \entry{titsias_bayesian_2010}{inproceedings}{}{}
+      \name{author}{2}{}{%
+        {{hash=81ef8fd5b7b50d8f80ae8da790ccba73}{%
+           family={Titsias},
+           familyi={T\bibinitperiod},
+           given={Michalis},
+           giveni={M\bibinitperiod}}}%
+        {{hash=f83d1b861ef00c2c1e490eb5f7360434}{%
+           family={Lawrence},
+           familyi={L\bibinitperiod},
+           given={Neil\bibnamedelima D.},
+           giveni={N\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=a71fae003da84f44e31d26e868859945}{%
+           family={Teh},
+           familyi={T\bibinitperiod},
+           given={Yee\bibnamedelima Whye},
+           giveni={Y\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=4f07cb446ab04d4d77854b6722712e32}{%
+           family={Titterington},
+           familyi={T\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Chia Laguna Resort, Sardinia, Italy}%
+      }
+      \list{publisher}{1}{%
+        {PMLR}%
+      }
+      \strng{namehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{fullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{fullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{bibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorbibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authornamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorfullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{authorfullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
+      \strng{editorbibnamehash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editornamehash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editorfullhash}{ea4550790536e3c5e0b1f0cd5656198b}
+      \strng{editorfullhashraw}{ea4550790536e3c5e0b1f0cd5656198b}
+      \field{sortinit}{T}
+      \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We introduce a variational inference framework for training the Gaussian process latent variable model and thus performing Bayesian nonlinear dimensionality reduction. This method allows us to variationally integrate out the input variables of the Gaussian process and compute a lower bound on the exact marginal likelihood of the nonlinear latent variable model. The maximization of the variational lower bound provides a Bayesian training procedure that is robust to overfitting and can automatically select the dimensionality of the nonlinear latent space. We demonstrate our method on real world datasets. The focus in this paper is on dimensionality reduction problems, but the methodology is more general. For example, our algorithm is immediately applicable for training Gaussian process models in the presence of missing or uncertain inputs.}
+      \field{booktitle}{Proceedings of the {Thirteenth} {International} {Conference} on {Artificial} {Intelligence} and {Statistics}}
+      \field{month}{5}
+      \field{series}{Proceedings of {Machine} {Learning} {Research}}
+      \field{title}{Bayesian {Gaussian} {Process} {Latent} {Variable} {Model}}
+      \field{volume}{9}
+      \field{year}{2010}
+      \field{pages}{844\bibrangedash 851}
+      \range{pages}{8}
+      \verb{urlraw}
+      \verb https://proceedings.mlr.press/v9/titsias10a.html
+      \endverb
+      \verb{url}
+      \verb https://proceedings.mlr.press/v9/titsias10a.html
+      \endverb
+    \endentry
+    \entry{zhu_markovian_2023}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=0fd257d8965b0398c2a4c16d8fc8bdd5}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Harrison},
+           giveni={H\bibinitperiod}}}%
+        {{hash=1bea60c4821d47dc588222147ad3c3f4}{%
+           family={Rodas},
+           familyi={R\bibinitperiod},
+           given={Carles\bibnamedelima Balsells},
+           giveni={C\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Yingzhen},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {arXiv}%
+      }
+      \strng{namehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{fullhash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{fullhashraw}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{bibnamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{authorbibnamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{authornamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{authorfullhash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \strng{authorfullhashraw}{ffe0a4b0a1025c2d9fd51b739f066dc5}
+      \field{sortinit}{Z}
+      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sequential VAEs have been successfully considered for many high-dimensional time series modelling problems, with many variant models relying on discrete-time mechanisms such as recurrent neural networks (RNNs). On the other hand, continuous-time methods have recently gained attraction, especially in the context of irregularly-sampled time series, where they can better handle the data than discrete-time methods. One such class are Gaussian process variational autoencoders (GPVAEs), where the VAE prior is set as a Gaussian process (GP). However, a major limitation of GPVAEs is that it inherits the cubic computational cost as GPs, making it unattractive to practioners. In this work, we leverage the equivalent discrete state space representation of Markovian GPs to enable linear time GPVAE training via Kalman filtering and smoothing. For our model, Markovian GPVAE (MGPVAE), we show on a variety of high-dimensional temporal and spatiotemporal tasks that our method performs favourably compared to existing approaches whilst being computationally highly scalable.}
+      \field{month}{8}
+      \field{note}{arXiv:2207.05543}
+      \field{title}{Markovian {Gaussian} {Process} {Variational} {Autoencoders}}
+      \field{urlday}{23}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2207.05543
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2207.05543
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2207.05543
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Computer Vision and Pattern Recognition,Statistics - Machine Learning}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

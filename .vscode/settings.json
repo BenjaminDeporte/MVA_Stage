@@ -1,4 +1,16 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:system",
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+    "latex-workshop.latex.recipes": [
+  {
+    "name": "pdflatex -> biber -> makeglossaries -> pdflatex*2",
+    "tools": [
+      "pdflatex",
+      "biber",
+      "makeglossaries",
+      "pdflatex",
+      "pdflatex"
+    ]
+  }
+]
 }
