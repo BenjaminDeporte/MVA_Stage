@@ -29,9 +29,10 @@
 \contentsline {chapter}{\numberline {14}Ito's calculus and SDE}{72}{chapter.14}%
 \contentsline {chapter}{\numberline {15}Quantifying randomness of data sequences}{78}{chapter.15}%
 \contentsline {chapter}{\numberline {16}Neural ODE and SDE}{82}{chapter.16}%
-\contentsline {chapter}{Appendices}{83}{section*.1}%
-\contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{84}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}Gaussian Process}{86}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{88}{appendix.1.C}%
-\contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{89}{appendix.1.D}%
-\contentsline {chapter}{\numberline {E}Why Brownian motion is a Gaussian and a Markov process}{94}{appendix.1.E}%
+\contentsline {chapter}{Appendices}{84}{section*.1}%
+\contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{85}{appendix.1.A}%
+\contentsline {chapter}{\numberline {B}Gaussian Process}{87}{appendix.1.B}%
+\contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{89}{appendix.1.C}%
+\contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{90}{appendix.1.D}%
+\contentsline {chapter}{\numberline {E}Why Brownian motion is a Gaussian and a Markov process}{95}{appendix.1.E}%
+\contentsline {chapter}{\numberline {F}Adjoint sensitivity method}{98}{appendix.1.F}%

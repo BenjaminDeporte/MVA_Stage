@@ -888,6 +888,68 @@
       \verb https://pnas.org/doi/full/10.1073/pnas.88.6.2297
       \endverb
     \endentry
+    \entry{pontriagin_mathematical_2018}{book}{}{}
+      \name{author}{4}{}{%
+        {{hash=991c1e4440b79293aecd20ba0be241e3}{%
+           family={Pontriagin},
+           familyi={P\bibinitperiod},
+           given={L\bibnamedelima S.},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=cad04b74d3b16d353ce1b731014c8cd0}{%
+           family={Boltianskiĭ},
+           familyi={B\bibinitperiod},
+           given={V\bibnamedelima G.},
+           giveni={V\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=89a1a493b01e8c32d8157c31d3010816}{%
+           family={Gamkrelidze},
+           familyi={G\bibinitperiod},
+           given={R\bibnamedelima V.},
+           giveni={R\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=43db83989f0cd7ed175bad5349361c13}{%
+           family={Mishchenko},
+           familyi={M\bibinitperiod},
+           given={E\bibnamedelima F.},
+           giveni={E\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=406fe011a9b6f9525dc72f820e222146}{%
+           family={Neustadt},
+           familyi={N\bibinitperiod},
+           given={Lucien\bibnamedelima W.},
+           giveni={L\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{location}{1}{%
+        {Boca Raton}%
+      }
+      \list{publisher}{1}{%
+        {CRC Press}%
+      }
+      \strng{namehash}{ccc982c0538209707c57e014ed42ffcc}
+      \strng{fullhash}{d54767598af9284ccb3b23296ab9fcf8}
+      \strng{fullhashraw}{d54767598af9284ccb3b23296ab9fcf8}
+      \strng{bibnamehash}{ccc982c0538209707c57e014ed42ffcc}
+      \strng{authorbibnamehash}{ccc982c0538209707c57e014ed42ffcc}
+      \strng{authornamehash}{ccc982c0538209707c57e014ed42ffcc}
+      \strng{authorfullhash}{d54767598af9284ccb3b23296ab9fcf8}
+      \strng{authorfullhashraw}{d54767598af9284ccb3b23296ab9fcf8}
+      \strng{editorbibnamehash}{406fe011a9b6f9525dc72f820e222146}
+      \strng{editornamehash}{406fe011a9b6f9525dc72f820e222146}
+      \strng{editorfullhash}{406fe011a9b6f9525dc72f820e222146}
+      \strng{editorfullhashraw}{406fe011a9b6f9525dc72f820e222146}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{9780203749319}
+      \field{note}{OCLC: 1035389999}
+      \field{series}{Classics of {Soviet} mathematics}
+      \field{title}{The mathematical theory of optimal processes}
+      \field{year}{2018}
+      \keyw{Mathematical optimization}
+    \endentry
     \entry{rasmussen_gaussian_2008}{book}{}{}
       \name{author}{2}{}{%
         {{hash=58d90ed7b7348c7a5a9b4a2a8f46df7b}{%

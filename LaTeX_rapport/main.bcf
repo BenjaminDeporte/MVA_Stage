@@ -2452,9 +2452,12 @@
     <bcf:citekey order="77" intorder="1">delgado-bonal_approximate_2019</bcf:citekey>
     <bcf:citekey order="78" intorder="1">pincus_approximate_1991</bcf:citekey>
     <bcf:citekey order="79" intorder="1">pincus_approximate_1991</bcf:citekey>
-    <bcf:citekey order="80" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
-    <bcf:citekey order="81" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
-    <bcf:citekey order="82" intorder="1" nocite="1">*</bcf:citekey>
+    <bcf:citekey order="80" intorder="1">chen_neural_2019</bcf:citekey>
+    <bcf:citekey order="81" intorder="1">chen_neural_2019</bcf:citekey>
+    <bcf:citekey order="82" intorder="1">pontriagin_mathematical_2018</bcf:citekey>
+    <bcf:citekey order="83" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
+    <bcf:citekey order="84" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="85" intorder="1" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

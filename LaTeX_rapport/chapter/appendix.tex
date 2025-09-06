@@ -524,3 +524,132 @@ and finally get:
 
 which proves that $p(x_3 \vert x_2, x_1) = p(x_3 \vert x_2) = \mathcal{N}(x_2, t_3-t_2)$, ie the Browian motion is a Markov process,
 and we also retrieve that $x_3 - x_2 \sim \mathcal{N}(0, t_3-t_2)$.
+
+\chapter{Adjoint sensitivity method}\label{sec:adjoint_sensitivity_method}
+
+NB : I have chosen here to write vector with an underline : $\underline{u}$ versus a scalar $u$. Event though the notation 
+is heavier, this should prove useful when coding the algorithm and checking for shapes of gradients and Jacobians.
+
+In a machine learning setting, we model a variable $\underline{u}$ -usually a latent variable- as a vector-valued function
+     verifying an \gls{ode}:
+    \begin{align}
+        \label{main_ode}
+        \frac{d \underline{u}}{dt} &= f_{\theta}(\underline{u},t) \\
+        \underline{u}(t=0) &= \underline{u}_0
+    \end{align}
+    \begin{itemize}
+        \item Notations:
+            \begin{itemize}
+                \item $x$ is a scalar value
+                \item $\underline{x}$ is a vector
+            \end{itemize}
+        \item $t$ is the time.
+        \item $\underline{u} : \mathbb{R} \rightarrow \mathbb{R}^N$ is a function of time into a space of dimension $N$.
+        \item $f_{\theta} : \mathbb{R}^N \times \mathbb{R} \rightarrow \mathbb{R}^N$ is a function parameterized 
+        by $\underline{\theta} \in \mathbb{R}^P$ - typically  a neural network which we want to train. NB : $f_{\theta}$ can also be seen as 
+        a function $f(\underline{u}, t, \underline{\theta})$.
+    \end{itemize}
+
+    We wish to optimize a loss $J$ function of the \textbf{function} $\underline{u}$ and parameters set $\underline{\theta}$:
+    \begin{align}
+        \label{functionnal_loss}
+        J: (\mathbb{R}^N \times \mathbb{R} \rightarrow \mathbb{R}^N) \times \mathbb{R}^P &\rightarrow \mathbb{R} \\
+        \underline{u}, \underline{\theta} &\mapsto J(\underline{u}, \underline{\theta}) = \int_{0}^{T} g(\underline{u}, \underline{\theta}) dt
+    \end{align}
+    where $g$ is a scalar-valued functional.
+
+    For example, we can set $g(\underline{u}, \underline{\theta}) = \underline{u}^{T} Q \underline{u}$, where $Q$ is a $N \times N$ definite positive symetric matrix to compute
+     a $L_2$ loss.
+
+    In order to train our neural network $f_{\theta}$, we need to compute the gradients
+    \begin{align}
+        \frac{dJ}{d \underline{\theta}} &= \frac{d}{d \underline{\theta}} \int_{0}^{T} g(\underline{u}, \theta) dt 
+    \end{align}
+    so we can backpropagate them.
+
+    Let's start the computation.
+
+    \begin{align}
+        \frac{dJ}{d \underline{\theta}} &= \frac{d}{d \underline{\theta}} \int_{0}^{T} g(\underline{u}, \underline{\theta}) dt \\
+        &= \int_{0}^{T} \left( \frac{\partial g}{\partial \underline{\theta}} + \frac{\partial g}{\partial \underline{u}} 
+        \frac{d \underline{u}}{d \underline{\theta}} \right) dt
+    \end{align}
+
+    where $\frac{\partial g}{\partial \underline{\theta}}$ is a gradient (shape $1 \times P$ as a row), $\frac{\partial g}{\partial \underline{u}}$ 
+    is a gradient (shape $1 \times N$), and $\frac{d \underline{u}}{d \underline{\theta}}$ is a Jacobian $N \times P$.
+
+    The \textbf{adjoint method} consists in framing the problem as an optimization problem, and using the dual:
+    \begin{align}
+        \underset{\underline{\theta}}{\text{min}} &: {J(\underline{u}, \underline{\theta})} \\
+        \text{s.t} \,\,\,  &\frac{d \underline{u}}{dt} = f_{\theta}(\underline{u},t) \\
+    \end{align}
+
+    We form the Lagrangien of the problem, and compute its derivative wrt $\underline{\theta}$ (NB : the 
+    Lagrange multiplier $\lambda$ is a function here):
+    \begin{align}
+        \mathcal{L}(\underline{u}, \underline{\theta}, \underline{\lambda} ) &= \int_{0}^{T} \left[ g(\underline{u}, \underline{\theta})
+            + \lambda^{T}(t) \left( f_{\theta}(\underline{u},t) - \frac{d \underline{u}}{dt} \right) \right] dt \\
+        \frac{d \mathcal{L}}{d \underline{\theta}} &= \int_{0}^{T} \left[ \frac{\partial g}{\partial \underline{u}} \frac{d \underline{u}}{d \underline{\theta}}
+        + \frac{\partial g}{\partial \underline{\theta}} + \lambda^{T}(t) \left( \frac{\partial \underline{f}}{\partial \underline{u}} \frac{d \underline{u}}{d \underline{\theta}}
+        + \frac{\partial \underline{f}}{\partial \underline{\theta}} -\frac{d}{d \underline{\theta}} \frac{d \underline{u}}{dt} \right) \right] dt
+    \end{align} 
+
+    We integrate by parts the problematic part of the integral:
+\begin{align}
+    \int_{0}^{T} \lambda^{T}(t) \frac{d}{d \underline{\theta}} \frac{d \underline{u}}{dt} dt &=
+        \int_{0}^{T} \lambda^{T}(t) \frac{d}{dt} \frac{d \underline{u}}{d \underline{\theta}} dt \\
+        &= \lambda^{T}(t)\frac{d \underline{u}}{d \underline{\theta}} \vert^{T}_{0} - \int_{0}^{T} \left( \frac{d \lambda}{dt} \right)^{T} \frac{d \underline{u}}{d \underline{\theta}} dt
+\end{align}
+Finally:
+\begin{align}
+    \frac{d \mathcal{L}}{d \underline{\theta}} &= \int_{0}^{T} \left[
+        \left( \frac{\partial g}{\partial \underline{u}} + \left( \frac{d \lambda}{dt} \right)^{T} + \lambda^{T}(t) \frac{\partial \underline{f}}{\partial \underline{u}}\right) 
+            \frac{d \underline{u}}{d \underline{\theta}} + \frac{\partial g}{\partial \underline{\theta}} + \lambda^{T}(t) \frac{\partial \underline{f}}{\partial \underline{\theta}} \right] dt
+            - \lambda^{T}(t)\frac{d \underline{u}}{d \underline{\theta}} \vert^{T}_{0}
+\end{align}
+
+Which leads to, canceling the factor of $\frac{d \underline{u}}{d \underline{\theta}}$ in the integral, and choosing $\lambda(T)=0$:
+\begin{align}
+    \frac{d \lambda}{dt} + \left( \frac{\partial \underline{f}}{\partial \underline{u}}\right)^{T} \lambda(t) + \left( \frac{\partial g}{\partial \underline{u}}\right)^{T} &= 0 \\
+    \lambda(T) &= 0 \\
+    \frac{d \mathcal{L}}{d \underline{\theta}} &= \int_{0}^{T} \left( \frac{\partial g}{\partial \underline{\theta}} + \lambda^{T}(t) \frac{\partial \underline{f}}{\partial \underline{\theta}} \right) dt
+    + \lambda(0) \frac{d \underline{u}}{d \underline{\theta}} \vert_{0}
+\end{align}
+
+    Now, we remark that the solution $\underline{u}, \underline{\theta}$ is feasible, so $\frac{d \mathcal{L}}{d \underline{\theta}} = \frac{dJ}{d \underline{\theta}}$ as the \gls{ode} is verified.
+
+    Finally, the gradient of the loss wrt the parameter set $\underline{\theta}$ is given by:
+    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Gradient computation by adjoint method]
+        \begin{align}
+            \frac{d \lambda}{dt} + \left( \frac{\partial \underline{f}}{\partial \underline{u}}\right)^{T} \lambda(t) + \left( \frac{\partial g}{\partial \underline{u}}\right)^{T} &= 0 \\
+            \lambda(T) &= 0 \\
+            \frac{dJ}{d \underline{\theta}} &= \int_{0}^{T} \left( \frac{\partial g}{\partial \underline{\theta}} + \lambda^{T}(t) \frac{\partial \underline{f}}{\partial \underline{\theta}} \right) dt
+            + \lambda(0) \frac{d \underline{u}_0}{d \underline{\theta}}
+        \end{align}
+    \end{tcolorbox}
+    The Lagrange multiplier function $\lambda$ is given by solving a terminal value \gls{ode}.
+
+The overall strategy for computing the gradient of the loss $J$ wrt to the parameter set $\underline{\theta}$ is therefore:
+    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Strategy for computing the gradient of the loss $J$ wrt $\underline{\theta}$]
+        \begin{enumerate}
+            \item solve the \textbf{initial value problem} with an \gls{ode} solver:
+                \begin{align}
+                    \frac{d \underline{u}}{dt} &= f_{\theta}(\underline{u},t) \\
+                    \underline{u}(t=0) &= \underline{u}_0
+                \end{align}
+            \item solve the \textbf{adjoint/terminal value problem} with an \gls{ode} solver:
+                \begin{align}
+                    \label{adjoint}
+                    \frac{d \lambda}{dt} + \left( \frac{\partial \underline{f}}{\partial \underline{u}}\right)^{T} \lambda(t) + \left( \frac{\partial g}{\partial \underline{u}}\right)^{T} &= 0 \\
+                    \lambda(T) &= 0
+                \end{align}
+            \item compute the gradient:
+                \begin{align}
+                    \frac{dJ}{d \underline{\theta}} &= \int_{0}^{T} \left( \frac{\partial g}{\partial \underline{\theta}} + \lambda^{T}(t) \frac{\partial \underline{f}}{\partial \underline{\theta}} \right) dt
+                        + \lambda(0) \frac{d \underline{u}_0}{d \underline{\theta}}
+                \end{align}
+        \end{enumerate}
+    \end{tcolorbox}
+
+    where the derivatives $\frac{\partial g}{\partial \underline{\theta}}$, $\frac{\partial \underline{f}}{\partial \underline{\theta}}$, $\frac{\partial \underline{f}}{\partial \underline{u}}$ can 
+    be computed via automatic differentiation.
