@@ -9,7 +9,7 @@ Train_DKF_Final.ipynb
 \end{minted}
 
 We trained the \gls{dkf} on 200 synthetic univariate time series of 100 time steps for training and 50 time steps to predict. 
-The time are the sum of two sine waves with noise.
+The time series are the sum of two sine waves with noise.
 
 \begin{minted}[frame=single,fontsize=\footnotesize]{python}
     f1,f2,o1,o2 = np.random.rand(4, batch_size, 1)  # return 4 values for each time series
@@ -20,8 +20,9 @@ The time are the sum of two sine waves with noise.
     series += noise * (np.random.randn(batch_size, n_steps) - 0.5)  # add noise
 \end{minted}
 
-The training of the \gls{dkf} proved difficult, as we experienced \textbf{posterior collapse}: remember that the \gls{elbo} 
-is :
+The training of the \gls{dkf} proved difficult, as we experienced \textbf{posterior collapse}.
+
+Remember that the \gls{elbo} is :
 \begin{align*}
     \mathcal{L}(\theta, \phi, X) &= \sum_{i=1}^n \mathbb{E}_{q_{\phi}(z_i \vert x_i)} \log{p_{\theta_x}(x_i \vert z_i)} - \sum_{i=1}^n \mathbb{KL}(q_{\phi}(z_i \vert x_i) \vert\vert p_{\theta_z}(z_i) )
 \end{align*}
@@ -32,7 +33,7 @@ The posterior collapse describes the situation where the training is such that:
     \item the decoder is expressive enough to model the data without the latent variable: $p_{\theta_x}(x \vert z) \approx p_{\theta_x}(x)$
 \end{itemize}
 
-One way to avoid this is to introduce a $\beta$-scheduler, ie a varying weight between the $\mathbb{KL}$ term and the reconstruction term. Fisrt, $\beta=0$, 
+One way to avoid this is to introduce a $\beta$-scheduler, ie a varying weight between the $\mathbb{KL}$ term and the reconstruction term. First, $\beta=0$, 
 the total loss is exclusively the reconstruction loss until it reaches a certain threshold. Then $\beta$ increases to incorporate gradually the $\mathbb{KL}$ term.
 
 \begin{figure}[H]
@@ -62,7 +63,7 @@ The time series are shorter than for the \gls{dkf} to reduce training time - thu
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png}
-    \caption{Predictions Generations VRNN}
+    \caption{Predictions and Generations VRNN}
     \label{fig:Predictions Generations VRNN}
 \end{figure}
 
@@ -159,8 +160,8 @@ and sigma parameters :
 self.lengthscale = nn.Parameter(torch.tensor(lengthscale))  # learnable lengthscale parameter    
 self.sigma = nn.Parameter(torch.tensor(sigma))  # learnable variance parameter
 \end{minted}
-However, the attributes must be cloned before being used in the computations to avoid running multiple backward passes in the 
-computation graph ... :
+However, the attributes must be cloned before being used in the computations to avoid attempts to run multiple backward passes in the 
+computation graph and trigger a RunTime Error :
 \begin{minted}[frame=single,fontsize=\footnotesize]{python}
 lengthscale = self.lengthscale.clone()
 sigma = self.sigma.clone()
@@ -189,7 +190,7 @@ mean, kernel_matrix, L_matrix, p_theta_z = compute_gp_priors(t, Dz, kernels_list
 verbose=True)
 \end{minted}
 
-The reconstruction is good without being perfect:
+The reconstruction is good, though not perfect. We show here three samples from the reconstructed distribution of three series from the test set. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png}

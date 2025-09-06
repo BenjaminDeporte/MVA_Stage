@@ -5,9 +5,9 @@
 
 \glspl{vae} are a well-known class of generative models, described in \cite{kingma_introduction_2019}, which have spawn numerous applications. 
 However, \glspl{vae} posit an i.i.d. assumption over the latent variables, that carries strong limitations if considering data sequences over time, 
-where correlations are natural between data samples. A richer class of models aims at solving this limitation : the \glspl{dvae}.
+where correlations often exist between data samples. A richer class of models aims at solving this limitation : the \glspl{dvae}.
 In \glspl{dvae}, the latent variables are structured themselves as a correlated set (usually a sequence also), 
-aiming at encoding the temporal dimension of the data. The relationship between the latent variables and the observed data (ie, the observation model,
+aiming at encoding the temporal behavior of the data. The relationship between the latent variables and the observed data (ie, the observation model,
 or decoder) remains as in regular \glspl{vae}.
 
 The first part of the report is dedicated to the general study of \glspl{dvae}. We rely on the exhaustive survey \cite{girin_dynamical_2022},
@@ -24,10 +24,10 @@ which is the basis for this part. We review the general formulation of \glspl{dv
  and \cite{zhu_markovian_2023}. 
 
 The second part describes the implementations of those three models, the experiments run on toy datasets, the PyTorch tricks 
-that sometimes cost quite a bit to learn, and the take-aways. A repository with the set of code and notebooks can be found 
+that sometimes cost quite a bit to learn (...), and the take-aways. A repository with the set of code and notebooks can be found 
 at \href{https://github.com/BenjaminDeporte/MVA_Stage}{Benjamin's GitHub repo}.
 
-One of the \gls{gpvae} papers, specifically \cite{zhu_markovian_2023}, has triggered in me a significant interest, as it showed a 
+One of the \gls{gpvae} papers, specifically \cite{zhu_markovian_2023}, has triggered a significant interest in me, as it showed a 
 deep relationship between \glspl{dvae} and stochastic calculus.
 
 I then invested a significant amount of time in studying the mathematical machinery required to fully understand this relationship. 
@@ -42,12 +42,12 @@ the evolution over time of the transition probability density is described by th
 when discretized, leads to the natural framework of our first two discrete models : the \gls{dkf} and \gls{vrnn}. Moreover, 
 in the case of a linear \gls{sde}, the solution of the \gls{sde} is also a Gaussian process, which points to \gls{gpvae}. For solutions of linear \gls{sde}, 
 one can use off the shelf smoothers (and filters), such as Kalman and \gls{rts}, that scale linearly instead of cubically as is usually the case 
-for \glspl{gp}.
+for \glspl{gp} (\cite{zhu_markovian_2023}, \cite{sarkka_applied_2019})
 
 However, the \gls{gpvae} model carries limitations too. First, some Gaussian processes -more specifically some kernel functions- 
-can not be formulated as the solution to a linear \gls{sde}. We review quickly some such kernels. Second, if there is an intersection between Markov processes and 
-Gaussian processes (the Brownian motion itself, but also the well-studied Ornstein Uhlenbeck process), some Markov processes 
-(ie solutions to general \gls{sde}) are not Gaussian processes. 
+can not be formulated as the solution to a linear \gls{sde}. We review quickly some such kernels. Second, some stochastic processes 
+are both Markov processes and Gaussian processes (the Brownian motion itself, but also the well-studied Ornstein Uhlenbeck process), 
+but some Markov processes (ie solutions to general \gls{sde}) are not Gaussian processes. 
 
 An idea is then to use a more general stochastic process, defined as the solution to a general (ie non-linear) \gls{sde}, as the model for 
 latent variables. The drift and the diffusion can also be learnt as neural networks. This is the field of \glspl{neural-sde} (\cite{peluchetti_infinitely_2020}), 

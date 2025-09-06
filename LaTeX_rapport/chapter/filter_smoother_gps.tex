@@ -66,7 +66,7 @@ From a vocabulary stand-point, we will use indifferently \textit{state} or \text
 \section{Filtering and Smooting}
 
 \textbf{Filtering} is the problem of determining the posterior probability of the latent $Z_t$ given the 
-discrete measurements, ie finding $p(Z_t \vert x_{1:k})$ with $t_k \leq t$. This corresponds to 
+discrete measurements \textbf{up to $t$}, ie finding $p(Z_t \vert x_{1:k})$ with $t_k \leq t$. This corresponds to 
 determining the generative transition probability $p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})$ in our 
 \gls{dvae} setting.
 

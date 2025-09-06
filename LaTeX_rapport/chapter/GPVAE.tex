@@ -9,7 +9,7 @@ that constitutes the core of \glspl{gpvae}. (A summary of \gls{gp} can be found 
 If the use of \glspl{gp} for time-series modeling is not recent (see for example \cite{rasmussen_gaussian_2008} and \cite{roberts_gaussian_2013}), structuring a latent prior as a \gls{gp} is somewhat newer. In \cite{casale_gaussian_2018}, Casale and al. build a \gls{gpvae} generative model to predict images with different objects and views. A specific kernel is designed for the task, taking advantage of the kernel construction rules and multiplying a view-based kernel by an object-based kernel. The kernel parameters are learnt with the inference model, and the covariance matrix of the kernel is built with a low-rank approximation ($VV^T$) to reduce computation costs (naïvely in $O(T^3)$). In \cite{fortuin_gp-vae:_2020}, Fortuin and al. focus on time-series missing values imputations. A Cauchy kernel is used, which is an instance of a Rational Quadratic Kernel, that can be viewed as an infinite sum of Gaussian kernels over the space of lengthscales. The encoder $q_\phi$ is a multivariate normal distribution, whose precision matrix is built mutliplying a bi-band matrix and its transpose, again to reduce computation cost. \cite{girin_dynamical_2022} cites \gls{gpvae} but remains focused on discrete-time models. The paper \cite{zhu_markovian_2023} establishes the Markovian nature of a \gls{gp} as the solution of a linear \gls{sde}, which allows to significantly reduce the computation cost of the model. 
 
 The main insight is that the solution of a linear \gls{sde} is a Gaussian Process, as the transition probabilities given by the Fokker-Plank equations are Gaussian.
-Thus, \glspl{gpvae} have the potential to express naturally many phenomena described by \glspl{sde}. 
+Thus, \glspl{gpvae} have the potential to express naturally many phenomena described by linear \glspl{sde}. 
 We will review later those results, issued form stochastic calculus reference books such as \cite{mouvement-brownien-calcul-ito}, \cite{sarkka_applied_2019} and \cite{cours-jf-legall}. 
 
 We now move to the \gls{gpvae} model itself.
@@ -51,7 +51,7 @@ The joint distribution writes somehow differently from the one for \glspl{dvae},
     &= p(z_{t_1:t_T}) \prod_{i=1}^T p(x_{t_i} \vert z_{t_{i}})
 \end{align}
 
-The prior over the latent variables $z_{t_i} \in \R^L$ is a set of scalar Gaussian Process over each of the dimension $l \in \{1,...,L\}$ of the latent variables. Formally:
+The prior over the latent variables $z_{t_i} \in \R^L$ is a set $L$ of scalar Gaussian Process over each of the dimension $l \in \{1,...,L\}$ of the latent variables. Formally:
 \begin{align}
     p_{\theta_z}(z_{t_1:t_T}^l) &= \mathcal{GP}(m_{\theta_z, l}(t_1:t_T), k_{\theta_z, l}(t_1:t_T, t_1:t_T)) \hspace{1cm} l=1,..,L
 \end{align}
@@ -59,10 +59,12 @@ where the $m_{\theta_z, l}$ are the $L$ mean functions of the \gls{gp} priors (u
 
 We note at this point that:
 \begin{itemize}
-    \item by design, each of the component of the $z_{t_i}$ is a scalar \gls{gp}, with correlation over time stamps. However, the different components of a $z_{t_i}$ are not correlated between them. 
+    \item by design, each of the component prior of the $z_{t_i}$ is a scalar \gls{gp}, with correlation over time stamps. However, the different components of a $z_{t_i}$ are not correlated between them. 
     \item \textbf{The correlation across data dimensions is encoded into the observation model $p_{\theta_x}(x_{t_i} \vert z_{t_i})$}, whereas \textbf{the correlation in time is encoded into the 
     latent variable \glspl{gp}}.
-    \item the kernels $k_{\theta_z, l}$ can be chosen differently to account for different prior knowledge of the data sequence. In \cite{fortuin_gp-vae:_2020} for example, Fortuin and al. uses a set of Gaussian Kernels with different lenghtscales.
+    \item the kernels $k_{\theta_z, l}$ can be chosen differently to account for different prior knowledge of the data sequence. 
+    In \cite{fortuin_gp-vae:_2020} for example, Fortuin and al. uses a set of Gaussian Kernels with different lenghtscales. This provides expressiveness 
+    but also makes the models tricker to train.
 \end{itemize}
 
 Accordingly, the approximate posterior -encoder- $q_\phi$ is a set of $L$ Gaussian distributions of dimension $T$, each one accounting for a component of $z_{t_i}$. Formally :

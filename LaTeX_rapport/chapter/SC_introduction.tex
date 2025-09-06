@@ -26,13 +26,13 @@ where:
 A filtration $\mathcal{F}_{t\geq 0}$ is often viewed and introduced as the \textit{set of information available at time $t$}. 
 
 The core of stochastic calculus is the stochastic process known as \textbf{Brownian motion}, or \textbf{Wiener process}. 
-We use here the definition of a multivariate Brownian motion:
+We use here the definition of a multivariate Brownian motion (such as in \cite{sarkka_applied_2019}):
 
 \defn{Brownian motion}{
 A stochastic process $B = \brownian$ with values in $\mathbb{R}^d$ is called \textbf{Brownian motion} iff:
 \begin{itemize}
     \item $B_0 = 0$ $\mathbb{P}$-a.s.
-    \item $\forall 0 \leq s \leq t$, the random variable $B_t-B_s$ is independent from $\mathcal{F}_t$.
+    \item $\forall 0 \leq s \leq t$, the random variable $B_t-B_s$ is independent from $\mathcal{F}_s$.
     \item $\forall 0 \leq s \leq t$, $B_t - B_s \sim \mathcal{N}(0,Q(t-s))$
     \item $B$ is continuous \footnote{or more exactly there exists a continuous version of $B$, see \cite{mouvement-brownien-calcul-ito}}
 \end{itemize}
@@ -41,7 +41,7 @@ where the matrix $Q \in \mathbb{S}^{++}_d$ is called the \textbf{diffusion matri
 
 Meaning : the process $B$ starts from 0, its increments are independent from the past, its increments over disjoint time intervals are independent of each other, 
 its increments follow a centered normal law of variance equal to the length of the time interval multiplied by the diffusion matrix.
-NB : some authors choose the define the diffusion matrix (or scalar) outside of the Brownian motion.
+NB : some authors choose the define the diffusion matrix (or scalar) outside of the Brownian motion (\cite{mouvement-brownien-calcul-ito})
 
 A core result is that the quadratic variation of the Brownian motion over an interval $[s,t]$ (equiped
 with a subdivison $\pi = \{s=t_0 < t_1 < ...< t_k <... < t_n=t\}$), and defined as the limit when $\vert \pi \vert \rightarrow 0$ 
@@ -68,8 +68,8 @@ with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
 
 This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
 
-We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$)) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$
-}
+We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$)) 
+such that all $X_i$ have a finite moment $\mathbb{E}\vert X_i \vert <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$)}
 
 \defn{Stochastic integral of an elementary process}{
 Let $X \in \mathcal{E}$, ie
@@ -121,6 +121,6 @@ Then $(f(X_t,t))_{t \in [0,T]}$ is also an Itô's process and:
 The last term is Itô's complementary term.\\
 In dimension $d > 1$:
 \begin{align}
-    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + ()\nabla f)^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( (\nabla \nabla^T f) dX_t dX_t^T \right)
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + (\nabla f)^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( (\nabla \nabla^T f) dX_t dX_t^T \right)
 \end{align}
 }{see book \cite{mouvement-brownien-calcul-ito} for a clean proof. A heuristic process can be derived by using a Taylor-Lagrange decomposition at order 2, and using \ref{dB_square_is_dt}}

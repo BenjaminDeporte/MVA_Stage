@@ -1,18 +1,19 @@
-\chapter{Conclusions}\label{sec:Conclusions}
+\chapter{Conclusions and perspectives}\label{sec:Conclusions}
 
-It's been quite a personal journey.
+We have seen that \glspl{vae} can be applied to data sequences by assuming a temporal relationship in the prior over latent variables. 
+This is the framework of \glspl{dvae}. When the prior over the latent variables is discrete, this formulation produces, for example, 
+\gls{dkf} and \gls{vrnn}, which we detailed, coded and tested on two toy datasets.
 
-Wrapping up:
+Assuming a continuous-time prior over the latent variables provides more expressiveness, as it can handle irregularly sampled data. 
+A first model is \gls{gpvae} in which the latent prior is a set of \glspl{gp} over the time dimensions. We detailed, coded and tested 
+the \gls{gpvae} on the Sprites dataset. If this model is potentially more expressive than its discrete counterparts, it is also 
+tricker to train, as the choice of prior reverts to a choice of kernel functions.
 
-\begin{itemize}
-    \item \glspl{dvae} are a powerful evolution of \glspl{vae} where the structure of the set of latent variables 
-    aims at expressing the temporal dependencies.
-    \item Discrete-time \glspl{dvae} give structure to latent variables to encode temporal dynamics. They work best with regularly spaced data.
-    \item Continuous-time \glspl{dvae} posit a stochastic process as prior for the latent variables. This allows 
-    additional flexibility and irregularly-sampled data.
-    \item The specific model \gls{gpvae}, where the latent prior is a Gaussian Process can be expressed as a 
-    solution to a linear \gls{sde}, can use well-known linear-time filtering and smoothing algorithms to speed up 
-    computations.
-    \item More general stochastic process priors can be used, expressed as solutions to general \gls{sde} :
-    those are latent SDE models.
-\end{itemize}
+Factoring in stochastic calculus opens a broader perspective and a new field of models. \glspl{gp} include stochastic processes 
+solutions to linear \glspl{sde} and allow to use linear-time filtering and smoothing algorithms to reduce computation times. 
+
+The Markovian nature of stochastic processes solutions of general \glspl{sde} allows to use \glspl{sde} to formulate latent priors 
+that are suitable for filtering and smoothing. This idea of \glspl{neural-sde} builds on \glspl{neural-ode} and points to a 
+set of potentially very expressive models.
+
+It's been quite a personal journey... and it continues.

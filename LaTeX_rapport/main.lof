@@ -11,9 +11,9 @@
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Probabilistic model of a GP-VAE}}{25}{figure.6.1}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Gaussian Process VAE Model Architecture}}{28}{figure.6.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Training DKF}}{30}{figure.7.1}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Training DKF}}{31}{figure.7.1}%
 \contentsline {figure}{\numberline {7.2}{\ignorespaces Predictions Generations DKF}}{31}{figure.7.2}%
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Predictions Generations VRNN}}{32}{figure.7.3}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Predictions and Generations VRNN}}{32}{figure.7.3}%
 \contentsline {figure}{\numberline {7.4}{\ignorespaces One sprite}}{32}{figure.7.4}%
 \contentsline {figure}{\numberline {7.5}{\ignorespaces sprite series}}{33}{figure.7.5}%
 \contentsline {figure}{\numberline {7.6}{\ignorespaces VRNN Sprites reconstruction}}{34}{figure.7.6}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  5 SEP 2025 20:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  6 SEP 2025 07:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -2046,7 +2046,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [26]
 
 [27]
-Overfull \hbox (32.1733pt too wide) in paragraph at lines 271--272
+Overfull \hbox (32.1733pt too wide) in paragraph at lines 273--274
  [][] 
  []
 
@@ -2075,59 +2075,63 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
 \pydata@fh@0=\write11
 \openout11 = `_FAD58DE7366495DB4650CFEFAC2FCD61.data.minted'.
 
-runsystem(latexminted config  --timestamp 20250905201911 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+runsystem(latexminted config  --timestamp 20250906070321 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
 (./_FAD58DE7366495DB4650CFEFAC2FCD61.config.minted)
-runsystem(latexminted cleanconfig  --timestamp 20250905201911 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
+runsystem(latexminted cleanconfig  --timestamp 20250906070321 FAD58DE7366495DB4650CFEFAC2FCD61)...executed safely (allowed).
 
  (./_minted/default.style.minted) (./_minted/FAFBC0F0E211AD8C8F448920E5F56BB2.highlight.minted) (./_minted/8904235B716266B601BB9F27CAAB504E.highlight.minted
 LaTeX Font Info:    Font shape `OT1/txtt/m/it' in size <9> not available
 (Font)              Font shape `OT1/txtt/m/sl' tried instead on input line 2.
 )
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png, id=493, 1438.173pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png, id=496, 1438.173pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png  used on input line 40.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png  used on input line 41.
 (pdftex.def)             Requested size: 450.43253pt x 65.63843pt.
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png, id=495, 1149.093pt x 642.4803pt>
-File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png Graphic file (type png)
-<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png  used on input line 49.
-(pdftex.def)             Requested size: 450.43253pt x 251.85056pt.
+
+Underfull \vbox (badness 6078) has occurred while \output is active []
+
 
 
 [30
 
 
- </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png>] (./_minted/0E8BC13360DE6A0815137604CA846348.highlight.minted)
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png, id=502, 1149.093pt x 642.4803pt>
+]
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png, id=503, 1149.093pt x 642.4803pt>
+File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png Graphic file (type png)
+<use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png  used on input line 50.
+(pdftex.def)             Requested size: 450.43253pt x 251.85056pt.
+ (./_minted/0E8BC13360DE6A0815137604CA846348.highlight.minted)
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png, id=504, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png  used on input line 64.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png  used on input line 65.
 (pdftex.def)             Requested size: 450.43253pt x 251.85056pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[31 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png, id=510, 281.1303pt x 281.1303pt>
+[31 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss_courbe.png> </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds_gens.png>]
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png, id=513, 281.1303pt x 281.1303pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png  used on input line 84.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png  used on input line 85.
 (pdftex.def)             Requested size: 200.19054pt x 200.19159pt.
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png, id=511, 910.602pt x 570.2103pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png, id=514, 910.602pt x 570.2103pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png  used on input line 92.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/samples_sprites_series.png  used on input line 93.
 (pdftex.def)             Requested size: 450.43253pt x 282.0505pt.
 
 
 [32 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_toy_time_series.png> </home/benjamin/Folders_Python/MVA/MVA_Stage/images/one_sprite.png>] (./_minted/8498D157E114D084E12957774660B084.highlight.minted)
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png, id=519, 1134.639pt x 1675.9413pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png, id=522, 1134.639pt x 1675.9413pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png  used on input line 112.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png  used on input line 113.
 (pdftex.def)             Requested size: 450.43253pt x 665.32681pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2140,10 +2144,10 @@ Overfull \vbox (10.14944pt too high) has occurred while \output is active []
 
 
 [34 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_reconstruction.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png, id=530, 2883.573pt x 1013.2254pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png, id=533, 2883.573pt x 1013.2254pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png  used on input line 124.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_sprites_generation.png  used on input line 125.
 (pdftex.def)             Requested size: 650.6307pt x 228.61522pt.
 
 
@@ -2154,15 +2158,15 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn
 [36
 
 ])
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png, id=541, 910.602pt x 573.1011pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png, id=544, 910.602pt x 573.1011pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png  used on input line 195.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png  used on input line 196.
 (pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png, id=542, 910.602pt x 573.1011pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png, id=545, 910.602pt x 573.1011pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png  used on input line 202.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_02.png  used on input line 203.
 (pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2170,15 +2174,15 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 [37 </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_01.png>]
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png, id=549, 910.602pt x 573.1011pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png, id=552, 910.602pt x 573.1011pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png  used on input line 209.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_reco_03.png  used on input line 210.
 (pdftex.def)             Requested size: 450.43253pt x 283.48042pt.
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png, id=550, 689.4558pt x 643.203pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png, id=553, 689.4558pt x 643.203pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png>
-Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png  used on input line 218.
+Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png  used on input line 219.
 (pdftex.def)             Requested size: 450.43253pt x 420.21655pt.
 )
 
@@ -2824,7 +2828,7 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 54DBB1D43BCE2F1064E697252F4B3F9C;7403.
+(rerunfilecheck)             Checksum: 78409778ABDCFA06CA47B78D077BCCA8;7459.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -2835,18 +2839,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 65347 strings out of 467801
- 1538752 string characters out of 5431917
- 2776508 words of memory out of 5000000
- 92294 multiletter control sequences out of 15000+600000
+ 65346 strings out of 467801
+ 1538744 string characters out of 5431917
+ 2775536 words of memory out of 5000000
+ 92293 multiletter control sequences out of 15000+600000
  700898 words of font info for 213 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,33n,108p,2558b,1817s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/benjamin/.texlive2025/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtcxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxsc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txbtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txex.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsya.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyb.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsyc.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/urw/zapfchan/uzcmi8a.pfb>
-Output written on main.pdf (100 pages, 6125087 bytes).
+Output written on main.pdf (100 pages, 6125995 bytes).
 PDF statistics:
- 1416 PDF objects out of 1440 (max. 8388607)
- 1238 compressed objects within 13 object streams
+ 1421 PDF objects out of 1440 (max. 8388607)
+ 1243 compressed objects within 13 object streams
  497 named destinations out of 1000 (max. 500000)
  364 words of extra memory for PDF output out of 10000 (max. 10000000)
 

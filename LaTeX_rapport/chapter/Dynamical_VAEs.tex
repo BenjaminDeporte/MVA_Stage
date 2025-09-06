@@ -40,9 +40,9 @@ As in vanilla \glspl{vae}, the inference model is the approximation of the true 
     q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T})
 \end{align*}
 
-Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ will simplify. 
+Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ may simplify. 
 
-It is also considered a good practice to copy/paste the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
+It is also considered a good practice (\cite{girin_dynamical_2022}) to copy/paste the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
 
 Equipped with the generative model and the inference model, we compute the log likelihood of the data $x_{1:T}$ and derive an \gls{vlb} for training (using the same manipulation as for vanilla \gls{vae} : multiplying both sides of the equation by $q_\phi$ and integrating over $dz_{1:T}$)
 \begin{align}
