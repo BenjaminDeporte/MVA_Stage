@@ -1165,6 +1165,61 @@
       \verb https://www.cambridge.org/core/books/applied-stochastic-differential-equations/6BB1B8B0819F8C12616E4A0C78C29EAA
       \endverb
     \endentry
+    \entry{sengupta_efficient_2014}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=2a9702137916390f6f5eba8fa2dee47e}{%
+           family={Sengupta},
+           familyi={S\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=8adee722e5b9472a3883aaaa1f9a066d}{%
+           family={Friston},
+           familyi={F\bibinitperiod},
+           given={K.J.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=ebfd0a5f233b32c7cb00f19c947ffef1}{%
+           family={Penny},
+           familyi={P\bibinitperiod},
+           given={W.D.},
+           giveni={W\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{fullhash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{fullhashraw}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{bibnamehash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{authorbibnamehash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{authornamehash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{authorfullhash}{8183ec272b0a349bee45a8fc363b0815}
+      \strng{authorfullhashraw}{8183ec272b0a349bee45a8fc363b0815}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{10538119}
+      \field{journaltitle}{NeuroImage}
+      \field{month}{9}
+      \field{title}{Efficient gradient computation for dynamical models}
+      \field{urlday}{7}
+      \field{urlmonth}{9}
+      \field{urlyear}{2025}
+      \field{volume}{98}
+      \field{year}{2014}
+      \field{urldateera}{ce}
+      \field{pages}{521\bibrangedash 527}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1016/j.neuroimage.2014.04.040
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1053811914003097
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1053811914003097
+      \endverb
+    \endentry
     \entry{shannon_mathematical_1948}{article}{}{}
       \name{author}{1}{}{%
         {{hash=22e2130b8d96f93daba648ff62af869b}{%

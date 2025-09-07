@@ -47,11 +47,29 @@ We reproduce here the drawing from the paper:
     \label{fig:Neural ODE}
 \end{figure}
 
-The model is trained maximizing a \gls{vlb} as usual.
+The model is trained maximizing a \gls{vlb} as usual. 
 
-A key point is then to be able to compute the gradients of the network $f$ with respect to $\theta_f$. One method is 
-the \textbf{adjoint sensitivity method} described in \cite{pontriagin_mathematical_2018}, and that the interested reader will find 
-in the appendix \ref{sec:adjoint_sensitivity_method}
+Here, the stochastic variables are $z_{t_0}$ and the $x_{t_i}$, the joint distribution writes:
+\begin{align}
+    p(x_{t_1:t_N}, z_{t_0}) &= p(z_{t_0})p(x_{t_1:t_N} \vert z_{t_0}) \\
+    &= p(z_{t_0}) \prod_{t=1}^{N}p_{\theta_x}(x_{t_i} \vert z_{t_i})
+\end{align}
+And the likelihood:
+\begin{align}
+    p(x_{t_1:t_N}) &= \frac{p(x_{t_1:t_N}, z_{t_0})}{p(z_{t_0} \vert x_{t_1:t_N})} \\
+    \log{p(x_{t_1:t_N})} &= \mathbb{E}_{q_{\phi}(z_{t_0} \vert x_{t_1:t_N})} \log{\frac{p(x_{t_1:t_N}, z_{t_0})}{q_{\phi}(z_{t_0}\vert x_{t_1:t_N})}\frac{q_{\phi}(z_{t_0}\vert x_{t_1:t_N})}{p(z_{t_0} \vert x_{t_1:t_N})}}
+\end{align}
+The \gls{vlb} is:
+\begin{align}
+    \log{p(x_{t_1:t_N})} &\geq \mathbb{E}_{q_{\phi}(z_{t_0} \vert x_{t_1:t_N})} \log{\frac{p(x_{t_1:t_N}, z_{t_0})}{q_{\phi}(z_{t_0}\vert x_{t_1:t_N})}} \\
+    &= \mathbb{E}_{q_{\phi}(z_{t_0} \vert x_{t_1:t_N})} \log{\frac{p(z_{t_0}) \prod_{t=1}^{N}p_{\theta_x}(x_{t_i} \vert z_{t_i})}{q_{\phi}(z_{t_0}\vert x_{t_1:t_N})}} \\
+    &= \sum_{i=1}^{N} \mathbb{E}_{q_{\phi}(z_{t_0} \vert x_{t_1:t_N})} \log{p_{\theta_x}(x_{t_i} \vert z_{t_i})} - \mathbb{KL}(q_{\phi}(z_{t_0} \vert x_{t_1:t_N}) \vert\vert p(z_{t_0}))
+\end{align}
+With the simple prior $p(z_{t_0}) = \mathcal{N}(0,1)$.
+
+Optimizing the \gls{vlb} requires that we compute the gradients on $\log{p_{\theta_x}(x_{t_i} \vert z_{t_i})}$ w.r.t. $\theta_f$, as the $z_{t_i}$ are solutions of the \gls{ode} depending 
+on $f$ and its set of parameters $\theta_f$. One method is the \textbf{adjoint sensitivity method} described in \cite{pontriagin_mathematical_2018}, 
+and that the interested reader will find a proof sketch in the appendix \ref{sec:adjoint_sensitivity_method}. Other methods exist, can be reviewed in \cite{sengupta_efficient_2014}.
 
 A limitation of this model is the assumption that the prior is "concentrated" in the initial value $z_{t_0}$, and that the 
 remaining latent variables are deterministically determined.
