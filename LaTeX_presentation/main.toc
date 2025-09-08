@@ -1,5 +1,6 @@
 \beamer@sectionintoc {1}{Abstract}{3}{0}{1}
-\beamer@sectionintoc {2}{Dynamical Variational AutoEncoders}{7}{0}{2}
-\beamer@sectionintoc {3}{DVAE and Stochastic Differential Equations}{42}{0}{3}
-\beamer@sectionintoc {4}{Link to stochastic calculus}{61}{0}{4}
-\beamer@sectionintoc {5}{Outro}{61}{0}{5}
+\beamer@sectionintoc {2}{Dynamical Variational AutoEncoders - Theory}{7}{0}{2}
+\beamer@sectionintoc {3}{Dynamical Variational AutoEncoders - Experiments}{33}{0}{3}
+\beamer@sectionintoc {4}{Link to stochastic calculus}{47}{0}{4}
+\beamer@sectionintoc {5}{Neural ODE and SDE}{59}{0}{5}
+\beamer@sectionintoc {6}{Outro}{64}{0}{6}

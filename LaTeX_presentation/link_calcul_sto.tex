@@ -1,1 +1,417 @@
 \section{Link to stochastic calculus}\label{Link to stochastic calculus}
+
+
+
+% ----- DEFINITION D'UN PROCESSUS STOCHASTIQUE
+
+% \begin{frame}{Stochastic calculus survival kit - Stochastic process}
+    
+% \begin{definition}
+%     A \textbf{stochastic process} is defined as:
+% \begin{align}
+%     X &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
+%     %(\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
+% \end{align}
+% where:
+%     \begin{itemize}
+%         \item $\Omega$ is a set (universe of possibles).
+%         \item $\mathcal{F}$ is a $\sigma$-algebra of parts of $\Omega$
+%         \item $\mathbb{P}$ is a probability measure on $(\Omega, \mathcal{F})$
+%         \item $T \subset \mathbb{R}_+$ represents time
+%         \item $(\mathcal{F}_t)_{t \in T}$ is a \textbf{filtration}, ie an increasing family of sub-$\sigma$-algebras of $\mathcal{F}$ indexed by $t$ : $\forall 0 \leq s \leq t \in T$, $\mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F}$.
+%         \item $(X_t)_{t \in T}$ is a family of RV defined on $(\Omega, \mathcal{F})$ with values in a measurable space $(E, \mathcal{E})$ or more simply $(E, \mathcal{B}(E))$ (set $E$ endowed with its Borelian $\sigma$-algebra).
+%         \item $(X_t)_{t \in T}$ is assumed \textbf{adapted to the filtration} $(\mathcal{F}_t)_{t \in T}$, meaning $\forall t \in T$, $X_t$ is $\mathcal{F}_t$-measurable
+%     \end{itemize}
+% \end{definition}
+% A filtration $\mathcal{F}_{t\geq 0}$ is often viewed and introduced as the \textit{set of information available at time $t$}. 
+% \end{frame}
+
+
+% ---  BROWNIAN MOTION -------------
+
+
+\begin{frame}{Stochastic calculus survival kit - Brownian motion}
+\begin{definition}
+A stochastic process $B = \brownian$ with values in $\mathbb{R}^d$ is called \textbf{Brownian motion} iff:
+\begin{itemize}
+    \item $B_0 = 0$ $\mathbb{P}$-a.s.
+    \item $\forall 0 \leq s \leq t$, the random variable $B_t-B_s$ is independent from $\mathcal{F}_t$.
+    \item $\forall 0 \leq s \leq t$, $B_t - B_s \sim \mathcal{N}(0,Q(t-s))$
+    \item $B$ is continuous \footnote{or more exactly there exists a continuous version of $B$, see \cite{mouvement-brownien-calcul-ito}}
+\end{itemize}
+where the matrix $Q \in \mathbb{S}^{++}_d$ is called the \textbf{diffusion matrix}.
+\end{definition}
+
+% Meaning : the process $B$ starts from 0, its increments are independent from the past, its increments over disjoint time intervals are independent of each other, 
+% its increments follow a centered normal law of variance equal to the length of the time interval multiplied by the diffusion matrix.
+% NB : some authors choose the define the diffusion matrix (or scalar) outside of the Brownian motion.
+
+A core result is that the quadratic variation of the Brownian motion over an interval $[s,t]$ (equiped
+with a subdivison $\pi = \{s=t_0 < t_1 < ...< t_k <... < t_n=t\}$), and defined as the limit when $\vert \pi \vert \rightarrow 0$ 
+of $V_{\pi}^{(2)} = \sum_{k=0}^{n-1} \vert f(t_{k+1})-f(t_k)\vert^{2}$, is:
+
+\begin{align}
+    &\underset{\vert \pi \vert \rightarrow 0}{\text{lim}}\,\, V_{\pi}^{(2)} = Q(t-s) \,\, \text{in} \,\, L^{2}
+\end{align}
+
+% Or, heuristically, 
+% \begin{align}
+%     \label{dB_square_is_dt}
+%     \mathbb{E}(dB_t dB_t^T) = Q dt
+% \end{align}
+\end{frame}
+
+% ------ STOCHASTIC INTEGRALS ----------------
+
+% \begin{frame}{Stochastic calculus survival kit - Stochastic Integrals}
+%     Ito then proceeds to define \textbf{stochastic integrals}, starting with elementary processes:
+
+% \begin{definition}
+% A stochastic process $X = (X_s)_{s \in [a,b]}$ is called \textbf{elementary} if there exists a subdivision $a = t_0 < t_1 < ... < t_n = b$ of $[a,b]$, such that:
+% \begin{align*}
+%     \forall t \in [a,b], \forall \omega \in \Omega, X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+% \end{align*}
+% with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
+
+% This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
+
+% We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$).
+% \end{definition}
+% \end{frame}
+
+% \begin{frame}{Stochastic calculus survival kit - Stochastic Integrals 2}
+% \begin{definition}
+% Let $X \in \mathcal{E}$, ie
+% \begin{align*}
+% X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+% \end{align*}
+% \textbf{The stochastic integral of $X$ is the real random variable} :
+% \begin{align*}
+% \int_a^b X_t dB_t := \sum_{i=0}^{n-1} X_i (B_{t_{i+1}} - B_{t_{i}})
+% \end{align*}
+% \end{definition}
+
+% The notion is then extended to other stochastic processes (in spaces of square integrable processes, see the annex).
+% \end{frame}
+
+
+\begin{frame}{Stochastic calculus survival kit - Ito's process}
+    \begin{definition}
+    A process $X = (X_t)_{t \in [0, T]}$ is called a \textbf{Ito's process} if it can be written as:
+    \begin{align}
+        \label{ito sde definition}
+        X_t &= X_0 + \int_{0}^{t}a_s ds + \int_{0}^{t} b_s dB_s \,\,\, \forall t \in [0,T]
+    \end{align}
+    where $a$ and $b$ are two stochastic processes such that the integrals exist (ie $a \in  \Lambda^1$ and 
+    $b \in \Lambda^2$).\\
+    Equivalently, we write $X_t$ as the solution to the \textbf{Stochastic Differential Equation}:
+    \begin{align*}
+        dX_t = a_t dt + b_t dB_t
+    \end{align*}
+    \end{definition}
+\end{frame}
+
+%
+% ----- ITO FORMULA ------------------
+%
+
+\begin{frame}{Stochastic calculus survival kit - Ito's formula}
+    
+\begin{theorem}
+An Itô's process remains an Itô's process when it is transformed by a deterministic function that is "smooth enough".
+
+Let $X$ be a Itô's process on $[0,T]$ : $dX_t = a_tdt + b_t dB_t$.
+
+Let $f : \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}, (x,t) \mapsto f(x,t)$ be 
+$\mathcal{C}^{2,1}$ : $\mathcal{C}^2$ in $x$, and $\mathcal{C}^1$ in $t$.
+
+Then $(f(X_t,t))_{t \in [0,T]}$ is also an Itô's process and:
+\begin{align}
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + \frac{\partial f}{\partial x}(X_t,t) dX_t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2}(X_t,t)b_t^2 dt
+\end{align}
+The last term is Itô's complementary term.\\
+In dimension $d > 1$:
+\begin{align}
+    d\left( f(X_t,t) \right) = \frac{\partial f}{\partial t}(X_t,t) dt + (\nabla f)^T (X_t,t) dX_t + \frac{1}{2}\text{Tr} \left( (\nabla \nabla^T f) dX_t dX_t^T \right)
+\end{align}
+\end{theorem}
+\end{frame}
+
+%
+% --- SDE defintion
+%
+
+\begin{frame}{Definition of a Stochastic Differential Equation}
+    \begin{definition}
+            Let:
+    \begin{itemize}
+        \item $B$ be a Brownian motion $B_t \in \mathbb{R}^S$, of diffusion matrix $Q$
+        \item $F$ be a deterministic function \textbf{drift} $F : \mathbb{R}^D \times \mathbb{R}\rightarrow \mathbb{R}^{D \times D}$
+        \item $L$ be a deterministic function \textbf{diffusion} (aka dispersion) $L : \mathbb{R}^D \times \mathbb{R}\rightarrow \mathbb{R}^{D \times S}$ 
+    \end{itemize}
+
+    The \gls{sde} is:
+    \begin{align}
+        \label{generic_sde}
+        dX_t &= F(X_t,t) dt + L(X_t,t) dB_t \\
+        X_{t_0} &= X_0
+    \end{align}
+    where $X_0$ can be a scalar constant or a random variable.
+    A stochastic process $X$ is said to be solution of \ref{generic_sde} if it verifies:
+    \begin{align*}
+        \forall t, \,\, X_t = X_0 + \int_{0}^{t} F(X_u, u)du + \int_{0}^{t} L(X_u,u) dB_u
+    \end{align*}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{A solution to an SDE is a Markov Process}
+\begin{itemize}
+    \item As for \gls{ode}, a solution to \ref{generic_sde} might not exist. Also, results similar to Cauchy-Lipschitz 
+exist for existence and unicity, based on assumptions on $F$ and $L$. 
+    \item Intuitively, we can see that an "infinitesimal increment" of $X_t$ to $X_{t+\Delta_t}$ verifies :
+$\Delta {X_t} \approx F(X_t, t) \Delta t + L(X_t,t) dB_t$. But $dB_t$ is a Brownian increment independent of $X_t$,
+This suggests that $X_{t+ \Delta_t}$ depends on the past only by $X_t$. 
+    \item In other words, $X_t \vert \mathcal{F}_s = X_t \vert X_s$ 
+for any $0 < s < t$. ie : \textbf{the solution of a \gls{sde} is a Markov process}. (The formal proof is given in \cite{mouvement-brownien-calcul-ito}.)
+\end{itemize}
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black]
+    The solution to a \gls{sde} is a Markov process
+\end{tcolorbox}
+\end{frame}
+
+% \begin{frame}{Transition Kernels}
+%     \begin{itemize}
+%         \item Formally, a Markov process is caracterized by its \textbf{transition kernels}. 
+%         \item That is, for any $s < t$, and any $A \in \mathcal{B}_{\mathbb{R}^{D}}$, a Markov process verifies 
+% $\mathbb{P}(X_t \in A \vert \mathcal{F}_s) = \mathbb{P}(X_t \in A \vert X_s)$.
+%         \item the transition kernels of $X$ are the applications $P_{s,t} : \mathbb{R}^{D} \times \mathcal{B}_{\mathbb{R}^{D}} \rightarrow [0,1]$, 
+%             such that for any $f : \mathbb{R}^{D} \rightarrow \mathbb{R}$ measurable and bounded, we have:
+%             \begin{align}
+%                 P_{s,t}f(x) = \int_{{\mathbb{R}^{D}}} P_{s,t}(x,dy) f(y)
+%             \end{align}
+%         So $P_{s,t}$ actually is the probability measure of starting from $x$ at time $s$, and reach $y \in dy$ at time $t$.
+%     \end{itemize}
+    
+% When the transition kernels have densities $p(x,t \vert y,s)$ (ie starting from $y$ at time $s$, and
+% reaching $x$ at time $t$), then a fundamental result is the \textbf{Fokker Plank Kolmogorov} equation 
+% (also known as forward Kolomogorov) :
+% \begin{align}
+%     \label{FPK}
+%     \frac{\partial p}{\partial y} &= \mathcal{A}^{*}p \\
+%     \mathcal{A}^{*}(\bullet) &= - \sum_{i=1}^{D} \frac{\partial}{\partial x_i} (F_i(x,t)(\bullet)) + \
+%         \frac{1}{2} \sum_{i,j=1}^{D} \frac{\partial^{2}}{\partial x_i \partial x_j} (L(x,t)QL(x,t)^{T}\vert_{i,j} (\bullet))
+% \end{align}
+% \end{frame}
+
+\begin{frame}{Linear SDE}
+    A particularly useful flavor of \gls{sde} is the linear \gls{sde}, that allows some close-form (or at least nicer) solutions:
+
+    \begin{definition}
+        With the same notations as \ref{generic_sde}:
+
+        The linear \gls{sde} is:
+        \begin{align}
+            \label{linear_sde}
+            dX_t &= F(t) X_t dt + L(t) dB_t \\
+            X_{t_0} &= X_0 \sim \mathcal{N}(m_0, P_0)
+        \end{align}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Transition kernels for linear SDEs}
+In this case, the transition kernels family and the solution write:
+\begin{align}
+    \Psi &: \mathbb{R}^{2 } \rightarrow \mathbb{R}^{D} \\
+    \frac{\partial \Psi (\tau, t)}{\partial \tau} &= F(\tau) \Psi(\tau, t) \\
+    \frac{\partial \Psi (\tau, t)}{\partial t} &= - \Psi(\tau, t) F(t)  \\
+    \Psi(\tau, t) &= \Psi(\tau, s) \Psi(s, t) \,\,\, (\text{Chapman-Kolmogorov}) \\
+    \Psi(\tau, t) &= \Psi(t, \tau)^{-1} \\ 
+    \Psi(t,t) &= I_d \\
+    \label{solution_linear_sde}
+    X_t &= \Psi(t,t_0) X_0 + \int_{t_0}^{t} \Psi(t, \tau) L(\tau) dB_{\tau} \\
+    X_{t_0} &= X_0 \sim \mathcal{N}(m_0, P_0)
+\end{align}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black]
+    The solution to a Linear \gls{sde} is a Gaussian process. (The converse is NOT true!)
+\end{tcolorbox}
+\end{frame}
+
+% \begin{frame}{Gaussian Processes as solutions of linear SDE}
+%     \begin{itemize}
+%         \item \textbf{Brownian motion} : solution to $dZ_t = dB_t$, \gls{gp} with kernel $k(t,t') = \text{min}(t,t')$ (see \ref{sec:brownian_motion_gaussian_and_markov})
+%         \item \textbf{Ornstein Uhlenbeck} : the O.U. process
+%             \begin{align}
+%                 dZ_t &= - \frac{1}{l} Z_t dt + dB_t
+%             \end{align}
+%             where $dB_t$ has diffusion coefficient $\frac{2 \sigma^{2}}{l}$, is a \gls{gp} with kernel:
+%             \begin{align}
+%                 k_{\text{exp}} &= \sigma^{2} \exp{(- \frac{\vert t-t' \vert}{l})}
+%             \end{align}
+%         \item \textbf{Matern} : the \gls{sde} representation with
+%             \begin{align}
+%                 F = \begin{pmatrix}
+%                     0 & 1 \\
+%                     -\lambda^{2} & -2 \lambda 
+%                 \end{pmatrix}, 
+%                 L = \begin{pmatrix}
+%                     0 \\ 1
+%                 \end{pmatrix}, 
+%                 H &= \begin{pmatrix}
+%                     1 \\ 0
+%                 \end{pmatrix}
+%             \end{align}
+%             is a \gls{gp} with the Matern kernel with $\nu = \frac{3}{2}$:
+%             \begin{align}
+%                 k_{\text{Matern}} &= \sigma^{2} \left(
+%                     1 + \frac{\sqrt{3} \vert t-t' \vert}{l}
+%                 \right) \exp{
+%                     \left(
+%                         -\frac{\sqrt{3} \vert t-t' \vert}{l}
+%                     \right)
+%                 }
+%         \end{align}
+%         and $\lambda = \frac{\sqrt{3}}{l}$, diffusion is $q = 4\lambda^{3}\sigma^{2}$.
+%     \end{itemize}
+% \end{frame}
+
+
+% \begin{frame}{Some Gaussian Processes are NOT solutions to linear \gls{sde}}
+%     Conversely, the following kernels can not be used to derive an associated linear \gls{sde}:
+
+% \begin{itemize}
+%     \item \textbf{squared exponential} : the widely used
+%     \begin{align}
+%         k_{\text{se}}(t,t') &= \sigma^{2} \exp{\left(
+%             - \frac{\vert t-t' \vert^{2}}{2l^{2}}
+%         \right)}
+%     \end{align}
+%     \item \textbf{rational quadratic}:
+%     \begin{align}
+%         k_{\text{rq}}(t,t') &= \sigma^{2} \left(
+%             1 + \frac{\vert t-t' \vert^{2}}{2 \alpha l^{2}}
+%         \right)^{-\alpha}
+%     \end{align}
+%     with $\alpha > 0$.
+% \end{itemize}
+
+% In that latter case, one can use spectral decomposition (ie Mercer's theorem, see MVA kernel class \cite{mva_kernel_class}) 
+% to approximate the kernel function and determine an associated linear \gls{sde}.
+% \end{frame}
+
+\begin{frame}{General Filtering/Smoothing equations with SDEs}
+    \begin{itemize}
+        \item In practice, we posit a stochastic process prior defined by a general \gls{sde}, and we have discrete-time measurements.
+        \item Formally, the \gls{cd-ssm} is defined by:
+            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Continuous-Discrete State Space model]
+                \begin{align}
+                    dZ_t &= F(Z_t, t)dt + L(Z_t,t) dB_t \\
+                    x_k &\sim p(x_k \vert z_{t_k})
+                \end{align}
+                where:
+                \begin{itemize}
+                    \item $Z_t \in \mathbb{R}^{D}$ is the \textit{state}, ie a stochastic process defining the latent variable.
+                    \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$.
+                    \item $F \in \mathbb{R}^{D}$ and $L \in \mathbb{R}^{D \times S}$ are the usual drift and dispersion functions.
+                    \item $x_k$ are the observations taken at \textbf{discrete times $(t_k)_{k=1,...,n}$}
+                \end{itemize}
+                NB : the observations are assumed to conditionnally independent of the state.
+            \end{tcolorbox}
+        % \item The \gls{gpvae} is a particular case of \gls{cd-ssm} with a linear \gls{sde}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Filtering}
+    \begin{itemize}
+        \item \textbf{Filtering} is the problem of determining the posterior probability of the latent $Z_t$ given the 
+discrete measurements, ie finding $p(Z_t \vert x_{1:k})$ with $t_k \leq t$. This corresponds to 
+determining the generative transition probability $p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})$ in our 
+\gls{dvae} setting.
+        \item In general, close-form solutions can be derived when the latent variables \gls{sde} is linear. In continuous 
+time, we get the \textbf{Kalman-Bucy} filter equations, which discretize in the well-known \textbf{Kalman filter}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Filtering}
+        \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Kalman-Bucy filter]
+            \begin{align}
+                dZ_t &= F(t)Z_t dt + L(t) dB_t \\
+                dX_t &= H(t)X_t dt + d\eta_t
+            \end{align}
+            % \begin{itemize}
+            %     \item $Z_t \in \mathbb{R}^{D}$ is the state/latent, $X_t \in \mathbb{R}^{M}$ is the observation/measurement.
+            %     \item $B_t \in \mathbb{R}^{S}$ is a Brownian motion with diffusion matrix $Q$, $\eta_t \in \mathbb{R}^{S}$ is a BM with diffusion matrix $R$.
+            %     \item $F \in \mathbb{R}^{D}$ drift, $L \in \mathbb{R}^{D \times S}$ dispersion, $H \in \mathbb{R}^{D \times M}$ observation model.
+            % \end{itemize}
+            NB : the observations are assumed to conditionnally independent of the state.
+            Then the Bayesian filter (Kalman-Bucy) is:
+            \begin{align}
+                p(z_t \vert x_{<t}) &= \mathcal{N}(Z_t \vert m_t, P_t) \\
+                K &= P H(t)^{T} R^{-1} \\
+                dm &= F(t)m dt + K (dX_t - H(t) m dt) \\
+                \frac{dP}{dt} &= F(t)P + P F(t)^{T} + L(t)QL(t)^{T} - KRK^{T}
+            \end{align}
+        \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{Smoothing}
+    \begin{itemize}
+        \item \textbf{Smoothing} is the problem of determining the posterior probability of the latent $Z_t$ given 
+all known observations, ie finding $p(Z_t \vert x_{1:T})$ for all $t \in [0,T]$. 
+        \item This corresponds to determining the inference model $q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})$ in the \gls{dvae} setting.
+        \item Discretizing the transition density in \gls{cd-ssm}, we have
+            \begin{align}
+                Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
+                X_k &\sim p(X_k \vert Z_{t_k})
+            \end{align}
+    \end{itemize}
+\end{frame}
+
+% \begin{frame}
+%             \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Bayesian smoother]
+%                 \begin{align}
+%                     Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
+%                     X_k &\sim p(X_k \vert Z_{t_k})
+%                 \end{align}
+%                 The \textit{Bayesian smoother} is, for any $k < T$:
+%                 \begin{align}
+%                     p(Z_{t_{k+1}} \vert X_{1:k}) &= \int p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_k} \vert X_{1:k}) dZ_{t_k} \\
+%                     p(Z_{t_k} \vert X_{1:T}) &= p(Z_{t_{k}} \vert X_{1:k})\int \left(
+%                         \frac{
+%                             p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_{k+1}} \vert X_{1:T})
+%                         }{
+%                             p(Z_{t_{k+1}} \vert X_{1:k}
+%                         }dZ_{t_{k+1}}
+%                     \right)
+%                 \end{align}
+%                 The backward recursion is started from the final step, where the filtering and smoothing densities 
+%                 are the same : $p(Z_{t_T} \vert X_{1:T})$.
+%             \end{tcolorbox}
+% \end{frame}
+
+
+\begin{frame}{GP-VAE with accomodating kernels : filtering/smoothing in $O(n)$}
+    \begin{itemize}
+        \item We wrap up here linking the filtering/smoothing theory of linear \gls{sde} with the \gls{gpvae} 
+model of \cite{fortuin_gp-vae:_2020}.
+        \item Using the formalization above, a \gls{gpvae} with Gaussian observation is basically:
+            \begin{align}
+                \label{gpvae gaussian observation}
+                Z_t &\sim \mathcal{GP}(m(\bullet), k(\bullet, \bullet)) \\
+                X_{t_k} &\sim \mathcal{N}(X_{t_k} \vert Z_{t_k}, \sigma^{2})
+            \end{align}
+        \item Computing the posterior distribution $p(Z_t \vert X_{t_1:t_T})$ is performing a Gaussian Process 
+regression (see \cite{rasmussen_gaussian_2008}), which naively scales in $O(n^{3})$.
+        \item However, if the Gaussian process can be written as a linear \gls{sde}:
+            \begin{align}
+                \label{gpvae linear sde form}
+                dZ_t &= F(t)Z_t dt + L(t)dB_t \\
+                X_{t_k} &\sim \mathcal{N}(X_{t_k} \vert Z_{t_k}, \sigma^{2})
+            \end{align}
+            then the Kalman filter and smoother apply, that scale in $O(n)$. 
+    \end{itemize}
+    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=GP Prior regression in $O(N)$ cost]
+        If the \gls{gp} prior can be written as the solution to a linear \gls{sde}, then the \gls{gp} prior regression problem 
+        can be performed with linear cost with the Kalman-Bucy equations.
+    \end{tcolorbox}
+\end{frame}

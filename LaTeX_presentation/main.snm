@@ -1,52 +1,60 @@
 \beamer@slide {Abstract}{3}
 \beamer@slide {DVAEs}{7}
-\beamer@slide {q_phi_dev}{17}
-\beamer@slide {q_phi_dev}{17}
-\beamer@slide {gen_model_dvae}{20}
-\beamer@slide {gen_model_dvae}{20}
-\beamer@slide {inf_model_dvae}{20}
-\beamer@slide {inf_model_dvae}{20}
-\beamer@slide {vlb_dvae}{20}
-\beamer@slide {vlb_dvae}{20}
-\beamer@slide {fig:graphical_model_dkf}{21}
-\beamer@slide {dkf_posterior}{22}
-\beamer@slide {dkf_posterior}{22}
-\beamer@slide {gen_model_dkf}{25}
-\beamer@slide {gen_model_dkf}{25}
-\beamer@slide {inf_model_dkf}{25}
-\beamer@slide {inf_model_dkf}{25}
-\beamer@slide {vlb_dkf}{25}
-\beamer@slide {vlb_dkf}{25}
-\beamer@slide {fig:graphical_model_vrnn}{30}
-\beamer@slide {gen_model_vrnn}{31}
-\beamer@slide {gen_model_vrnn}{31}
-\beamer@slide {inf_model_vrnn}{31}
-\beamer@slide {inf_model_vrnn}{31}
-\beamer@slide {vlb_vrnn}{31}
-\beamer@slide {vlb_vrnn}{31}
-\beamer@slide {fig:graphical_model_gpvae}{35}
-\beamer@slide {joint_gpvae}{35}
-\beamer@slide {joint_gpvae}{35}
-\beamer@slide {gen_model_gpvae}{38}
-\beamer@slide {gen_model_gpvae}{38}
-\beamer@slide {inf_model_gpvae}{38}
-\beamer@slide {inf_model_gpvae}{38}
-\beamer@slide {vlb_gpvae}{38}
-\beamer@slide {vlb_gpvae}{38}
-\beamer@slide {DVAEs and SDEs}{42}
-\beamer@slide {ito sde definition}{46}
-\beamer@slide {ito sde definition}{46}
-\beamer@slide {generic_sde}{48}
-\beamer@slide {generic_sde}{48}
-\beamer@slide {FPK}{50}
-\beamer@slide {FPK}{50}
-\beamer@slide {linear_sde}{51}
-\beamer@slide {linear_sde}{51}
-\beamer@slide {solution_linear_sde}{52}
-\beamer@slide {solution_linear_sde}{52}
+\beamer@slide {q_phi_dev}{14}
+\beamer@slide {q_phi_dev}{14}
+\beamer@slide {gen_model_dvae}{17}
+\beamer@slide {gen_model_dvae}{17}
+\beamer@slide {inf_model_dvae}{17}
+\beamer@slide {inf_model_dvae}{17}
+\beamer@slide {vlb_dvae}{17}
+\beamer@slide {vlb_dvae}{17}
+\beamer@slide {fig:graphical_model_dkf}{18}
+\beamer@slide {dkf_posterior}{19}
+\beamer@slide {dkf_posterior}{19}
+\beamer@slide {gen_model_dkf}{22}
+\beamer@slide {gen_model_dkf}{22}
+\beamer@slide {inf_model_dkf}{22}
+\beamer@slide {inf_model_dkf}{22}
+\beamer@slide {vlb_dkf}{22}
+\beamer@slide {vlb_dkf}{22}
+\beamer@slide {fig:graphical_model_vrnn}{25}
+\beamer@slide {gen_model_vrnn}{26}
+\beamer@slide {gen_model_vrnn}{26}
+\beamer@slide {inf_model_vrnn}{26}
+\beamer@slide {inf_model_vrnn}{26}
+\beamer@slide {vlb_vrnn}{26}
+\beamer@slide {vlb_vrnn}{26}
+\beamer@slide {fig:graphical_model_gpvae}{28}
+\beamer@slide {joint_gpvae}{28}
+\beamer@slide {joint_gpvae}{28}
+\beamer@slide {gen_model_gpvae}{31}
+\beamer@slide {gen_model_gpvae}{31}
+\beamer@slide {inf_model_gpvae}{31}
+\beamer@slide {inf_model_gpvae}{31}
+\beamer@slide {vlb_gpvae}{31}
+\beamer@slide {vlb_gpvae}{31}
+\beamer@slide {DVAEs and SDEs}{33}
+\beamer@slide {fig:One sprite}{37}
+\beamer@slide {fig:sprite series}{38}
+\beamer@slide {fig:VRNN Sprites reconstruction}{39}
+\beamer@slide {fig:sprite generation}{40}
+\beamer@slide {fig:GPVAE Sprites reconstruction 1}{43}
+\beamer@slide {fig:GPVAE Sprites reconstruction 2}{44}
+\beamer@slide {fig:GPVAE Sprites reconstruction 3}{45}
+\beamer@slide {fig:GPVAE Sprites generation 1}{46}
+\beamer@slide {Link to stochastic calculus}{47}
+\beamer@slide {ito sde definition}{48}
+\beamer@slide {ito sde definition}{48}
+\beamer@slide {generic_sde}{50}
+\beamer@slide {generic_sde}{50}
+\beamer@slide {linear_sde}{52}
+\beamer@slide {linear_sde}{52}
+\beamer@slide {solution_linear_sde}{53}
+\beamer@slide {solution_linear_sde}{53}
 \beamer@slide {gpvae gaussian observation}{58}
 \beamer@slide {gpvae gaussian observation}{58}
 \beamer@slide {gpvae linear sde form}{58}
 \beamer@slide {gpvae linear sde form}{58}
-\beamer@slide {Link to stochastic calculus}{61}
-\beamer@slide {outro}{61}
+\beamer@slide {Neural ODE and SDE}{59}
+\beamer@slide {fig:Neural ODE}{61}
+\beamer@slide {outro}{64}

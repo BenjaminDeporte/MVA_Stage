@@ -41,6 +41,8 @@
   \vskip0pt%
 }
 
+\input{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/glossary.tex}
+\input{newcommands}
 \makeglossaries
 
 \title{Dynamical Variational Autoencoders\\ Links to stochastic differential equations}
@@ -52,9 +54,6 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 % \text{ENS Paris-Saclay, MVA}
 
 \date{August 2025 - DRAFT - Notes de Recherche}
-
-\input{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/glossary.tex}
-\input{newcommands}
 
 \begin{document}
 
@@ -68,7 +67,7 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 \input{dvae_theory}
 \input{dvae_xps}
 \input{link_calcul_sto}
-% \input{experiments}
+\input{neural_ode_sde}
 \input{outro}
 
 \begin{frame}[allowframebreaks,noframenumbering]{References}
@@ -81,8 +80,8 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 
 % \input{annexes}
 
-% \begin{frame}
-%     \printglossary
-% \end{frame}
+\begin{frame}
+    \printglossary
+\end{frame}
 
 \end{document}

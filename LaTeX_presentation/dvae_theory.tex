@@ -1,23 +1,16 @@
-\section{Dynamical Variational AutoEncoders}\label{DVAEs}
+\section{Dynamical Variational AutoEncoders - Theory}\label{DVAEs}
 
-\begin{frame}{Dynamical Variational Auto Encoders : what is it ?}
+\begin{frame}{Dynamical Variational Auto Encoders : generalities}
     \begin{itemize}
-        \item <1-> \textbf{Dynamical Variational Auto Encoders} are a class of VAEs in which some structure is given to the latent variables to encode the time dependency.
-        \item <2-> DVAEs can be discrete-time or continuous models, can require regularly-sampled data, or can manage irregularly sampled data.
-        \item <3-> For example, a Kalman filter is the simplest DVAE : 
-        \begin{itemize}
-            \item first order Markov chain for latent variables
-            \item linear Gaussian observation model.
-        \end{itemize}
-        \item <4-> As in vanilla VAEs, inference is performed by evidence lower bound maximization.
-        \item <5-> Notations
-            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black]
-                \begin{itemize}
-                    \item the data is a sequence of $T$ points noted \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\} \in \mathbb{R}^F$.
-                    \item the sequence of the associated $T$ latent variables is \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$
-                    \item optionally, there may be a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$
-                \end{itemize}
-            \end{tcolorbox}
+        \item <1-> Time : regular $t_1, t_2,... t_T$ or irregular $t_{i_1}, t_{i_2},..., t_{i_T}$ sampling times
+        \item <1-> Observations : a sequence of $T$ points \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\}$ (or \textbf{$x_{t_{i_1}:t_{i_T}}$} $= \{(x_{t_i})_{i=1,...,T}\}) \in \mathbb{R}^F$.
+        \item <1-> Latent variables : an associated sequence of $T$ latent variables \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$ (resp. $z_{t_1},..,z_{t_T}$)
+        \item <1-> Optionally, a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$ (resp. $u_{t_i}, i=1,...,T$)
+        \item <2-> \textbf{Prior encoding a temporal dependency over $z_i$}
+        \item <2-> Arbitrary likelihood (observation model)
+        \item <2-> Approximate posterior usually same form as true posterior
+        \item <2-> Use \textbf{D-Separation} in \gls{gpm} to simplify expressions
+        \item <2-> Untractable true posterior $\implies$ maximize a \gls{vlb}
     \end{itemize}
 \end{frame}
 
@@ -29,24 +22,23 @@
             &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
         \end{align*}
     \end{block}
-    \textbf{The only assumption that is made is a a causal dependency of the $x_t, z_t$ on the inputs $u_{1:t}$, thus allowing to change the conditioning $\vert u_{1:T}$ into $\vert u_{1:t}$.}
-
-    In the rest of the presentation, we will consider systems with no input, and drop the conditioning on $u_{1:t}$ to simplify notations. However, the reasoning remains the same with inputs.
+    \textbf{Only assumption : causal dependency $x_t, z_t$ on inputs $u_{1:t}$ $\implies$ $\vert u_{1:T} = \vert u_{1:t}$.}
+    (NB : assume no input in the rest of the presentation)
 \end{frame}
 
 \begin{frame}{Posteriors}
     \begin{itemize}
-        \item <1-> The true posterior  $p(z_{1:T} \vert x_{1:T})$ is usually untractable, but can be developed:
+        \item <1-> True posterior  $p(z_{1:T} \vert x_{1:T})$ usually untractable::
             \begin{align*}
                 p(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T p(z_t \vert z_{1:t-1}, x_{1:T})
             \end{align*}
         % It can be noted that the true posterior exhibits a dependence of $z_t$ on \textit{past} $z_{1:t-1}$, but a dependence on the \textit{whole} data sequence $x_{1:T}$ (think Kalman smoother).
-        \item <2-> As in vanilla \glspl{vae}, the inference model is the approximation of the true posterior by an parametric encoder $q_{\phi}(z_{1:T} \vert x_{1:T})$, where $\phi$ is the set of parameters:
+        \item <2-> Inference model : approximate posterior by an parametric encoder $q_{\phi}(z_{1:T} \vert x_{1:T})$ ($\phi$ the set of parameters):
             \begin{align*}
                 q_{\phi}(z_{1:T} \vert x_{1:T}) &= \prod_{t=1}^T q_\phi(z_t \vert z_{1:t-1}, x_{1:T})
             \end{align*}
-        \item <3-> Depending on the chosen graphical models and the corresponding D-separation results, the observation model $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t})$ (with $\theta_x$ the set of parameters of the observation model) and approximate posterior $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ will simplify. 
-        \item <4-> It is also considered a good practice to copy the expression of $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$ from the expression of the true posterior resulting from the D-separation analysis (see next chapters for examples).
+        \item <3-> D-separation on \gls{gpm} to simplify $p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})$ and $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$
+        \item <4-> Good practice : use the true posterior expression $p(z_{1:T} \vert x_{1:T})$ for $q_\phi(z_t \vert z_{1:t-1}, x_{1:T})$
     \end{itemize}
 \end{frame}
 
@@ -78,9 +70,9 @@
             &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} -\\
             &\sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
         \end{align}
-        \item The first term is the usual \textbf{reconstruction error}.
-        \item The second term is a regularization term, summing over the time steps the average divergence between the approximate posterior distribution of the latent variable at time $t$, and its real distribution.
-        \item As in vanilla \gls{vae}, the sampling over $q_\phi$ requires the use of the "re parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
+        \item First term : often called \textbf{reconstruction error} (formally a negative log likelihood)
+        \item Second term : \textbf{regularization term}, average divergence between the approximate posterior distribution at time $t$, and its real distribution.
+        \item Sampling over $q_\phi$ requires the "re parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
     \end{itemize}
 \end{frame}
 
@@ -118,56 +110,60 @@
 %
 %
 
-\begin{frame}{Deep Kalman Filter}
-Deep Kalman Filter \gls{dag}:
-
-\begin{figure}[h]
-        \centering
-        % \includegraphics[width=0.5\linewidth]{}
-        \label{fig:graphical_model_dkf}
-    \begin{tikzpicture}[
-        HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
-        UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
-        OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
-    ]
-    % nodes
-    \node[HIDDEN] (a) {$...$};
-    \node[UNOBS] (z_t_1) [right= of a] {$z_{t-1}$} edge[<-, thin] (a);
-    \node[UNOBS] (z_t)  [right= of z_t_1] {$z_{t}$} edge[<-, thin] (z_t_1);
-    \node[UNOBS] (z_t_p1) [right= of z_t] {$z_{t+1}$} edge[<-, thin] (z_t);
-    \node[HIDDEN] (e) [right= of z_t_p1] {$...$} edge[<-, thin] (z_t_p1);
-    \node[OBS] (x_t_1) [below= of z_t_1] {$x_{t-1}$} edge[<-, thin] (z_t_1);
-    \node[OBS] (x_t) [below= of z_t] {$x_{t}$} edge[<-, thin] (z_t);
-    \node[OBS] (x_t_p1) [below= of z_t_p1] {$x_{t+1}$} edge[<-, thin] (z_t_p1);
-    \end{tikzpicture}
-    \caption{Probabilistic model of a Deep Kalman Filter}
-\end{figure}
+\begin{frame}{First model : Deep Kalman Filter}
+Deep Kalman Filter \gls{dag}: \gls{state-space-model} with Gaussian likelihood with neural nets.
+    \begin{figure}[h]
+            \centering
+            % \includegraphics[width=0.5\linewidth]{}
+            \label{fig:graphical_model_dkf}
+        \begin{tikzpicture}[
+            HIDDEN/.style={circle, draw=black!0, thin, minimum size=10mm},
+            UNOBS/.style={circle, draw=black!80, thin, minimum size=10mm},
+            OBS/.style={circle, draw=black!80, fill=gray!50, thin, minimum size=10mm}
+        ]
+        % nodes
+        \node[HIDDEN] (a) {$...$};
+        \node[UNOBS] (z_t_1) [right= of a] {$z_{t-1}$} edge[<-, thin] (a);
+        \node[UNOBS] (z_t)  [right= of z_t_1] {$z_{t}$} edge[<-, thin] (z_t_1);
+        \node[UNOBS] (z_t_p1) [right= of z_t] {$z_{t+1}$} edge[<-, thin] (z_t);
+        \node[HIDDEN] (e) [right= of z_t_p1] {$...$} edge[<-, thin] (z_t_p1);
+        \node[OBS] (x_t_1) [below= of z_t_1] {$x_{t-1}$} edge[<-, thin] (z_t_1);
+        \node[OBS] (x_t) [below= of z_t] {$x_{t}$} edge[<-, thin] (z_t);
+        \node[OBS] (x_t_p1) [below= of z_t_p1] {$x_{t+1}$} edge[<-, thin] (z_t_p1);
+        \end{tikzpicture}
+        \caption{Probabilistic model of a Deep Kalman Filter}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Deep Kalman Filter - generative model}
-Using \textbf{D-separation} \cite{bishop_pattern_2016}, \cite{ProbabilisticGraphicalModels}, \cite{ProbabilisticMachineLearning} on the \gls{dag} to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. Conditioning on $z_t$ and $z_{t-1}$ drives:
-\begin{align}
-    p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= p_{\theta_x}(x_t \vert z_t) \\
-    p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t}) &= p_{\theta_z}(z_t \vert z_{t-1}) \\
-    \label{dkf_posterior}
-    q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T}) &= q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) 
-\end{align}
+    \begin{itemize}
+        \item Use \textbf{D-separation} (\cite{PRML}, \cite{ProbabilisticGraphicalModels}, \cite{ProbabilisticMachineLearning}) to simplify the general \gls{dvae} expressions \ref{gen_model_dvae} and \ref{inf_model_dvae}. 
+        \item Conditioning on $z_t$ and $z_{t-1}$ drives:
+            \begin{align}
+                p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t}) &= p_{\theta_x}(x_t \vert z_t) \\
+                p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t}) &= p_{\theta_z}(z_t \vert z_{t-1}) \\
+                \label{dkf_posterior}
+                q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T}) &= q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) 
+            \end{align}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Deep Kalman Filter - generative model - 2}
-We then choose Gaussian distributions for $p_{\theta_x}, p_{\theta_z}$ and $q_\phi$, with mean and diagonal covariance, learnt by neural networks.
-\begin{align}
-    p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
-    p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}\\
-    q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
-\end{align}
-Some other formulations of the approximate posterior (encoder) are possible. For example:
-\begin{align*}
-    q_{\phi}(z_t \vert z_{t-1}, x_t) \\
-    q_{\phi}(z_t \vert z_{1:t}, x_{1:t}) \\
-    q_{\phi}(z_t \vert z_{1:T}, x_{1:T})
-\end{align*}
-We have chosen \ref{dkf_posterior} for the implementation, as it has the same formulation as the true posterior and respects the corresponding dependencies.
+\begin{itemize}
+    \item Gaussian distributions for $p_{\theta_x}, p_{\theta_z}$ and $q_\phi$ (mean and diagonal covariance learnt by neural networks).
+        \begin{align}
+            p_{\theta_x}(x_t \vert z_t) &= \NNdiag{x_t}{\mu_{\theta_x}(z_t)}{\sigma_{\theta_x}^2(z_t)}\\
+            p_{\theta_z}(z_t \vert z_{t-1}) &= \NNdiag{z_t}{\mu_{\theta_z}(z_{t-1})}{\sigma_{\theta_z}^2(z_{t-1})}\\
+            q_{\phi}(z_t \vert z_{t-1}, x_{t:T}) &= \NNdiag{z_t}{\mu_{\phi}(z_{t-1}, x_{t:T})}{\sigma_{\theta_z}^2(z_{t-1},x_{t:T})}
+        \end{align}
+    \item Some other formulations of the approximate posterior (encoder) are possible. For example:
+        \begin{align*}
+            q_{\phi}(z_t \vert z_{t-1}, x_t) \\
+            q_{\phi}(z_t \vert z_{1:t}, x_{1:t}) \\
+            q_{\phi}(z_t \vert z_{1:T}, x_{1:T})
+        \end{align*}
+    \item We have chosen \ref{dkf_posterior} for the implementation (same form as the true posterior).
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Deep Kalman Filter - ELBO}
@@ -207,8 +203,9 @@ Using D-Separation, the \gls{elbo} \ref{vlb_dvae} simplifies into:
 \begin{frame}{DKF - Torch}
     \begin{itemize}
         \item The $\KL{q_\phi}{p_{\theta_z}}$'s have a close form, as the two distributions are Gaussians. % (see \ref{sec:KL-two-exponential-family-distributions})
-
-        \item Following \cite{girin_dynamical_2022}, we use forward \gls{lstm} to encode sequences such as $x_{1:t}$, and backward \gls{lstm} to encode sequences such as $x_{t:T}$, as inputs into the \gls{mlp} parametrizing the distributions. 
+        \item Encode $x_{1:t}$ with forward \gls{lstm}
+        \item Encode $x_{t:T}$ with backward \gls{lstm} 
+        \item Use \glspl{lstm} states as inputs to the \gls{mlp} parametrizing the distributions. 
         \item For example:
             \begin{align*}
                 \overleftarrow{g_t} &= \text{Backward LSTM}(\overleftarrow{g_{t+1}}, x_t) \,\, (\text{encodes} \,\, x_{t:T}) \\
@@ -350,35 +347,23 @@ The PyTorch implementation is described below:
 % % \end{landscape}
 \end{frame}
 
-\begin{frame}{DKF - Toy training - Loss}
-    Posterior collapse... Need $\beta$ schedule (weight between reconstruction loss and $\mathbb{KL}$)
-    \begin{center}
-    \includegraphics[width=1.0\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png}
-    \end{center}
-    % \caption{DKF Loss}
-\end{frame}
 
-\begin{frame}{DKF - Toy training - Generations}
-    \begin{center}
-    \includegraphics[width=0.8\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png}
-    % \caption{DKF Predictions}
-    \end{center}
-\end{frame}
 
-%
-%
-% ==========================================================
-%
-% === VARIATIONAL RNN ===
-%
-% ==========================================================
-%
-%
+% %
+% %
+% % ==========================================================
+% %
+% % === VARIATIONAL RNN ===
+% %
+% % ==========================================================
+% %
+% %
 
 \begin{frame}{Variational RNN}
-The \gls{vrnn} is the most expressive \gls{dvae}, in that sense that the general expressions \ref{gen_model_dvae}, \ref{inf_model_dvae} and \gls{vlb} \ref{vlb_dvae} can not be simplified.
-
-The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables, to account for the full unsimplified expressions. Specifically:
+    \begin{itemize}
+        \item The \gls{vrnn} is the most expressive \gls{dvae} : the general expressions \ref{gen_model_dvae}, \ref{inf_model_dvae} and \gls{vlb} \ref{vlb_dvae} can not be simplified.
+        \item The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables, to account for the full unsimplified expressions. Specifically:
+    \end{itemize}
 
 \begin{figure}[h]
     \centering
@@ -601,29 +586,16 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
 
 \end{frame}
 
-\begin{frame}{VRNN - Toy training - Loss}
-    \begin{center}
-    \includegraphics[width=1.0\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png}
-    \end{center}
-    % \caption{VRNN Loss}
-\end{frame}
 
-\begin{frame}{VRNN - Toy training - Generation}
-    \begin{center}
-    \includegraphics[width=0.8\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png}
-    % \caption{VRNN Predictions}
-    \end{center}
-\end{frame}
-
-%
-%
-% ==========================================================
-%
-% === GAUSSIAN PROCESS VARIATIONAL AUTOENCODER ===
-%
-% ==========================================================
-%
-%
+% %
+% %
+% % ==========================================================
+% %
+% % === GAUSSIAN PROCESS VARIATIONAL AUTOENCODER ===
+% %
+% % ==========================================================
+% %
+% %
 
 \begin{frame}{Gaussian Process - Variational Auto Encoder}
     \begin{figure}[H]
@@ -651,8 +623,8 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
     \end{figure}
 
     \begin{itemize}
-        \item The thick black lines indicate all latent variables follow a Gaussian Process. 
-        \item The joint distribution writes somehow differently from the one for \glspl{dvae}, as:
+        \item \textbf{thick black lines} indicate a Gaussian Process prior over latent variables. 
+        \item The joint distribution writes:
             \begin{align}
             \label{joint_gpvae}
                 p(x_{t_1:t_T}, z_{t_1:t_T}) %&= p(z_{t_1:t_T}) p(x_{t_1:t_T} \vert z_{t_1:t_T}) \\
@@ -670,10 +642,11 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
             \begin{align}
                 p_{\theta_z}(z_{t_1:t_T}^l) &= \mathcal{GP}(m_{\theta_z, l}(t_1:t_T), k_{\theta_z, l}(t_1:t_T, t_1:t_T)) \hspace{1cm} l=1,..,L
             \end{align}
-            where the $m_{\theta_z, l}$ are the $L$ mean functions of the \gls{gp} priors (usually chosen constant null), and the $k_{\theta_z, l}$ are the kernel functions of the \gls{gp} priors.
             \begin{itemize}
-                \item by design, each of the component of the $z_{t_i}$ is a scalar \gls{gp}, with correlation over time stamps. However, the different components of a $z_{t_i}$ are not correlated between them. The correlation across dimensions is encoded into the observation model $p_{\theta_x}(x_{t_i} \vert z_{t_i})$.
-                \item the kernels $k_{\theta_z, l}$ can be chosen differently to account for different prior knowledge of the data sequence. In \cite{fortuin_gp-vae:_2020} for example, Fortuin and al. uses a set of Gaussian Kernels with different lenghtscales.
+                \item $m_{\theta_z, l}$ are the $L$ mean functions of the \gls{gp} priors (usually chosen constant null)
+                \item $k_{\theta_z, l}$ are the kernel functions of the \gls{gp} priors. Can be chosen differently to account for prior knowledge of the data sequence.
+                \item Each $\mathcal{GP}^l$ encode a temporal dependency over $z^{(l)}$
+                \item Correlation accross dimensions of data is encoded within likelihood $p_{\theta_x}$
             \end{itemize}
         \item \textbf{Approximate posterior -encoder : $q_\phi$ is a set of $L$ Gaussian distributions of dimension $T$, each one accounting for a component of $z_{t_i}$.} Formally :
             \begin{align}
@@ -681,7 +654,7 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
                 &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), \Lambda_{\phi}^l(x_{t_1:t_T})^{-1}) \\
                 &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), L_{\phi}^l(x_{t_1:t_T})L_{\phi}^l(x_{t_1:t_T})^T)
             \end{align}
-            where we have made explicit the different ways of defining the multivariate normal distribution, with its covariance matrix $\Sigma_\phi^l$, its precision matrix $\Lambda_\phi^l$, or with a Cholesky decomposition $L_{\phi}^lL_{\phi}^l$.
+            Can code covariance with covariance matrix $\Sigma_\phi^l$, precision matrix $\Lambda_\phi^l$, or with a Cholesky decomposition $L_{\phi}^lL_{\phi}^l$.
     \end{itemize}
 \end{frame}
 
@@ -692,9 +665,13 @@ The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variable
 \end{align}
 We note that:
 \begin{itemize}
-    \item the $\mathbb{KL}$-divergence is actually the sum of the $L$ $\mathbb{KL}$-divergences $\KL{q_{\phi}^l}{p_{\theta_z}^l}$, which have a close form solution as both distributions are Gaussian. %(see the well-known result \ref{sec:KL-two-exponential-family-distributions})
-    \item the reconstruction loss term requires sampling from $q_{\phi}(z_{t_i} \vert x_{t_1:t_T})$ using the reparameterization trick as usual.
-    \item the \gls{gp} priors $p_{\theta_z}(z_{t_1:t_T})$ depend only on the time stamps $t_1,...t_T$. If the kernel parameters are fixed -such as in \cite{fortuin_gp-vae:_2020}- then the priors can be computed before the training loop. If the kernel parameters are learnt with the weights of the neural nets (such as in \cite{zhu_markovian_2023}), then the computation must occur at each training iteration.
+    \item the $\mathbb{KL}$-divergence is the sum of the $L$ $\mathbb{KL}$-divergences $\KL{q_{\phi}^l}{p_{\theta_z}^l}$ (close form solution)
+    \item the negative log likelihood loss term requires sampling from $q_{\phi}(z_{t_i} \vert x_{t_1:t_T})$ using the reparameterization trick as usual.
+    \item the \gls{gp} priors $p_{\theta_z}(z_{t_1:t_T})$ depend only on the time stamps $t_1,...t_T$. 
+        \begin{itemize}
+            \item If the kernel parameters are fixed -such as in \cite{fortuin_gp-vae:_2020}- then the priors can be computed before the training loop. 
+            \item If the kernel parameters are learnt with the weights of the neural nets (such as in \cite{zhu_markovian_2023}), then the computation must occur at each training iteration.
+        \end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -876,20 +853,4 @@ We note that:
 \end{tikzpicture}
 \end{figure}
 
-
-\end{frame}
-
-\begin{frame}{GPVAE - Toy training - Loss}
-    $D_x = 4$, $D_y=8$ RBF kernels with decreasing lenghtscales.
-    \begin{center}
-    \includegraphics[width=1.0\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png}
-    \end{center}
-    % \caption{GPVAE Loss}
-\end{frame}
-
-\begin{frame}{GPVAE - Toy training - Generations}
-    \begin{center}
-    \includegraphics[width=0.4\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png}
-    % \caption{GPVAE Predictions}
-    \end{center}
 \end{frame}
