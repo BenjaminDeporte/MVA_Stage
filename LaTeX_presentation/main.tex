@@ -25,8 +25,7 @@
 % \usepackage{bbm}
 
 \usepackage[style=numeric,backend=biber]{biblatex}
-\addbibresource{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations_2.bib}
-\addbibresource{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations.bib}
+\addbibresource{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/chapter/citations.bib}
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{%
@@ -54,7 +53,7 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 
 \date{August 2025 - DRAFT - Notes de Recherche}
 
-\input{glossary}
+\input{/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/glossary.tex}
 \input{newcommands}
 
 \begin{document}
@@ -66,13 +65,15 @@ Benjamin Deporte : \href{mailto:benjamin.deporte@ens-paris-saclay.fr}{benjamin.d
 \end{frame}
 
 \input{intro}
-\input{dvae}
-\input{dvae_and_sde}
-\input{experiments}
+\input{dvae_theory}
+\input{dvae_xps}
+\input{link_calcul_sto}
+% \input{experiments}
 \input{outro}
 
 \begin{frame}[allowframebreaks,noframenumbering]{References}
     \footnotesize
+    \nocite{*}
     \printbibliography[heading=none]
 \end{frame}
 

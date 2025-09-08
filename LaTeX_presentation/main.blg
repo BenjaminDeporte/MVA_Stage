@@ -1,20 +1,15 @@
 [0] Config.pm:328> INFO - This is Biber 2.21
-[1] Config.pm:331> INFO - Logfile is 'main.blg'
-[172] biber:342> INFO - === Thu Aug 14, 2025, 16:24:06
-[191] Biber.pm:421> INFO - Reading 'main.bcf'
-[297] Biber.pm:1002> INFO - Found 12 citekeys in bib section 0
-[321] Biber.pm:4487> INFO - Processing section 0
-[331] Biber.pm:4678> INFO - Looking for bibtex file '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations_2.bib' for section 0
-[332] bibtex.pm:1713> INFO - LaTeX decoding ...
-[356] bibtex.pm:1519> INFO - Found BibTeX data source '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations_2.bib'
-[427] Biber.pm:4678> INFO - Looking for bibtex file '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations.bib' for section 0
-[428] bibtex.pm:1713> INFO - LaTeX decoding ...
-[445] bibtex.pm:1519> INFO - Found BibTeX data source '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/citations.bib'
-[501] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[501] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[501] Biber.pm:4307> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[502] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
-[516] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[523] bbl.pm:779> INFO - Output to main.bbl
-[523] Biber.pm:132> WARN - I didn't find a database entry for 'mva_kernel_class' (section 0)
-[523] Biber.pm:134> INFO - WARNINGS: 1
+[0] Config.pm:331> INFO - Logfile is 'main.blg'
+[109] biber:342> INFO - === Mon Sep  8, 2025, 07:05:42
+[127] Biber.pm:421> INFO - Reading 'main.bcf'
+[224] Biber.pm:999> INFO - Using all citekeys in bib section 0
+[248] Biber.pm:4487> INFO - Processing section 0
+[264] Biber.pm:4678> INFO - Looking for bibtex file '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/chapter/citations.bib' for section 0
+[268] bibtex.pm:1713> INFO - LaTeX decoding ...
+[321] bibtex.pm:1519> INFO - Found BibTeX data source '/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/chapter/citations.bib'
+[808] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[808] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[809] Biber.pm:4307> INFO - Sorting list 'nty/global//global/global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[809] Biber.pm:4313> INFO - No sort tailoring available for locale 'en-US'
+[848] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[876] bbl.pm:779> INFO - Output to main.bbl

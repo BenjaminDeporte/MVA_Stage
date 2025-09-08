@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  25 AUG 2025 10:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.8.4)  8 SEP 2025 07:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1115,31 +1115,31 @@ Package: blx-case-expl3 2025/07/10 v3.21 expl3 case changing code for biblatex
 \glo@main@file=\write7
 \openout7 = `main.glo'.
 
-Package glossaries Info: Writing glossary file main.glo on input line 45.
- (./glossary.tex) (./newcommands.tex)
+Package glossaries Info: Writing glossary file main.glo on input line 44.
+ (/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/glossary.tex) (./newcommands.tex)
 \@quotelevel=\count540
 \@quotereset=\count541
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 60.
-LaTeX Font Info:    ... okay on input line 60.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 59.
+LaTeX Font Info:    ... okay on input line 59.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1194,60 +1194,60 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 60.
+Package hyperref Info: Link coloring OFF on input line 59.
  (./main.out) (./main.out)
 \@outlinefile=\write8
 \openout8 = `main.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 60.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 59.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 59.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 59.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 60.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 59.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 60.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 59.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 60.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 60.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 60.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 59.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 59.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 59.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 60.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 60.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 59.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 60.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 60.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 59.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 59.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 60.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 59.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 60.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 59.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 60.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 59.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -1275,23 +1275,15 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
- (./main.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                mva_kernel_class
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
-Package biblatex Info: Reference section=0 on input line 60.
-Package biblatex Info: Reference segment=0 on input line 60.
+ (./main.bbl)
+Package biblatex Info: Reference section=0 on input line 59.
+Package biblatex Info: Reference segment=0 on input line 59.
  (./main.nav)
-Overfull \vbox (0.77788pt too high) detected at line 60
+Overfull \vbox (0.77788pt too high) detected at line 59
  []
 
 
-Overfull \vbox (0.77788pt too high) detected at line 62
+Overfull \vbox (0.77788pt too high) detected at line 61
  []
 
 
@@ -1304,7 +1296,7 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 \openout6 = `main.ist'.
 
 ]
-Overfull \vbox (0.77788pt too high) detected at line 66
+Overfull \vbox (0.77788pt too high) detected at line 65
  []
 
 (./main.toc)
@@ -1315,21 +1307,10 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
  [2
 
 ] (./intro.tex
-Overfull \vbox (0.77788pt too high) detected at line 13
+Overfull \vbox (0.77788pt too high) detected at line 26
  []
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 13.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-)
+
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1357,7 +1338,22 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
  [6
 
-]
+]) (./dvae_theory.tex
+Overfull \vbox (0.77788pt too high) detected at line 22
+ []
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 22.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 22.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 22.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
+)
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1378,11 +1374,7 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
  [9
 
-]) (./dvae.tex
-Overfull \vbox (0.77788pt too high) detected at line 22
- []
-
-
+]
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1397,6 +1389,10 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
  [11
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 35
+ []
+
+
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1404,6 +1400,10 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
  [12
 
 ]
+Overfull \vbox (0.77788pt too high) detected at line 51
+ []
+
+
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1418,10 +1418,6 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
  [14
 
 ]
-Overfull \vbox (0.77788pt too high) detected at line 35
- []
-
-
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
@@ -1429,36 +1425,11 @@ Overfull \vbox (0.77788pt too high) has occurred while \output is active []
  [15
 
 ]
-Overfull \vbox (0.77788pt too high) detected at line 51
- []
-
-
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
  [16
-
-]
-
-
-Overfull \vbox (0.77788pt too high) has occurred while \output is active []
-
- [17
-
-]
-
-
-Overfull \vbox (0.77788pt too high) has occurred while \output is active []
-
- [18
-
-]
-
-
-Overfull \vbox (0.77788pt too high) has occurred while \output is active []
-
- [19
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 69
@@ -1469,7 +1440,7 @@ Overfull \vbox (0.77788pt too high) detected at line 69
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [20
+ [17
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{q_phi_dev}) has been already used, duplicate ignored
@@ -1481,7 +1452,7 @@ l.69 \end{frame}
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [21
+ [18
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 85
@@ -1492,7 +1463,7 @@ Overfull \vbox (0.77788pt too high) detected at line 85
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [22
+ [19
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 109
@@ -1503,7 +1474,7 @@ Overfull \vbox (0.77788pt too high) detected at line 109
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [23
+ [20
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_dvae}) has been already used, duplicate ignored
@@ -1529,18 +1500,21 @@ Overfull \vbox (0.77788pt too high) detected at line 145
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [24
+ [21
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 155
  []
 
 
+LaTeX Warning: Citation 'bishop_pattern_2016' on page 22 undefined on input line 155.
+
+
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [25
+ [22
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{dkf_posterior}) has been already used, duplicate ignored
@@ -1556,7 +1530,7 @@ Overfull \vbox (0.77788pt too high) detected at line 171
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [26
+ [23
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 182
@@ -1567,7 +1541,7 @@ Overfull \vbox (0.77788pt too high) detected at line 182
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [27
+ [24
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 205
@@ -1578,7 +1552,7 @@ Overfull \vbox (0.77788pt too high) detected at line 205
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [28
+ [25
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_dkf}) has been already used, duplicate ignored
@@ -1604,7 +1578,7 @@ Overfull \vbox (0.77788pt too high) detected at line 218
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [29
+ [26
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 221
@@ -1629,13 +1603,13 @@ Overfull \hbox (4.83917pt too wide) in paragraph at lines 105--129
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [30
+ [27
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 359
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=649, 1437.4503pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png, id=647, 1437.4503pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png  used on input line 359.
@@ -1645,13 +1619,13 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [31
+ [28
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_loss.png>]
 Overfull \vbox (0.77788pt too high) detected at line 366
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=672, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png, id=669, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png  used on input line 366.
@@ -1661,7 +1635,7 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [32
+ [29
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/dkf_preds.png>]
 Overfull \vbox (0.77788pt too high) detected at line 416
@@ -1676,7 +1650,7 @@ Overfull \vbox (12.83023pt too high) detected at line 416
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [33
+ [30
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 440
@@ -1691,7 +1665,7 @@ Overfull \vbox (12.6157pt too high) detected at line 440
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [34
+ [31
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_vrnn}) has been already used, duplicate ignored
@@ -1735,13 +1709,13 @@ Overfull \hbox (6.24762pt too wide) in paragraph at lines 159--160
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [35
+ [32
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 609
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=774, 1431.6687pt x 209.583pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png, id=771, 1431.6687pt x 209.583pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png  used on input line 609.
@@ -1751,13 +1725,13 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [36
+ [33
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_loss.png>]
 Overfull \vbox (0.77788pt too high) detected at line 616
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=795, 1149.093pt x 642.4803pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png, id=792, 1149.093pt x 642.4803pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png  used on input line 616.
@@ -1767,7 +1741,7 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [37
+ [34
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/vrnn_preds.png>]
 Overfull \vbox (0.77788pt too high) detected at line 664
@@ -1778,7 +1752,7 @@ Overfull \vbox (0.77788pt too high) detected at line 664
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [38
+ [35
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{joint_gpvae}) has been already used, duplicate ignored
@@ -1794,7 +1768,7 @@ Overfull \vbox (0.77788pt too high) detected at line 686
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [39
+ [36
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 699
@@ -1805,7 +1779,7 @@ Overfull \vbox (0.77788pt too high) detected at line 699
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [40
+ [37
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 725
@@ -1820,7 +1794,7 @@ Overfull \vbox (7.02422pt too high) detected at line 725
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [41
+ [38
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gen_model_gpvae}) has been already used, duplicate ignored
@@ -1857,13 +1831,13 @@ Overfull \hbox (21.54742pt too wide) in paragraph at lines 125--126
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [42
+ [39
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 888
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=936, 1292.9103pt x 281.853pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png, id=932, 1292.9103pt x 281.853pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png  used on input line 888.
@@ -1873,13 +1847,13 @@ Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpva
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [43
+ [40
 
  </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png>]
 Overfull \vbox (0.77788pt too high) detected at line 895
  []
 
-</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=958, 715.473pt x 859.2903pt>
+</home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png, id=953, 715.473pt x 859.2903pt>
 File: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png Graphic file (type png)
 <use /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>
 Package pdftex.def Info: /home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png  used on input line 895.
@@ -1893,9 +1867,9 @@ Overfull \vbox (9.70178pt too high) detected at line 895
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [44
+ [41
 
- </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>]) (./dvae_and_sde.tex
+ </home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_preds.png>]) (./dvae_xps.tex
 Overfull \vbox (0.77788pt too high) detected at line 27
  []
 
@@ -1904,7 +1878,7 @@ Overfull \vbox (0.77788pt too high) detected at line 27
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [45
+ [42
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 62
@@ -1915,7 +1889,7 @@ Overfull \vbox (0.77788pt too high) detected at line 62
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [46
+ [43
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 80
@@ -1926,7 +1900,7 @@ Overfull \vbox (0.77788pt too high) detected at line 80
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [47
+ [44
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 95
@@ -1937,7 +1911,7 @@ Overfull \vbox (0.77788pt too high) detected at line 95
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [48
+ [45
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 112
@@ -1948,7 +1922,7 @@ Overfull \vbox (0.77788pt too high) detected at line 112
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [49
+ [46
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{ito\040sde\040definition}) has been already used, duplicate ignored
@@ -1964,7 +1938,7 @@ Overfull \vbox (0.77788pt too high) detected at line 138
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [50
+ [47
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 165
@@ -1975,7 +1949,7 @@ Overfull \vbox (0.77788pt too high) detected at line 165
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [51
+ [48
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{generic_sde}) has been already used, duplicate ignored
@@ -1991,7 +1965,7 @@ Overfull \vbox (0.77788pt too high) detected at line 177
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [52
+ [49
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 201
@@ -2002,7 +1976,7 @@ Overfull \vbox (0.77788pt too high) detected at line 201
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [53
+ [50
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{FPK}) has been already used, duplicate ignored
@@ -2018,7 +1992,7 @@ Overfull \vbox (0.77788pt too high) detected at line 216
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [54
+ [51
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{linear_sde}) has been already used, duplicate ignored
@@ -2034,7 +2008,7 @@ Overfull \vbox (0.77788pt too high) detected at line 237
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [55
+ [52
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{solution_linear_sde}) has been already used, duplicate ignored
@@ -2050,7 +2024,7 @@ Overfull \vbox (0.77788pt too high) detected at line 259
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [56
+ [53
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 270
@@ -2061,7 +2035,7 @@ Overfull \vbox (0.77788pt too high) detected at line 270
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [57
+ [54
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 292
@@ -2072,7 +2046,7 @@ Overfull \vbox (0.77788pt too high) detected at line 292
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [58
+ [55
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 305
@@ -2083,7 +2057,7 @@ Overfull \vbox (0.77788pt too high) detected at line 305
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [59
+ [56
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 327
@@ -2094,7 +2068,7 @@ Overfull \vbox (0.77788pt too high) detected at line 327
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [60
+ [57
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 350
@@ -2105,7 +2079,7 @@ Overfull \vbox (0.77788pt too high) detected at line 350
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [61
+ [58
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{gpvae\040gaussian\040observation}) has been already used, duplicate ignored
@@ -2122,44 +2096,27 @@ Overfull \vbox (0.77788pt too high) detected at line 388
  []
 
 
-LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 62 undefined on input line 388.
+LaTeX Warning: Reference `sec:brownian_motion_gaussian_and_markov' on page 59 undefined on input line 388.
 
 
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [62
+ [59
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 412
  []
 
 
-LaTeX Warning: Citation 'mva_kernel_class' on page 63 undefined on input line 412.
-
-
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [63
+ [60
 
-]) (./experiments.tex
-Overfull \vbox (0.77788pt too high) detected at line 5
- []
-
-
-LaTeX Warning: Citation 'li_disentangled_2018' on page 64 undefined on input line 5.
-
-
-
-
-Overfull \vbox (0.77788pt too high) has occurred while \output is active []
-
- [64
-
-]) (./outro.tex
+]) (./link_calcul_sto.tex) (./outro.tex
 Overfull \vbox (0.77788pt too high) detected at line 21
  []
 
@@ -2168,7 +2125,7 @@ Overfull \vbox (0.77788pt too high) detected at line 21
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [65
+ [61
 
 ]
 Overfull \vbox (0.77788pt too high) detected at line 30
@@ -2179,22 +2136,54 @@ Overfull \vbox (0.77788pt too high) detected at line 30
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
- [66
+ [62
 
 ])
-Overfull \vbox (0.77788pt too high) detected at line 77
+Overfull \vbox (0.77788pt too high) detected at line 78
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/sc' in size <8> not available
-(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 77.
+(Font)              Font shape `OT1/cmr/m/sc' tried instead on input line 78.
 
 
 
 
 Overfull \vbox (0.77788pt too high) has occurred while \output is active []
 
+ [63
+
+]
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [64
+
+
+]
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [65
+
+
+]
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
+ [66
+
+
+]
+
+
+Overfull \vbox (0.77788pt too high) has occurred while \output is active []
+
  [67
+
 
 ]
 
@@ -2230,7 +2219,7 @@ L3 programming layer <2025-07-20>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: FCE583D18A81160DE0286A6615E1EE72;733.
+(rerunfilecheck)             Checksum: 9C208432B4FE31295F3E56E5A2456B58;822.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                main
@@ -2241,18 +2230,15 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 56501 strings out of 467801
- 1337279 string characters out of 5431917
- 2368945 words of memory out of 5000000
- 84039 multiletter control sequences out of 15000+600000
+ 56711 strings out of 467801
+ 1343856 string characters out of 5431917
+ 2371071 words of memory out of 5000000
+ 84227 multiletter control sequences out of 15000+600000
  639333 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,31n,123p,2550b,1997s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{sec:brownian_motion_gaussian_and_markov} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{glo:gpvae} has been referenced but does not exist, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{glo:cd-ssm} has been referenced but does not exist, replaced by a fixed one
@@ -2261,16 +2247,7 @@ pdfTeX warning (dest): name{glo:cd-ssm} has been referenced but does not exist, 
 pdfTeX warning (dest): name{glo:ode} has been referenced but does not exist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{glo:sde} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{glo:gp} has been referenced but does not exist, replaced by a fixed one
-
-
 pdfTeX warning (dest): name{glo:gpm} has been referenced but does not exist, replaced by a fixed one
-
-
-pdfTeX warning (dest): name{glo:vrnn} has been referenced but does not exist, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{glo:mlp} has been referenced but does not exist, replaced by a fixed one
@@ -2285,19 +2262,40 @@ pdfTeX warning (dest): name{glo:vlb} has been referenced but does not exist, rep
 pdfTeX warning (dest): name{glo:elbo} has been referenced but does not exist, replaced by a fixed one
 
 
+pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:neural-ode} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:gpvae} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:vrnn} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:dkf} has been referenced but does not exist, replaced by a fixed one
+
+
 pdfTeX warning (dest): name{glo:dvae} has been referenced but does not exist, replaced by a fixed one
 
 
-pdfTeX warning (dest): name{glo:dag} has been referenced but does not exist, replaced by a fixed one
+pdfTeX warning (dest): name{glo:neural-sde} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:gp} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{glo:sde} has been referenced but does not exist, replaced by a fixed one
 
 
 pdfTeX warning (dest): name{glo:vae} has been referenced but does not exist, replaced by a fixed one
 
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on main.pdf (68 pages, 1227830 bytes).
+Output written on main.pdf (68 pages, 1229894 bytes).
 PDF statistics:
- 1621 PDF objects out of 1728 (max. 8388607)
- 1081 compressed objects within 11 object streams
- 198 named destinations out of 1000 (max. 500000)
+ 1705 PDF objects out of 1728 (max. 8388607)
+ 1171 compressed objects within 12 object streams
+ 219 named destinations out of 1000 (max. 500000)
  155 words of extra memory for PDF output out of 10000 (max. 10000000)
 
