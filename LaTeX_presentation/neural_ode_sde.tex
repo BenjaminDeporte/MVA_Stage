@@ -135,7 +135,7 @@ ArXiV : \href{https://arxiv.org/abs/1806.07366}{Neural ODE Best Paper Award Neur
     The stochastic \gls{vlb} writes:
     \begin{align}
         \mathcal{L}(\theta, \phi, x_{1:T}) &= \mathbb{E} \left(
-            \frac{1}{2}\int_{0}^{T} \vert \frac{f_{\theta}(z_t,t) - f_{\phi}(z_t,t)}{\sigma_{\theta}(z_t,t)}dt \vert^{2} - 
+            \frac{1}{2}\int_{0}^{T} \left| \frac{f_{\theta}(z_t,t) - f_{\phi}(z_t,t)}{\sigma_{\theta}(z_t,t)} \right|^{2} dt  - 
             \sum_{i=1}^{N} \log{p_{\theta_x}}(x_{t_i} \vert z_{t_i})
             \right)
     \end{align}
