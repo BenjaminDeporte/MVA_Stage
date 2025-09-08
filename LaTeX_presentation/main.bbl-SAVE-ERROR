@@ -156,7 +156,6 @@
       \field{urlyear}{2025}
       \field{year}{2019}
       \field{urldateera}{ce}
-      \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.1806.07366
       \endverb
@@ -247,6 +246,7 @@
       \field{urlmonth}{8}
       \field{urlyear}{2025}
       \field{urldateera}{ce}
+      \true{nocite}
       \verb{urlraw}
       \verb https://mva-kernel-methods.github.io/course-page/
       \endverb
@@ -672,7 +672,6 @@
       \field{urlyear}{2025}
       \field{year}{2020}
       \field{urldateera}{ce}
-      \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.2001.01328
       \endverb
@@ -721,7 +720,6 @@
       \field{urlyear}{2025}
       \field{year}{2018}
       \field{urldateera}{ce}
-      \true{nocite}
       \verb{doi}
       \verb 10.48550/arXiv.1803.02991
       \endverb
@@ -957,7 +955,6 @@
       \field{series}{Classics of {Soviet} mathematics}
       \field{title}{The mathematical theory of optimal processes}
       \field{year}{2018}
-      \true{nocite}
       \keyw{Mathematical optimization}
     \endentry
     \entry{rasmussen_gaussian_2008}{book}{}{}
@@ -1221,7 +1218,6 @@
       \field{volume}{98}
       \field{year}{2014}
       \field{urldateera}{ce}
-      \true{nocite}
       \field{pages}{521\bibrangedash 527}
       \range{pages}{7}
       \verb{doi}

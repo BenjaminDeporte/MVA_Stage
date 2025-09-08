@@ -2436,9 +2436,9 @@
     <bcf:citekey order="61" intorder="1">chen_neural_2019</bcf:citekey>
     <bcf:citekey order="62" intorder="1">pontriagin_mathematical_2018</bcf:citekey>
     <bcf:citekey order="63" intorder="1">sengupta_efficient_2014</bcf:citekey>
-    <bcf:citekey order="64" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
-    <bcf:citekey order="65" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
-    <bcf:citekey order="66" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="64" intorder="1">li_scalable_2020</bcf:citekey>
+    <bcf:citekey order="65" intorder="1">li_scalable_2020</bcf:citekey>
+    <bcf:citekey order="66" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
     <bcf:citekey order="67" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="68" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="69" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
@@ -2446,19 +2446,21 @@
     <bcf:citekey order="71" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="72" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
     <bcf:citekey order="73" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
-    <bcf:citekey order="74" intorder="1">bishop_pattern_2016</bcf:citekey>
-    <bcf:citekey order="75" intorder="1">ProbabilisticGraphicalModels</bcf:citekey>
-    <bcf:citekey order="76" intorder="1">ProbabilisticMachineLearning</bcf:citekey>
-    <bcf:citekey order="77" intorder="1">cover_elements_2006</bcf:citekey>
-    <bcf:citekey order="78" intorder="1">shannon_mathematical_1948</bcf:citekey>
+    <bcf:citekey order="74" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="75" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="76" intorder="1">bishop_pattern_2016</bcf:citekey>
+    <bcf:citekey order="77" intorder="1">ProbabilisticGraphicalModels</bcf:citekey>
+    <bcf:citekey order="78" intorder="1">ProbabilisticMachineLearning</bcf:citekey>
     <bcf:citekey order="79" intorder="1">cover_elements_2006</bcf:citekey>
-    <bcf:citekey order="80" intorder="1">cover_elements_2006</bcf:citekey>
-    <bcf:citekey order="81" intorder="1">delgado-bonal_approximate_2019</bcf:citekey>
-    <bcf:citekey order="82" intorder="1">pincus_approximate_1991</bcf:citekey>
-    <bcf:citekey order="83" intorder="1">pincus_approximate_1991</bcf:citekey>
-    <bcf:citekey order="84" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
-    <bcf:citekey order="85" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
-    <bcf:citekey order="86" intorder="1" nocite="1">*</bcf:citekey>
+    <bcf:citekey order="80" intorder="1">shannon_mathematical_1948</bcf:citekey>
+    <bcf:citekey order="81" intorder="1">cover_elements_2006</bcf:citekey>
+    <bcf:citekey order="82" intorder="1">cover_elements_2006</bcf:citekey>
+    <bcf:citekey order="83" intorder="1">delgado-bonal_approximate_2019</bcf:citekey>
+    <bcf:citekey order="84" intorder="1">pincus_approximate_1991</bcf:citekey>
+    <bcf:citekey order="85" intorder="1">pincus_approximate_1991</bcf:citekey>
+    <bcf:citekey order="86" intorder="1">rasmussen_gaussian_2008</bcf:citekey>
+    <bcf:citekey order="87" intorder="1">mouvement-brownien-calcul-ito</bcf:citekey>
+    <bcf:citekey order="88" intorder="1" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

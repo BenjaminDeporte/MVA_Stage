@@ -6,11 +6,11 @@
         \item <1-> Observations : a sequence of $T$ points \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\}$ (or \textbf{$x_{t_{i_1}:t_{i_T}}$} $= \{(x_{t_i})_{i=1,...,T}\}) \in \mathbb{R}^F$.
         \item <1-> Latent variables : an associated sequence of $T$ latent variables \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$ (resp. $z_{t_1},..,z_{t_T}$)
         \item <1-> Optionally, a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$ (resp. $u_{t_i}, i=1,...,T$)
-        \item <2-> \textbf{Prior encoding a temporal dependency over $z_i$}
+        \item <2-> \textbf{Encoding temporal dependency in prior over $z_i$'s}
         \item <2-> Arbitrary likelihood (observation model)
         \item <2-> Approximate posterior usually same form as true posterior
         \item <2-> Use \textbf{D-Separation} in \gls{gpm} to simplify expressions
-        \item <2-> Untractable true posterior $\implies$ maximize a \gls{vlb}
+        \item <2-> Untractable true posterior $\implies$ training by maximizing a \gls{vlb}
     \end{itemize}
 \end{frame}
 
@@ -23,6 +23,7 @@
         \end{align*}
     \end{block}
     \textbf{Only assumption : causal dependency $x_t, z_t$ on inputs $u_{1:t}$ $\implies$ $\vert u_{1:T} = \vert u_{1:t}$.}
+
     (NB : assume no input in the rest of the presentation)
 \end{frame}
 
@@ -70,9 +71,9 @@
             &= \sum_{t=1}^T \E{q_\phi(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} -\\
             &\sum_{t=1}^T \E{q_\phi(z_{1:t-1} \vert x_{1:T})} \KL{q_\phi(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}
         \end{align}
-        \item First term : often called \textbf{reconstruction error} (formally a negative log likelihood)
+        \item First term : often called \textbf{reconstruction error} (formally a log likelihood)
         \item Second term : \textbf{regularization term}, average divergence between the approximate posterior distribution at time $t$, and its real distribution.
-        \item Sampling over $q_\phi$ requires the "re parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
+        \item Sampling over $q_\phi$ requires the "re-parametrization trick" (see \cite{kingma_introduction_2019}), for $\VLB$ to be differentiable w.r.t. $\theta, \phi$.
     \end{itemize}
 \end{frame}
 
@@ -111,7 +112,7 @@
 %
 
 \begin{frame}{First model : Deep Kalman Filter}
-Deep Kalman Filter \gls{dag}: \gls{state-space-model} with Gaussian likelihood with neural nets.
+Deep Kalman Filter \gls{dag}: \gls{state-space-model} with Gaussian likelihood parameterized by neural nets.
     \begin{figure}[h]
             \centering
             % \includegraphics[width=0.5\linewidth]{}
@@ -359,10 +360,10 @@ The PyTorch implementation is described below:
 % %
 % %
 
-\begin{frame}{Variational RNN}
+\begin{frame}{Second model : Variational RNN}
     \begin{itemize}
         \item The \gls{vrnn} is the most expressive \gls{dvae} : the general expressions \ref{gen_model_dvae}, \ref{inf_model_dvae} and \gls{vlb} \ref{vlb_dvae} can not be simplified.
-        \item The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables, to account for the full unsimplified expressions. Specifically:
+        \item The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables.
     \end{itemize}
 
 \begin{figure}[h]
@@ -597,7 +598,7 @@ The PyTorch implementation is described below:
 % %
 % %
 
-\begin{frame}{Gaussian Process - Variational Auto Encoder}
+\begin{frame}{Third model : Gaussian Process - Variational Auto Encoder}
     \begin{figure}[H]
         \centering
         % \includegraphics[width=0.5\linewidth]{}
@@ -654,8 +655,19 @@ The PyTorch implementation is described below:
                 &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), \Lambda_{\phi}^l(x_{t_1:t_T})^{-1}) \\
                 &= \mathcal{N}(m_{\phi}^l(x_{t_1:t_T}), L_{\phi}^l(x_{t_1:t_T})L_{\phi}^l(x_{t_1:t_T})^T)
             \end{align}
-            Can code covariance with covariance matrix $\Sigma_\phi^l$, precision matrix $\Lambda_\phi^l$, or with a Cholesky decomposition $L_{\phi}^lL_{\phi}^l$.
+            Code covariance with covariance matrix $\Sigma_\phi^l$, precision matrix $\Lambda_\phi^l$, or with a Cholesky decomposition $L_{\phi}^lL_{\phi}^l$.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{GP-VAE generative model}
+    From \cite{li_disentangled_2018}
+        \begin{figure}[H]
+        \centering
+        % \includegraphics[width=0.5\linewidth]{}
+        \label{fig:schema_model_gpvae}
+        \includegraphics[width=0.5\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/GP-VAE_schema.png}
+        \caption{GP-VAE Schematics}
+    \end{figure}
 \end{frame}
 
 
@@ -667,7 +679,7 @@ We note that:
 \begin{itemize}
     \item the $\mathbb{KL}$-divergence is the sum of the $L$ $\mathbb{KL}$-divergences $\KL{q_{\phi}^l}{p_{\theta_z}^l}$ (close form solution)
     \item the negative log likelihood loss term requires sampling from $q_{\phi}(z_{t_i} \vert x_{t_1:t_T})$ using the reparameterization trick as usual.
-    \item the \gls{gp} priors $p_{\theta_z}(z_{t_1:t_T})$ depend only on the time stamps $t_1,...t_T$. 
+    \item the \gls{gp} priors $p_{\theta_z}(z_{t_1:t_T})$ depend only on the time stamps $t_1,...t_T$. ($O(N^3)$ cost)
         \begin{itemize}
             \item If the kernel parameters are fixed -such as in \cite{fortuin_gp-vae:_2020}- then the priors can be computed before the training loop. 
             \item If the kernel parameters are learnt with the weights of the neural nets (such as in \cite{zhu_markovian_2023}), then the computation must occur at each training iteration.

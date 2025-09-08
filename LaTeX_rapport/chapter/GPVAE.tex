@@ -76,6 +76,15 @@ Accordingly, the approximate posterior -encoder- $q_\phi$ is a set of $L$ Gaussi
 where we have made explicit the different ways of defining the multivariate normal distribution, with its covariance matrix $\Sigma_\phi^l$, 
 its precision matrix $\Lambda_\phi^l$, or with a Cholesky decomposition $L_{\phi}^l{L_{\phi}^l}^T$.
 
+From \cite{li_disentangled_2018}
+\begin{figure}[H]
+        \centering
+        % \includegraphics[width=0.5\linewidth]{}
+        \label{fig:schema_model_gpvae}
+        \includegraphics[width=0.7\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/GP-VAE_schema.png}
+        \caption{GP-VAE Schematics}
+\end{figure}
+
 The observation model, by D-separation, is:
 \begin{align}
 \label{obs_gpvae}

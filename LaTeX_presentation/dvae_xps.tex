@@ -4,6 +4,12 @@
 % ------  DKF
 %
 
+\begin{frame}{Code}
+    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=GitHub repo]
+        All code at \href{https://github.com/BenjaminDeporte/MVA_Stage}{Benjamin GitHub repo}
+    \end{tcolorbox}
+\end{frame}
+
 \begin{frame}{DKF - Toy training - Loss}
     \begin{itemize}
         \item \textbf{Posterior collapse !}
@@ -93,7 +99,7 @@
 
 
 \begin{frame}{GPVAE - Toy training - Loss}
-    $D_x = 4$, $D_y=8$ RBF kernels with decreasing lenghtscales.
+    $D_x = 4$, $D_y=8$, RBF kernels with decreasing lengthscales.
     \begin{center}
     \includegraphics[width=1.0\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_loss.png}
     \end{center}
@@ -135,9 +141,10 @@
 \end{frame}
 
 \begin{frame}{GPVAE - Generation}
+    Use Gaussian and Matern kernels : not as good as \cite{li_disentangled_2018} (Cauchy kernels) !!
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.45\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png}
+        \includegraphics[width=0.3\textwidth]{/home/benjamin/Folders_Python/MVA/MVA_Stage/images/gpvae_gen_01.png}
         \caption{GPVAE Sprites generation 1}
         \label{fig:GPVAE Sprites generation 1}
     \end{figure}

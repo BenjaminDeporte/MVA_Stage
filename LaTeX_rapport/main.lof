@@ -26,14 +26,15 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {11.1}{\ignorespaces Neural ODE model}}{58}{figure.11.1}%
+\contentsline {figure}{\numberline {11.1}{\ignorespaces Latent ODE model}}{58}{figure.11.1}%
+\contentsline {figure}{\numberline {11.2}{\ignorespaces Latent SDE model}}{60}{figure.11.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{87}{figure.1.A.1}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{88}{figure.1.A.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

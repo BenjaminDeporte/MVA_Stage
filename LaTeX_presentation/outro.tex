@@ -1,30 +1,23 @@
-\section{Outro}\label{outro}
+\section{Take-aways}\label{Take-aways}
 
-\begin{frame}{Outro}
-    It's been quite a personal journey...
-
-Wrapping up:
-
+\begin{frame}{Take-aways}
     \begin{itemize}
-        \item \glspl{dvae} are a powerful evolution of \glspl{vae} where the structure of the set of latent variables 
-        aims at expressing the temporal dependencies.
-        \item Discrete-time \glspl{dvae} give structure to latent variables to encode temporal dynamics. They work best with regularly spaced data.
-        \item Continuous-time \glspl{dvae} posit a stochastic process as prior for the latent variables. This allows 
+        \item <1-> \glspl{dvae} are a natural and powerful extension of \glspl{vae} in which the prior expresses the temporal dependency of
+        the data sequence.
+        \item <2-> Discrete-time \glspl{dvae} use discretized latent priors to encode temporal dynamics. They work best with regularly spaced data.
+        \item <3-> Continuous-time \glspl{dvae} posit a stochastic process as prior for the latent variables. This allows 
         additional flexibility and irregularly-sampled data.
-        \item \textbf{The specific model \gls{gpvae}, where the latent prior is a Gaussian Process can be expressed as a 
-        solution to a linear \gls{sde}, can use well-known linear-time filtering and smoothing algorithms to speed up 
-        computations.}
-        \item Stochastic calculus provides a framework for continous-time priors.
-        \item More general stochastic process priors can be used, expressed as solutions to general \gls{sde} :
-        those are latent SDE models.
+        \item <4-> In \gls{gpvae}, the latent prior is a Gaussian Process that can sometimes be expressed as a 
+        solution to a linear \gls{sde}. In that case, Kalman-Bucy filtering and smoothing algorithms can speed up 
+        computations.
+        \item <5-> Stochastic calculus provides a framework for more general continuous-time priors.
+        \item <6-> When expressed as solutions to general \gls{sde}, those more general stochastic process priors are used in 
+        \glspl{latent sde}.
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{Next steps - next 3 weeks !}
-%     \begin{itemize}
-%         \item Research/learning on models with other stochastic priors (neural \glspl{sde} ?)
-%         \item XPs : finding the right kernels for GP-VAE ?
-%         \item XPs : comparison between VRNN and GP-VAE on a common real life dataset ?
-%         \item Other ?
-%     \end{itemize}
-% \end{frame}
+\begin{frame}
+    \Huge
+    \centering
+    Thank you for your attention!
+\end{frame}

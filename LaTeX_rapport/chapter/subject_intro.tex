@@ -50,9 +50,9 @@ are both Markov processes and Gaussian processes (the Brownian motion itself, bu
 but some Markov processes (ie solutions to general \gls{sde}) are not Gaussian processes. 
 
 An idea is then to use a more general stochastic process, defined as the solution to a general (ie non-linear) \gls{sde}, as the model for 
-latent variables. The drift and the diffusion can also be learnt as neural networks. This is the field of \glspl{neural-sde} (\cite{peluchetti_infinitely_2020}), 
-which is a recent research field, and builds upon the \glspl{neural-ode} (\cite{chen_neural_2019}, \cite{rubanova_latent_2019}) framework. 
-We present some of the ideas of \glspl{neural-ode}: viewing \gls{neural-ode} models as continuous time ResNet models; using the adjoint method and 
+latent variables. The drift and the diffusion can also be learnt as neural networks. This is the field of \glspl{latent sde} (\cite{peluchetti_infinitely_2020}), 
+which is a recent research field, and builds upon the \glspl{latent ode} (\cite{chen_neural_2019}, \cite{rubanova_latent_2019}) framework. 
+We present some of the ideas of \glspl{latent ode}: viewing \gls{latent ode} models as continuous time ResNet models; using the adjoint method and 
 a backward \gls{ode} to compute gradients (\cite{li_scalable_2020}). 
 
 We have lacked time to go much further... for now. 
