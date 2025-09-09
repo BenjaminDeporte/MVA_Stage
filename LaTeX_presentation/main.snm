@@ -1,4 +1,4 @@
-\beamer@slide {Abstract}{3}
+\beamer@slide {Introduction}{3}
 \beamer@slide {DVAEs}{7}
 \beamer@slide {q_phi_dev}{14}
 \beamer@slide {q_phi_dev}{14}
@@ -56,7 +56,7 @@
 \beamer@slide {gpvae gaussian observation}{60}
 \beamer@slide {gpvae linear sde form}{60}
 \beamer@slide {gpvae linear sde form}{60}
-\beamer@slide {Latent ODE and SDE}{61}
+\beamer@slide {Latent Ordinary and Stochastic Differential Equations models}{61}
 \beamer@slide {fig:Neural ODE}{63}
 \beamer@slide {latent sde prior}{65}
 \beamer@slide {latent sde prior}{65}

@@ -1,26 +1,26 @@
-\section{Abstract}\label{Abstract}
+\section{Introduction}\label{Introduction}
 
-\begin{frame}{Abstract}
+\begin{frame}{Introduction}
     \begin{itemize}
         \item <1-> \textbf{\glspl{vae}} have limitations when dealing with data sequences, due to i.i.d assumption.
         \item <2-> \textbf{Dynamical Variational Auto Encoders} (\cite{girin_dynamical_2022}) are adapted to data sequences
             \begin{itemize}
                 \item Temporal dependency built into latent prior
                 \item Discrete or continuous time prior
-                \item Observation model as in regular \glspl{vae}: Gaussian, Bernoulli, Student-t...
+                \item Observation model as in regular \glsreset{vae}\glspl{vae}: Gaussian, Bernoulli, Student-t...
             \end{itemize}
         \item <3-> \textbf{Link to Stochastic Calculus}
             \begin{itemize}
-                \item Solutions to linear \glspl{sde} are Gaussian processes : run prior \gls{gp} regression at linear cost.
+                \item Solutions to linear \glsreset{sde}\glspl{sde} are \glsreset{gp}\glspl{gp} : run prior \gls{gp} regression at linear cost.
                 \item Solutions to general \glspl{sde} are Markov processes : link to more general \glspl{latent sde}
             \end{itemize}
         \item <4-> \textbf{What we will cover today}
             \begin{itemize}
-                \item General theory of \glspl{dvae}
-                \item Review of some discrete and continuous time \glspl{dvae} with XPs : \gls{dkf}, \gls{vrnn}, \gls{gpvae}
+                \item General theory of \glsreset{dvae} \glspl{dvae}
+                \item Review of some discrete and continuous time \glspl{dvae} with XPs : \glsreset{dkf}\gls{dkf}, \glsreset{vrnn}\gls{vrnn}, \glsreset{gpvae}\gls{gpvae}
                 \item Stochastic calculus survival kit
                 \item Relationships between \glspl{dvae} and stochastic calculus
-                \item Early perspective on \glspl{latent ode} and \glspl{latent sde}
+                \item Early perspective on \glsreset{latent ode}\glspl{latent ode} and \glsreset{latent sde}\glspl{latent sde}
             \end{itemize}
     \end{itemize}
 \end{frame}

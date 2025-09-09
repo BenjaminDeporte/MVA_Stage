@@ -9,18 +9,18 @@
         \item <2-> \textbf{Encoding temporal dependency in prior over $z_i$'s}
         \item <2-> Arbitrary likelihood (observation model)
         \item <2-> Approximate posterior usually same form as true posterior
-        \item <2-> Use \textbf{D-Separation} in \gls{gpm} to simplify expressions
-        \item <2-> Untractable true posterior $\implies$ training by maximizing a \gls{vlb}
+        \item <2-> Use \textbf{D-Separation} in \glsreset{gpm}\gls{gpm} to simplify expressions
+        \item <2-> Untractable true posterior $\implies$ training by maximizing a \glsreset{vlb}\gls{vlb}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{General formulation of DVAE}
     \begin{block}{Generative model}
-        \begin{align*}
+        \begin{align}
             p(x_{1:T}, z_{1:T} \vert u_{1:T}) &= \prod_{t=1}^T p(x_t, z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
             &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:T}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:T}) \\
             &= \prod_{t=1}^T p(x_t \vert x_{1:t-1}, z_{1:t}, u_{1:t}) p(z_t \vert x_{1:t-1}, z_{1:t-1}, u_{1:t})
-        \end{align*}
+        \end{align}
     \end{block}
     \textbf{Only assumption : causal dependency $x_t, z_t$ on inputs $u_{1:t}$ $\implies$ $\vert u_{1:T} = \vert u_{1:t}$.}
 
@@ -363,7 +363,7 @@ The PyTorch implementation is described below:
 \begin{frame}{Second model : Variational RNN}
     \begin{itemize}
         \item The \gls{vrnn} is the most expressive \gls{dvae} : the general expressions \ref{gen_model_dvae}, \ref{inf_model_dvae} and \gls{vlb} \ref{vlb_dvae} can not be simplified.
-        \item The \gls{gpm} of the \gls{vrnn} assumes full connections between latent variables, and between observed variables.
+        \item The \gls{gpm} of the \gls{vrnn} assumes full forward connections between latent variables, and between observed variables.
     \end{itemize}
 
 \begin{figure}[h]
@@ -402,7 +402,8 @@ The PyTorch implementation is described below:
 \end{frame}
 
 \begin{frame}{VRNN - Summary}
-\begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Variational RNN]
+\begin{tcolorbox}[height=0.85\textheight, colback=blue!5!white,colframe=black!75!black,title=Variational RNN]
+\fontsize{7pt}{8pt}\selectfont{
 \begin{itemize}
     \item \textbf{generative model}
     \begin{align}
@@ -422,6 +423,7 @@ The PyTorch implementation is described below:
         \VLB &= \sum_{t=1}^T  \E{q_{\phi}(z_{1:t} \vert x_{1:T})} \log{p_{\theta_x}(x_t \vert x_{1:t-1}, z_{1:t})} \\ &- \sum_{t=1}^T \E{q_{\phi}(z_{1:t-1} \vert x_{1:T})} \KL{q_{\phi}(z_t \vert z_{1:t-1}, x_{1:T})}{p_{\theta_z}(z_t \vert z_{1:t-1}, x_{1:t-1})}  \end{split}
     \end{align}
 \end{itemize}
+}
 \end{tcolorbox}
 \end{frame}
 
@@ -688,10 +690,13 @@ We note that:
 \end{frame}
 
 
+
+
 \begin{frame}{GP-VAE Summary}
-    \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Gaussian Process VAEs]
+    \begin{tcolorbox}[height=0.85\textheight,colback=blue!5!white,colframe=black!75!black,title=Gaussian Process VAEs]
     % \begin{itemize}
     %     \item \textbf{generative model}
+    \fontsize{7pt}{8pt}\selectfont{
         \begin{align}
             \label{gen_model_gpvae}
             p(x_{t_1:t_T}, z_{t_1:t_T}) &= p(z_{t_1:t_T}) \prod_{i=1}^T p(x_{t_i} \vert z_{t_{i}}) \\
@@ -710,6 +715,7 @@ We note that:
             \VLB = \sum_{i=1}^T \E{q_{\phi}(z_{t_i} \vert x_{t_1:t_T})} \log{p_{\theta_x}(x_{t_i} \vert z_{t_i})} - \KL{q_{\phi}(z_{t_1:t_T} \vert x_{t_1:t_T})}{p_{\theta_z}(z_{t_1:t_T})} 
         \end{align}
     % \end{itemize}
+    }
     \end{tcolorbox}
 \end{frame}
 
