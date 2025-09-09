@@ -51,7 +51,7 @@ We reproduce here the drawing from the paper:
 
 The model is trained maximizing a \gls{vlb} as usual. 
 
-Here, the stochastic variables are $z_{t_0}$ and the $x_{t_i}$, the joint distribution writes:
+Here, the stochastic variables are $z_{t_0}$ and the $x_{t_i}$'s, the joint distribution writes:
 \begin{align}
     p(x_{t_1:t_N}, z_{t_0}) &= p(z_{t_0})p(x_{t_1:t_N} \vert z_{t_0}) \\
     &= p(z_{t_0}) \prod_{t=1}^{N}p_{\theta_x}(x_{t_i} \vert z_{t_i})
@@ -70,8 +70,10 @@ The \gls{vlb} is:
 With the simple prior $p(z_{t_0}) = \mathcal{N}(0,1)$.
 
 Optimizing the \gls{vlb} requires that we compute the gradients on $\log{p_{\theta_x}(x_{t_i} \vert z_{t_i})}$ w.r.t. $\theta_f$, as the $z_{t_i}$ are solutions of the \gls{ode} depending 
-on $f$ and its set of parameters $\theta_f$. One method is the \textbf{adjoint sensitivity method} described in \cite{pontriagin_mathematical_2018}, 
-and that the interested reader will find a proof sketch in the appendix \ref{sec:adjoint_sensitivity_method}. Other methods exist, can be reviewed in \cite{sengupta_efficient_2014}.
+on $f$ and its set of parameters $\theta_f$. Methods to do so are: forward sensitivity, backpropragation through the \gls{ode} solver,
+and the \textbf{adjoint sensitivity method} described in \cite{pontriagin_mathematical_2018}. 
+(the interested reader will find a proof sketch in the appendix \ref{sec:adjoint_sensitivity_method}, 
+and a full review in \cite{sengupta_efficient_2014}).
 
 \section{Latent SDE models}
 
@@ -85,7 +87,7 @@ and that the interested reader will find a proof sketch in the appendix \ref{sec
 The idea in \cite{li_scalable_2020} is then to add some noise to the deterministic computation of the latent variable:
 \begin{align}
     \frac{dz_t}{dt} &= f_{\theta_f}(z_t,t) + \epsilon_t \\
-    \epsilon_t &\sim \mathcal{N}(0,Q \textit{Id})
+    \epsilon_t &\sim \mathcal{N}(0,Q \, \textit{Id})
 \end{align}
 Which leads to an \gls{sde} prior:
 \begin{align}
@@ -93,7 +95,7 @@ Which leads to an \gls{sde} prior:
     dZ_t &= f_{\theta}(Z_t, t)dt + \sigma_{\theta}(Z_t,t)dB_t \\
     Z_{t_0} &\sim Z_0
 \end{align}
-where we used $\sigma_{\theta}$ insted of our usual $L(Z_t,t)$ to stick to the notations of the paper.
+where we used $\sigma_{\theta}$ instead of our usual $L(Z_t,t)$ to stick to the notations of the paper.
 
 \ref{latent sde prior} defines a prior distribution over functions. In order to draw a sample function, we would:
 \begin{itemize}
@@ -101,15 +103,6 @@ where we used $\sigma_{\theta}$ insted of our usual $L(Z_t,t)$ to stick to the n
     \item draw a random Brownian motion $\tilde{B_t}$ path from $B_t$
     \item compute $z_t - z_{t_0} = \int_{t_0}^{t} f_{\theta}(Z_t, t)dt + \int_{t_0}^{t} \sigma_{\theta}(Z_t,t)d\tilde{B_t}$
 \end{itemize}
-
-We will use neural networks to learn the drift $f_{\theta}$ and the diffusion $\sigma_{\theta}$, which requires that we are able to compute the gradient of 
-a functional (loss) of type:
-\begin{align}
-    L(\theta) &= L \left( \int_{t_0}^{t_1} f_{\theta}(Z_t, t)dt + \int_{t_0}^{t} \sigma_{\theta}(Z_t,t)dB_t \right)
-\end{align}
-where $\int_{t_0}^{t} \sigma_{\theta}(Z_t,t)dB_t$ is actually a random variable!
-
-It appears that the adjoint sensitivity method can be adapted to SDEs (see \cite{li_scalable_2020}).
 
 The approximate posterior can also be described as a \gls{sde}:
 \begin{align}
@@ -121,6 +114,15 @@ where:
     \item the prior and the approximate posterior share the same diffusion for the $\mathbb{KL}$ to have the same support
     \item the prior and the approximate posterior have the same starting value $z_0$
 \end{itemize}
+
+We will use neural networks to learn the drift $f_{\phi}$ and the diffusion $\sigma_{\theta}$, which requires that we are able to compute the gradient of 
+a functional (loss) of type:
+\begin{align}
+    L(\theta) &= L \left( \int_{t_0}^{t_1} f_{\theta}(Z_t, t)dt + \int_{t_0}^{t} \sigma_{\theta}(Z_t,t)dB_t \right)
+\end{align}
+where $\int_{t_0}^{t} \sigma_{\theta}(Z_t,t)dB_t$ is actually a random variable!
+
+It appears that the adjoint sensitivity method can be adapted to SDEs (see \cite{li_scalable_2020}).
 
 We reproduce the model from the paper:
 

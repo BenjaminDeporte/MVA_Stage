@@ -10,9 +10,10 @@ We start by some notations.
 
 \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Notations]
 \begin{itemize}
-    \item the data is a sequence of $T$ points noted \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\} \in \mathbb{R}^F$.
-    \item the sequence of the associated $T$ latent variables is \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$
-    \item optionally, there may be a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$
+    \item Time : regular $t_1, t_2,... t_T$ or irregular $t_{i_1}, t_{i_2},..., t_{i_T}$ sampling times
+    \item Observations : a sequence of $T$ points \textbf{$x_{1:T}$} $= \{(x_t)_{t=1,...,T}\}$ (or \textbf{$x_{t_{i_1}:t_{i_T}}$} $= \{(x_{t_i})_{i=1,...,T}\}) \in \mathbb{R}^F$.
+    \item Latent variables : an associated sequence of $T$ latent variables \textbf{$z_{1:T}$} $= \{(z_t)_{t=1,...,T}\} \in \mathbb{R}^L$ (resp. $z_{t_1},..,z_{t_T}$)
+    \item Optionally, a sequence of -usually deterministic- $T$ inputs $u_{1:T} = \{(u_t)_{t=1,...,T}\} \in \mathbb{R}^U$ (resp. $u_{t_i}, i=1,...,T$)
 \end{itemize}
 \end{tcolorbox}
 
@@ -86,7 +87,7 @@ Therefore the \gls{vlb} becomes:
 As for the vanilla \gls{vae}, the \gls{vlb} contains two terms.
 
 \begin{itemize}
-    \item The first term is the reconstruction error. it is the sum over the time steps, of the average log likelihood the data at time $t$, given the approximate distribution of the past and present latent variables, and the past data.
+    \item The first term is the reconstruction error. It is the sum over the time steps, of the average log likelihood the data at time $t$, given the approximate distribution of the past and present latent variables, and the past data.
     \item The second term is a regularization term, summing over the time steps the average divergence between the approximate posterior distribution of the latent variable at time $t$, and its real distribution.
 \end{itemize}
 

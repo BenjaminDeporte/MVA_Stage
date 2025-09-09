@@ -2,39 +2,40 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Probabilistic model of a Deep Kalman Filter}}{17}{figure.4.1}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Deep Kalman Filter Model Architecture}}{20}{figure.4.2}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Probabilistic model of a Deep Kalman Filter}}{18}{figure.4.1}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Deep Kalman Filter Model Architecture}}{21}{figure.4.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Probabilistic model of a Variational RNN}}{21}{figure.5.1}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Variational RNN Model Architecture}}{23}{figure.5.2}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Probabilistic model of a Variational RNN}}{22}{figure.5.1}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Variational RNN Model Architecture}}{24}{figure.5.2}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Probabilistic model of a GP-VAE}}{25}{figure.6.1}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Gaussian Process VAE Model Architecture}}{28}{figure.6.2}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Probabilistic model of a GP-VAE}}{26}{figure.6.1}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces GP-VAE Schematics}}{27}{figure.6.2}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Gaussian Process VAE Model Architecture}}{29}{figure.6.3}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Training DKF}}{31}{figure.7.1}%
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Predictions Generations DKF}}{31}{figure.7.2}%
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Predictions and Generations VRNN}}{32}{figure.7.3}%
-\contentsline {figure}{\numberline {7.4}{\ignorespaces One sprite}}{32}{figure.7.4}%
-\contentsline {figure}{\numberline {7.5}{\ignorespaces sprite series}}{33}{figure.7.5}%
-\contentsline {figure}{\numberline {7.6}{\ignorespaces VRNN Sprites reconstruction}}{34}{figure.7.6}%
-\contentsline {figure}{\numberline {7.7}{\ignorespaces VRNN Sprites generation}}{35}{figure.7.7}%
-\contentsline {figure}{\numberline {7.8}{\ignorespaces GPVAE Sprites reconstruction 1}}{37}{figure.7.8}%
-\contentsline {figure}{\numberline {7.9}{\ignorespaces GPVAE Sprites reconstruction 2}}{38}{figure.7.9}%
-\contentsline {figure}{\numberline {7.10}{\ignorespaces GPVAE Sprites reconstruction 3}}{38}{figure.7.10}%
-\contentsline {figure}{\numberline {7.11}{\ignorespaces GPVAE Sprites generation 1}}{39}{figure.7.11}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {11.1}{\ignorespaces Latent ODE model}}{58}{figure.11.1}%
-\contentsline {figure}{\numberline {11.2}{\ignorespaces Latent SDE model}}{60}{figure.11.2}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Training DKF}}{32}{figure.7.1}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Predictions Generations DKF}}{32}{figure.7.2}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Predictions and Generations VRNN}}{33}{figure.7.3}%
+\contentsline {figure}{\numberline {7.4}{\ignorespaces One sprite}}{33}{figure.7.4}%
+\contentsline {figure}{\numberline {7.5}{\ignorespaces sprite series}}{34}{figure.7.5}%
+\contentsline {figure}{\numberline {7.6}{\ignorespaces VRNN Sprites reconstruction}}{35}{figure.7.6}%
+\contentsline {figure}{\numberline {7.7}{\ignorespaces VRNN Sprites generation}}{36}{figure.7.7}%
+\contentsline {figure}{\numberline {7.8}{\ignorespaces GPVAE Sprites reconstruction 1}}{38}{figure.7.8}%
+\contentsline {figure}{\numberline {7.9}{\ignorespaces GPVAE Sprites reconstruction 2}}{39}{figure.7.9}%
+\contentsline {figure}{\numberline {7.10}{\ignorespaces GPVAE Sprites reconstruction 3}}{39}{figure.7.10}%
+\contentsline {figure}{\numberline {7.11}{\ignorespaces GPVAE Sprites generation 1}}{40}{figure.7.11}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {11.1}{\ignorespaces Latent ODE model}}{59}{figure.11.1}%
+\contentsline {figure}{\numberline {11.2}{\ignorespaces Latent SDE model}}{61}{figure.11.2}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{88}{figure.1.A.1}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {A.1}{\ignorespaces Vanilla VAE}}{89}{figure.1.A.1}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
