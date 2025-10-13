@@ -2,5 +2,5 @@
 \beamer@sectionintoc {2}{Dynamical Variational AutoEncoders - Theory}{7}{0}{2}
 \beamer@sectionintoc {3}{Dynamical Variational AutoEncoders - Experiments}{34}{0}{3}
 \beamer@sectionintoc {4}{Link to stochastic calculus}{49}{0}{4}
-\beamer@sectionintoc {5}{Latent Ordinary and Stochastic Differential Equations models : a trailer}{61}{0}{5}
-\beamer@sectionintoc {6}{Take-aways}{68}{0}{6}
+\beamer@sectionintoc {5}{Latent Ordinary and Stochastic Differential Equations models : a trailer}{68}{0}{5}
+\beamer@sectionintoc {6}{Take-aways}{75}{0}{6}

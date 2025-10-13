@@ -79,7 +79,7 @@
       <file>main.bcf</file>
     </requires>
     <requires type="editable">
-      <file>/home/benjamin/Folders_Python/MVA/MVA_Stage/LaTeX_rapport/chapter/citations.bib</file>
+      <file>/home/benjamin/Folders_Python/MVA_Stage/LaTeX_rapport/chapter/citations.bib</file>
     </requires>
   </external>
 </requests>

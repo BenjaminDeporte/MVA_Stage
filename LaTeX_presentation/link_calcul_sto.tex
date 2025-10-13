@@ -4,27 +4,27 @@
 
 % ----- DEFINITION D'UN PROCESSUS STOCHASTIQUE
 
-% \begin{frame}{Stochastic calculus survival kit - Stochastic process}
+\begin{frame}{Stochastic calculus survival kit - Stochastic process}
     
-% \begin{definition}
-%     A \textbf{stochastic process} is defined as:
-% \begin{align}
-%     X &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
-%     %(\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
-% \end{align}
-% where:
-%     \begin{itemize}
-%         \item $\Omega$ is a set (universe of possibles).
-%         \item $\mathcal{F}$ is a $\sigma$-algebra of parts of $\Omega$
-%         \item $\mathbb{P}$ is a probability measure on $(\Omega, \mathcal{F})$
-%         \item $T \subset \mathbb{R}_+$ represents time
-%         \item $(\mathcal{F}_t)_{t \in T}$ is a \textbf{filtration}, ie an increasing family of sub-$\sigma$-algebras of $\mathcal{F}$ indexed by $t$ : $\forall 0 \leq s \leq t \in T$, $\mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F}$.
-%         \item $(X_t)_{t \in T}$ is a family of RV defined on $(\Omega, \mathcal{F})$ with values in a measurable space $(E, \mathcal{E})$ or more simply $(E, \mathcal{B}(E))$ (set $E$ endowed with its Borelian $\sigma$-algebra).
-%         \item $(X_t)_{t \in T}$ is assumed \textbf{adapted to the filtration} $(\mathcal{F}_t)_{t \in T}$, meaning $\forall t \in T$, $X_t$ is $\mathcal{F}_t$-measurable
-%     \end{itemize}
-% \end{definition}
-% A filtration $\mathcal{F}_{t\geq 0}$ is often viewed and introduced as the \textit{set of information available at time $t$}. 
-% \end{frame}
+\begin{definition}
+    A \textbf{stochastic process} is defined as:
+\begin{align}
+    X &= (\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in T}, (X_t)_{t \in T}, \mathbb{P})
+    %(\Omega, \mathcal{F}, (X_t)_{t \in T}, \mathbb{P}) \\
+\end{align}
+where:
+    \begin{itemize}
+        \item $\Omega$ is a set (universe of possibles).
+        \item $\mathcal{F}$ is a $\sigma$-algebra of parts of $\Omega$
+        \item $\mathbb{P}$ is a probability measure on $(\Omega, \mathcal{F})$
+        \item $T \subset \mathbb{R}_+$ represents time
+        \item $(\mathcal{F}_t)_{t \in T}$ is a \textbf{filtration}, ie an increasing family of sub-$\sigma$-algebras of $\mathcal{F}$ indexed by $t$ : $\forall 0 \leq s \leq t \in T$, $\mathcal{F}_s \subset \mathcal{F}_t \subset \mathcal{F}$.
+        \item $(X_t)_{t \in T}$ is a family of RV defined on $(\Omega, \mathcal{F})$ with values in a measurable space $(E, \mathcal{E})$ or more simply $(E, \mathcal{B}(E))$ (set $E$ endowed with its Borelian $\sigma$-algebra).
+        \item $(X_t)_{t \in T}$ is assumed \textbf{adapted to the filtration} $(\mathcal{F}_t)_{t \in T}$, meaning $\forall t \in T$, $X_t$ is $\mathcal{F}_t$-measurable
+    \end{itemize}
+\end{definition}
+A filtration $\mathcal{F}_{t\geq 0}$ is often viewed and introduced as the \textit{set of information available at time $t$}. 
+\end{frame}
 
 
 % ---  BROWNIAN MOTION -------------
@@ -63,36 +63,36 @@ of $V_{\pi}^{(2)} = \sum_{k=0}^{n-1} \vert f(t_{k+1})-f(t_k)\vert^{2}$, is:
 
 % ------ STOCHASTIC INTEGRALS ----------------
 
-% \begin{frame}{Stochastic calculus survival kit - Stochastic Integrals}
-%     Ito then proceeds to define \textbf{stochastic integrals}, starting with elementary processes:
+\begin{frame}{Stochastic calculus survival kit - Stochastic Integrals}
+    Ito then proceeds to define \textbf{stochastic integrals}, starting with elementary processes:
 
-% \begin{definition}
-% A stochastic process $X = (X_s)_{s \in [a,b]}$ is called \textbf{elementary} if there exists a subdivision $a = t_0 < t_1 < ... < t_n = b$ of $[a,b]$, such that:
-% \begin{align*}
-%     \forall t \in [a,b], \forall \omega \in \Omega, X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
-% \end{align*}
-% with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
+\begin{definition}
+A stochastic process $X = (X_s)_{s \in [a,b]}$ is called \textbf{elementary} if there exists a subdivision $a = t_0 < t_1 < ... < t_n = b$ of $[a,b]$, such that:
+\begin{align*}
+    \forall t \in [a,b], \forall \omega \in \Omega, X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\end{align*}
+with $\forall i \in \{0,1,..,n-1\}, X_i$ is $\mathcal{F}_{t_i}$-measurable.
 
-% This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
+This means that, in each interval $[t_i, t_{i+1}[$, $X_t(\omega)$ is independent of $t$ and $X_t(\omega) = X_i(\omega)$.
 
-% We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$).
-% \end{definition}
-% \end{frame}
+We define $\mathcal{E}$ (resp. $\mathcal{E}_n, n>0$) the set of all elementary processes on $[a,b]$ (resp. the subset of the $X \in \mathcal{E}$) such that all $X_i$ have a finite moment $\mathbb{E}X_i <\infty$ (resp $\mathbb{E}(\vert X_i\vert^n) < \infty$).
+\end{definition}
+\end{frame}
 
-% \begin{frame}{Stochastic calculus survival kit - Stochastic Integrals 2}
-% \begin{definition}
-% Let $X \in \mathcal{E}$, ie
-% \begin{align*}
-% X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
-% \end{align*}
-% \textbf{The stochastic integral of $X$ is the real random variable} :
-% \begin{align*}
-% \int_a^b X_t dB_t := \sum_{i=0}^{n-1} X_i (B_{t_{i+1}} - B_{t_{i}})
-% \end{align*}
-% \end{definition}
+\begin{frame}{Stochastic calculus survival kit - Stochastic Integrals 2}
+\begin{definition}
+Let $X \in \mathcal{E}$, ie
+\begin{align*}
+X_t(\omega) = \sum_{i=0}^{n-1} X_i(\omega) \textbf{1}_{[t_i, t_{i+1}[}(t)
+\end{align*}
+\textbf{The stochastic integral of $X$ is the real random variable} :
+\begin{align*}
+\int_a^b X_t dB_t := \sum_{i=0}^{n-1} X_i (B_{t_{i+1}} - B_{t_{i}})
+\end{align*}
+\end{definition}
 
-% The notion is then extended to other stochastic processes (in spaces of square integrable processes, see the annex).
-% \end{frame}
+The notion is then extended to other stochastic processes (in spaces of square integrable processes, see the annex).
+\end{frame}
 
 
 \begin{frame}{Stochastic calculus survival kit - Ito's process}
@@ -179,29 +179,29 @@ for any $0 < s < t$. ie : \textbf{the solution of a \gls{sde} is a Markov proces
 \end{tcolorbox}
 \end{frame}
 
-% \begin{frame}{Transition Kernels}
-%     \begin{itemize}
-%         \item Formally, a Markov process is caracterized by its \textbf{transition kernels}. 
-%         \item That is, for any $s < t$, and any $A \in \mathcal{B}_{\mathbb{R}^{D}}$, a Markov process verifies 
-% $\mathbb{P}(X_t \in A \vert \mathcal{F}_s) = \mathbb{P}(X_t \in A \vert X_s)$.
-%         \item the transition kernels of $X$ are the applications $P_{s,t} : \mathbb{R}^{D} \times \mathcal{B}_{\mathbb{R}^{D}} \rightarrow [0,1]$, 
-%             such that for any $f : \mathbb{R}^{D} \rightarrow \mathbb{R}$ measurable and bounded, we have:
-%             \begin{align}
-%                 P_{s,t}f(x) = \int_{{\mathbb{R}^{D}}} P_{s,t}(x,dy) f(y)
-%             \end{align}
-%         So $P_{s,t}$ actually is the probability measure of starting from $x$ at time $s$, and reach $y \in dy$ at time $t$.
-%     \end{itemize}
+\begin{frame}{Transition Kernels}
+    \begin{itemize}
+        \item Formally, a Markov process is caracterized by its \textbf{transition kernels}. 
+        \item That is, for any $s < t$, and any $A \in \mathcal{B}_{\mathbb{R}^{D}}$, a Markov process verifies 
+$\mathbb{P}(X_t \in A \vert \mathcal{F}_s) = \mathbb{P}(X_t \in A \vert X_s)$.
+        \item the transition kernels of $X$ are the applications $P_{s,t} : \mathbb{R}^{D} \times \mathcal{B}_{\mathbb{R}^{D}} \rightarrow [0,1]$, 
+            such that for any $f : \mathbb{R}^{D} \rightarrow \mathbb{R}$ measurable and bounded, we have:
+            \begin{align}
+                P_{s,t}f(x) = \int_{{\mathbb{R}^{D}}} P_{s,t}(x,dy) f(y)
+            \end{align}
+        So $P_{s,t}$ actually is the probability measure of starting from $x$ at time $s$, and reach $y \in dy$ at time $t$.
+    \end{itemize}
     
-% When the transition kernels have densities $p(x,t \vert y,s)$ (ie starting from $y$ at time $s$, and
-% reaching $x$ at time $t$), then a fundamental result is the \textbf{Fokker Plank Kolmogorov} equation 
-% (also known as forward Kolomogorov) :
-% \begin{align}
-%     \label{FPK}
-%     \frac{\partial p}{\partial y} &= \mathcal{A}^{*}p \\
-%     \mathcal{A}^{*}(\bullet) &= - \sum_{i=1}^{D} \frac{\partial}{\partial x_i} (F_i(x,t)(\bullet)) + \
-%         \frac{1}{2} \sum_{i,j=1}^{D} \frac{\partial^{2}}{\partial x_i \partial x_j} (L(x,t)QL(x,t)^{T}\vert_{i,j} (\bullet))
-% \end{align}
-% \end{frame}
+When the transition kernels have densities $p(x,t \vert y,s)$ (ie starting from $y$ at time $s$, and
+reaching $x$ at time $t$), then a fundamental result is the \textbf{Fokker Plank Kolmogorov} equation 
+(also known as forward Kolomogorov) :
+\begin{align}
+    \label{FPK}
+    \frac{\partial p}{\partial y} &= \mathcal{A}^{*}p \\
+    \mathcal{A}^{*}(\bullet) &= - \sum_{i=1}^{D} \frac{\partial}{\partial x_i} (F_i(x,t)(\bullet)) + \
+        \frac{1}{2} \sum_{i,j=1}^{D} \frac{\partial^{2}}{\partial x_i \partial x_j} (L(x,t)QL(x,t)^{T}\vert_{i,j} (\bullet))
+\end{align}
+\end{frame}
 
 \begin{frame}{Linear SDE}
     A particularly useful flavor of \gls{sde} is the linear \gls{sde}, that allows some close-form (or at least nicer) solutions:
@@ -237,67 +237,67 @@ In this case, the transition kernels family and the solution write:
 \end{tcolorbox}
 \end{frame}
 
-% \begin{frame}{Gaussian Processes as solutions of linear SDE}
-%     \begin{itemize}
-%         \item \textbf{Brownian motion} : solution to $dZ_t = dB_t$, \gls{gp} with kernel $k(t,t') = \text{min}(t,t')$ (see \ref{sec:brownian_motion_gaussian_and_markov})
-%         \item \textbf{Ornstein Uhlenbeck} : the O.U. process
-%             \begin{align}
-%                 dZ_t &= - \frac{1}{l} Z_t dt + dB_t
-%             \end{align}
-%             where $dB_t$ has diffusion coefficient $\frac{2 \sigma^{2}}{l}$, is a \gls{gp} with kernel:
-%             \begin{align}
-%                 k_{\text{exp}} &= \sigma^{2} \exp{(- \frac{\vert t-t' \vert}{l})}
-%             \end{align}
-%         \item \textbf{Matern} : the \gls{sde} representation with
-%             \begin{align}
-%                 F = \begin{pmatrix}
-%                     0 & 1 \\
-%                     -\lambda^{2} & -2 \lambda 
-%                 \end{pmatrix}, 
-%                 L = \begin{pmatrix}
-%                     0 \\ 1
-%                 \end{pmatrix}, 
-%                 H &= \begin{pmatrix}
-%                     1 \\ 0
-%                 \end{pmatrix}
-%             \end{align}
-%             is a \gls{gp} with the Matern kernel with $\nu = \frac{3}{2}$:
-%             \begin{align}
-%                 k_{\text{Matern}} &= \sigma^{2} \left(
-%                     1 + \frac{\sqrt{3} \vert t-t' \vert}{l}
-%                 \right) \exp{
-%                     \left(
-%                         -\frac{\sqrt{3} \vert t-t' \vert}{l}
-%                     \right)
-%                 }
-%         \end{align}
-%         and $\lambda = \frac{\sqrt{3}}{l}$, diffusion is $q = 4\lambda^{3}\sigma^{2}$.
-%     \end{itemize}
-% \end{frame}
+\begin{frame}{Gaussian Processes as solutions of linear SDE}
+    \begin{itemize}
+        \item \textbf{Brownian motion} : solution to $dZ_t = dB_t$, \gls{gp} with kernel $k(t,t') = \text{min}(t,t')$ (see \ref{sec:brownian_motion_gaussian_and_markov})
+        \item \textbf{Ornstein Uhlenbeck} : the O.U. process
+            \begin{align}
+                dZ_t &= - \frac{1}{l} Z_t dt + dB_t
+            \end{align}
+            where $dB_t$ has diffusion coefficient $\frac{2 \sigma^{2}}{l}$, is a \gls{gp} with kernel:
+            \begin{align}
+                k_{\text{exp}} &= \sigma^{2} \exp{(- \frac{\vert t-t' \vert}{l})}
+            \end{align}
+        \item \textbf{Matern} : the \gls{sde} representation with
+            \begin{align}
+                F = \begin{pmatrix}
+                    0 & 1 \\
+                    -\lambda^{2} & -2 \lambda 
+                \end{pmatrix}, 
+                L = \begin{pmatrix}
+                    0 \\ 1
+                \end{pmatrix}, 
+                H &= \begin{pmatrix}
+                    1 \\ 0
+                \end{pmatrix}
+            \end{align}
+            is a \gls{gp} with the Matern kernel with $\nu = \frac{3}{2}$:
+            \begin{align}
+                k_{\text{Matern}} &= \sigma^{2} \left(
+                    1 + \frac{\sqrt{3} \vert t-t' \vert}{l}
+                \right) \exp{
+                    \left(
+                        -\frac{\sqrt{3} \vert t-t' \vert}{l}
+                    \right)
+                }
+        \end{align}
+        and $\lambda = \frac{\sqrt{3}}{l}$, diffusion is $q = 4\lambda^{3}\sigma^{2}$.
+    \end{itemize}
+\end{frame}
 
 
-% \begin{frame}{Some Gaussian Processes are NOT solutions to linear \gls{sde}}
-%     Conversely, the following kernels can not be used to derive an associated linear \gls{sde}:
+\begin{frame}{Some Gaussian Processes are NOT solutions to linear \gls{sde}}
+    Conversely, the following kernels can not be used to derive an associated linear \gls{sde}:
 
-% \begin{itemize}
-%     \item \textbf{squared exponential} : the widely used
-%     \begin{align}
-%         k_{\text{se}}(t,t') &= \sigma^{2} \exp{\left(
-%             - \frac{\vert t-t' \vert^{2}}{2l^{2}}
-%         \right)}
-%     \end{align}
-%     \item \textbf{rational quadratic}:
-%     \begin{align}
-%         k_{\text{rq}}(t,t') &= \sigma^{2} \left(
-%             1 + \frac{\vert t-t' \vert^{2}}{2 \alpha l^{2}}
-%         \right)^{-\alpha}
-%     \end{align}
-%     with $\alpha > 0$.
-% \end{itemize}
+\begin{itemize}
+    \item \textbf{squared exponential} : the widely used
+    \begin{align}
+        k_{\text{se}}(t,t') &= \sigma^{2} \exp{\left(
+            - \frac{\vert t-t' \vert^{2}}{2l^{2}}
+        \right)}
+    \end{align}
+    \item \textbf{rational quadratic}:
+    \begin{align}
+        k_{\text{rq}}(t,t') &= \sigma^{2} \left(
+            1 + \frac{\vert t-t' \vert^{2}}{2 \alpha l^{2}}
+        \right)^{-\alpha}
+    \end{align}
+    with $\alpha > 0$.
+\end{itemize}
 
-% In that latter case, one can use spectral decomposition (ie Mercer's theorem, see MVA kernel class \cite{mva_kernel_class}) 
-% to approximate the kernel function and determine an associated linear \gls{sde}.
-% \end{frame}
+In that latter case, one can use spectral decomposition (ie Mercer's theorem, see MVA kernel class \cite{mva_kernel_class}) 
+to approximate the kernel function and determine an associated linear \gls{sde}.
+\end{frame}
 
 \begin{frame}{General Filtering/Smoothing equations with SDEs}
     \begin{itemize}
@@ -367,27 +367,27 @@ all known observations, ie finding $p(Z_t \vert x_{1:T})$ for all $t \in [0,T]$.
     \end{itemize}
 \end{frame}
 
-% \begin{frame}
-%             \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Bayesian smoother]
-%                 \begin{align}
-%                     Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
-%                     X_k &\sim p(X_k \vert Z_{t_k})
-%                 \end{align}
-%                 The \textit{Bayesian smoother} is, for any $k < T$:
-%                 \begin{align}
-%                     p(Z_{t_{k+1}} \vert X_{1:k}) &= \int p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_k} \vert X_{1:k}) dZ_{t_k} \\
-%                     p(Z_{t_k} \vert X_{1:T}) &= p(Z_{t_{k}} \vert X_{1:k})\int \left(
-%                         \frac{
-%                             p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_{k+1}} \vert X_{1:T})
-%                         }{
-%                             p(Z_{t_{k+1}} \vert X_{1:k}
-%                         }dZ_{t_{k+1}}
-%                     \right)
-%                 \end{align}
-%                 The backward recursion is started from the final step, where the filtering and smoothing densities 
-%                 are the same : $p(Z_{t_T} \vert X_{1:T})$.
-%             \end{tcolorbox}
-% \end{frame}
+\begin{frame}
+            \begin{tcolorbox}[colback=blue!5!white,colframe=black!75!black,title=Bayesian smoother]
+                \begin{align}
+                    Z_{t_{k+1}} &\sim p(Z_{t_{k+1}} \vert Z_{t_k}) \\
+                    X_k &\sim p(X_k \vert Z_{t_k})
+                \end{align}
+                The \textit{Bayesian smoother} is, for any $k < T$:
+                \begin{align}
+                    p(Z_{t_{k+1}} \vert X_{1:k}) &= \int p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_k} \vert X_{1:k}) dZ_{t_k} \\
+                    p(Z_{t_k} \vert X_{1:T}) &= p(Z_{t_{k}} \vert X_{1:k})\int \left(
+                        \frac{
+                            p(Z_{t_{k+1}} \vert Z_{t_k}) p(Z_{t_{k+1}} \vert X_{1:T})
+                        }{
+                            p(Z_{t_{k+1}} \vert X_{1:k}
+                        }dZ_{t_{k+1}}
+                    \right)
+                \end{align}
+                The backward recursion is started from the final step, where the filtering and smoothing densities 
+                are the same : $p(Z_{t_T} \vert X_{1:T})$.
+            \end{tcolorbox}
+\end{frame}
 
 
 \begin{frame}{GP-VAE with accomodating kernels : filtering/smoothing in $O(n)$}

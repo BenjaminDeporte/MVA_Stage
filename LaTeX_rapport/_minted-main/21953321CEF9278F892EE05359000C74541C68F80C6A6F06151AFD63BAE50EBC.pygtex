@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{lengthscale} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Parameter}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{lengthscale}\PYG{p}{))}  \PYG{c+c1}{\PYGZsh{} learnable lengthscale parameter}
+\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{sigma} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Parameter}\PYG{p}{(}\PYG{n}{torch}\PYG{o}{.}\PYG{n}{tensor}\PYG{p}{(}\PYG{n}{sigma}\PYG{p}{))}  \PYG{c+c1}{\PYGZsh{} learnable variance parameter}
+\end{Verbatim}

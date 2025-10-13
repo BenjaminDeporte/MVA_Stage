@@ -33,9 +33,9 @@
 \contentsline {chapter}{\numberline {16}Quantifying randomness of data sequences}{83}{chapter.16}%
 \contentsline {part}{VII\hspace {1em}Appendices}{87}{part.7}%
 \contentsline {chapter}{Appendices}{88}{section*.1}%
-\contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{89}{appendix.1.A}%
-\contentsline {chapter}{\numberline {B}Gaussian Process}{91}{appendix.1.B}%
-\contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{93}{appendix.1.C}%
-\contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{94}{appendix.1.D}%
-\contentsline {chapter}{\numberline {E}Why Brownian motion is a Gaussian and a Markov process}{99}{appendix.1.E}%
-\contentsline {chapter}{\numberline {F}Adjoint sensitivity method}{102}{appendix.1.F}%
+\contentsline {chapter}{\numberline {A}Vanilla Variational Auto Encoder}{89}{appendix.a.A}%
+\contentsline {chapter}{\numberline {B}Gaussian Process}{91}{appendix.a.B}%
+\contentsline {chapter}{\numberline {C}KL divergence between two exponential-family distributions}{93}{appendix.a.C}%
+\contentsline {chapter}{\numberline {D}Ornstein Uhlenbeck}{94}{appendix.a.D}%
+\contentsline {chapter}{\numberline {E}Why Brownian motion is a Gaussian and a Markov process}{99}{appendix.a.E}%
+\contentsline {chapter}{\numberline {F}Adjoint sensitivity method}{102}{appendix.a.F}%

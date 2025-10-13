@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.3 $
+% $ biblatex bbl format version 3.2 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{nty/global//global/global/global}
-    \entry{PRML}{misc}{}{}
+  \datalist[entry]{nty/global//global/global}
+    \entry{PRML}{misc}{}
       \name{author}{1}{}{%
         {{hash=56460e698238243273dc1a28b5445acb}{%
            family={Bishop},
@@ -29,12 +29,11 @@
       }
       \strng{namehash}{56460e698238243273dc1a28b5445acb}
       \strng{fullhash}{56460e698238243273dc1a28b5445acb}
-      \strng{fullhashraw}{56460e698238243273dc1a28b5445acb}
       \strng{bibnamehash}{56460e698238243273dc1a28b5445acb}
       \strng{authorbibnamehash}{56460e698238243273dc1a28b5445acb}
       \strng{authornamehash}{56460e698238243273dc1a28b5445acb}
       \strng{authorfullhash}{56460e698238243273dc1a28b5445acb}
-      \strng{authorfullhashraw}{56460e698238243273dc1a28b5445acb}
+      \field{extraname}{1}
       \field{sortinit}{B}
       \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
       \field{labelnamesource}{author}
@@ -49,7 +48,43 @@
       \verb https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf
       \endverb
     \endentry
-    \entry{casale_gaussian_2018}{misc}{}{}
+    \entry{bishop-pattern-2016}{book}{}
+      \name{author}{1}{}{%
+        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Christopher\bibnamedelima M.},
+           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {eng}%
+      }
+      \list{location}{1}{%
+        {New York, NY}%
+      }
+      \list{publisher}{1}{%
+        {Springer New York}%
+      }
+      \strng{namehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{fullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{bibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authorbibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authornamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \strng{authorfullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
+      \field{extraname}{2}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The field of pattern recognition has undergone substantial development over the years. This book reflects these developments while providing a grounding in the basic concepts of pattern recognition and machine learning. It is aimed at advanced undergraduates or first year PhD students, as well as researchers and practitioners}
+      \field{edition}{Softcover reprint of the original 1st edition 2006 (corrected at 8th printing 2009)}
+      \field{isbn}{9781493938438}
+      \field{series}{Information science and statistics}
+      \field{title}{Pattern {Recognition} and {Machine} {Learning}}
+      \field{year}{2016}
+      \true{nocite}
+    \endentry
+    \entry{casale_gaussian_2018}{misc}{}
       \name{author}{5}{}{%
         {{hash=d260ec84f2479b1250fe9fc1634e1835}{%
            family={Casale},
@@ -82,12 +117,10 @@
       }
       \strng{namehash}{a0bc10e0743615248f4147cd16ae4d03}
       \strng{fullhash}{f01137848855844cb47833afab2b8179}
-      \strng{fullhashraw}{f01137848855844cb47833afab2b8179}
       \strng{bibnamehash}{a0bc10e0743615248f4147cd16ae4d03}
       \strng{authorbibnamehash}{a0bc10e0743615248f4147cd16ae4d03}
       \strng{authornamehash}{a0bc10e0743615248f4147cd16ae4d03}
       \strng{authorfullhash}{f01137848855844cb47833afab2b8179}
-      \strng{authorfullhashraw}{f01137848855844cb47833afab2b8179}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -109,7 +142,7 @@
       \verb https://arxiv.org/abs/1810.11738v2
       \endverb
     \endentry
-    \entry{chen_neural_2019}{misc}{}{}
+    \entry{chen_neural_2019}{misc}{}
       \name{author}{4}{}{%
         {{hash=9db211fe28b9db15bc04d29bedf2e03f}{%
            family={Chen},
@@ -137,12 +170,10 @@
       }
       \strng{namehash}{20ad419b4fe3ed70cfc4fb491e988f54}
       \strng{fullhash}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
-      \strng{fullhashraw}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
       \strng{bibnamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
       \strng{authorbibnamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
       \strng{authornamehash}{20ad419b4fe3ed70cfc4fb491e988f54}
       \strng{authorfullhash}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
-      \strng{authorfullhashraw}{bb5e65ad0a1ad185a1b51a7c31fe22b3}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -167,7 +198,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Computer Science - Artificial Intelligence,Statistics - Machine Learning}
     \endentry
-    \entry{chung_recurrent_2016}{misc}{}{}
+    \entry{chung_recurrent_2016}{misc}{}
       \name{author}{6}{}{%
         {{hash=7a79e6bb4ca772c9b3b38f4e9f45b83c}{%
            family={Chung},
@@ -205,12 +236,10 @@
       }
       \strng{namehash}{2000d0778084bb56905b1654d519f50f}
       \strng{fullhash}{628f9925ef14c6c71696bf26bdac99e3}
-      \strng{fullhashraw}{628f9925ef14c6c71696bf26bdac99e3}
       \strng{bibnamehash}{2000d0778084bb56905b1654d519f50f}
       \strng{authorbibnamehash}{2000d0778084bb56905b1654d519f50f}
       \strng{authornamehash}{2000d0778084bb56905b1654d519f50f}
       \strng{authorfullhash}{628f9925ef14c6c71696bf26bdac99e3}
-      \strng{authorfullhashraw}{628f9925ef14c6c71696bf26bdac99e3}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -236,7 +265,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning}
     \endentry
-    \entry{mva_kernel_class}{misc}{}{}
+    \entry{mva_kernel_class}{misc}{}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labeltitlesource}{title}
@@ -246,7 +275,6 @@
       \field{urlmonth}{8}
       \field{urlyear}{2025}
       \field{urldateera}{ce}
-      \true{nocite}
       \verb{urlraw}
       \verb https://mva-kernel-methods.github.io/course-page/
       \endverb
@@ -254,7 +282,7 @@
       \verb https://mva-kernel-methods.github.io/course-page/
       \endverb
     \endentry
-    \entry{cover_elements_2006}{book}{}{}
+    \entry{cover_elements_2006}{book}{}
       \name{author}{2}{}{%
         {{hash=fe5b7bbda12c7502f55ddb9eeded8622}{%
            family={Cover},
@@ -278,12 +306,10 @@
       }
       \strng{namehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{fullhash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{fullhashraw}{e427ba6c0eda5292558c30c786236c01}
       \strng{bibnamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authorbibnamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authornamehash}{e427ba6c0eda5292558c30c786236c01}
       \strng{authorfullhash}{e427ba6c0eda5292558c30c786236c01}
-      \strng{authorfullhashraw}{e427ba6c0eda5292558c30c786236c01}
       \field{sortinit}{C}
       \field{sortinithash}{4d103a86280481745c9c897c925753c0}
       \field{labelnamesource}{author}
@@ -294,7 +320,7 @@
       \field{year}{2006}
       \true{nocite}
     \endentry
-    \entry{delgado-bonal_approximate_2019}{article}{}{}
+    \entry{delgado-bonal_approximate_2019}{article}{}
       \name{author}{2}{}{%
         {{hash=e8b914698909fbe0709572b24f5fce59}{%
            family={Delgado-Bonal},
@@ -312,12 +338,10 @@
       }
       \strng{namehash}{244a91ecf863007d1a127d8f0005b18f}
       \strng{fullhash}{244a91ecf863007d1a127d8f0005b18f}
-      \strng{fullhashraw}{244a91ecf863007d1a127d8f0005b18f}
       \strng{bibnamehash}{244a91ecf863007d1a127d8f0005b18f}
       \strng{authorbibnamehash}{244a91ecf863007d1a127d8f0005b18f}
       \strng{authornamehash}{244a91ecf863007d1a127d8f0005b18f}
       \strng{authorfullhash}{244a91ecf863007d1a127d8f0005b18f}
-      \strng{authorfullhashraw}{244a91ecf863007d1a127d8f0005b18f}
       \field{sortinit}{D}
       \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
       \field{labelnamesource}{author}
@@ -349,7 +373,7 @@
       \endverb
       \keyw{approximate entropy,sample entropy,information theory,chaos theory}
     \endentry
-    \entry{fortuin_gp-vae:_2020}{misc}{}{}
+    \entry{fortuin_gp-vae:_2020}{misc}{}
       \name{author}{4}{}{%
         {{hash=47bbd0e06f9a2791df9839ddb78957f6}{%
            family={Fortuin},
@@ -377,12 +401,10 @@
       }
       \strng{namehash}{96639821095b5475dcdceff31d77658c}
       \strng{fullhash}{dea7428c602ae28893a4703528ef8ff9}
-      \strng{fullhashraw}{dea7428c602ae28893a4703528ef8ff9}
       \strng{bibnamehash}{96639821095b5475dcdceff31d77658c}
       \strng{authorbibnamehash}{96639821095b5475dcdceff31d77658c}
       \strng{authornamehash}{96639821095b5475dcdceff31d77658c}
       \strng{authorfullhash}{dea7428c602ae28893a4703528ef8ff9}
-      \strng{authorfullhashraw}{dea7428c602ae28893a4703528ef8ff9}
       \field{sortinit}{F}
       \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
       \field{labelnamesource}{author}
@@ -408,7 +430,7 @@
       \endverb
       \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
     \endentry
-    \entry{noauthor_gaussian_nodate}{misc}{}{}
+    \entry{noauthor_gaussian_nodate}{misc}{}
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labeltitlesource}{title}
@@ -425,7 +447,7 @@
       \verb https://gaussianprocess.org/gpml/
       \endverb
     \endentry
-    \entry{girin_dynamical_2022}{misc}{}{}
+    \entry{girin_dynamical_2022}{misc}{}
       \name{author}{6}{}{%
         {{hash=90d860edd4de0d85574a26aecb7d08ea}{%
            family={Girin},
@@ -463,12 +485,10 @@
       }
       \strng{namehash}{87248adcd7ba6de2d1a076fd3110b98e}
       \strng{fullhash}{44acacb6fe5a3e8a4df930c47853405d}
-      \strng{fullhashraw}{44acacb6fe5a3e8a4df930c47853405d}
       \strng{bibnamehash}{87248adcd7ba6de2d1a076fd3110b98e}
       \strng{authorbibnamehash}{87248adcd7ba6de2d1a076fd3110b98e}
       \strng{authornamehash}{87248adcd7ba6de2d1a076fd3110b98e}
       \strng{authorfullhash}{44acacb6fe5a3e8a4df930c47853405d}
-      \strng{authorfullhashraw}{44acacb6fe5a3e8a4df930c47853405d}
       \field{sortinit}{G}
       \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
       \field{labelnamesource}{author}
@@ -494,7 +514,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
     \endentry
-    \entry{kingma_introduction_2019}{article}{}{}
+    \entry{kingma_introduction_2019}{article}{}
       \name{author}{2}{}{%
         {{hash=b6fbd171848aad4edf3925543f1f1522}{%
            family={Kingma},
@@ -509,12 +529,10 @@
       }
       \strng{namehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{fullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
-      \strng{fullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{bibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorbibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
-      \strng{authorfullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
       \field{extraname}{1}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
@@ -538,7 +556,7 @@
       \endverb
       \keyw{Machine Learning (cs.LG),Machine Learning (stat.ML),FOS: Computer and information sciences,FOS: Computer and information sciences}
     \endentry
-    \entry{kingma_auto-encoding_2022}{misc}{}{}
+    \entry{kingma_auto-encoding_2022}{misc}{}
       \name{author}{2}{}{%
         {{hash=b6fbd171848aad4edf3925543f1f1522}{%
            family={Kingma},
@@ -556,12 +574,10 @@
       }
       \strng{namehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{fullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
-      \strng{fullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{bibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorbibnamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authornamehash}{aabdd5db7a1ed298b1dfb6824d032c66}
       \strng{authorfullhash}{aabdd5db7a1ed298b1dfb6824d032c66}
-      \strng{authorfullhashraw}{aabdd5db7a1ed298b1dfb6824d032c66}
       \field{extraname}{2}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
@@ -588,7 +604,7 @@
       \endverb
       \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
     \endentry
-    \entry{ProbabilisticGraphicalModels}{misc}{}{}
+    \entry{ProbabilisticGraphicalModels}{misc}{}
       \name{author}{1}{}{%
         {{hash=a184f9d88214b4981730114ccf21ad78}{%
            family={Koller},
@@ -601,12 +617,10 @@
       }
       \strng{namehash}{a184f9d88214b4981730114ccf21ad78}
       \strng{fullhash}{a184f9d88214b4981730114ccf21ad78}
-      \strng{fullhashraw}{a184f9d88214b4981730114ccf21ad78}
       \strng{bibnamehash}{a184f9d88214b4981730114ccf21ad78}
       \strng{authorbibnamehash}{a184f9d88214b4981730114ccf21ad78}
       \strng{authornamehash}{a184f9d88214b4981730114ccf21ad78}
       \strng{authorfullhash}{a184f9d88214b4981730114ccf21ad78}
-      \strng{authorfullhashraw}{a184f9d88214b4981730114ccf21ad78}
       \field{sortinit}{K}
       \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
       \field{labelnamesource}{author}
@@ -625,7 +639,7 @@
       \verb https://mitpress.mit.edu/9780262013192/probabilistic-graphical-models/
       \endverb
     \endentry
-    \entry{li_scalable_2020}{misc}{}{}
+    \entry{li_scalable_2020}{misc}{}
       \name{author}{4}{}{%
         {{hash=b15f49c62474eb455b840b4fd198e965}{%
            family={Li},
@@ -653,12 +667,10 @@
       }
       \strng{namehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
       \strng{fullhash}{8d78b87e58d97548ba724545fa47d749}
-      \strng{fullhashraw}{8d78b87e58d97548ba724545fa47d749}
       \strng{bibnamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
       \strng{authorbibnamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
       \strng{authornamehash}{f5d58679c26c92e5a3b4e434cbe1f0e3}
       \strng{authorfullhash}{8d78b87e58d97548ba724545fa47d749}
-      \strng{authorfullhashraw}{8d78b87e58d97548ba724545fa47d749}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
@@ -683,7 +695,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Computer Science - Numerical Analysis,Mathematics - Numerical Analysis,Statistics - Machine Learning}
     \endentry
-    \entry{li_disentangled_2018}{misc}{}{}
+    \entry{li_disentangled_2018}{misc}{}
       \name{author}{2}{}{%
         {{hash=400e4d5630f4e518634cc6e80b62b62f}{%
            family={Li},
@@ -701,12 +713,10 @@
       }
       \strng{namehash}{f862f699c56fd95d648914a90218a901}
       \strng{fullhash}{f862f699c56fd95d648914a90218a901}
-      \strng{fullhashraw}{f862f699c56fd95d648914a90218a901}
       \strng{bibnamehash}{f862f699c56fd95d648914a90218a901}
       \strng{authorbibnamehash}{f862f699c56fd95d648914a90218a901}
       \strng{authornamehash}{f862f699c56fd95d648914a90218a901}
       \strng{authorfullhash}{f862f699c56fd95d648914a90218a901}
-      \strng{authorfullhashraw}{f862f699c56fd95d648914a90218a901}
       \field{sortinit}{L}
       \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
       \field{labelnamesource}{author}
@@ -731,7 +741,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning}
     \endentry
-    \entry{mouvement-brownien-calcul-ito}{misc}{}{}
+    \entry{mouvement-brownien-calcul-ito}{misc}{}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labeltitlesource}{title}
@@ -751,7 +761,7 @@
       \verb https://www.editions-hermann.fr/livre/mouvement-brownien-et-calcul-d-ito-leonard-gallardo
       \endverb
     \endentry
-    \entry{ProbabilisticMachineLearning}{misc}{}{}
+    \entry{ProbabilisticMachineLearning}{misc}{}
       \name{author}{1}{}{%
         {{hash=b1769bbaa2660cbedf14832523ae4d85}{%
            family={Murphy},
@@ -761,12 +771,10 @@
       }
       \strng{namehash}{b1769bbaa2660cbedf14832523ae4d85}
       \strng{fullhash}{b1769bbaa2660cbedf14832523ae4d85}
-      \strng{fullhashraw}{b1769bbaa2660cbedf14832523ae4d85}
       \strng{bibnamehash}{b1769bbaa2660cbedf14832523ae4d85}
       \strng{authorbibnamehash}{b1769bbaa2660cbedf14832523ae4d85}
       \strng{authornamehash}{b1769bbaa2660cbedf14832523ae4d85}
       \strng{authorfullhash}{b1769bbaa2660cbedf14832523ae4d85}
-      \strng{authorfullhashraw}{b1769bbaa2660cbedf14832523ae4d85}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -780,7 +788,7 @@
       \verb https://mitpress.mit.edu/9780262048439/probabilistic-machine-learning/
       \endverb
     \endentry
-    \entry{cours-jf-legall}{misc}{}{}
+    \entry{cours-jf-legall}{misc}{}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labeltitlesource}{title}
@@ -798,7 +806,7 @@
       \verb https://www.imo.universite-paris-saclay.fr/~jean-francois.le-gall/
       \endverb
     \endentry
-    \entry{peluchetti_infinitely_2020}{misc}{}{}
+    \entry{peluchetti_infinitely_2020}{misc}{}
       \name{author}{2}{}{%
         {{hash=9ef3d7988bf5d5b30a7619a25d038725}{%
            family={Peluchetti},
@@ -816,12 +824,10 @@
       }
       \strng{namehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \strng{fullhash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
-      \strng{fullhashraw}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \strng{bibnamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \strng{authorbibnamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \strng{authornamehash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \strng{authorfullhash}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
-      \strng{authorfullhashraw}{ac1a5d3dc1808034ad89bcdfd1bf6f7e}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
@@ -847,7 +853,7 @@
       \endverb
       \keyw{Statistics - Machine Learning,Computer Science - Machine Learning}
     \endentry
-    \entry{pincus_approximate_1991}{article}{}{}
+    \entry{pincus_approximate_1991}{article}{}
       \name{author}{1}{}{%
         {{hash=a82b62004b7bcf863e9deab45dfc8350}{%
            family={Pincus},
@@ -860,12 +866,10 @@
       }
       \strng{namehash}{a82b62004b7bcf863e9deab45dfc8350}
       \strng{fullhash}{a82b62004b7bcf863e9deab45dfc8350}
-      \strng{fullhashraw}{a82b62004b7bcf863e9deab45dfc8350}
       \strng{bibnamehash}{a82b62004b7bcf863e9deab45dfc8350}
       \strng{authorbibnamehash}{a82b62004b7bcf863e9deab45dfc8350}
       \strng{authornamehash}{a82b62004b7bcf863e9deab45dfc8350}
       \strng{authorfullhash}{a82b62004b7bcf863e9deab45dfc8350}
-      \strng{authorfullhashraw}{a82b62004b7bcf863e9deab45dfc8350}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
@@ -895,7 +899,7 @@
       \verb https://pnas.org/doi/full/10.1073/pnas.88.6.2297
       \endverb
     \endentry
-    \entry{pontriagin_mathematical_2018}{book}{}{}
+    \entry{pontriagin_mathematical_2018}{book}{}
       \name{author}{4}{}{%
         {{hash=991c1e4440b79293aecd20ba0be241e3}{%
            family={Pontriagin},
@@ -936,16 +940,13 @@
       }
       \strng{namehash}{ccc982c0538209707c57e014ed42ffcc}
       \strng{fullhash}{d54767598af9284ccb3b23296ab9fcf8}
-      \strng{fullhashraw}{d54767598af9284ccb3b23296ab9fcf8}
       \strng{bibnamehash}{ccc982c0538209707c57e014ed42ffcc}
       \strng{authorbibnamehash}{ccc982c0538209707c57e014ed42ffcc}
       \strng{authornamehash}{ccc982c0538209707c57e014ed42ffcc}
       \strng{authorfullhash}{d54767598af9284ccb3b23296ab9fcf8}
-      \strng{authorfullhashraw}{d54767598af9284ccb3b23296ab9fcf8}
       \strng{editorbibnamehash}{406fe011a9b6f9525dc72f820e222146}
       \strng{editornamehash}{406fe011a9b6f9525dc72f820e222146}
       \strng{editorfullhash}{406fe011a9b6f9525dc72f820e222146}
-      \strng{editorfullhashraw}{406fe011a9b6f9525dc72f820e222146}
       \field{sortinit}{P}
       \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
       \field{labelnamesource}{author}
@@ -957,7 +958,7 @@
       \field{year}{2018}
       \keyw{Mathematical optimization}
     \endentry
-    \entry{rasmussen_gaussian_2008}{book}{}{}
+    \entry{rasmussen_gaussian_2008}{book}{}
       \name{author}{2}{}{%
         {{hash=58d90ed7b7348c7a5a9b4a2a8f46df7b}{%
            family={Rasmussen},
@@ -981,12 +982,10 @@
       }
       \strng{namehash}{f0ccf4a09a3a6a91719405724e3ae5da}
       \strng{fullhash}{f0ccf4a09a3a6a91719405724e3ae5da}
-      \strng{fullhashraw}{f0ccf4a09a3a6a91719405724e3ae5da}
       \strng{bibnamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
       \strng{authorbibnamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
       \strng{authornamehash}{f0ccf4a09a3a6a91719405724e3ae5da}
       \strng{authorfullhash}{f0ccf4a09a3a6a91719405724e3ae5da}
-      \strng{authorfullhashraw}{f0ccf4a09a3a6a91719405724e3ae5da}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
@@ -997,7 +996,7 @@
       \field{title}{Gaussian processes for machine learning}
       \field{year}{2008}
     \endentry
-    \entry{roberts_gaussian_2013}{article}{}{}
+    \entry{roberts_gaussian_2013}{article}{}
       \name{author}{6}{}{%
         {{hash=67e21120146db1b8190e7e1e2a299d8a}{%
            family={Roberts},
@@ -1035,12 +1034,10 @@
       }
       \strng{namehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
       \strng{fullhash}{d40892e1b0ebe3777b8c260dc7e3c4a6}
-      \strng{fullhashraw}{d40892e1b0ebe3777b8c260dc7e3c4a6}
       \strng{bibnamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
       \strng{authorbibnamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
       \strng{authornamehash}{6bf57a3da1ffc6842d3c09098a2d10ee}
       \strng{authorfullhash}{d40892e1b0ebe3777b8c260dc7e3c4a6}
-      \strng{authorfullhashraw}{d40892e1b0ebe3777b8c260dc7e3c4a6}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
@@ -1070,7 +1067,7 @@
       \verb https://royalsocietypublishing.org/doi/10.1098/rsta.2011.0550
       \endverb
     \endentry
-    \entry{rubanova_latent_2019}{misc}{}{}
+    \entry{rubanova_latent_2019}{misc}{}
       \name{author}{3}{}{%
         {{hash=d7891653274cb8d85e3a83b41a0c2067}{%
            family={Rubanova},
@@ -1093,12 +1090,10 @@
       }
       \strng{namehash}{109b5aee95e7aa395f537ca8002896da}
       \strng{fullhash}{109b5aee95e7aa395f537ca8002896da}
-      \strng{fullhashraw}{109b5aee95e7aa395f537ca8002896da}
       \strng{bibnamehash}{109b5aee95e7aa395f537ca8002896da}
       \strng{authorbibnamehash}{109b5aee95e7aa395f537ca8002896da}
       \strng{authornamehash}{109b5aee95e7aa395f537ca8002896da}
       \strng{authorfullhash}{109b5aee95e7aa395f537ca8002896da}
-      \strng{authorfullhashraw}{109b5aee95e7aa395f537ca8002896da}
       \field{sortinit}{R}
       \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
       \field{labelnamesource}{author}
@@ -1124,7 +1119,7 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
     \endentry
-    \entry{sarkka_applied_2019}{book}{}{}
+    \entry{sarkka_applied_2019}{book}{}
       \name{author}{2}{}{%
         {{hash=89f4b98fe43f3c9f7ffdc081904d4781}{%
            family={Särkkä},
@@ -1145,12 +1140,10 @@
       }
       \strng{namehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \strng{fullhash}{3ac4cf0937ba13a39c2fb845cfc9d191}
-      \strng{fullhashraw}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \strng{bibnamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \strng{authorbibnamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \strng{authornamehash}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \strng{authorfullhash}{3ac4cf0937ba13a39c2fb845cfc9d191}
-      \strng{authorfullhashraw}{3ac4cf0937ba13a39c2fb845cfc9d191}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -1175,7 +1168,7 @@
       \verb https://www.cambridge.org/core/books/applied-stochastic-differential-equations/6BB1B8B0819F8C12616E4A0C78C29EAA
       \endverb
     \endentry
-    \entry{sengupta_efficient_2014}{article}{}{}
+    \entry{sengupta_efficient_2014}{article}{}
       \name{author}{3}{}{%
         {{hash=2a9702137916390f6f5eba8fa2dee47e}{%
            family={Sengupta},
@@ -1198,12 +1191,10 @@
       }
       \strng{namehash}{8183ec272b0a349bee45a8fc363b0815}
       \strng{fullhash}{8183ec272b0a349bee45a8fc363b0815}
-      \strng{fullhashraw}{8183ec272b0a349bee45a8fc363b0815}
       \strng{bibnamehash}{8183ec272b0a349bee45a8fc363b0815}
       \strng{authorbibnamehash}{8183ec272b0a349bee45a8fc363b0815}
       \strng{authornamehash}{8183ec272b0a349bee45a8fc363b0815}
       \strng{authorfullhash}{8183ec272b0a349bee45a8fc363b0815}
-      \strng{authorfullhashraw}{8183ec272b0a349bee45a8fc363b0815}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -1230,7 +1221,7 @@
       \verb https://linkinghub.elsevier.com/retrieve/pii/S1053811914003097
       \endverb
     \endentry
-    \entry{shannon_mathematical_1948}{article}{}{}
+    \entry{shannon_mathematical_1948}{article}{}
       \name{author}{1}{}{%
         {{hash=22e2130b8d96f93daba648ff62af869b}{%
            family={Shannon},
@@ -1240,12 +1231,10 @@
       }
       \strng{namehash}{22e2130b8d96f93daba648ff62af869b}
       \strng{fullhash}{22e2130b8d96f93daba648ff62af869b}
-      \strng{fullhashraw}{22e2130b8d96f93daba648ff62af869b}
       \strng{bibnamehash}{22e2130b8d96f93daba648ff62af869b}
       \strng{authorbibnamehash}{22e2130b8d96f93daba648ff62af869b}
       \strng{authornamehash}{22e2130b8d96f93daba648ff62af869b}
       \strng{authorfullhash}{22e2130b8d96f93daba648ff62af869b}
-      \strng{authorfullhashraw}{22e2130b8d96f93daba648ff62af869b}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -1275,7 +1264,7 @@
       \verb https://ieeexplore.ieee.org/document/6773024
       \endverb
     \endentry
-    \entry{titsias_bayesian_2010}{inproceedings}{}{}
+    \entry{titsias_bayesian_2010}{inproceedings}{}
       \name{author}{2}{}{%
         {{hash=81ef8fd5b7b50d8f80ae8da790ccba73}{%
            family={Titsias},
@@ -1308,16 +1297,13 @@
       }
       \strng{namehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{fullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
-      \strng{fullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{bibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{authorbibnamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{authornamehash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{authorfullhash}{c7c0d14044c25f8b7488f0e91b0fdbb1}
-      \strng{authorfullhashraw}{c7c0d14044c25f8b7488f0e91b0fdbb1}
       \strng{editorbibnamehash}{ea4550790536e3c5e0b1f0cd5656198b}
       \strng{editornamehash}{ea4550790536e3c5e0b1f0cd5656198b}
       \strng{editorfullhash}{ea4550790536e3c5e0b1f0cd5656198b}
-      \strng{editorfullhashraw}{ea4550790536e3c5e0b1f0cd5656198b}
       \field{sortinit}{T}
       \field{sortinithash}{9af77f0292593c26bde9a56e688eaee9}
       \field{labelnamesource}{author}
@@ -1339,7 +1325,7 @@
       \verb https://proceedings.mlr.press/v9/titsias10a.html
       \endverb
     \endentry
-    \entry{zhu_markovian_2023}{misc}{}{}
+    \entry{zhu_markovian_2023}{misc}{}
       \name{author}{3}{}{%
         {{hash=0fd257d8965b0398c2a4c16d8fc8bdd5}{%
            family={Zhu},
@@ -1362,12 +1348,10 @@
       }
       \strng{namehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \strng{fullhash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
-      \strng{fullhashraw}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \strng{bibnamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \strng{authorbibnamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \strng{authornamehash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \strng{authorfullhash}{ffe0a4b0a1025c2d9fd51b739f066dc5}
-      \strng{authorfullhashraw}{ffe0a4b0a1025c2d9fd51b739f066dc5}
       \field{sortinit}{Z}
       \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
       \field{labelnamesource}{author}

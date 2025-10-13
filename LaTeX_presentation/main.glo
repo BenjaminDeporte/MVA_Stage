@@ -85,78 +85,85 @@
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{29}
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{29}
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{31}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{52}
-\glossaryentry{ODE?\glossentry{ode}|setentrycounter[]{page}"\glsnumberformat}{53}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{53}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{53}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{54}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{54}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{54}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{55}
+\glossaryentry{ODE?\glossentry{ode}|setentrycounter[]{page}"\glsnumberformat}{56}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{56}
-\glossaryentry{CD-SSM?\glossentry{cd-ssm}|setentrycounter[]{page}"\glsnumberformat}{56}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{57}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{57}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{59}
-\glossaryentry{CD-SSM?\glossentry{cd-ssm}|setentrycounter[]{page}"\glsnumberformat}{59}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{60}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{60}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{60}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{60}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{56}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{58}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{58}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{58}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{59}
+\glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{60}
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{60}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{60}
 \glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{60}
-\glossaryentry{Latent ODE?\glossentry{latent ode}|setentrycounter[]{page}"\glsnumberformat}{61}
-\glossaryentry{ODE?\glossentry{ode}|setentrycounter[]{page}"\glsnumberformat}{64}
-\glossaryentry{Latent ODE?\glossentry{latent ode}|setentrycounter[]{page}"\glsnumberformat}{65}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{65}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{66}
-\glossaryentry{VLB?\glossentry{vlb}|setentrycounter[]{page}"\glsnumberformat}{67}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{68}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{69}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{70}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{71}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{72}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{61}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{61}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{61}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{62}
+\glossaryentry{CD-SSM?\glossentry{cd-ssm}|setentrycounter[]{page}"\glsnumberformat}{62}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{63}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{63}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{65}
+\glossaryentry{CD-SSM?\glossentry{cd-ssm}|setentrycounter[]{page}"\glsnumberformat}{65}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}"\glsnumberformat}{67}
+\glossaryentry{Latent ODE?\glossentry{latent ode}|setentrycounter[]{page}"\glsnumberformat}{68}
+\glossaryentry{ODE?\glossentry{ode}|setentrycounter[]{page}"\glsnumberformat}{71}
+\glossaryentry{Latent ODE?\glossentry{latent ode}|setentrycounter[]{page}"\glsnumberformat}{72}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{72}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{73}
 \glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{73}
-\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{73}
+\glossaryentry{VLB?\glossentry{vlb}|setentrycounter[]{page}"\glsnumberformat}{74}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{75}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{76}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{77}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{78}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{79}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{VAE?\glossentry{vae}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{DVAE?\glossentry{dvae}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{GP-VAE?\glossentry{gpvae}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{SDE?\glossentry{sde}|setentrycounter[]{page}"\glsnumberformat}{80}
+\glossaryentry{Latent SDE?\glossentry{latent sde}|setentrycounter[]{page}"\glsnumberformat}{80}

@@ -1,38 +1,23 @@
 \beamer@slide {Introduction}{3}
 \beamer@slide {DVAEs}{7}
 \beamer@slide {q_phi_dev}{14}
-\beamer@slide {q_phi_dev}{14}
-\beamer@slide {gen_model_dvae}{17}
 \beamer@slide {gen_model_dvae}{17}
 \beamer@slide {inf_model_dvae}{17}
-\beamer@slide {inf_model_dvae}{17}
-\beamer@slide {vlb_dvae}{17}
 \beamer@slide {vlb_dvae}{17}
 \beamer@slide {fig:graphical_model_dkf}{18}
 \beamer@slide {dkf_posterior}{19}
-\beamer@slide {dkf_posterior}{19}
-\beamer@slide {gen_model_dkf}{22}
 \beamer@slide {gen_model_dkf}{22}
 \beamer@slide {inf_model_dkf}{22}
-\beamer@slide {inf_model_dkf}{22}
-\beamer@slide {vlb_dkf}{22}
 \beamer@slide {vlb_dkf}{22}
 \beamer@slide {fig:graphical_model_vrnn}{25}
 \beamer@slide {gen_model_vrnn}{26}
-\beamer@slide {gen_model_vrnn}{26}
 \beamer@slide {inf_model_vrnn}{26}
-\beamer@slide {inf_model_vrnn}{26}
-\beamer@slide {vlb_vrnn}{26}
 \beamer@slide {vlb_vrnn}{26}
 \beamer@slide {fig:graphical_model_gpvae}{28}
 \beamer@slide {joint_gpvae}{28}
-\beamer@slide {joint_gpvae}{28}
 \beamer@slide {fig:schema_model_gpvae}{30}
 \beamer@slide {gen_model_gpvae}{32}
-\beamer@slide {gen_model_gpvae}{32}
 \beamer@slide {inf_model_gpvae}{32}
-\beamer@slide {inf_model_gpvae}{32}
-\beamer@slide {vlb_gpvae}{32}
 \beamer@slide {vlb_gpvae}{32}
 \beamer@slide {DVAEs and SDEs}{34}
 \beamer@slide {fig:One sprite}{39}
@@ -44,21 +29,15 @@
 \beamer@slide {fig:GPVAE Sprites reconstruction 3}{47}
 \beamer@slide {fig:GPVAE Sprites generation 1}{48}
 \beamer@slide {Link to stochastic calculus}{49}
-\beamer@slide {ito sde definition}{50}
-\beamer@slide {ito sde definition}{50}
-\beamer@slide {generic_sde}{52}
-\beamer@slide {generic_sde}{52}
-\beamer@slide {linear_sde}{54}
-\beamer@slide {linear_sde}{54}
-\beamer@slide {solution_linear_sde}{55}
-\beamer@slide {solution_linear_sde}{55}
-\beamer@slide {gpvae gaussian observation}{60}
-\beamer@slide {gpvae gaussian observation}{60}
-\beamer@slide {gpvae linear sde form}{60}
-\beamer@slide {gpvae linear sde form}{60}
-\beamer@slide {Latent Ordinary and Stochastic Differential Equations models}{61}
-\beamer@slide {fig:Neural ODE}{63}
-\beamer@slide {latent sde prior}{65}
-\beamer@slide {latent sde prior}{65}
-\beamer@slide {fig:Latent SDE}{66}
-\beamer@slide {Take-aways}{68}
+\beamer@slide {ito sde definition}{53}
+\beamer@slide {generic_sde}{55}
+\beamer@slide {FPK}{57}
+\beamer@slide {linear_sde}{58}
+\beamer@slide {solution_linear_sde}{59}
+\beamer@slide {gpvae gaussian observation}{67}
+\beamer@slide {gpvae linear sde form}{67}
+\beamer@slide {Latent Ordinary and Stochastic Differential Equations models}{68}
+\beamer@slide {fig:Neural ODE}{70}
+\beamer@slide {latent sde prior}{72}
+\beamer@slide {fig:Latent SDE}{73}
+\beamer@slide {Take-aways}{75}
