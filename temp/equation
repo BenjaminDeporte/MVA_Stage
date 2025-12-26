@@ -1,0 +1,24 @@
+\documentclass[border=2mm]{standalone}
+% \documentclass[12pt]{article}
+% \usepackage[margin=0.5cm]{geometry} % small margins
+
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[scaled]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+
+\begingroup
+\color{white} % white text
+
+\parbox{5cm}{\centering % Center content INSIDE the parbox
+    Life is like \\[0.2em]
+    $dX_t = \mu(X_t,t)\,dt + \sigma(X_t,t)\,dB_t$ \\[0.2em]
+    Master your drift \\[0.2em]
+    Silence the noise
+}
+
+\endgroup    % center everything
+
+\end{document}
